@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.vista.ControladorMenuPrincipal">
+   <children>
+      <BorderPane fx:id="mainPane" layoutX="14.0" layoutY="3.0" prefHeight="720.0" prefWidth="1080.0">
+         <left>
+            <VBox prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Accordion prefHeight="256.0" prefWidth="134.0">
+                    <panes>
+                        <TitledPane animated="false" prefHeight="108.0" prefWidth="142.0" text="Reservas">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="69.0" prefWidth="140.0">
+                                 <children>
+                                    <Button fx:id="btnAbrirABMReservas" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas cuartos" />
+                                    <Button layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas Evento" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                      <TitledPane animated="false" prefHeight="156.0" prefWidth="130.0" text="Usuarios">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnAbrirABMUsuarios" layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" onAction="#verABMUsuarios" prefHeight="25.0" prefWidth="150.0" text="ABM Usuarios" />
+                                    <Button fx:id="btnAbrirABMPerfiles" layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Perfiles" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                      <TitledPane animated="false" text="Cuartos">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnAbrirABMCuartos" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Cuartos" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                      <TitledPane animated="false" text="Categorias">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnAbrirABMCategoriasCuartos" layoutY="2.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="25.0" prefWidth="150.0" text="ABM Categoria Cuarto" />
+                                    <Button layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Categoria Evento" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                        <TitledPane animated="false" text="Clientes">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnAbrirABMCliente" layoutY="2.0" mnemonicParsing="false" onAction="#verABMClientes" prefHeight="25.0" prefWidth="150.0" text="ABM Clientes" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                    </panes>
+                  </Accordion>
+               </children>
+            </VBox>
+         </left>
+         <top>
+            <Pane prefHeight="123.0" prefWidth="630.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar layoutX="-14.0" prefHeight="25.0" prefWidth="1080.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Usuario">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Desloguear" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </Pane>
+         </top>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

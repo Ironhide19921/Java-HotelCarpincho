@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.vista.ControladorABMUsuarios">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="600.0">
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView prefHeight="403.0" prefWidth="462.0">
+                    <columns>
+                      <TableColumn fx:id="id" prefWidth="48.0" text="ID" />
+                      <TableColumn fx:id="nombre" prefWidth="102.0" text="Nombre" />
+                        <TableColumn fx:id="apellido" prefWidth="111.0" text="Apellido" />
+                        <TableColumn fx:id="email" prefWidth="125.0" text="email" />
+                        <TableColumn fx:id="estado" prefWidth="75.0" text="Estado" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+         </center>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+         </left>
+         <top>
+            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnBuscar" layoutX="318.0" layoutY="61.0" mnemonicParsing="false" onAction="#buscarCliente" text="Buscar" />
+                  <Button fx:id="btnLimpiarFiltro" layoutX="461.0" layoutY="61.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
+                  <TextField fx:id="txtBuscar" layoutX="161.0" layoutY="61.0" />
+                  <Label layoutX="71.0" layoutY="65.0" text="Buscar Usuario" />
+               </children>
+            </Pane>
+         </top>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnHabilitar" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" onAction="#deshabilitarUsuario" text="Habilitar" />
+                  <Button fx:id="btnDeshabilitar" layoutX="134.0" layoutY="14.0" mnemonicParsing="false" onAction="#deshabilitarUsuario" text="Deshabilitar" />
+                  <Button fx:id="btnAgregar" layoutX="324.0" layoutY="14.0" mnemonicParsing="false" onAction="#addUsuario" text="Agregar Usuario" />
+                  <Button fx:id="btnEditar" layoutX="442.0" layoutY="14.0" mnemonicParsing="false" onAction="#editUsuario" text="Editar Usuario" />
+               </children>
+            </Pane>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

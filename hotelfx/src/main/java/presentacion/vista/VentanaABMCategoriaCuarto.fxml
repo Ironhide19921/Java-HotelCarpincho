@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="515.0" prefWidth="622.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.vista.ControladorABMCategoriaCuarto">
+   <children>
+      <BorderPane prefHeight="515.0" prefWidth="622.0">
+         <top>
+            <Pane prefHeight="70.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnRefrescar" layoutX="452.0" layoutY="35.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
+               </children>
+            </Pane>
+         </top>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tablaCategoriaCuarto" prefHeight="374.0" prefWidth="421.0">
+                    <columns>
+                      <TableColumn fx:id="id" prefWidth="64.0" text="ID" />
+                      <TableColumn fx:id="nombre" prefWidth="144.0" text="Nombre" />
+                        <TableColumn fx:id="detalle" prefWidth="212.0" text="Detalle" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+         </center>
+         <bottom>
+            <Pane prefHeight="70.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnAgregar" layoutX="101.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCategoria" prefHeight="25.0" prefWidth="119.0" text="Agregar Categoria" />
+                  <Button fx:id="btnEditar" layoutX="230.0" layoutY="14.0" mnemonicParsing="false" onAction="#EditCategoria" prefHeight="25.0" prefWidth="105.0" text="Editar Categoria" />
+                  <Button fx:id="btnBorrar" layoutX="421.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarCategoria" text="Borrar Categoria" />
+               </children>
+            </Pane>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

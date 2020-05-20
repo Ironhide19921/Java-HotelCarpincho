@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+Marcos entro!
+Entre otra vez!
+=======
+Este es un archivo txt
+>>>>>>> ff70aed148a7af01b660a5b7734b5e99ef34649e
