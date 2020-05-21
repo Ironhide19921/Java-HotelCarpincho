@@ -84,6 +84,18 @@ public class ControladorMenuPrincipal implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	public void verABMPerfiles() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMPerfil");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	
 }

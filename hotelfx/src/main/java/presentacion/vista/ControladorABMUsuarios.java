@@ -51,7 +51,7 @@ public class ControladorABMUsuarios implements Initializable{
 		refrescarTabla(); 
 	}
 	
-	private void cargarColumnas() {
+	private void cargarColumnas()  {
 		nombre.setCellValueFactory(new PropertyValueFactory("nombre"));		
 		id.setCellValueFactory(new PropertyValueFactory("idUsuario"));	
 		apellido.setCellValueFactory(new PropertyValueFactory("apellido"));
