@@ -20,6 +20,7 @@ public class Controller {
 	@FXML ControladorABMCliente ventanaClienteController;
 	@FXML ControladorAgregarCliente ventanaCliente;
 	@FXML ControladorVentanaLogin ventanaLogin;
+	@FXML ControladorABMPerfil ventanaPerfil;
 
 	public Controller(){
 		this.primaryStage = new Stage();
@@ -63,5 +64,13 @@ public class Controller {
       return scene;
 	}
 	
+	public Scene  crearSceneABMPerfiles(Parent root) throws IOException {
+		URL fxml = getClass().getClassLoader()
+  				.getResource("presentacion/vista/VentanaABMPerfil.fxml");
+      FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+      Scene scene = new Scene(fxmlLoader.load());
+      scene.setRoot(root);;
+      return scene;
+	}
 	
 }
