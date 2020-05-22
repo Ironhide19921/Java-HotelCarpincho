@@ -1,4 +1,4 @@
-package presentacion.vista;
+package presentacion.controlador;
 
 import java.awt.EventQueue;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package presentacion.vista;
+package presentacion.controlador;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

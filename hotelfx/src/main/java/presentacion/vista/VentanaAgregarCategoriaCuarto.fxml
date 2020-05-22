@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="359.0" prefWidth="524.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.vista.ControladorAgregarCategoriaCuarto">
+<AnchorPane prefHeight="359.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCategoriaCuarto">
    <children>
       <BorderPane prefHeight="348.0" prefWidth="524.0">
          <top>
