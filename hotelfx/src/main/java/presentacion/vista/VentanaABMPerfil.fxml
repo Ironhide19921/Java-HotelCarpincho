@@ -17,7 +17,7 @@
             <Button fx:id="btnCrearPerfil" layoutX="451.0" layoutY="30.0" mnemonicParsing="false" onAction="#crearPerfil" prefHeight="25.0" prefWidth="58.0" text="Crear" />
             <Button fx:id="btnEliminarPerfil" layoutX="451.0" layoutY="108.0" mnemonicParsing="false" onAction="#eliminarPerfil" text="Eliminar" />
             <Text layoutX="87.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar perfil:" />
-            <ComboBox fx:id="comboPerfiles" layoutX="182.0" layoutY="108.0" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="25.0" prefWidth="216.0" promptText="Selecciona perfil" />
+            <ComboBox fx:id="comboPerfiles" layoutX="182.0" layoutY="108.0" onAction="#refrescarPermisos" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="25.0" prefWidth="216.0" promptText="Selecciona perfil" />
             <CheckBox fx:id="checkABMUsuarios" layoutX="85.0" layoutY="192.0" mnemonicParsing="false" text="ABM Usuarios" />
             <CheckBox fx:id="checkABMClientes" layoutX="189.0" layoutY="192.0" mnemonicParsing="false" text="ABM Clientes" />
             <CheckBox fx:id="checkABMCuartos" layoutX="290.0" layoutY="192.0" mnemonicParsing="false" text="ABM Cuartos" />
