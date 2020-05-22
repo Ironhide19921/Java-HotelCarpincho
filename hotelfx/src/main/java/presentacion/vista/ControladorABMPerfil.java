@@ -3,6 +3,8 @@ package presentacion.vista;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import modelo.Perfil;
@@ -44,7 +46,9 @@ public class ControladorABMPerfil implements Initializable {
 	private PermisoPerfil permisoPerfil;
 	private Alert alert;
 	@FXML
-	private ObservableList<PerfilDTO> observableList; 
+	private ObservableList<PerfilDTO> observableList;
+
+	private ArrayList<CheckBox> listaChecks;
 	
 	@FXML private Controller controller;
 	
@@ -57,6 +61,13 @@ public class ControladorABMPerfil implements Initializable {
 		this.permisoPerfil = new PermisoPerfil(new DAOSQLFactory());
 		this.observableList = FXCollections.observableList(perfil.obtenerPerfil());
 		this.comboPerfiles.setItems(observableList);
+		
+		this.listaChecks = new ArrayList<CheckBox>();
+		
+		this.listaChecks.add(checkABMUsuarios);
+		this.listaChecks.add(checkABMClientes);
+		this.listaChecks.add(checkABMCuartos);
+		
 	}
 	
 	@FXML
@@ -78,7 +89,7 @@ public class ControladorABMPerfil implements Initializable {
 	private void refrescarComboVistaPerfiles() {
 		this.observableList = FXCollections.observableList(perfil.obtenerPerfil());
 		this.comboPerfiles.setItems(observableList);
-
+		
 	}
 	
 	@FXML
@@ -94,32 +105,21 @@ public class ControladorABMPerfil implements Initializable {
 	
 	@FXML
 	private void confirmarPermisos() {
+		int i=1;
 		if(this.comboPerfiles.getValue()!=null) {
 			PermisoPerfilDTO permisoPerfilNuevo = new PermisoPerfilDTO(0,0,0);
 			permisoPerfilNuevo.setIdPerfil((this.comboPerfiles.getValue()).getIdPerfil());
 			
-			if(this.checkABMClientes.isSelected()) {
-				permisoPerfilNuevo.setIdPermiso(1);
-				this.permisoPerfil.agregarPermiso(permisoPerfilNuevo);
-			}else {
-				permisoPerfilNuevo.setIdPermiso(1);
-				this.permisoPerfil.eliminarPermiso(permisoPerfilNuevo);
-			}
-			
-			if(this.checkABMUsuarios.isSelected()) {
-				permisoPerfilNuevo.setIdPermiso(4);
-				this.permisoPerfil.agregarPermiso(permisoPerfilNuevo);
-			}else {
-				permisoPerfilNuevo.setIdPermiso(4);
-				this.permisoPerfil.eliminarPermiso(permisoPerfilNuevo);
-			}
-			
-			if(this.checkABMCuartos.isSelected()) {
-				permisoPerfilNuevo.setIdPermiso(3);
-				this.permisoPerfil.agregarPermiso(permisoPerfilNuevo);
-			}else {
-				permisoPerfilNuevo.setIdPermiso(3);
-				this.permisoPerfil.eliminarPermiso(permisoPerfilNuevo);
+			for(CheckBox checkPermiso : this.listaChecks) {
+				if(checkPermiso.isSelected()) {
+					permisoPerfilNuevo.setIdPermiso(i);
+					this.permisoPerfil.agregarPermiso(permisoPerfilNuevo);
+				}
+				else {
+					permisoPerfilNuevo.setIdPermiso(i);
+					this.permisoPerfil.eliminarPermiso(permisoPerfilNuevo);
+				}
+				i++;
 			}
 			
 			mostrarMensaje("Permisos actualizados con exito");
@@ -128,6 +128,26 @@ public class ControladorABMPerfil implements Initializable {
 		
 		mostrarMensaje("Ningún perfil seleccionado");
 	
+	}
+	@FXML
+	private void refrescarPermisos() {
+		this.checkABMUsuarios.setSelected(false);
+		this.checkABMClientes.setSelected(false);
+		this.checkABMCuartos.setSelected(false);
+		
+		int idPerfil = 0;
+		
+		if(this.comboPerfiles.getValue()!=null) {
+			idPerfil = this.comboPerfiles.getValue().getIdPerfil();
+		
+			for (PermisoPerfilDTO permiso : obtenerPermisosPorIdPerfil(idPerfil)) {
+				listaChecks.get(permiso.getIdPermiso()-1).setSelected(true);
+			}
+		}
+	}
+	
+	private List<PermisoPerfilDTO> obtenerPermisosPorIdPerfil(int id) { 
+		return permisoPerfil.buscarPermisos(id); 	
 	}
 	
 	private void mostrarMensaje(String mensaje) {
