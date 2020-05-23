@@ -25,6 +25,7 @@
                                  <children>
                                     <Button fx:id="btnAbrirABMReservas" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas cuartos" />
                                     <Button layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas Evento" />
+                                    <Button fx:id="btnAbrirImportar" layoutY="52.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="25.0" prefWidth="147.0" text="Importar Reservas" />
                                  </children>
                               </AnchorPane>
                            </content>

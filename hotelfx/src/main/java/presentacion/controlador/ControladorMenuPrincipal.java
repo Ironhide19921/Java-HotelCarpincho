@@ -32,6 +32,8 @@ public class ControladorMenuPrincipal implements Initializable{
 	private Button btnAbrirABMCuartos;
 	@FXML
 	private Button btnAbrirABMCategoriasCuartos;
+	@FXML
+	private Button btnAbrirImportar;
 	
 	Controller controler;
 
@@ -97,6 +99,18 @@ public class ControladorMenuPrincipal implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	
+	   @FXML
+		public void verImportar() {
+			try {
+				 FxmlLoader fxmlLoader = new FxmlLoader();
+				 Pane view	= fxmlLoader.getPage("Importar");
+				 mainPane.setCenter(view);
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 	
 }
