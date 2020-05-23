@@ -1,4 +1,4 @@
-package presentacion.vista;
+package presentacion.controlador;
 
 import java.net.URL;
 import java.util.List;

@@ -1,4 +1,4 @@
-package presentacion.vista;
+package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;

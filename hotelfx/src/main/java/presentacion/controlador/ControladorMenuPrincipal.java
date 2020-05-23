@@ -1,4 +1,4 @@
-package presentacion.vista;
+package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
 

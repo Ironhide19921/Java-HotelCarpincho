@@ -1,4 +1,4 @@
-package presentacion.vista;
+package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,22 +13,22 @@ import dto.PermisoPerfilDTO;
 import dto.CuartoDTO;
 import dto.UsuarioDTO;
 import modelo.Cuarto;
-import modelo.Hotel;
+//import modelo.Hotel;
 import modelo.Perfil;
 import modelo.PermisoPerfil;
 import modelo.Usuario;
-import presentacion.vista.ABMCliente;
-import presentacion.vista.ABMPerfil;
-import presentacion.vista.ABMCuarto;
-import presentacion.vista.ABMusuario;
-import presentacion.vista.VentanaCliente;
-import presentacion.vista.VentanaCuarto;
-import presentacion.vista.ABMCategoriaCuarto;
-import presentacion.vista.VentanaUsuario;
-import presentacion.vista.VentanaCategoriaCuarto;
+//import presentacion.vista.ABMCliente;
+//import presentacion.vista.ABMusuario;
+//import presentacion.vista.VentanaCliente;
+import presentacion.controlador.ABMCuarto;
+import presentacion.controlador.ABMPerfil;
+import presentacion.controlador.VentanaCategoriaCuarto;
+import presentacion.controlador.VentanaCuarto;
+import presentacion.controlador.VentanaUsuario;
+//import presentacion.vista.ABMCategoriaCuarto;
 
-public class Controlador implements ActionListener{
-	
+public class Controlador{
+	/*
 	private ABMCliente vistaABMCliente;
 	private ABMCategoriaCuarto vistaABMCategoriaCuarto;
 	private ABMusuario vistaABMusuario;
@@ -664,5 +664,5 @@ public class Controlador implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+*/
 }

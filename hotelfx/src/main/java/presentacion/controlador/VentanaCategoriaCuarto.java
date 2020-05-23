@@ -1,4 +1,4 @@
-package presentacion.vista;
+package presentacion.controlador;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
