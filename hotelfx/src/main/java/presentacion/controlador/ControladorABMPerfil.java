@@ -40,6 +40,12 @@ public class ControladorABMPerfil implements Initializable {
 	private CheckBox checkABMCuartos;
 	
 	@FXML
+	private Button btnAgregarTodos;
+	
+	@FXML
+	private Button btnQuitarTodos;
+	
+	@FXML
 	private ComboBox<PerfilDTO> comboPerfiles;
 	
 	private Perfil perfil;
@@ -94,7 +100,18 @@ public class ControladorABMPerfil implements Initializable {
 	
 	@FXML
 	private void eliminarPerfil() {
+		int i=1;
 		if(this.comboPerfiles.getValue()!=null) {
+			
+			PermisoPerfilDTO permisoPerfilNuevo = new PermisoPerfilDTO(0,0,0);
+			permisoPerfilNuevo.setIdPerfil((this.comboPerfiles.getValue()).getIdPerfil());
+			
+			for(CheckBox checkPermiso : this.listaChecks) {
+				permisoPerfilNuevo.setIdPermiso(i);
+				this.permisoPerfil.eliminarPermiso(permisoPerfilNuevo);
+				i++;
+			}
+			
 			this.perfil.borrarPerfil(this.comboPerfiles.getValue());
 			mostrarMensaje("Perfil "+this.comboPerfiles.getValue()+" borrado con exito");
 			this.comboPerfiles.setValue(null);
@@ -131,9 +148,7 @@ public class ControladorABMPerfil implements Initializable {
 	}
 	@FXML
 	private void refrescarPermisos() {
-		this.checkABMUsuarios.setSelected(false);
-		this.checkABMClientes.setSelected(false);
-		this.checkABMCuartos.setSelected(false);
+		quitarTodos();
 		
 		int idPerfil = 0;
 		
@@ -149,6 +164,22 @@ public class ControladorABMPerfil implements Initializable {
 	private List<PermisoPerfilDTO> obtenerPermisosPorIdPerfil(int id) { 
 		return permisoPerfil.buscarPermisos(id); 	
 	}
+	
+	@FXML
+	private void agregarTodos() {
+		for(CheckBox checkPermiso : this.listaChecks) {
+			checkPermiso.setSelected(true);
+		}
+	}
+	
+	@FXML
+	private void quitarTodos() {
+		for(CheckBox checkPermiso : this.listaChecks) {
+			checkPermiso.setSelected(false);
+		}
+	}
+	
+	
 	
 	private void mostrarMensaje(String mensaje) {
 		alert.setTitle("Información");
