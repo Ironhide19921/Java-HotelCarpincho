@@ -15,7 +15,7 @@ public class Conexion {
 	private Conexion(){
 		try{
 			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","pass");
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","labo","1234");
 			this.connection.setAutoCommit(false);
 			log.info("ConexiÃ³n exitosa");
 		}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="392.0" prefWidth="582.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorImportar">
+   <children>
+      <Pane layoutX="-50.0" layoutY="-61.0" prefHeight="421.0" prefWidth="606.0">
+         <children>
+            <Button fx:id="btn1" layoutX="67.0" layoutY="224.0" mnemonicParsing="false" onAction="#btn1" text="Importar" />
+            <ListView fx:id="lstview" layoutX="157.0" layoutY="83.0" prefHeight="327.0" prefWidth="439.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
