@@ -46,8 +46,8 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnHabilitar" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" text="Habilitar" />
-                  <Button fx:id="btnDeshabilitar" layoutX="134.0" layoutY="14.0" mnemonicParsing="false" text="Deshabilitar" />
+                  <Button fx:id="btnHabilitar" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarUsuario" text="Habilitar" />
+                  <Button fx:id="btnDeshabilitar" layoutX="134.0" layoutY="14.0" mnemonicParsing="false" onAction="#deshabilitarUsuario" text="Deshabilitar" />
                   <Button fx:id="btnAgregar" layoutX="324.0" layoutY="14.0" mnemonicParsing="false" onAction="#addUsuario" text="Agregar Usuario" />
                   <Button fx:id="btnEditar" layoutX="442.0" layoutY="14.0" mnemonicParsing="false" onAction="#editUsuario" text="Editar Usuario" />
                </children>
