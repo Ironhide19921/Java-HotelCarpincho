@@ -22,6 +22,8 @@
             <CheckBox fx:id="checkABMClientes" layoutX="189.0" layoutY="192.0" mnemonicParsing="false" text="ABM Clientes" />
             <CheckBox fx:id="checkABMCuartos" layoutX="290.0" layoutY="192.0" mnemonicParsing="false" text="ABM Cuartos" />
             <Button fx:id="btnConfirmarPermisos" layoutX="87.0" layoutY="417.0" mnemonicParsing="false" onAction="#confirmarPermisos" text="Confirmar" />
+            <Button fx:id="btnAgregarTodos" layoutX="85.0" layoutY="146.0" mnemonicParsing="false" onAction="#agregarTodos" text="Agregar todos" />
+            <Button fx:id="btnQuitarTodos" layoutX="207.0" layoutY="146.0" mnemonicParsing="false" onAction="#quitarTodos" text="Quitar todos" />
          </children>
       </Pane>
    </children>

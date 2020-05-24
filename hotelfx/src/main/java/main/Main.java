@@ -19,6 +19,7 @@ public class Main extends Application {
 	
 			primaryStage.setTitle("Menu Principal");
 		    primaryStage.setScene(new Scene(root));
+		    primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 		    primaryStage.sizeToScene();
 		    primaryStage.show(); 
 		    this.stage = primaryStage;
