@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="414.0" prefWidth="654.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorImportar">
+   <children>
+      <Pane layoutY="-7.0" prefHeight="421.0" prefWidth="684.0">
+         <children>
+            <Button fx:id="btnImportar" layoutX="291.0" layoutY="366.0" mnemonicParsing="false" onAction="#importarCSV" text="Importar" />
+            <ListView fx:id="lstview" layoutX="14.0" layoutY="25.0" prefHeight="327.0" prefWidth="22.0" />
+            <TableView fx:id="tablaClientesImportar" layoutX="39.0" layoutY="25.0" prefHeight="327.0" prefWidth="631.0">
+              <columns>
+                <TableColumn fx:id="idCliente" prefWidth="75.0" text="idCliente" />
+                <TableColumn fx:id="Nombre" prefWidth="75.0" text="Nombre" />
+                  <TableColumn fx:id="Apellido" prefWidth="75.0" text="Apellido" />
+                  <TableColumn fx:id="TipoDocumento" prefWidth="75.0" text="TipoDocumento" />
+                  <TableColumn fx:id="Documento" prefWidth="75.0" text="Documento" />
+                  <TableColumn fx:id="Email" prefWidth="75.0" text="Email" />
+                  <TableColumn fx:id="Telefono" prefWidth="75.0" text="Telefono" />
+                  <TableColumn fx:id="Estado" prefWidth="75.0" text="Estado" />
+                  <TableColumn fx:id="FechaNacimiento" prefWidth="75.0" text="FechaNacimiento" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnRefrescar" layoutX="391.0" layoutY="366.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
+            <Button fx:id="btnInsertar" layoutX="495.0" layoutY="366.0" mnemonicParsing="false" onAction="#insertarClientesNuevos" prefHeight="25.0" prefWidth="62.0" text="Insertar" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
