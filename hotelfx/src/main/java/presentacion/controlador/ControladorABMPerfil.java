@@ -9,8 +9,10 @@ import java.util.ResourceBundle;
 
 import modelo.Perfil;
 import modelo.PermisoPerfil;
+import modelo.Usuario;
 import dto.PerfilDTO;
 import dto.PermisoPerfilDTO;
+import dto.UsuarioDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -50,11 +52,13 @@ public class ControladorABMPerfil implements Initializable {
 	
 	private Perfil perfil;
 	private PermisoPerfil permisoPerfil;
+	private Usuario usuario;
 	private Alert alert;
 	@FXML
 	private ObservableList<PerfilDTO> observableList;
 
 	private ArrayList<CheckBox> listaChecks;
+	private ArrayList<Integer> listaIdPerfilesUsuarios;
 	
 	@FXML private Controller controller;
 	
@@ -65,9 +69,13 @@ public class ControladorABMPerfil implements Initializable {
 		this.alert = new Alert(AlertType.INFORMATION);
 		this.perfil = new Perfil(new DAOSQLFactory());
 		this.permisoPerfil = new PermisoPerfil(new DAOSQLFactory());
+		this.usuario = new Usuario(new DAOSQLFactory());
+		
 		this.observableList = FXCollections.observableList(perfil.obtenerPerfil());
 		this.comboPerfiles.setItems(observableList);
 		
+		this.listaIdPerfilesUsuarios = new ArrayList<Integer>();
+	
 		this.listaChecks = new ArrayList<CheckBox>();
 		
 		this.listaChecks.add(checkABMUsuarios);
@@ -100,11 +108,18 @@ public class ControladorABMPerfil implements Initializable {
 	
 	@FXML
 	private void eliminarPerfil() {
+		refrescarListaIdPerfilesUsuarios();
+		
 		int i=1;
 		if(this.comboPerfiles.getValue()!=null) {
 			
 			PermisoPerfilDTO permisoPerfilNuevo = new PermisoPerfilDTO(0,0,0);
 			permisoPerfilNuevo.setIdPerfil((this.comboPerfiles.getValue()).getIdPerfil());
+			
+			if(this.listaIdPerfilesUsuarios.contains(this.comboPerfiles.getValue().getIdPerfil())) {
+				mostrarMensaje("Perfil asignado a un usuario, no puede ser borrado");
+				return;
+			}
 			
 			for(CheckBox checkPermiso : this.listaChecks) {
 				permisoPerfilNuevo.setIdPermiso(i);
@@ -179,7 +194,11 @@ public class ControladorABMPerfil implements Initializable {
 		}
 	}
 	
-	
+	private void refrescarListaIdPerfilesUsuarios() {
+		for(UsuarioDTO usuario : usuario.obtenerUsuarios()) {
+			this.listaIdPerfilesUsuarios.add(usuario.getIdPerfil());
+		}
+	}
 	
 	private void mostrarMensaje(String mensaje) {
 		alert.setTitle("Información");
