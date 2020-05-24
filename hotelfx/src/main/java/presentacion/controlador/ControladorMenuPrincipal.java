@@ -34,12 +34,12 @@ public class ControladorMenuPrincipal implements Initializable{
 	private Button btnAbrirABMCategoriasCuartos;
 	@FXML
 	private Button btnAbrirImportar;
-	
+
 	Controller controler;
 
 	@FXML
 	private BorderPane mainPane;
-	
+
 	@FXML
 	private Pane pane;
 
@@ -50,67 +50,67 @@ public class ControladorMenuPrincipal implements Initializable{
 		this.controler = new Controller();
 	}
 
-	
+
 	@FXML
 	public void verABMClientes() {
 		try {
-			 FxmlLoader fxmlLoader = new FxmlLoader();
-			 Pane view	= fxmlLoader.getPage("VentanaABMCliente");
-			 mainPane.setCenter(view);
-			
+			FxmlLoader fxmlLoader = new FxmlLoader();
+			Pane view	= fxmlLoader.getPage("VentanaABMCliente");
+			mainPane.setCenter(view);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	@FXML
 	public void verABMCategorias() {
 		try {
-			 FxmlLoader fxmlLoader = new FxmlLoader();
-			 Pane view	= fxmlLoader.getPage("VentanaABMCategoriaCuarto");
-			 mainPane.setCenter(view);
-			
+			FxmlLoader fxmlLoader = new FxmlLoader();
+			Pane view	= fxmlLoader.getPage("VentanaABMCategoriaCuarto");
+			mainPane.setCenter(view);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	public void verABMUsuarios() {
 		try {
-			 FxmlLoader fxmlLoader = new FxmlLoader();
-			 Pane view	= fxmlLoader.getPage("VentanaABMUsuarios");
-			 mainPane.setCenter(view);
-			
+			FxmlLoader fxmlLoader = new FxmlLoader();
+			Pane view	= fxmlLoader.getPage("VentanaABMUsuarios");
+			mainPane.setCenter(view);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	public void verABMPerfiles() {
 		try {
-			 FxmlLoader fxmlLoader = new FxmlLoader();
-			 Pane view	= fxmlLoader.getPage("VentanaABMPerfil");
-			 mainPane.setCenter(view);
-			
+			FxmlLoader fxmlLoader = new FxmlLoader();
+			Pane view	= fxmlLoader.getPage("VentanaABMPerfil");
+			mainPane.setCenter(view);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	   @FXML
-		public void verImportar() {
-			try {
-				 FxmlLoader fxmlLoader = new FxmlLoader();
-				 Pane view	= fxmlLoader.getPage("Importar");
-				 mainPane.setCenter(view);
-				
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
 
-	
+	@FXML
+	public void verImportar() {
+		try {
+			FxmlLoader fxmlLoader = new FxmlLoader();
+			Pane view	= fxmlLoader.getPage("Importar");
+			mainPane.setCenter(view);
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
 }
