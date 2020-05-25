@@ -1,17 +1,20 @@
 package dto;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
 public class ReservaCuartoDTO {
 
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
-	private double senia,montoReservaCuarto;
+	private BigDecimal senia,montoReservaCuarto;
 	private String emailFacturacion, numTarjeta, cantidadDias, comentarios;
 	private Date fechaFacturacion,fechaCheckIn,fechaOut,fechaIngreso,fechaEgreso;
 	private List<String> tiposTarjeta,formasDePago;
+	private boolean estado;
 	
-	public ReservaCuartoDTO(double senia,double montoReservaCuarto,String emailFacturacion,String numTarjeta,
+	
+	public ReservaCuartoDTO(BigDecimal senia,BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta,
 			Date fechaFacturacion,Date fechaCheckIn, Date fechaOut,Date fechaIngreso, Date fechaEgreso ) {
 		this.senia = senia;
 		this.montoReservaCuarto = montoReservaCuarto;
@@ -57,18 +60,18 @@ public class ReservaCuartoDTO {
 	}
 
 	public double getSenia() {
-		return senia;
+		return senia.doubleValue();
 	}
 
-	public void setSenia(double senia) {
+	public void setSenia(BigDecimal senia) {
 		this.senia = senia;
 	}
 
 	public double getMontoReservaCuarto() {
-		return montoReservaCuarto;
+		return montoReservaCuarto.doubleValue();
 	}
 
-	public void setMontoReservaCuarto(double montoReservaCuarto) {
+	public void setMontoReservaCuarto(BigDecimal montoReservaCuarto) {
 		this.montoReservaCuarto = montoReservaCuarto;
 	}
 

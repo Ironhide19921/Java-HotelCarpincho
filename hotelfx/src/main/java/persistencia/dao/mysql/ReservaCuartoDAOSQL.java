@@ -23,21 +23,21 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO{
 	private static final String search = "SELECT * FROM cliente WHERE email LIKE ? OR documento LIKE ? OR idcliente LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
 
 	@Override
-	public boolean insert(ReservaCuartoDTO cliente) {
+	public boolean insert(ReservaCuartoDTO reserva) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
 		try{
 			statement = conexion.prepareStatement(insert);
 			//statement.setInt(1, cliente.getIdCliente());
-			statement.setString(1, cliente.getNombre());
-			statement.setString(2, cliente.getApellido());
-			statement.setString(3, cliente.getTipoDocumento());
-			statement.setString(4, cliente.getNumeroDocumento());
-			statement.setString(5, cliente.getEmail());
-			statement.setString(6, cliente.getTelefono());
-			statement.setBoolean(7, cliente.getEstado());
-			statement.setDate(8, cliente.getFechaNacimiento());
+			statement.setString(1, reserva.getNombre());
+			statement.setString(2, reserva.getApellido());
+			statement.setString(3, reserva.getTipoDocumento());
+			statement.setString(4, reserva.getNumeroDocumento());
+			statement.setString(5, reserva.getEmail());
+			statement.setString(6, reserva.getTelefono());
+			statement.setBoolean(7, reserva.getEstado());
+			statement.setDate(8, reserva.getFechaNacimiento());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isInsertExitoso = true;
@@ -56,7 +56,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO{
 	}
 
 	@Override
-	public boolean delete(ReservaCuartoDTO persona_a_eliminar) {
+	public boolean delete(ReservaCuartoDTO reserva) {
 		return false;
 	}
 
@@ -90,24 +90,26 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO{
 		String tel = resultSet.getString("Telefono");
 		Boolean estado = resultSet.getBoolean("Estado");
 		Date fechaNacimiento = resultSet.getDate("FechaNacimiento");
-		return new ClienteDTO(id, nombre, apellido, tipoDoc, documento, email, tel, estado, fechaNacimiento);
+		
+		ReservaCuartoDTO reserva = new ReservaCuartoDTO(id, nombre, apellido, tipoDoc, documento, email, tel, estado, fechaNacimiento);
+		return reserva;
 	}
 
 	@Override
-	public void update(ReservaCuartoDTO cliente) {
+	public void update(ReservaCuartoDTO reserva) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		try{
 			statement = conexion.prepareStatement(update);
-			statement.setString(1, cliente.getNombre());
-			statement.setString(2, cliente.getApellido());
-			statement.setString(3, cliente.getTipoDocumento());
-			statement.setString(4, cliente.getNumeroDocumento());
-			statement.setString(5, cliente.getEmail());
-			statement.setString(6, cliente.getTelefono());
-			statement.setBoolean(7, cliente.getEstado());
-			statement.setDate(8, cliente.getFechaNacimiento());
-			statement.setInt(9, cliente.getIdCliente());
+			statement.setString(1, reserva.getNombre());
+			statement.setString(2, reserva.getApellido());
+			statement.setString(3, reserva.getTipoDocumento());
+			statement.setString(4, reserva.getNumeroDocumento());
+			statement.setString(5, reserva.getEmail());
+			statement.setString(6, reserva.getTelefono());
+			statement.setBoolean(7, reserva.getEstado());
+			statement.setDate(8, reserva.getFechaNacimiento());
+			statement.setInt(9, reserva.getIdCliente());
 			
 			System.out.println(statement.executeUpdate() );		
 			if(statement.executeUpdate() > 0)
@@ -132,7 +134,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO{
 		PreparedStatement statement;
 		
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<ReservaCuartoDTO> clientes = new ArrayList<ReservaCuartoDTO>();
+		ArrayList<ReservaCuartoDTO> reservas = new ArrayList<ReservaCuartoDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
 			
@@ -146,12 +148,12 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO{
 
 			resultSet = statement.executeQuery();
 			while(resultSet.next()){
-				clientes.add(getClienteDTOO(resultSet));
+				reservas.add(getClienteDTOO(resultSet));
 			}
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return clientes;
+		return reservas;
 	}
 }
