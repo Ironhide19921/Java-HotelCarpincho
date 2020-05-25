@@ -44,7 +44,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="btnAbrirABMCuartos" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Cuartos" />
+                                    <Button fx:id="btnAbrirABMCuartos" layoutY="2.0" mnemonicParsing="false" onAction="#verABMCuartos" prefHeight="25.0" prefWidth="150.0" text="ABM Cuartos" />
                                  </children>
                               </AnchorPane>
                         </content>

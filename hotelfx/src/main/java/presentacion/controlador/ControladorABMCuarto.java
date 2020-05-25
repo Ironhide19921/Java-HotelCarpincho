@@ -4,10 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.swing.table.DefaultTableModel;
-
-import dto.CategoriaCuartoDTO;
-import dto.ClienteDTO;
 import dto.CuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,27 +25,25 @@ import persistencia.dao.mysql.DAOSQLFactory;
 public class ControladorABMCuarto implements Initializable
 {
 	@FXML private TableView<CuartoDTO> tablaCuartos;
-	@FXML private Button btnAgregar;
+	@FXML private Button btnAgregarCuarto;
 	@FXML private Button btnEditar;
-	@FXML private Button btnBorrar;
 	@FXML private Button btnBuscar;
-	@FXML private Button btnReporte;
 	@FXML private TableColumn id;
 	@FXML private TableColumn piso;
 	@FXML private TableColumn habitacion;
 	@FXML private TableColumn capacidad;
 	@FXML private TableColumn monto;
-	@FXML private TableColumn montoSena;
+	@FXML private TableColumn montoSenia;
 	@FXML private TableColumn estado;
 	@FXML private ObservableList<CuartoDTO> activeSession;
 	@FXML private TextField txtBuscar;
 	@FXML private Button btnLimpiarFiltro;
-	@FXML private Button btnCambiarEstado;
+	@FXML private Button btnHabilitarCuarto;
+	@FXML private Button btnDeshabilitarCuarto;
 		private Cuarto cuarto;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaCuartos.getItems().clear();
@@ -58,18 +52,17 @@ public class ControladorABMCuarto implements Initializable
 	}
 	
 	private void cargarColumnas() {
-		piso.setCellValueFactory(new PropertyValueFactory("Nombre"));		
-		id.setCellValueFactory(new PropertyValueFactory("idCategoriaCuarto"));	
-		habitacion.setCellValueFactory(new PropertyValueFactory("Detalle"));
-		capacidad.setCellValueFactory(new PropertyValueFactory("Detalle"));
-		monto.setCellValueFactory(new PropertyValueFactory("Detalle"));
-		montoSena.setCellValueFactory(new PropertyValueFactory("Detalle"));
-		estado.setCellValueFactory(new PropertyValueFactory("Detalle"));
+		id.setCellValueFactory(new PropertyValueFactory("id"));
+		piso.setCellValueFactory(new PropertyValueFactory("piso"));			
+		habitacion.setCellValueFactory(new PropertyValueFactory("habitacion"));
+		capacidad.setCellValueFactory(new PropertyValueFactory("capacidad"));
+		monto.setCellValueFactory(new PropertyValueFactory("monto"));
+		montoSenia.setCellValueFactory(new PropertyValueFactory("montoSenia"));
+		estado.setCellValueFactory(new PropertyValueFactory("estado"));
 	}
 	
 	 @FXML
-	    private void addCuarto(ActionEvent event) throws Exception 
-	    {
+	    private void addCuarto(ActionEvent event) throws Exception {
 		     try { 
 			    Stage primaryStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCuarto.fxml");
@@ -77,12 +70,12 @@ public class ControladorABMCuarto implements Initializable
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
 				ControladorAgregarCuarto scene2Controller = fxmlLoader.getController();
-				//scene2Controller.setVisibilityBtnAgregarCategoriaCuarto(true);
-				//scene2Controller.setDisableBtnAgregarCategoriaCuarto(false);
-				//scene2Controller.setVisibilityBtnModificarCategoriaCuarto(false);
-			//	scene2Controller.setDisableBtnModificarCategoriaCuarto(true);		 
+				scene2Controller.setVisibilityBtnAgregarCuarto(true);
+				scene2Controller.setDisableBtnAgregarCuarto(false);
+				scene2Controller.setVisibilityBtnEditarCuarto(false);
+			    scene2Controller.setDisableBtnEditarCuarto(true);		 
 			
-				primaryStage.setTitle("Agregar categoria de cuarto");
+				primaryStage.setTitle("Agregar cuarto");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 
 		       
@@ -92,7 +85,7 @@ public class ControladorABMCuarto implements Initializable
 	    }
 	 
 	 @FXML
-	    private void EditCuarto(ActionEvent event) throws Exception 
+	    private void editCuarto(ActionEvent event) throws Exception 
 	    {
 		     try { 
 			    Stage primaryStage = new Stage(); 
@@ -101,12 +94,15 @@ public class ControladorABMCuarto implements Initializable
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
 				ControladorAgregarCuarto scene2Controller = fxmlLoader.getController();
-				//scene2Controller.setVisibilityBtnAgregarCategoriaCuarto(false);
-			//	scene2Controller.setDisableBtnAgregarCategoriaCuarto(true);
-			//	scene2Controller.setVisibilityBtnModificarCategoriaCuarto(true);
-				//scene2Controller.setDisableBtnModificarCategoriaCuarto(false);		 
-			//	scene2Controller.setearCamposPantalla(tablaCuartos.getSelectionModel().getSelectedItem());
-				primaryStage.setTitle("Modificar categoria de cuarto");
+				CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
+				 scene2Controller.cargarCmbCateCuarto();
+				 scene2Controller.setearCamposPantalla(cuartoSeleccionado);
+			     scene2Controller.setVisibilityBtnAgregarCuarto(false);
+			     scene2Controller.setDisableBtnAgregarCuarto(true);
+			     scene2Controller.setVisibilityBtnEditarCuarto(true);
+			     scene2Controller.setDisableBtnEditarCuarto(false);		 
+			     scene2Controller.setearCamposPantalla(tablaCuartos.getSelectionModel().getSelectedItem());
+				primaryStage.setTitle("Modificar cuarto");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 
 		       
@@ -115,19 +111,20 @@ public class ControladorABMCuarto implements Initializable
 		     } 
 	    }
 	 
-	 @FXML
-		private void refrescarTabla(){
-	 		crearTabla(getAllCuartos());
-		}
+	@FXML
+	private void refrescarTabla(){
+		txtBuscar.setText("");
+		crearTabla(getAllCuartos());
+	}
 
-		private ObservableList<CuartoDTO> getAllCuartos() {
-			List<CuartoDTO> cuartos = this.cuarto.obtenerCuartos();
-			activeSession.clear();
-	 		for(CuartoDTO c : cuartos) {
-	 			activeSession.add(c);
-	 		}
-	 		return activeSession;
+	private ObservableList<CuartoDTO> getAllCuartos() {
+		List<CuartoDTO> cuartos = this.cuarto.obtenerCuartos();
+		activeSession.clear();
+		for(CuartoDTO c : cuartos) {
+			activeSession.add(c);
 		}
+		return activeSession;
+	}
 		
 	 @FXML
 	private void buscarCuartos() {
@@ -166,10 +163,6 @@ public class ControladorABMCuarto implements Initializable
 	 			activeSession.add(c);
 	 		}
 	 		return activeSession;
-		}
-
-	 
-	
-	
+		}	
 	
 }

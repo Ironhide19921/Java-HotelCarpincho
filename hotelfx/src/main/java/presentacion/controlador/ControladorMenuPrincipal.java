@@ -111,6 +111,17 @@ public class ControladorMenuPrincipal implements Initializable{
 			e.printStackTrace();
 		}
 	}
-
+	
+	@FXML
+	public void verABMCuartos() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMCuarto");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

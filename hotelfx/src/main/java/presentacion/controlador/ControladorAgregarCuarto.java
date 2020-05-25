@@ -2,13 +2,19 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import dto.CategoriaCuartoDTO;
 import dto.CuartoDTO;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
@@ -29,71 +35,90 @@ public class ControladorAgregarCuarto implements Initializable {
 	@FXML private Button btnEditarCuarto;
 	@FXML private Button btnIrACateCuarto;
 	@FXML private Button btnCerrar;
-	@FXML private ComboBox<CategoriaCuartoDTO> cmbBoxCateCuarto;
-	@FXML private ObservableList<CategoriaCuartoDTO> activeSession;
+	@FXML private ComboBox<String> cmbBoxCatesCuarto;
+	@FXML private ObservableList<String> listaCategoriasCuarto;
 	@FXML private Button btnRefrescarCate;
 		  private Cuarto cuarto;
 		  private CategoriaCuarto categorias;
+		  private Integer id;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		this.categorias = new CategoriaCuarto(new DAOSQLFactory());
-		llenarComboCategoriasCuartos();
+		this.listaCategoriasCuarto = FXCollections.observableList(cargarCmbCateCuarto());
+		this.cmbBoxCatesCuarto.setItems(listaCategoriasCuarto);
+	}
+	
+	public List<String> cargarCmbCateCuarto() {
+		List<String> lista = new ArrayList<>();
+		for(CategoriaCuartoDTO c : this.categorias.obtenerCategoriasCuartos()) {
+			lista.add(c.getIdCategoriaCuarto() + "-" + c.getNombre());
+		}
+		return lista;
 	}
 	
 	@FXML
-	public void llenarComboCategoriasCuartos() {
+	public void agregarCuarto() throws IOException {
+		String capacidad = txtCapacidad.getText();
+		double monto = Double.parseDouble(txtMonto.getText());
+		int montoSenia = Integer.parseInt(txtMontoSenia.getText());
+		String piso =txtPiso.getText();
+		String habitacion = txtHabitacion.getText();
+		String categoria = cmbBoxCatesCuarto.getValue();
+		String[] cates = categoria.split("-");
+		int idCateCuarto = Integer.valueOf(cates[0]);	
+		CuartoDTO nuevoCuarto = new CuartoDTO(0,idCateCuarto, capacidad, monto, montoSenia, piso, habitacion, true);
+		this.cuarto.agregarCuarto(nuevoCuarto);
+		cerrarVentanaAgregar();
+	}
+
+	public void setearCamposPantalla(CuartoDTO cuartoSeleccionado) throws IOException {
+		id = cuartoSeleccionado.getId();
+		txtCapacidad.setText(cuartoSeleccionado.getCapacidad());
+		txtMonto.setText(String.valueOf(cuartoSeleccionado.getMonto()));
+		txtMontoSenia.setText(String.valueOf(cuartoSeleccionado.getMontoSenia()));
+		txtPiso.setText(cuartoSeleccionado.getPiso());
+		txtHabitacion.setText(cuartoSeleccionado.getHabitacion());
+		int idCategoria = cuartoSeleccionado.getIdCateCuarto();
 		List<CategoriaCuartoDTO> categorias = this.categorias.obtenerCategoriasCuartos();
 		for(CategoriaCuartoDTO c : categorias) {
-			activeSession.add(c);
+			if(c.getIdCategoriaCuarto() == idCategoria) {
+				cmbBoxCatesCuarto.getSelectionModel().select(c.getIdCategoriaCuarto()+"-"+c.getNombre());
+			}
 		}
-		cmbBoxCateCuarto = new ComboBox<CategoriaCuartoDTO>(activeSession);
+	}
+
+	@FXML
+	public void editarCuarto() throws IOException {	
+		String capacidad = txtCapacidad.getText();
+		double monto = Double.parseDouble(txtMonto.getText());
+		int montoSenia = Integer.parseInt(txtMontoSenia.getText());
+		String piso =txtPiso.getText();
+		String habitacion = txtHabitacion.getText();
+		String categoria = cmbBoxCatesCuarto.getValue();
+		String[] cates = categoria.split("-");
+		int idCateCuarto = Integer.valueOf(cates[0]);	
+		CuartoDTO nuevoCuarto = new CuartoDTO(id, idCateCuarto, capacidad, monto, montoSenia, piso, habitacion, true);
+		this.cuarto.modificarCuartos(nuevoCuarto);
+		cerrarVentanaModificar();	
 	}
 	
-	 @FXML
-		public void guardarUsuario() throws IOException {
-
-		    String capacidad = txtCapacidad.getText();
-			double monto = Double.parseDouble(txtMonto.getText());
-			int montoSenia = Integer.parseInt(txtMontoSenia.getText());
-			String piso =txtPiso.getText();
-			String habitacion = txtHabitacion.getText();
-			CategoriaCuartoDTO categoria = cmbBoxCateCuarto.getValue();	
-			CuartoDTO nuevoCuarto = new CuartoDTO(0,categoria.getIdCategoriaCuarto(),capacidad,monto,montoSenia,piso,habitacion,true);
-			this.cuarto.agregarCuarto(nuevoCuarto);
-			cerrarVentanaAgregar();
-	}
-
-		public void setearCamposPantalla(CuartoDTO cuartoSeleccionado) throws IOException {
-
-		    String capacidad = cuartoSeleccionado.getCapacidad();
-			double monto = cuartoSeleccionado.getMonto();
-			int montoSenia = cuartoSeleccionado.getMontoSenia();
-			String piso =cuartoSeleccionado.getPiso();
-			String habitacion = cuartoSeleccionado.getHabitacion();
-			int idCategoria = cuartoSeleccionado.getIdCateCuarto();
-			List<CategoriaCuartoDTO> categorias = this.categorias.obtenerCategoriasCuartos();
-			for(CategoriaCuartoDTO c : categorias) {
-				if(c.getIdCategoriaCuarto() == idCategoria) {
-					cmbBoxCateCuarto.getSelectionModel().select(c);
-				}
-			}
-		 }
-
-		@FXML
-			public void modificarUsuario() throws IOException 
-		{	
-			String capacidad = txtCapacidad.getText();
-			double monto = Double.parseDouble(txtMonto.getText());
-			int montoSenia = Integer.parseInt(txtMontoSenia.getText());
-			String piso =txtPiso.getText();
-			String habitacion = txtHabitacion.getText();
-			CategoriaCuartoDTO categoria = cmbBoxCateCuarto.getValue();	
-			CuartoDTO nuevoCuarto = new CuartoDTO(0,categoria.getIdCategoriaCuarto(),capacidad,monto,montoSenia,piso,habitacion,true);
-			this.cuarto.modificarCuartos(nuevoCuarto);
-			cerrarVentanaModificar();	
-		}
+	@FXML
+	private void mostrarAbmCategoriaCuarto(ActionEvent event) throws Exception {
+		try {
+			Stage primaryStage = new Stage(); 
+	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMCategoriaCuarto.fxml");
+			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+			Parent root = (Parent) fxmlLoader.load();
+			primaryStage.setScene(new Scene(root));   
+			primaryStage.sizeToScene();
+			primaryStage.show(); 
+		} 
+		catch(Exception e) { 
+			e.printStackTrace(); 
+	    }
+	 }
 	 
 	 @FXML
 	 private void cerrarVentanaAgregar() {
@@ -107,25 +132,37 @@ public class ControladorAgregarCuarto implements Initializable {
 			stage.close();
 	}
 	 
-	 @FXML
-	 private void cerrarVentana() {
-		 Stage stage = (Stage) btnCerrar.getScene().getWindow();
-			stage.close();
+	@FXML
+	private void cerrarVentana() {
+		Stage stage = (Stage) btnCerrar.getScene().getWindow();
+		stage.close();
 	}
+	 
+	@FXML
+	private void recargarCmbCategoriasCuarto() {
+		List<String> lista = new ArrayList<>();
+		for(CategoriaCuartoDTO c : this.categorias.obtenerCategoriasCuartos()) {
+			lista.add(c.getIdCategoriaCuarto() + "-" + c.getNombre());
+		}
+		this.listaCategoriasCuarto = FXCollections.observableList(lista);
+		this.cmbBoxCatesCuarto.setItems(listaCategoriasCuarto);
+	} 
 
-	public void setVisibilityBtnAgregarUsuario(Boolean value) {
+	public void setVisibilityBtnAgregarCuarto(Boolean value) {
 		this.btnConfirmarCuarto.setVisible(value);
-}
-	public void setDisableBtnAgregarUsuario(Boolean value) {
-
+	}
+	
+	public void setDisableBtnAgregarCuarto(Boolean value) {
 		this.btnConfirmarCuarto.setDisable(value);
-}
-	public void setVisibilityBtnModificarUsuario(Boolean value) {
+	}
+	
+	public void setVisibilityBtnEditarCuarto(Boolean value) {
 		this.btnEditarCuarto.setVisible(value);
-}
-	public void setDisableBtnModificarUsuario(Boolean value) {
+	}
+	
+	public void setDisableBtnEditarCuarto(Boolean value) {
 		this.btnEditarCuarto.setDisable(value);
-}
+	}
 
 	
 	
