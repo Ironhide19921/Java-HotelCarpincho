@@ -73,4 +73,13 @@ public class Controller {
       return scene;
 	}
 	
+	public Scene crearSceneABMCuartos(Parent root) throws IOException {
+		URL fxml = getClass().getClassLoader()
+  				.getResource("presentacion/vista/VentanaPrincipal.fxml");
+      FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+      Scene scene = new Scene(fxmlLoader.load());
+      scene.setRoot(root);
+      return scene;
+	}
+	
 }
