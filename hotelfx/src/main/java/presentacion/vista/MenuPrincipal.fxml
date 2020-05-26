@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.vista.ControladorMenuPrincipal">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorMenuPrincipal">
    <children>
       <BorderPane fx:id="mainPane" layoutX="14.0" layoutY="3.0" prefHeight="720.0" prefWidth="1080.0">
          <left>
@@ -25,6 +25,7 @@
                                  <children>
                                     <Button fx:id="btnAbrirABMReservas" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas cuartos" />
                                     <Button layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas Evento" />
+                                    <Button fx:id="btnAbrirImportar" layoutY="52.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="25.0" prefWidth="147.0" text="Importar Reservas" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -43,7 +44,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="btnAbrirABMCuartos" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Cuartos" />
+                                    <Button fx:id="btnAbrirABMCuartos" layoutY="2.0" mnemonicParsing="false" onAction="#verABMCuartos" prefHeight="25.0" prefWidth="150.0" text="ABM Cuartos" />
                                  </children>
                               </AnchorPane>
                         </content>

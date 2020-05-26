@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="presentacion.vista.ControladorAgregarUsuario">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarUsuario">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="600.0">
          <center>
@@ -18,7 +17,6 @@
                   <TextField fx:id="txtNombre" layoutX="200.0" layoutY="2.0" prefWidth="200.0" />
                   <TextField fx:id="txtApellido" layoutX="200.0" layoutY="45.0" prefWidth="200.0" />
                   <TextField fx:id="txtPassword" layoutX="200.0" layoutY="91.0" prefWidth="200.0" />
-                  <TextField fx:id="txtTipoDocumento" layoutX="200.0" layoutY="138.0" prefWidth="200.0" />
                   <Label layoutX="8.0" layoutY="6.0" text="Nombre" />
                   <Label layoutX="8.0" layoutY="49.0" text="Apellido" />
                   <Label layoutX="8.0" layoutY="95.0" text="Password" />
@@ -28,7 +26,8 @@
                   <TextField fx:id="txtEmail" layoutX="200.0" layoutY="221.0" prefWidth="200.0" />
                   <Label layoutX="7.0" layoutY="225.0" text="Email" />
                   <Label layoutX="8.0" layoutY="274.0" text="Perfil" />
-                  <ComboBox layoutX="200.0" layoutY="270.0" prefHeight="25.0" prefWidth="202.0" />
+                  <ComboBox fx:id="comboPerfil" layoutX="200.0" layoutY="270.0" prefHeight="25.0" prefWidth="202.0" />
+                  <ComboBox fx:id="comboTipoDoc" layoutX="200.0" layoutY="138.0" prefHeight="25.0" prefWidth="199.0" />
                </children>
             </Pane>
          </center>
@@ -46,7 +45,7 @@
                <children>
                   <Button fx:id="btnCerrar" layoutX="274.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" />
                   <Button fx:id="btnAgregarUsuario" layoutX="381.0" layoutY="14.0" mnemonicParsing="false" onAction="#guardarUsuario" text="Agregar" />
-                  <Button fx:id="btnModificarUsuario" layoutX="381.0" layoutY="14.0" mnemonicParsing="false" onAction="#modificarCliente" text="Modificar" />
+                  <Button fx:id="btnModificarUsuario" layoutX="381.0" layoutY="14.0" mnemonicParsing="false" onAction="#modificarUsuario" text="Modificar" />
                </children>
             </Pane>
          </bottom>
