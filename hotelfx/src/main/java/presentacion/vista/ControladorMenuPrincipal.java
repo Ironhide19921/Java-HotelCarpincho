@@ -31,6 +31,8 @@ public class ControladorMenuPrincipal implements Initializable{
 	private Button btnAbrirABMCuartos;
 	@FXML
 	private Button btnAbrirABMCategoriasCuartos;
+	@FXML
+	private Button btnAbrirABMSalones;
 	
 	Controller controler;
 
@@ -97,5 +99,16 @@ public class ControladorMenuPrincipal implements Initializable{
 		}
 	}
 
+	@FXML
+	public void verABMSalones() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMSalon");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

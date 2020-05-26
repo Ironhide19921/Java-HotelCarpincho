@@ -48,6 +48,15 @@
                               </AnchorPane>
                         </content>
                       </TitledPane>
+                        <TitledPane animated="false" text="Salones">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnAbrirABMSalones" layoutY="2.0" mnemonicParsing="false" onAction="#verABMSalones" prefHeight="25.0" prefWidth="149.0" text="ABM Salon" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
                       <TitledPane animated="false" text="Categorias">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
