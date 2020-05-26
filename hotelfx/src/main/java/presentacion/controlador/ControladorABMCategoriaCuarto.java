@@ -4,11 +4,14 @@ package presentacion.controlador;
 
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.CategoriaCuartoDTO;
 import dto.ClienteDTO;
+import dto.CuartoDTO;
+import dto.UsuarioDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,13 +20,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
+import modelo.Cuarto;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorABMCategoriaCuarto implements Initializable {
@@ -38,7 +44,10 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 	@FXML private TableColumn detalle;
 	@FXML private ObservableList<CategoriaCuartoDTO> activeSession;
 		  private CategoriaCuarto categoriaCuarto;
+		  private Cuarto cuarto;
+		  private ArrayList<Integer> listaIdCategoriaCuartos;
 	@FXML private TextField ingresarCategoria;
+		  private Alert alert;
 
 	private void cargarColumnas() {
 		nombre.setCellValueFactory(new PropertyValueFactory("Nombre"));		
@@ -97,10 +106,17 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 	 @FXML
 	    private void eliminarCategoria(ActionEvent event) throws Exception 
 	    {
-		     try {    
+		     try {
+		    	refrescarListaIdCategoriaCuarto();
+		    	 
+		    	if(this.listaIdCategoriaCuartos.contains(tablaCategoriaCuarto.getSelectionModel().getSelectedItem().getIdCategoriaCuarto())){
+		    		mostrarMensaje("Categoria utilizada por un cuarto, no se puede borrar");
+		    		return;
+		    	}
 		    	CategoriaCuartoDTO categoria =  tablaCategoriaCuarto.getSelectionModel().getSelectedItem();
 		    	this.categoriaCuarto.borrarCategoriaCuarto(categoria);
-		    	refrescarTabla();
+			    refrescarTabla();
+		    	
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
@@ -110,10 +126,15 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.categoriaCuarto = new CategoriaCuarto(new DAOSQLFactory());
+		this.cuarto = new Cuarto(new DAOSQLFactory());
+		this.alert = new Alert(AlertType.INFORMATION);
 		cargarColumnas();
 		activeSession = FXCollections.observableArrayList();
 		tablaCategoriaCuarto.getItems().clear();
 		refrescarTabla();
+		
+		this.listaIdCategoriaCuartos = new ArrayList<Integer>();
+		refrescarListaIdCategoriaCuarto();
 	}
 
 	 @FXML
@@ -139,6 +160,12 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 		 tablaCategoriaCuarto.setItems(lista);
 		 tablaCategoriaCuarto.setEditable(true);
 	 }
+	 
+	 private void refrescarListaIdCategoriaCuarto() {
+		for(CuartoDTO cuarto: cuarto.obtenerCuartos()) {
+			this.listaIdCategoriaCuartos.add(cuarto.getIdCateCuarto());
+		}
+	 }
 	
 	 
 	/* @FXML
@@ -151,6 +178,14 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 	 		}
 	 		return activeSession;
 		}*/
+	 
+	 private void mostrarMensaje(String mensaje) {
+			alert.setTitle("Información");
+			alert.setHeaderText(null);
+			alert.setContentText(mensaje);
+
+			alert.showAndWait();
+		}
 
 	 
 

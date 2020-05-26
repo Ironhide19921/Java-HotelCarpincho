@@ -6,12 +6,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
+import dto.PerfilDTO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -25,8 +29,6 @@ public class ControladorAgregarCliente implements Initializable {
 	@FXML
 	private TextField txtApellido;
 	@FXML
-	private TextField txtTipoDocumento;
-	@FXML
 	private TextField txtNumDocumento;
 	@FXML
 	private TextField txtEmail;
@@ -38,7 +40,9 @@ public class ControladorAgregarCliente implements Initializable {
 	private DatePicker txtFecha;
 	@FXML
 	private Button btnAgregarCliente;
-
+	@FXML
+	private ComboBox<String> comboTipoDoc;
+	private ObservableList<String> listaTipoDocExistentes;
 
 	@FXML
 	private Button btnModificarCliente;
@@ -57,6 +61,12 @@ public class ControladorAgregarCliente implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		 this.hotel = new Cliente(new DAOSQLFactory());
+		 this.listaTipoDocExistentes = FXCollections.observableArrayList();
+		 this.listaTipoDocExistentes.add("DNI");
+		 this.listaTipoDocExistentes.add("Segundo tipo");
+		 this.listaTipoDocExistentes.add("Tercer tipo");
+		 
+		 comboTipoDoc.setItems(listaTipoDocExistentes);
 	}
 	
 	 @FXML
@@ -64,8 +74,8 @@ public class ControladorAgregarCliente implements Initializable {
 		 
 			String nombre = txtNombre.getText();
 			String apellido = txtApellido.getText();
-			String tipoDoc = txtTipoDocumento.getText();
-			String documento =txtNumDocumento.getText();
+			String tipoDoc = this.comboTipoDoc.getValue();
+			String documento = txtNumDocumento.getText();
 			String email = txtEmail.getText();
 			String tel = txtTelefono.getText();
 			java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(txtFecha.getValue());
@@ -77,24 +87,24 @@ public class ControladorAgregarCliente implements Initializable {
 	 
 
 		public void setearCamposPantalla(ClienteDTO clienteSeleccionado) throws IOException {
-	
+		
 			   //ClienteDTO clienteSeleccionado = controlador.getTablaPersonas().getSelectionModel().getSelectedItem();
 			   txtNombre.setText(clienteSeleccionado.getNombre());
 			   txtApellido.setText(clienteSeleccionado.getApellido());
-			   txtTipoDocumento.setText(clienteSeleccionado.getTipoDocumento()); 
+			   this.comboTipoDoc.setValue(clienteSeleccionado.getTipoDocumento());
 			   txtNumDocumento.setText(clienteSeleccionado.getNumeroDocumento());
 			   txtEmail.setText(clienteSeleccionado.getEmail());
 			   txtTelefono.setText(clienteSeleccionado.getTelefono());
 			   id = clienteSeleccionado.getIdCliente();
 			    
-		 }
+		}
 
 		@FXML
 			public void modificarCliente() throws IOException {
 			
 				String nombre = txtNombre.getText();
 				String apellido = txtApellido.getText();
-				String tipoDoc = txtTipoDocumento.getText();
+				String tipoDoc = this.comboTipoDoc.getValue();
 				String documento =txtNumDocumento.getText();
 				String email = txtEmail.getText();
 				String tel = txtTelefono.getText();
