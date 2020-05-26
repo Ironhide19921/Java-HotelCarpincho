@@ -28,6 +28,7 @@
             </TableView>
             <Button fx:id="btnRefrescar" layoutX="391.0" layoutY="366.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
             <Button fx:id="btnInsertar" layoutX="495.0" layoutY="366.0" mnemonicParsing="false" onAction="#insertarClientesNuevos" prefHeight="25.0" prefWidth="62.0" text="Insertar" />
+            <Button fx:id="btnMail" layoutX="580.0" layoutY="366.0" mnemonicParsing="false" onAction="#manejoMail" text="Mail" />
          </children>
       </Pane>
    </children>
