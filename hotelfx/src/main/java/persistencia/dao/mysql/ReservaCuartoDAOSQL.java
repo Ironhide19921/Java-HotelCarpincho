@@ -15,13 +15,49 @@ import persistencia.dao.interfaz.ReservaCuartoDAO;
 
 public class ReservaCuartoDAOSQL implements ReservaCuartoDAO{
 
-	private static final String insert = "INSERT INTO cliente(nombre, apellido, tipoDocumento, documento, email, telefono, estado, fechaNacimiento) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String delete = "DELETE FROM cliente WHERE idCliente = ?";
-	private static final String readall = "SELECT * FROM cliente";
-	private static final String update = "UPDATE cliente SET nombre = ?, apellido = ?, tipoDocumento = ?, documento = ?, email = ?, telefono = ?, estado = ?, fechaNacimiento = ? WHERE idCliente = ?";
-	private static final String search = "SELECT * FROM cliente WHERE email LIKE ? OR documento LIKE ? OR idcliente LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
+	private static final String insert = "INSERT INTO reservaCuarto(idCliente, idUsuario,"
+			+ " idCuarto, Senia, MontoReservaCuarto,"
+			+ " EmailFacturacion, FechaReserva, FechaCheckIn,FechaIngreso,FechaOut,FechaEgreso"
+			+ ",FormaPago,TipoTarjeta,NumeroTarjeta,FechaVencTarjeta,CodSeguridadTarjeta"
+			+ ",EstadoReserva,Comentarios) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+	private static final String delete = "DELETE FROM reservaCuarto WHERE "
+			+ "idReservaCuarto=?, idCliente = ?, idUsuario = ?, idCuarto = ?";
+	private static final String readall = "SELECT * FROM reservaCuarto";
+	private static final String update = "UPDATE reservaCuarto SET idCliente = ?, idUsuario = ?, "
+			+ "idCuarto = ?, Senia = ?, MontoReservaCuarto = ?, EmailFacturacion = ?, "
+			+ "FechaReserva = ?, FechaCheckIn = ?, FechaIngreso = ? , "
+			+ " FechaOut = ?,  FechaEgreso = ?,  FormaPago = ?"
+			+ " FechaOut = ? WHERE idReservaCuarto=?, idCliente = ?, "
+			+ "idUsuario = ?, idCuarto = ?";
+	private static final String search = "SELECT * FROM reservaCuarto "
+			+ "WHERE idUsuario LIKE ? OR idCuarto LIKE ? OR idCliente LIKE ? OR nombre LIKE ? "
+			+ "OR apellido LIKE ?";
 
+	/*
+	 `idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT,
+	  `idCliente` int(11) NOT NULL,
+	  `idUsuario` int(11) NOT NULL,
+	  `idCuarto` int(11) NOT NULL,
+	  `Senia` decimal(10,3) NOT NULL,
+	  `MontoReservaCuarto` decimal(10,3) NOT NULL,
+	  `EmailFacturacion` varchar(50) NOT NULL,
+	  `FechaReserva` dateTime NOT NULL,
+	  `FechaCheckIn` dateTime NOT NULL,
+	  `FechaIngreso` dateTime NOT NULL,
+	  `FechaOut` dateTime NOT NULL,
+	  `FechaEgreso` dateTime NOT NULL,
+	  `FormaPago` varchar(20) NOT NULL,
+	  `TipoTarjeta` varchar(25) NOT NULL,
+	  `NumeroTarjeta` varchar(25) NOT NULL,
+	  `FechaVencTarjeta` varchar(15) NOT NULL,
+	  `CodSeguridadTarjeta` varchar(10) NOT NULL,
+	  `EstadoReserva` varchar(20) NOT NULL,
+	  `Comentarios` varchar(200) NOT NULL,
+	  PRIMARY KEY (`idReservaCuarto`),
+	  CONSTRAINT FOREIGN KEY fk_clienteId (idCliente) REFERENCES cliente (idCliente),
+	  CONSTRAINT FOREIGN KEY fk_id_Usuario (idUsuario) REFERENCES usuario (idUsuario),
+	  CONSTRAINT FOREIGN KEY fk_idCuarto (idCuarto) REFERENCES cuarto (idCuarto)*/
 	@Override
 	public boolean insert(ReservaCuartoDTO reserva) {
 		PreparedStatement statement;

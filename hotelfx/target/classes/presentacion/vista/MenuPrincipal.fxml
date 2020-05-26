@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorMenuPrincipal">
+<AnchorPane prefHeight="800.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorMenuPrincipal">
    <children>
       <BorderPane fx:id="mainPane" layoutX="14.0" layoutY="3.0" prefHeight="720.0" prefWidth="1080.0">
          <top>
@@ -35,12 +35,12 @@
          <left>
             <Pane prefHeight="559.0" prefWidth="179.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAbrirABMReservas" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="ABM Reservas cuartos" />
-                  <Button layoutY="57.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="ABM Reservas Evento" />
+                  <Button fx:id="btnAbrirABMReservas" mnemonicParsing="false" onAction="#verReservaCuarto" prefHeight="50.0" prefWidth="150.0" text="ABM Reservas cuartos" />
+                  <Button fx:id="btnAbrirReservaEvento" layoutY="57.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="ABM Reservas Evento" />
                   <Button fx:id="btnAbrirImportar" layoutY="115.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="50.0" prefWidth="150.0" text="Importar Reservas" />
                   <Button fx:id="btnAbrirABMCuartos" layoutY="173.0" mnemonicParsing="false" onAction="#verABMCuartos" prefHeight="50.0" prefWidth="150.0" text="ABM Cuartos" />
                   <Button fx:id="btnAbrirABMCliente" layoutY="230.0" mnemonicParsing="false" onAction="#verABMClientes" prefHeight="50.0" prefWidth="150.0" text="ABM Clientes" />
-                  <Button layoutY="290.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="ABM Categoria Evento" />
+                  <Button fx:id="btnAbrirCategoriaEvento" layoutY="290.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="ABM Categoria Evento" />
                   <Button fx:id="btnAbrirABMUsuarios" layoutY="348.0" mnemonicParsing="false" onAction="#verABMUsuarios" prefHeight="50.0" prefWidth="150.0" text="ABM Usuarios" />
                   <Button fx:id="btnAbrirABMPerfiles" layoutY="406.0" mnemonicParsing="false" onAction="#verABMPerfiles" prefHeight="50.0" prefWidth="150.0" text="ABM Perfiles" />
                   <Button fx:id="btnAbrirABMCategoriasCuartos" layoutY="465.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="50.0" prefWidth="150.0" text="ABM Categoria Cuarto" />

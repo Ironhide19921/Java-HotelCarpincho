@@ -13,7 +13,7 @@
 <!-- xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
 xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"-->
 
-<AnchorPane prefHeight="616.0" prefWidth="904.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMCliente">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMCliente">
    <children>
       <BorderPane prefHeight="637.0" prefWidth="904.0">
          <center>

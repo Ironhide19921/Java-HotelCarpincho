@@ -5,26 +5,46 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="471.0" prefWidth="483.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMPerfil">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMPerfil">
    <children>
-      <Pane prefHeight="471.0" prefWidth="762.0">
-         <children>
-            <TextField id="txtNombre" fx:id="txtNombre" layoutX="182.0" layoutY="30.0" prefHeight="25.0" prefWidth="216.0" />
-            <Text layoutX="87.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo perfil:" />
-            <Button fx:id="btnCrearPerfil" layoutX="451.0" layoutY="30.0" mnemonicParsing="false" onAction="#crearPerfil" prefHeight="25.0" prefWidth="58.0" text="Crear" />
-            <Button fx:id="btnEliminarPerfil" layoutX="451.0" layoutY="108.0" mnemonicParsing="false" onAction="#eliminarPerfil" text="Eliminar" />
-            <Text layoutX="87.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar perfil:" />
-            <ComboBox fx:id="comboPerfiles" layoutX="182.0" layoutY="108.0" onAction="#refrescarPermisos" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="25.0" prefWidth="216.0" promptText="Selecciona perfil" />
-            <CheckBox fx:id="checkABMUsuarios" layoutX="85.0" layoutY="192.0" mnemonicParsing="false" text="ABM Usuarios" />
-            <CheckBox fx:id="checkABMClientes" layoutX="189.0" layoutY="192.0" mnemonicParsing="false" text="ABM Clientes" />
-            <CheckBox fx:id="checkABMCuartos" layoutX="290.0" layoutY="192.0" mnemonicParsing="false" text="ABM Cuartos" />
-            <Button fx:id="btnConfirmarPermisos" layoutX="87.0" layoutY="417.0" mnemonicParsing="false" onAction="#confirmarPermisos" text="Confirmar" />
-            <Button fx:id="btnAgregarTodos" layoutX="85.0" layoutY="146.0" mnemonicParsing="false" onAction="#agregarTodos" text="Agregar todos" />
-            <Button fx:id="btnQuitarTodos" layoutX="207.0" layoutY="146.0" mnemonicParsing="false" onAction="#quitarTodos" text="Quitar todos" />
-         </children>
-      </Pane>
+      <BorderPane prefHeight="600.0" prefWidth="900.0">
+         <center>
+            <Pane prefHeight="400.0" prefWidth="526.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField id="txtNombre" fx:id="txtNombre" layoutX="135.0" layoutY="34.0" prefHeight="25.0" prefWidth="216.0" />
+                  <Text layoutX="40.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo perfil:" />
+                  <Button fx:id="btnCrearPerfil" layoutX="404.0" layoutY="34.0" mnemonicParsing="false" onAction="#crearPerfil" prefHeight="25.0" prefWidth="58.0" text="Crear" />
+                  <Button fx:id="btnEliminarPerfil" layoutX="404.0" layoutY="112.0" mnemonicParsing="false" onAction="#eliminarPerfil" text="Eliminar" />
+                  <Text layoutX="40.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar perfil:" />
+                  <ComboBox fx:id="comboPerfiles" layoutX="135.0" layoutY="112.0" onAction="#refrescarPermisos" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="25.0" prefWidth="216.0" promptText="Selecciona perfil" />
+                  <CheckBox fx:id="checkABMUsuarios" layoutX="38.0" layoutY="196.0" mnemonicParsing="false" text="ABM Usuarios" />
+                  <CheckBox fx:id="checkABMClientes" layoutX="142.0" layoutY="196.0" mnemonicParsing="false" text="ABM Clientes" />
+                  <CheckBox fx:id="checkABMCuartos" layoutX="243.0" layoutY="196.0" mnemonicParsing="false" text="ABM Cuartos" />
+                  <Button fx:id="btnAgregarTodos" layoutX="38.0" layoutY="150.0" mnemonicParsing="false" onAction="#agregarTodos" text="Agregar todos" />
+                  <Button fx:id="btnQuitarTodos" layoutX="160.0" layoutY="150.0" mnemonicParsing="false" onAction="#quitarTodos" text="Quitar todos" />
+               </children>
+            </Pane>
+         </center>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnConfirmarPermisos" layoutX="199.0" layoutY="14.0" mnemonicParsing="false" onAction="#confirmarPermisos" text="Confirmar" />
+               </children>
+            </Pane>
+         </bottom>
+         <top>
+            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
    </children>
 </AnchorPane>

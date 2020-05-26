@@ -35,6 +35,10 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML
 	private Button btnAbrirImportar;
 
+	@FXML
+	private Button btnAbrirReservaEvento;
+	@FXML
+	private Button btnAbrirCategoriaEvento;
 	Controller controler;
 
 	@FXML
@@ -124,4 +128,15 @@ public class ControladorMenuPrincipal implements Initializable{
 		}
 	}
 
+	@FXML
+	public void verReservaCuarto() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaReservaCuarto");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
