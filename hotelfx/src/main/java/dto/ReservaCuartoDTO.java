@@ -8,14 +8,46 @@ public class ReservaCuartoDTO {
 
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
-	private String emailFacturacion, numTarjeta, cantidadDias, comentarios;
-	private Date fechaFacturacion,fechaCheckIn,fechaOut,fechaIngreso,fechaEgreso;
-	private List<String> tiposTarjeta,formasDePago;
-	private boolean estado;
+	private String emailFacturacion, numTarjeta, cantidadDias,
+	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
+	private Date fechaVencTarjeta,fechaFacturacion,fechaCheckIn,fechaOut,
+	fechaIngreso,fechaEgreso;
 	
+	private boolean estadoReserva;
+	/*
+	 `idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT,
+	  `idCliente` int(11) NOT NULL,
+	  `idUsuario` int(11) NOT NULL,
+	  `idCuarto` int(11) NOT NULL,
+	  `Senia` decimal(10,3) NOT NULL,
+	  `MontoReservaCuarto` decimal(10,3) NOT NULL,
+	  `EmailFacturacion` varchar(50) NOT NULL,
+	  `FechaReserva` dateTime NOT NULL,
+	  `FechaCheckIn` dateTime NOT NULL,
+	  `FechaIngreso` dateTime NOT NULL,
+	  `FechaOut` dateTime NOT NULL,
+	  `FechaEgreso` dateTime NOT NULL,
+	  `FormaPago` varchar(20) NOT NULL,
+	  `TipoTarjeta` varchar(25) NOT NULL,
+	  `NumeroTarjeta` varchar(25) NOT NULL,
+	  `FechaVencTarjeta` varchar(15) NOT NULL,
+	  `CodSeguridadTarjeta` varchar(10) NOT NULL,
+	  `EstadoReserva` varchar(20) NOT NULL,
+	  `Comentarios` varchar(200) NOT NULL,
+	  PRIMARY KEY (`idReservaCuarto`),
+	  CONSTRAINT FOREIGN KEY fk_clienteId (idCliente) REFERENCES cliente (idCliente),
+	  CONSTRAINT FOREIGN KEY fk_id_Usuario (idUsuario) REFERENCES usuario (idUsuario),
+	  CONSTRAINT FOREIGN KEY fk_idCuarto (idCuarto) REFERENCES cuarto (idCuarto)*/
 	
-	public ReservaCuartoDTO(BigDecimal senia,BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta,
-			Date fechaFacturacion,Date fechaCheckIn, Date fechaOut,Date fechaIngreso, Date fechaEgreso ) {
+	public ReservaCuartoDTO(int idCliente, int idCuarto, int idUsuario, BigDecimal senia,
+			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta,
+			Date fechaVencTarjeta,Date fechaFacturacion,Date fechaCheckIn, Date fechaOut,
+			Date fechaIngreso, Date fechaEgreso,String comentarios , String formaDePago,
+			String tipoTarjeta,String codSeguridadTarjeta) {
+		
+		this.idCliente = idCliente;
+		this.idCuarto = idCuarto;
+		this.idUsuario = idUsuario;
 		this.senia = senia;
 		this.montoReservaCuarto = montoReservaCuarto;
 		this.emailFacturacion = emailFacturacion;
@@ -25,6 +57,9 @@ public class ReservaCuartoDTO {
 		this.fechaOut = fechaOut;
 		this.fechaIngreso = fechaIngreso;
 		this.fechaEgreso = fechaEgreso;
+		this.codSeguridadTarjeta = codSeguridadTarjeta;
+		this.formaDePago = formaDePago;
+		this.tipoTarjeta = tipoTarjeta;
 	}
 	
 	public Integer getIdReserva() {
@@ -147,19 +182,19 @@ public class ReservaCuartoDTO {
 		this.fechaEgreso = fechaEgreso;
 	}
 
-	public List<String> getTiposTarjeta() {
-		return tiposTarjeta;
+	public String getTiposTarjeta() {
+		return tipoTarjeta;
 	}
 
-	public void setTiposTarjeta(List<String> tiposTarjeta) {
-		this.tiposTarjeta = tiposTarjeta;
+	public void setTiposTarjeta(String tiposTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
 	}
 
-	public List<String> getFormasDePago() {
-		return formasDePago;
+	public String getFormasDePago() {
+		return formaDePago;
 	}
 
-	public void setFormasDePago(List<String> formasDePago) {
-		this.formasDePago = formasDePago;
+	public void setFormasDePago(String formasDePago) {
+		this.formaDePago = formasDePago;
 	}
 }
