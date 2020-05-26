@@ -41,6 +41,7 @@ public class ControladorImportar implements Initializable {
 	@FXML Button btnImportar;
 	@FXML private Button btnRefrescar;
 	@FXML private Button btnInsertar;
+	@FXML private Button btnMail;
 	@FXML ListView lstview;
 	@FXML private TableView<ClienteDTO> tablaClientesImportar;
 	@FXML private TableColumn idCliente;
@@ -54,6 +55,7 @@ public class ControladorImportar implements Initializable {
 	@FXML private TableColumn FechaNacimiento;
 	private Cliente cliente;
 	private int cantidadNuevosClientes;
+	@FXML private Mail mail;
 	@FXML private ObservableList<ClienteDTO> activeSession;
 	@FXML private ObservableList<ClienteDTO> clientesAcargar;
 
@@ -65,10 +67,20 @@ public class ControladorImportar implements Initializable {
 		tablaClientesImportar.getItems().clear();
 		clientesAcargar = FXCollections.observableArrayList();
 		cantidadNuevosClientes = 0;
+		mail = new Mail();
+//		manejoMail();
 		cargarColumnas();
 		refrescarTabla();
 	}
-
+	
+	@FXML
+	private void manejoMail() {
+//		this.mail= new Mail();
+//		this.mail.setearPropiedades();
+		this.mail.enviarMsj();
+	}
+	
+	
 	private void cargarColumnas() {
 		Nombre.setCellValueFactory(new PropertyValueFactory("nombre"));		
 		Apellido.setCellValueFactory(new PropertyValueFactory("apellido"));
