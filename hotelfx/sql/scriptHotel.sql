@@ -49,6 +49,10 @@ CREATE TABLE `permiso`
   PRIMARY KEY (`idPermiso`)
 );
 
+INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Usuarios');
+INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Clientes');
+INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Cuartos');
+
 CREATE TABLE `permisoPerfil`
 (
   `idPermisoPerfil` int(11) NOT NULL AUTO_INCREMENT,
