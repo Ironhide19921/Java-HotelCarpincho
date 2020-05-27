@@ -54,7 +54,7 @@ public class ControladorAgregarCliente implements Initializable {
 	private Integer id;
 	private Cliente hotel;
 	
-	@FXML private Controller controller;
+
 	
 	@FXML private ControladorMenuPrincipal menuPrincipal;
 	

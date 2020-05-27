@@ -20,38 +20,23 @@ import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
 
-	@FXML
-	private Button btnAbrirABMCliente;
-	@FXML
-	private Button btnAbrirABMReservas;
-	@FXML
-	private Button btnAbrirABMUsuarios;
-	@FXML
-	private Button btnAbrirABMPerfiles;
-	@FXML
-	private Button btnAbrirABMCuartos;
-	@FXML
-	private Button btnAbrirABMCategoriasCuartos;
-	@FXML
-	private Button btnAbrirImportar;
-
-	@FXML
-	private Button btnAbrirReservaEvento;
-	@FXML
-	private Button btnAbrirCategoriaEvento;
-	Controller controler;
-
-	@FXML
-	private BorderPane mainPane;
-
-	@FXML
-	private Pane pane;
+	@FXML private Button btnAbrirABMCliente;
+	@FXML private Button btnAbrirABMReservas;
+	@FXML private Button btnAbrirABMUsuarios;
+	@FXML private Button btnAbrirABMPerfiles;
+	@FXML private Button btnAbrirABMCuartos;
+	@FXML private Button btnAbrirABMCategoriasCuartos;
+	@FXML private Button btnAbrirImportar;
+	@FXML private Button btnAbrirReservaEvento;
+	@FXML private Button btnAbrirCategoriaEvento;
+	@FXML private BorderPane mainPane;
+	@FXML private Pane center;
+	@FXML private Pane pane;
 
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		this.controler = new Controller();
+
 	}
 
 

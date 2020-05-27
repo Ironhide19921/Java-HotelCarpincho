@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorMenuPrincipal">
+<AnchorPane prefHeight="800.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorMenuPrincipal">
    <children>
       <BorderPane fx:id="mainPane" layoutX="14.0" layoutY="3.0" prefHeight="720.0" prefWidth="1080.0">
          <top>
             <Pane prefHeight="123.0" prefWidth="630.0" BorderPane.alignment="CENTER">
                <children>
-                  <MenuBar layoutX="-14.0" prefHeight="25.0" prefWidth="1080.0">
+                  <MenuBar layoutX="-14.0" prefHeight="25.0" prefWidth="1180.0">
                     <menus>
                       <Menu mnemonicParsing="false" text="Usuario">
                         <items>
@@ -27,7 +27,7 @@
             </Pane>
          </top>
          <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="559.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="38.0" prefWidth="1080.0" BorderPane.alignment="CENTER" />
@@ -47,6 +47,9 @@
                </children>
             </Pane>
          </left>
+         <center>
+            <Pane fx:id="center" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>
