@@ -47,6 +47,7 @@
                   <Button fx:id="btnAbrirABMUsuarios" layoutY="348.0" mnemonicParsing="false" onAction="#verABMUsuarios" prefHeight="50.0" prefWidth="150.0" text="ABM Usuarios" />
                   <Button fx:id="btnAbrirABMPerfiles" layoutY="406.0" mnemonicParsing="false" onAction="#verABMPerfiles" prefHeight="50.0" prefWidth="150.0" text="ABM Perfiles" />
                   <Button fx:id="btnAbrirABMCategoriasCuartos" layoutY="465.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="50.0" prefWidth="150.0" text="ABM Categoria Cuarto" />
+                  <Button fx:id="btnAbrirABMSalones" layoutY="520.0" mnemonicParsing="false" onAction="#verABMSalones" prefHeight="50.0" prefWidth="150.0" text="ABM Salones" />
                </children>
             </Pane>
          </left>
