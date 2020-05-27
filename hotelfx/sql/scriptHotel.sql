@@ -49,9 +49,9 @@ CREATE TABLE `permiso`
   PRIMARY KEY (`idPermiso`)
 );
 
-INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Usuarios');
-INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Clientes');
-INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Cuartos');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Usuarios');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Clientes');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Cuartos');
 
 CREATE TABLE `permisoPerfil`
 (

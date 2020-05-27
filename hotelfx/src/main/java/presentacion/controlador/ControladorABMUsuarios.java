@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modelo.Usuario;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorABMUsuarios implements Initializable{
@@ -41,6 +42,8 @@ public class ControladorABMUsuarios implements Initializable{
 	@FXML private TableColumn estado;
 	@FXML private ObservableList<UsuarioDTO> activeSession;
 	
+	private Validador validador;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.usuarios = new Usuario(new DAOSQLFactory());
@@ -61,6 +64,7 @@ public class ControladorABMUsuarios implements Initializable{
 	 @FXML
 	    private void addUsuario(ActionEvent event) throws Exception 
 	    {
+
 		     try { 
 			    Stage primaryStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarUsuario.fxml");
@@ -84,6 +88,11 @@ public class ControladorABMUsuarios implements Initializable{
 	 @FXML
 	    private void editUsuario(ActionEvent event) throws Exception 
 	    {
+		 
+		 	if(tablaPersonas.getSelectionModel().getSelectedItem()==null) {
+		 		validador.mostrarMensaje("Debes seleccionar un usuario de la lista antes de editar");
+		 		return;
+		 	}
 		     try { 
 			    Stage primaryStage = new Stage(); 
 				URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarUsuario.fxml");
@@ -131,7 +140,12 @@ public class ControladorABMUsuarios implements Initializable{
 	
 	
 	 @FXML
-	 private void deshabilitarUsuario(){	
+	 private void deshabilitarUsuario(){
+		 
+		 if(tablaPersonas.getSelectionModel().getSelectedItem()==null) {
+		 	validador.mostrarMensaje("Debes seleccionar un usuario de la lista para deshabilitar");
+		 	return;
+		 }
 		 UsuarioDTO usuarioSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 		 usuarioSeleccionado.setEstado(false);
 		 this.usuarios.modificarUsuario(usuarioSeleccionado);
@@ -141,6 +155,11 @@ public class ControladorABMUsuarios implements Initializable{
 	 
 	 @FXML
 	 private void habilitarUsuario(){	
+		 
+		 if(tablaPersonas.getSelectionModel().getSelectedItem()==null) {
+		 	validador.mostrarMensaje("Debes seleccionar un usuario de la lista para habilitar");
+		 	return;
+		 }
 		 UsuarioDTO usuarioSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 		 usuarioSeleccionado.setEstado(true);
 		 this.usuarios.modificarUsuario(usuarioSeleccionado);
