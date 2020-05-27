@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarSalon">
+   <children>
+      <BorderPane prefHeight="359.0" prefWidth="524.0">
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="txtCapacidad" layoutX="226.0" layoutY="82.0" minWidth="100.0" />
+                  <TextField fx:id="txtSenia" layoutX="226.0" layoutY="122.0" minWidth="100.0" />
+                  <TextField fx:id="txtEstilo" layoutX="226.0" layoutY="162.0" minWidth="100.0" />
+                  <TextField fx:id="txtMonto" layoutX="226.0" layoutY="202.0" minWidth="100.0" />
+                  <Label layoutX="148.0" layoutY="85.0" text="Capacidad">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="148.0" layoutY="125.0" text="Seña">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="148.0" layoutY="165.0" text="Estilo">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="148.0" layoutY="205.0" text="Monto">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </center>
+         <bottom>
+            <Pane prefHeight="108.0" prefWidth="524.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnAgregarSalon" layoutX="227.0" layoutY="39.0" mnemonicParsing="false" onAction="#guardarSalon" text="Agregar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEditarSalon" layoutX="223.0" layoutY="39.0" mnemonicParsing="false" onAction="#modificarSalon" text="Modificar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </bottom></BorderPane>
+   </children>
+</AnchorPane>
