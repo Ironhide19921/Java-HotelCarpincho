@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="623.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMProducto">
+	<children>
+      <BorderPane layoutX="13.0" layoutY="10.0" prefHeight="632.0" prefWidth="789.0">
+         <top>
+            <Pane prefHeight="66.0" prefWidth="786.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="txtBuscarProd" layoutX="56.0" layoutY="20.0" prefHeight="27.0" prefWidth="196.0" />
+                  <Button fx:id="btnBuscarProd" layoutX="279.0" layoutY="20.0" mnemonicParsing="false" onAction="#buscarProductos" text="Buscar" />
+                  <Button fx:id="btnRefrescar" layoutX="677.0" layoutY="20.0" mnemonicParsing="false" onAction="#refrescarTablaProductos" text="Refrescar" />
+               </children></Pane>
+         </top>
+         <left>
+            <Pane prefHeight="519.0" prefWidth="27.0" BorderPane.alignment="CENTER" />
+         </left>
+         <bottom>
+            <Pane prefHeight="151.0" prefWidth="786.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnAgregarProd" layoutX="29.0" layoutY="28.0" mnemonicParsing="false" onAction="#agregarProducto" text="Agregar producto" />
+                  <Button fx:id="btnEditarProd" layoutX="177.0" layoutY="28.0" mnemonicParsing="false" onAction="#editarProducto" text="Editar producto" />
+                  <Button fx:id="btnBorrarProd" layoutX="308.0" layoutY="28.0" mnemonicParsing="false" onAction="#borrarProducto" text="Borrar producto" />
+               </children></Pane>
+         </bottom>
+         <right>
+            <Pane prefHeight="519.0" prefWidth="33.0" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tablaProductos" prefHeight="475.0" prefWidth="726.0">
+                    <columns>
+                      <TableColumn fx:id="id" prefWidth="55.0" text="ID" />
+                      <TableColumn fx:id="nombre" prefWidth="122.0" text="Nombre" />
+                        <TableColumn fx:id="precio" prefWidth="99.0" text="Precio" />
+                        <TableColumn fx:id="descripcion" prefWidth="220.0" text="Descripcion" />
+                        <TableColumn fx:id="tipo" prefWidth="109.0" text="Tipo" />
+                        <TableColumn fx:id="proveedor" prefWidth="120.0" text="Proveedor" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -27,7 +27,7 @@ CREATE TABLE `ticket`
 CREATE TABLE `producto`
 (
   `idProducto` int(11) NOT NULL AUTO_INCREMENT,
-  `Precio` int(11) NOT NULL,
+  `Precio` decimal(10,3) NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Descripcion` varchar(200) NOT NULL,
   `Proveedor` varchar(50) NOT NULL,
@@ -49,9 +49,9 @@ CREATE TABLE `permiso`
   PRIMARY KEY (`idPermiso`)
 );
 
-INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Usuarios');
-INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Clientes');
-INSERT INTO `permiso` (idPermiso, nombrePermiso) VALUES ('ABM Cuartos');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Usuarios');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Clientes');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Cuartos');
 
 CREATE TABLE `permisoPerfil`
 (
@@ -85,7 +85,7 @@ CREATE TABLE `ordenPedido`
   `idCliente` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `Cantidad` int(20) NOT NULL,
-  `PrecioTotal` int(20) NOT NULL,
+  `PrecioTotal` decimal(20,3) NOT NULL,
   PRIMARY KEY (`idOrdenPedido`),
   CONSTRAINT FOREIGN KEY fk_idProducto (idProducto) REFERENCES producto (idProducto),
   CONSTRAINT FOREIGN KEY fk_id_Cliente (idCliente) REFERENCES cliente (idCliente),
