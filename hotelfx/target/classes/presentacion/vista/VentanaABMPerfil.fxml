@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMPerfil">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMPerfil">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <center>
@@ -32,7 +32,7 @@
             </Pane>
          </center>
          <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="bordePrincipal" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />

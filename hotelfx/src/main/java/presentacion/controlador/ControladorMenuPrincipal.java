@@ -20,6 +20,7 @@ import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
 
+
 	@FXML private Button btnAbrirABMCliente;
 	@FXML private Button btnAbrirABMReservas;
 	@FXML private Button btnAbrirABMUsuarios;
@@ -32,6 +33,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
+
 
 
 	@Override
@@ -106,6 +108,18 @@ public class ControladorMenuPrincipal implements Initializable{
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
 			 Pane view	= fxmlLoader.getPage("VentanaABMCuarto");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verABMSalones() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMSalon");
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {

@@ -15,4 +15,6 @@ public interface DAOAbstractFactory {
 	public PermisoPerfilDAO createPermisoPerfilDAO();
 	
 	public CuartoDAO createCuartoDAO();
+	
+	public SalonDAO createSalonDAO();
 }
