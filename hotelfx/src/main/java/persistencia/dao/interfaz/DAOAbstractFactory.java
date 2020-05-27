@@ -16,4 +16,7 @@ public interface DAOAbstractFactory {
 	public CuartoDAO createCuartoDAO();
 	
 	public ProductoDAO createProductoDAO();
+
+	public SalonDAO createSalonDAO();
+
 }
