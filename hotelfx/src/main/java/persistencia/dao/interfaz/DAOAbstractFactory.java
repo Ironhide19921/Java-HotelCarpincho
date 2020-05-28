@@ -1,5 +1,6 @@
 package persistencia.dao.interfaz;
 
+import modelo.Usuario;
 
 public interface DAOAbstractFactory {
 		

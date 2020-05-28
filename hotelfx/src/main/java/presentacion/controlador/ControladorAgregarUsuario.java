@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Perfil;
 import modelo.Usuario;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarUsuario implements Initializable {
@@ -25,7 +26,6 @@ public class ControladorAgregarUsuario implements Initializable {
 	@FXML private TextField txtPassword;
 	@FXML private TextField txtNumDocumento;
 	@FXML private TextField txtEmail;
-	@FXML private TextField txtTipoDocumento;
 	@FXML private ComboBox<PerfilDTO> comboPerfil;
 	@FXML private ComboBox<String> comboTipoDoc;
 		  private ObservableList<String> listaTipoDocExistentes;
@@ -40,6 +40,9 @@ public class ControladorAgregarUsuario implements Initializable {
 		  
 		  private ObservableList<PerfilDTO> listaPerfiles;
 		  
+		  private Validador validador;
+		  
+		  
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {
 			this.perfil = new Perfil(new DAOSQLFactory());
@@ -53,61 +56,68 @@ public class ControladorAgregarUsuario implements Initializable {
 			this.comboTipoDoc.setItems(listaTipoDocExistentes);
 			this.comboPerfil.setItems(listaPerfiles);
 			
+			
 		}
 		
 		 @FXML
 			public void guardarUsuario() throws IOException {
+			 
+			 	if(!Validador.validarUsuario(this)) {
+			 		return;
+			 	}
+			 	
 			    String nombre = txtNombre.getText();
 				String apellido = txtApellido.getText();
-				//String tipoDoc = txtTipoDocumento.getText();
 				String tipoDoc = this.comboTipoDoc.getValue();
 				String documento =txtNumDocumento.getText();
 				String email = txtEmail.getText();
 				String password = txtPassword.getText();
-				
+					
 				idUsuario = 0;
 				idPerfil = this.comboPerfil.getValue().getIdPerfil();
 				UsuarioDTO nuevoUsuario = new UsuarioDTO(idUsuario, idPerfil,nombre, apellido, tipoDoc, documento,email, password, true);
 				this.usuarios.agregarUsuario(nuevoUsuario);
 				cerrarVentanaAgregar();	
 
-		}
+		 }
 		 
 
 			public void setearCamposPantalla(UsuarioDTO usuarioSeleccionado) throws IOException {
-				   txtNombre.setText(usuarioSeleccionado.getNombre());
-				   txtApellido.setText(usuarioSeleccionado.getApellido());
-				   //txtTipoDocumento.setText(usuarioSeleccionado.getTipoDocumento());
-				   this.comboTipoDoc.setValue(usuarioSeleccionado.getTipoDocumento());
-				   txtNumDocumento.setText(usuarioSeleccionado.getNumeroDocumento());
-				   txtEmail.setText(usuarioSeleccionado.getEmail());
-				   txtPassword.setText(usuarioSeleccionado.getPassword());
-				   idUsuario= usuarioSeleccionado.getIdUsuario();
-				   
-				   for(PerfilDTO perfil : listaPerfiles) {
-					   if(perfil.getIdPerfil() == usuarioSeleccionado.getIdPerfil()) {
-						   this.comboPerfil.setValue(perfil);   
-					   }
-		
-				   }
-			 }
+				txtNombre.setText(usuarioSeleccionado.getNombre());
+				txtApellido.setText(usuarioSeleccionado.getApellido());
+				this.comboTipoDoc.setValue(usuarioSeleccionado.getTipoDocumento());
+				txtNumDocumento.setText(usuarioSeleccionado.getNumeroDocumento());
+				txtEmail.setText(usuarioSeleccionado.getEmail());
+				txtPassword.setText(usuarioSeleccionado.getPassword());
+				idUsuario = usuarioSeleccionado.getIdUsuario();
+
+				for (PerfilDTO perfil : listaPerfiles) {
+					if (perfil.getIdPerfil() == usuarioSeleccionado.getIdPerfil()) {
+						this.comboPerfil.setValue(perfil);
+					}
+
+				}
+			}
 
 			@FXML
-				public void modificarUsuario() throws IOException {
-				
-					String nombre = txtNombre.getText();
-					String apellido = txtApellido.getText();
-					//String tipoDoc = txtTipoDocumento.getText();
-					String tipoDoc = this.comboTipoDoc.getValue();
-					String documento =txtNumDocumento.getText();
-					String email = txtEmail.getText();
-					String password = txtPassword.getText();
-					
-					idPerfil = this.comboPerfil.getValue().getIdPerfil();
-	
-					UsuarioDTO nuevoUsuario = new UsuarioDTO(idUsuario, idPerfil,nombre, apellido, tipoDoc, documento,email, password, true);
-					this.usuarios.modificarUsuario(nuevoUsuario);
-					cerrarVentanaModificar();	
+			public void modificarUsuario() throws IOException {
+				if (!Validador.validarUsuario(this)) {
+					return;
+				}
+
+				String nombre = txtNombre.getText();
+				String apellido = txtApellido.getText();
+				String tipoDoc = this.comboTipoDoc.getValue();
+				String documento = txtNumDocumento.getText();
+				String email = txtEmail.getText();
+				String password = txtPassword.getText();
+
+				idPerfil = this.comboPerfil.getValue().getIdPerfil();
+
+				UsuarioDTO nuevoUsuario = new UsuarioDTO(idUsuario, idPerfil, nombre, apellido, tipoDoc, documento,
+						email, password, true);
+				this.usuarios.modificarUsuario(nuevoUsuario);
+				cerrarVentanaModificar();
 			}
 		 
 		 
@@ -139,17 +149,17 @@ public class ControladorAgregarUsuario implements Initializable {
 
 		public void setVisibilityBtnAgregarUsuario(Boolean value) {
 			this.btnAgregarUsuario.setVisible(value);
-	}
+		}
 		public void setDisableBtnAgregarUsuario(Boolean value) {
 
 			this.btnAgregarUsuario.setDisable(value);
-	}
+		}
 		public void setVisibilityBtnModificarUsuario(Boolean value) {
 			this.btnModificarUsuario.setVisible(value);
-	}
+		}
 		public void setDisableBtnModificarUsuario(Boolean value) {
 			this.btnModificarUsuario.setDisable(value);
-	}
+		}
 
 		public Button getBtnModificarUsuario() {
 				return btnModificarUsuario;
@@ -157,6 +167,54 @@ public class ControladorAgregarUsuario implements Initializable {
 
 		public void setBtnModificarUsuario(Button btnModificarCliente) {
 				this.btnModificarUsuario = btnModificarCliente;
+		}
+		
+		public TextField getTxtNombre() {
+			return txtNombre;
+		}
+
+		public void setTxtNombre(TextField txtNombre) {
+			this.txtNombre = txtNombre;
+		}
+
+		public TextField getTxtApellido() {
+			return txtApellido;
+		}
+
+		public void setTxtApellido(TextField txtApellido) {
+			this.txtApellido = txtApellido;
+		}
+
+		public TextField getTxtPassword() {
+			return txtPassword;
+		}
+
+		public void setTxtPassword(TextField txtPassword) {
+			this.txtPassword = txtPassword;
+		}
+
+		public TextField getTxtNumDocumento() {
+			return txtNumDocumento;
+		}
+
+		public void setTxtNumDocumento(TextField txtNumDocumento) {
+			this.txtNumDocumento = txtNumDocumento;
+		}
+
+		public TextField getTxtEmail() {
+			return txtEmail;
+		}
+
+		public void setTxtEmail(TextField txtEmail) {
+			this.txtEmail = txtEmail;
+		}
+
+		public ComboBox<PerfilDTO> getComboPerfil() {
+			return comboPerfil;
+		}
+
+		public ComboBox<String> getComboTipoDoc() {
+			return comboTipoDoc;
 		}
 	
 }

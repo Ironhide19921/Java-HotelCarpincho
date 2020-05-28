@@ -113,6 +113,47 @@ CREATE TABLE `cuarto`
   CONSTRAINT FOREIGN KEY fk_idCategoriaCuarto (idCategoriaCuarto) REFERENCES categoriaCuarto (idCategoriaCuarto)
 );
 
+CREATE TABLE `categoriaEvento`
+(
+  `idCategoriaEvento` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Detalle` varchar(100) NOT NULL,
+  PRIMARY KEY (`idCategoriaEvento`)
+);
+
+CREATE TABLE `salon`
+(
+  `idSalon` int(11) NOT NULL AUTO_INCREMENT,
+  `Capacidad` int(5) NOT NULL,
+  `Senia` double(10,3) NOT NULL,
+  `Monto` double(10,3) NOT NULL,
+  `Estado` boolean NOT NULL,
+  PRIMARY KEY (`idSalon`)
+);
+
+CREATE TABLE `reservaEvento`
+(
+  `idReservaEvento` int(11) NOT NULL AUTO_INCREMENT,
+  `idCliente` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `idSalon` int(11) NOT NULL,
+  `idCategoriaEvento` int(11) NOT NULL,
+  `Senia` double(10,3) NOT NULL,
+  `FechaGeneracionReserva` dateTime NOT NULL,
+  `FechaInicioReserva` dateTime NOT NULL,
+  `FechaFinReserva` dateTime NOT NULL,
+  `FechaIngreso` dateTime NOT NULL,
+  `FechaEgreso` dateTime NOT NULL,
+  `FormaPago` varchar(20) NOT NULL,
+  `TipoTarjeta` varchar(25) NOT NULL,
+  `NumeroTarjeta` varchar(25) NOT NULL,
+  `FechaVencTarjeta` varchar(15) NOT NULL,
+  `CodSeguridadTarjeta` varchar(10) NOT NULL,
+  `EstadoReserva` varchar(20) NOT NULL,
+  `Observaciones` varchar(200) NOT NULL,
+  PRIMARY KEY (`idReservaEvento`)
+);
+
 CREATE TABLE `reservaCuarto`
 (
   `idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT,
