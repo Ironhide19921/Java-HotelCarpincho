@@ -2,6 +2,7 @@ package persistencia.dao.mysql;
 
 import persistencia.dao.interfaz.CategoriaCuartoDAO;
 import persistencia.dao.interfaz.ClienteDAO;
+import persistencia.dao.interfaz.ConfiguracionDAO;
 import persistencia.dao.interfaz.CuartoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.PerfilDAO;
@@ -42,6 +43,10 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 
 	public SalonDAO createSalonDAO() {
 		return new SalonDAOSQL();
+	}
+
+	public ConfiguracionDAO createConfiguracionDAO() {
+		return new ConfiguracionDAOSQL();
 	}
 
 }

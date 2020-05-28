@@ -19,5 +19,7 @@ public interface DAOAbstractFactory {
 	public ProductoDAO createProductoDAO();
 
 	public SalonDAO createSalonDAO();
+	
+	public ConfiguracionDAO createConfiguracionDAO();
 
 }
