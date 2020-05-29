@@ -122,6 +122,7 @@ public class ControladorMenuPrincipal implements Initializable{
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
 			 Pane view	= fxmlLoader.getPage("VentanaABMSalon");
+			 
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {

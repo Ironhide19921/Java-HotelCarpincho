@@ -10,40 +10,18 @@ public class ReservaCuartoDTO {
 	private BigDecimal senia,montoReservaCuarto;
 	private String emailFacturacion, numTarjeta, cantidadDias,
 	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
-	private Date fechaVencTarjeta,fechaFacturacion,fechaCheckIn,fechaOut,
+	private Date fechaVencTarjeta,fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
 	
-	private boolean estadoReserva;
-	/*
-	 `idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT,
-	  `idCliente` int(11) NOT NULL,
-	  `idUsuario` int(11) NOT NULL,
-	  `idCuarto` int(11) NOT NULL,
-	  `Senia` decimal(10,3) NOT NULL,
-	  `MontoReservaCuarto` decimal(10,3) NOT NULL,
-	  `EmailFacturacion` varchar(50) NOT NULL,
-	  `FechaReserva` dateTime NOT NULL,
-	  `FechaCheckIn` dateTime NOT NULL,
-	  `FechaIngreso` dateTime NOT NULL,
-	  `FechaOut` dateTime NOT NULL,
-	  `FechaEgreso` dateTime NOT NULL,
-	  `FormaPago` varchar(20) NOT NULL,
-	  `TipoTarjeta` varchar(25) NOT NULL,
-	  `NumeroTarjeta` varchar(25) NOT NULL,
-	  `FechaVencTarjeta` varchar(15) NOT NULL,
-	  `CodSeguridadTarjeta` varchar(10) NOT NULL,
-	  `EstadoReserva` varchar(20) NOT NULL,
-	  `Comentarios` varchar(200) NOT NULL,
-	  PRIMARY KEY (`idReservaCuarto`),
-	  CONSTRAINT FOREIGN KEY fk_clienteId (idCliente) REFERENCES cliente (idCliente),
-	  CONSTRAINT FOREIGN KEY fk_id_Usuario (idUsuario) REFERENCES usuario (idUsuario),
-	  CONSTRAINT FOREIGN KEY fk_idCuarto (idCuarto) REFERENCES cuarto (idCuarto)*/
 	
+	private boolean estadoReserva;
+
 	public ReservaCuartoDTO(int idCliente, int idCuarto, int idUsuario, BigDecimal senia,
-			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta,
-			Date fechaVencTarjeta,Date fechaFacturacion,Date fechaCheckIn, Date fechaOut,
-			Date fechaIngreso, Date fechaEgreso,String comentarios , String formaDePago,
-			String tipoTarjeta,String codSeguridadTarjeta) {
+			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta, 
+			String formaDePago,	String tipoTarjeta,String codSeguridadTarjeta,
+			Date fechaVencTarjeta,Date fechaReserva,Date fechaCheckIn, Date fechaOut,
+			Date fechaIngreso, Date fechaEgreso , 
+		 boolean estado, String comentarios) {
 		
 		this.idCliente = idCliente;
 		this.idCuarto = idCuarto;
@@ -52,7 +30,7 @@ public class ReservaCuartoDTO {
 		this.montoReservaCuarto = montoReservaCuarto;
 		this.emailFacturacion = emailFacturacion;
 		this.numTarjeta = numTarjeta;
-		this.fechaFacturacion = fechaFacturacion;
+		this.fechaReserva = fechaReserva;
 		this.fechaCheckIn = fechaCheckIn;
 		this.fechaOut = fechaOut;
 		this.fechaIngreso = fechaIngreso;
@@ -60,6 +38,8 @@ public class ReservaCuartoDTO {
 		this.codSeguridadTarjeta = codSeguridadTarjeta;
 		this.formaDePago = formaDePago;
 		this.tipoTarjeta = tipoTarjeta;
+		this.estadoReserva = estado;
+		this.comentarios = comentarios;
 	}
 	
 	public Integer getIdReserva() {
@@ -94,16 +74,16 @@ public class ReservaCuartoDTO {
 		this.idUsuario = idUsuario;
 	}
 
-	public double getSenia() {
-		return senia.doubleValue();
+	public BigDecimal getSenia() {
+		return senia;
 	}
 
 	public void setSenia(BigDecimal senia) {
 		this.senia = senia;
 	}
 
-	public double getMontoReservaCuarto() {
-		return montoReservaCuarto.doubleValue();
+	public BigDecimal getMontoReservaCuarto() {
+		return montoReservaCuarto;
 	}
 
 	public void setMontoReservaCuarto(BigDecimal montoReservaCuarto) {
@@ -142,12 +122,12 @@ public class ReservaCuartoDTO {
 		this.comentarios = comentarios;
 	}
 
-	public Date getFechaFacturacion() {
-		return fechaFacturacion;
+	public Date getFechaReserva() {
+		return fechaReserva;
 	}
 
-	public void setFechaFacturacion(Date fechaFacturacion) {
-		this.fechaFacturacion = fechaFacturacion;
+	public void setFechaReserva(Date fechaFacturacion) {
+		this.fechaReserva = fechaFacturacion;
 	}
 
 	public Date getFechaCheckIn() {
@@ -187,7 +167,7 @@ public class ReservaCuartoDTO {
 	}
 
 	public void setTiposTarjeta(String tiposTarjeta) {
-		this.tipoTarjeta = tipoTarjeta;
+		this.tipoTarjeta = tiposTarjeta;
 	}
 
 	public String getFormasDePago() {
@@ -197,4 +177,29 @@ public class ReservaCuartoDTO {
 	public void setFormasDePago(String formasDePago) {
 		this.formaDePago = formasDePago;
 	}
+
+	public boolean getEstado() {
+		return estadoReserva;
+	}
+
+	public void setEstado(boolean estadoReserva) {
+		this.estadoReserva = estadoReserva;
+	}
+
+	public Date getFechaVencTarjeta() {
+		return fechaVencTarjeta;
+	}
+
+	public void setFechaVencTarjeta(Date fechaVencTarjeta) {
+		this.fechaVencTarjeta = fechaVencTarjeta;
+	}
+
+	public String getCodSeguridadTarjeta() {
+		return codSeguridadTarjeta;
+	}
+
+	public void setCodSeguridadTarjeta(String codSeguridadTarjeta) {
+		this.codSeguridadTarjeta = codSeguridadTarjeta;
+	}
+
 }

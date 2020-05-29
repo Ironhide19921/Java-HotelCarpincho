@@ -38,7 +38,7 @@
 
 #btnAbrirABMReservas , #btnAbrirImportar, #btnAbrirABMCuartos
 ,#btnAbrirABMCliente , #btnAbrirABMUsuarios ,#btnAbrirABMPerfiles , #btnAbrirABMCategoriasCuartos,
-#btnAbrirReservaEvento,#btnAbrirCategoriaEvento{
+#btnAbrirReservaEvento,#btnAbrirCategoriaEvento, #btnAbrirABMSalones{
    -fx-position: relative;
    -fx-display: inline-block;
    -fx-margin: 0;
@@ -55,7 +55,7 @@
 
 #btnAbrirABMReservas:hover , #btnAbrirImportar:hover, #btnAbrirABMCuartos:hover
 ,#btnAbrirABMCliente:hover , #btnAbrirABMUsuarios:hover ,#btnAbrirABMPerfiles:hover , #btnAbrirABMCategoriasCuartos:hover,
-#btnAbrirReservaEvento:hover,#btnAbrirCategoriaEvento:hover{
+#btnAbrirReservaEvento:hover,#btnAbrirCategoriaEvento:hover,  #btnAbrirABMSalones:hover{
 
 	-fx-background-color: rgb(120, 120, 120);	
 	-fx-text-fill: white;
