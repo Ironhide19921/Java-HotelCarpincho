@@ -229,6 +229,9 @@ CREATE TABLE `configuracion`
   PRIMARY KEY (`idConfig`)
 );
 
+insert into configuracion(username, password, provSMTP)
+values ("carpinchocorp@gmail.com", "covid-1", "smtp.gmail.com");
+
 
 --
 -- Índices para tablas volcadas
