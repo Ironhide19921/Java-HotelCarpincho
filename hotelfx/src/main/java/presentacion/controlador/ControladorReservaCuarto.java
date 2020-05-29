@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dto.ClienteDTO;
 import dto.ReservaCuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +18,8 @@ import javafx.scene.layout.VBox;
 import modelo.ReservaCuarto;
 import persistencia.dao.mysql.DAOSQLFactory;
 
-public class ControladorReservaCuarto implements Initializable{
+public class ControladorReservaCuarto implements Initializable
+{
 
 	@FXML private Button btnAgregarReserva;
 	@FXML private Button btnModificarReserva;
@@ -29,19 +29,20 @@ public class ControladorReservaCuarto implements Initializable{
 	@FXML private TableView<ReservaCuartoDTO> tablaReservas;
 	@FXML private ObservableList<ReservaCuartoDTO> activeSession;
 	@FXML private VBox fondoTabla;
-	@FXML private TableColumn nombre;
-	@FXML private TableColumn apellido;
-	@FXML private TableColumn telefono;
-	@FXML private TableColumn email;
-	@FXML private TableColumn numeroDocumento;
-	@FXML private TableColumn estado  ;
-	@FXML private TableColumn idCliente;
-	
+	@FXML private TableColumn idReserva;
+	@FXML private TableColumn cliente;
+	@FXML private TableColumn cuarto;
+	@FXML private TableColumn usuario;
+	@FXML private TableColumn fechaReserva;
+	@FXML private TableColumn fechaCheckIn;
+	@FXML private TableColumn fechaOut;
+	@FXML private TableColumn fechaIngreso;
+	@FXML private TableColumn fechaEgreso;
 	private ReservaCuarto reserva;
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+	public void initialize(URL arg0, ResourceBundle arg1)
+	{
 		this.reserva = new ReservaCuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaReservas.getItems().clear();
@@ -49,34 +50,37 @@ public class ControladorReservaCuarto implements Initializable{
 		refrescarTabla();
 	}
 
-	private void refrescarTabla() {
+	private void refrescarTabla() 
+	{
 		crearTabla(getAllReservasCuartos());
 	}
 
-	private void crearTabla(ObservableList<ReservaCuartoDTO> allReservasCuartos) {
+	private void crearTabla(ObservableList<ReservaCuartoDTO> allReservasCuartos) 
+	{
 		tablaReservas.setItems(allReservasCuartos);
 		tablaReservas.setEditable(true);
 	}
 
 	private ObservableList<ReservaCuartoDTO> getAllReservasCuartos() {
-
-			List<ReservaCuartoDTO> reservas = this.reserva.obtenerReservasCuartos();
-			activeSession.clear();
-	 		for(ReservaCuartoDTO r : reservas) {
-	 			activeSession.add(r);
-	 		}
-	 		return activeSession;
-		}
-
-
-	private void cargarColumnas() {
-		nombre.setCellValueFactory(new PropertyValueFactory("nombre"));		
-		apellido.setCellValueFactory(new PropertyValueFactory("apellido"));	
-		email.setCellValueFactory(new PropertyValueFactory("email"));
-		telefono.setCellValueFactory(new PropertyValueFactory("telefono"));
-		estado.setCellValueFactory(new PropertyValueFactory("estado"));
-		idCliente.setCellValueFactory(new PropertyValueFactory("idCliente"));	
-		numeroDocumento.setCellValueFactory(new PropertyValueFactory("numeroDocumento"));
+		List<ReservaCuartoDTO> reservas = this.reserva.obtenerReservasCuartos();
+		activeSession.clear();
+		 for(ReservaCuartoDTO r : reservas) {
+		 	activeSession.add(r);
+		 	}
+		 return activeSession;
 	}
 
+	private void cargarColumnas() 
+	{
+		cliente.setCellValueFactory(new PropertyValueFactory(""));		
+		cuarto.setCellValueFactory(new PropertyValueFactory("apellido"));	
+		usuario.setCellValueFactory(new PropertyValueFactory("email"));
+		fechaReserva.setCellValueFactory(new PropertyValueFactory("telefono"));
+		fechaCheckIn.setCellValueFactory(new PropertyValueFactory("estado"));
+		fechaOut.setCellValueFactory(new PropertyValueFactory("idCliente"));	
+		fechaIngreso.setCellValueFactory(new PropertyValueFactory("numeroDocumento"));
+	}
+	
+	
+	
 }
