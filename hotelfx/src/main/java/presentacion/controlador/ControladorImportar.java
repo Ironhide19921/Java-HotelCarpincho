@@ -4,17 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import dto.CategoriaCuartoDTO;
 import dto.ClienteDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

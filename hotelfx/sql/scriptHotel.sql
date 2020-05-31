@@ -230,7 +230,7 @@ CREATE TABLE `configuracion`
 );
 
 insert into configuracion(username, password, provSMTP)
-values ("carpinchocorp@gmail.com", "covid-1", "smtp.gmail.com");
+values ("carpinchocorp@gmail.com", "covid-19", "smtp.gmail.com");
 
 
 --

@@ -9,16 +9,17 @@
 
 <AnchorPane prefHeight="328.0" prefWidth="459.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorConfiguracion">
    <children>
-      <Pane layoutX="198.0" layoutY="46.0" prefHeight="208.0" prefWidth="212.0">
+      <Pane layoutX="198.0" layoutY="46.0" prefHeight="208.0" prefWidth="241.0">
          <children>
-            <TextField fx:id="txtUsername" layoutX="37.0" layoutY="36.0" />
-            <TextField fx:id="txtPassword" layoutX="37.0" layoutY="88.0" />
+            <TextField fx:id="txtUsername" layoutX="37.0" layoutY="36.0" prefHeight="25.0" prefWidth="193.0" />
+            <TextField fx:id="txtPassword" layoutX="37.0" layoutY="88.0" prefHeight="25.0" prefWidth="193.0" />
             <ComboBox fx:id="comboProvs" layoutX="36.0" layoutY="136.0" prefWidth="150.0" />
          </children>
       </Pane>
       <Label layoutX="80.0" layoutY="80.0" text="Mail:" />
       <Label layoutX="80.0" layoutY="132.0" prefHeight="17.0" prefWidth="68.0" text="Password:" />
       <Label layoutX="80.0" layoutY="187.0" text="Proveedor SMTP:" />
-      <Button fx:id="btnGuardar" layoutX="172.0" layoutY="254.0" mnemonicParsing="false" onAction="#modificarConfig" prefHeight="25.0" prefWidth="104.0" text="Guardar" />
+      <Button fx:id="btnGuardar" layoutX="105.0" layoutY="254.0" mnemonicParsing="false" onAction="#modificarConfig" prefHeight="25.0" prefWidth="104.0" text="Guardar" />
+      <Button fx:id="btnTest" layoutX="319.0" layoutY="254.0" mnemonicParsing="false" onAction="#testMail" prefHeight="25.0" prefWidth="104.0" text="Testear Cuenta" />
    </children>
 </AnchorPane>
