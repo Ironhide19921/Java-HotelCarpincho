@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dto.EmailDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import modelo.Email;
 import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
@@ -52,6 +54,9 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		this.controler = new Controller();
+		
+		EmailDTO.enviarEmailsEncolados();
+		
 	}
 
 

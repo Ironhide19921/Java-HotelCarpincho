@@ -14,6 +14,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import dto.EmailDTO;
+import modelo.Email;
+import modelo.Perfil;
+import persistencia.dao.mysql.DAOSQLFactory;
+
 public class Mail {
 
 	//	public static void main(String[] args) {
@@ -21,6 +26,11 @@ public class Mail {
 	String username,password,fromEmail,toEmail;
 	private Session session;
 	private Properties properties;
+	
+	private String asunto;
+	private String texto;
+	
+
 	
 	public Mail() {
 		username = "carpinchocorp@gmail.com";
@@ -88,5 +98,6 @@ public class Mail {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }

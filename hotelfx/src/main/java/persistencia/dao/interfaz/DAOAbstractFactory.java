@@ -20,4 +20,6 @@ public interface DAOAbstractFactory {
 
 	public SalonDAO createSalonDAO();
 
+	public EmailDAO createEmailDAO();
+
 }
