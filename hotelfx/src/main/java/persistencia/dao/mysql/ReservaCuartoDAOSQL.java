@@ -18,19 +18,38 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 	private static final String insert = "INSERT INTO reservaCuarto(idCliente, idCuarto, idUsuario,"
 			+ "Senia, MontoReservaCuarto,"
 			+ " EmailFacturacion, NumeroTarjeta, FormaPago, TipoTarjeta, CodSeguridadTarjeta,FechaVencTarjeta,"
-			+ " FechaReserva, FechaCheckIn,FechaIngreso,FechaOut,FechaEgreso," + ",EstadoReserva,Comentarios) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+			+ " FechaReserva, FechaCheckIn,FechaIngreso,FechaOut,FechaEgreso,EstadoReserva,Comentarios, Estado) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
 	private static final String delete = "DELETE FROM reservaCuarto WHERE "
 			+ "idReservaCuarto=?, idCliente = ?, idUsuario = ?, idCuarto = ?";
 	private static final String readall = "SELECT * FROM reservaCuarto";
 	private static final String update = "UPDATE reservaCuarto SET idCliente = ?, idUsuario = ?, "
 			+ "idCuarto = ?, Senia = ?, MontoReservaCuarto = ?, EmailFacturacion = ?, "
-			+ "numTarjeta = ? ,formaDePago = ?, tipoTarjeta = ? , codSeguridadTarjeta = ?, " + "fechaVencTarjeta = ?"
+			+ "numTarjeta = ? ,formaDePago = ?, tipoTarjeta = ?, codSeguridadTarjeta = ?, "
+			+ "FechaVencTarjeta = ?, "
 			+ "FechaReserva = ?, FechaCheckIn = ?, FechaIngreso = ?, "
-			+ " FechaOut = ?,  FechaEgreso = ?,  FormaPago = ?" + " FechaVencTarjeta = ? WHERE idReservaCuarto = ?";
+			+ " FechaOut = ?,  FechaEgreso = ?,  FormaPago = ?, FechaVencTarjeta = ?"
+			+ ",EstadoReserva = ? , Comentarios = ? , Estado = ? WHERE idReservaCuarto = ?";
 	private static final String search = "SELECT * FROM reservaCuarto "
 			+ "WHERE idUsuario LIKE ? OR idCuarto LIKE ? OR idCliente LIKE ? OR nombre LIKE ? " + "OR apellido LIKE ?";
 
+	private static final String search1 = "SELECT  h.habitacion_numero," + 
+			"        CASE WHEN hr.habitacion_numero is null " + 
+			"              THEN 'Disponible'" + 
+			"              ELSE 'Reservada'" + 
+			"        END  AS 'Estado'      " + 
+			"        FROM habitaciones " + 
+			"        left JOIN (SELECT   h1.habitacion_numero" + 
+			"                      FROM habitaciones " + 
+			"                       inner join reservas r " + 
+			"                       on h1.habitacion_numero=r.habitacion" + 
+			"                       WHERE @fecha BETWEEN r.inicio_fecha AND r.fin_fecha or " + 
+			"                             @fecha2 BETWEEN r.inicio_fecha AND r.fin_fecha" + 
+			"                       AND r.fin_fecha" + 
+			"          ) hr" + 
+			"          on hr.habitacion_numero = h.habitacion_numero;";
+	
+	
 	@Override
 	public boolean insert(ReservaCuartoDTO reserva) {
 		PreparedStatement statement;
@@ -55,9 +74,10 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			statement.setDate(14, reserva.getFechaIngreso());
 			statement.setDate(15, reserva.getFechaOut());
 			statement.setDate(16, reserva.getFechaEgreso());
-			statement.setBoolean(17, reserva.getEstado());
+			statement.setString(17, reserva.getEstadoReserva());
 			statement.setString(18, reserva.getComentarios());
-
+			statement.setBoolean(19, reserva.getEstado());
+			
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
 				isInsertExitoso = true;
@@ -117,12 +137,13 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 		Date fechaOut = resultSet.getDate("FechaOut");
 		Date fechaIngreso = resultSet.getDate("FechaIngreso");
 		Date fechaEgreso = resultSet.getDate("FechaEgreso");
-		boolean estado = resultSet.getBoolean("EstadoReserva");
+		String estadoReserva = resultSet.getString("EstadoReserva");
 		String comentarios = resultSet.getString("Comentarios");
+		boolean estado = resultSet.getBoolean("Estado");
 
 		ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
 				emailFacturacion, numTarjeta, formaDePago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
-				fechaReserva, fechaCheckIn, fechaOut, fechaIngreso, fechaEgreso, estado, comentarios);
+				fechaReserva, fechaCheckIn, fechaOut, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
 		reserva.setIdReserva(idReserva);
 		return reserva;
 	}
@@ -149,9 +170,11 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			statement.setDate(14, reserva.getFechaIngreso());
 			statement.setDate(15, reserva.getFechaOut());
 			statement.setDate(16, reserva.getFechaEgreso());
-			statement.setBoolean(17, reserva.getEstado());
+			statement.setString(17, reserva.getEstadoReserva());
 			statement.setString(18, reserva.getComentarios());
-			statement.setInt(19, reserva.getIdReserva());
+			statement.setBoolean(18, reserva.getEstado());
+			
+			statement.setInt(20, reserva.getIdReserva());
 
 			System.out.println(statement.executeUpdate());
 			if (statement.executeUpdate() > 0) {
@@ -193,4 +216,6 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 		}
 		return reservas;
 	}
+	
+	
 }

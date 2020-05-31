@@ -33,6 +33,10 @@ public class ControladorReservaCuarto implements Initializable
 	@FXML private TableColumn cliente;
 	@FXML private TableColumn cuarto;
 	@FXML private TableColumn usuario;
+	@FXML private TableColumn senia;
+	@FXML private TableColumn estado;
+	@FXML private TableColumn monto;
+	@FXML private TableColumn formaPago;
 	@FXML private TableColumn fechaReserva;
 	@FXML private TableColumn fechaCheckIn;
 	@FXML private TableColumn fechaOut;

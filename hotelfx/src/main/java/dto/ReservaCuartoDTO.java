@@ -9,19 +9,20 @@ public class ReservaCuartoDTO {
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
 	private String emailFacturacion, numTarjeta, cantidadDias,
-	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
+	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios, estadoReserva;
+	
 	private Date fechaVencTarjeta,fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
-	
-	
-	private boolean estadoReserva;
 
+	private boolean estado;
+
+	
 	public ReservaCuartoDTO(int idCliente, int idCuarto, int idUsuario, BigDecimal senia,
 			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta, 
 			String formaDePago,	String tipoTarjeta,String codSeguridadTarjeta,
 			Date fechaVencTarjeta,Date fechaReserva,Date fechaCheckIn, Date fechaOut,
 			Date fechaIngreso, Date fechaEgreso , 
-		 boolean estado, String comentarios) {
+		 String estadoReserva, String comentarios, boolean estado) {
 		
 		this.idCliente = idCliente;
 		this.idCuarto = idCuarto;
@@ -38,8 +39,9 @@ public class ReservaCuartoDTO {
 		this.codSeguridadTarjeta = codSeguridadTarjeta;
 		this.formaDePago = formaDePago;
 		this.tipoTarjeta = tipoTarjeta;
-		this.estadoReserva = estado;
+		this.estadoReserva = estadoReserva;
 		this.comentarios = comentarios;
+		this.estado = estado;
 	}
 	
 	public Integer getIdReserva() {
@@ -178,11 +180,11 @@ public class ReservaCuartoDTO {
 		this.formaDePago = formasDePago;
 	}
 
-	public boolean getEstado() {
+	public String getEstadoReserva() {
 		return estadoReserva;
 	}
 
-	public void setEstado(boolean estadoReserva) {
+	public void setEstado(String estadoReserva) {
 		this.estadoReserva = estadoReserva;
 	}
 
@@ -201,5 +203,15 @@ public class ReservaCuartoDTO {
 	public void setCodSeguridadTarjeta(String codSeguridadTarjeta) {
 		this.codSeguridadTarjeta = codSeguridadTarjeta;
 	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+
+	public boolean getEstado() {
+		return this.estado;
+	}
+
 
 }
