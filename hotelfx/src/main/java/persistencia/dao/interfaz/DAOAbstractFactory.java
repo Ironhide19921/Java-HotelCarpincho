@@ -22,4 +22,6 @@ public interface DAOAbstractFactory {
 	
 	public ConfiguracionDAO createConfiguracionDAO();
 
+	public EmailDAO createEmailDAO();
+
 }
