@@ -24,4 +24,6 @@ public interface DAOAbstractFactory {
 	
 	public ErrorImportarDAO createErrorImportarDAO();
 
+	public EmailDAO createEmailDAO();
+
 }
