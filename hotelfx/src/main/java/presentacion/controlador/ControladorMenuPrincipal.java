@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dto.EmailDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +17,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import modelo.Email;
 import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
+
+	@FXML
+	private Button btnAbrirABMProductos;
+
+	@FXML
+	private Button btnAbrirConfig;
+	
 
 
 	@FXML private Button btnAbrirABMCliente;
@@ -41,6 +50,8 @@ public class ControladorMenuPrincipal implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
+		
+		EmailDTO.enviarEmailsEncolados();
 	}
 
 
@@ -118,11 +129,34 @@ public class ControladorMenuPrincipal implements Initializable{
 	}
 	
 	@FXML
+	public void verABMProductos() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMProducto");
+			 mainPane.setCenter(view);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}	
+			 
+	@FXML
 	public void verABMSalones() {
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
 			 Pane view	= fxmlLoader.getPage("VentanaABMSalon");
 			 
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verConfig() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("Configuracion");
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {

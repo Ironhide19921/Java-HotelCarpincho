@@ -101,9 +101,10 @@ CREATE TABLE `cuarto`
   `idCuarto` int(11) NOT NULL AUTO_INCREMENT,
   `idCategoriaCuarto` int(11) NOT NULL,
   `Capacidad` int(5) NOT NULL,
-  `Tamanio` int(5) NOT NULL,
   `Monto` double(10,3) NOT NULL,
   `MontoSenia` double(10,3) NOT NULL,
+  `Piso` varchar(5) NOT NULL,   
+  `Habitacion` varchar(5) NOT NULL,
   `Estado` boolean NOT NULL,
   PRIMARY KEY (`idCuarto`),
   CONSTRAINT FOREIGN KEY fk_idCategoriaCuarto (idCategoriaCuarto) REFERENCES categoriaCuarto (idCategoriaCuarto)
@@ -129,7 +130,8 @@ CREATE TABLE `reservaCuarto`
   `FechaVencTarjeta` varchar(15) NOT NULL,
   `CodSeguridadTarjeta` varchar(10) NOT NULL,
   `EstadoReserva` varchar(20) NOT NULL,
-  `Comentarios` varchar(200) NOT NULL,
+  `Comentarios` varchar(200),
+  `Estado` boolean not null,
   PRIMARY KEY (`idReservaCuarto`),
   CONSTRAINT FOREIGN KEY fk_clienteId (idCliente) REFERENCES cliente (idCliente),
   CONSTRAINT FOREIGN KEY fk_id_Usuario (idUsuario) REFERENCES usuario (idUsuario),
@@ -214,6 +216,32 @@ CREATE TABLE `salon` (
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `email`(
+  `idEmail` int(11) NOT NULL AUTO_INCREMENT, 
+  `fechaCreacion` datetime NOT NULL,
+  `Texto` VARCHAR(500) NOT NULL,
+  `Asunto` VARCHAR(50) NOT NULL,
+  `Emisor` VARCHAR(50) NOT NULL,
+  `Receptor` VARCHAR(50) NOT NULL,
+  `Estado` TINYINT(1) NOT NULL,
+  `Pass` VARCHAR(50) NOT NULL,
+
+  PRIMARY KEY (`idEmail`)
+);
+
+CREATE TABLE `configuracion`
+(
+  `idConfig` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `provSMTP` varchar(100) NOT NULL,
+  PRIMARY KEY (`idConfig`)
+);
+
+insert into configuracion(username, password, provSMTP)
+values ("carpinchocorp@gmail.com", "covid-19", "smtp.gmail.com");
+
+
 --
 -- Índices para tablas volcadas
 --
@@ -274,10 +302,3 @@ ALTER TABLE `reservaevento`
   ADD CONSTRAINT `reservaevento_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_3` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_4` FOREIGN KEY (`idCategoriaEvento`) REFERENCES `categoriaevento` (`idCategoriaEvento`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-

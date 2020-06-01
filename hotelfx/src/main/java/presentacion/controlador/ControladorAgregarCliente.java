@@ -54,6 +54,8 @@ public class ControladorAgregarCliente implements Initializable {
 	private Integer id;
 	private Cliente hotel;
 	
+	private Validador validador;
+	
 
 	
 	@FXML private ControladorMenuPrincipal menuPrincipal;
@@ -71,6 +73,10 @@ public class ControladorAgregarCliente implements Initializable {
 	
 	 @FXML
 		public void guardarCliente() throws IOException {
+		 
+		 	if(!Validador.validarCliente(this)) {
+		 		return;
+		 	}
 		 
 			String nombre = txtNombre.getText();
 			String apellido = txtApellido.getText();
@@ -95,12 +101,18 @@ public class ControladorAgregarCliente implements Initializable {
 			   txtNumDocumento.setText(clienteSeleccionado.getNumeroDocumento());
 			   txtEmail.setText(clienteSeleccionado.getEmail());
 			   txtTelefono.setText(clienteSeleccionado.getTelefono());
+			   
+			   this.txtFecha.setValue(clienteSeleccionado.getFechaNacimiento().toLocalDate());
 			   id = clienteSeleccionado.getIdCliente();
-			    
+			   	    
 		}
 
 		@FXML
 			public void modificarCliente() throws IOException {
+			
+				if(!Validador.validarCliente(this)) {
+			 		return;
+			 	}
 			
 				String nombre = txtNombre.getText();
 				String apellido = txtApellido.getText();
@@ -153,6 +165,7 @@ public class ControladorAgregarCliente implements Initializable {
 		this.btnModificarCliente.setVisible(value);
 }
 	public void setDisableBtnModificarCliente(Boolean value) {
+
 		this.btnModificarCliente.setDisable(value);
 }
 
@@ -163,6 +176,79 @@ public class ControladorAgregarCliente implements Initializable {
 	public void setBtnModificarCliente(Button btnModificarCliente) {
 			this.btnModificarCliente = btnModificarCliente;
 	}
+
+	public TextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public TextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public TextField getTxtNumDocumento() {
+		return txtNumDocumento;
+	}
+
+	public TextField getTxtEmail() {
+		return txtEmail;
+	}
+
+	public TextField getTxtTelefono() {
+		return txtTelefono;
+	}
+
+	public DatePicker getTxtFecha() {
+		return txtFecha;
+	}
+
+	public ComboBox<String> getComboTipoDoc() {
+		return comboTipoDoc;
+	}
+	
+	
+
+	
+}
+		this.btnModificarCliente.setDisable(value);
+}
+
+	public Button getBtnModificarCliente() {
+			return btnModificarCliente;
+	}
+
+	public void setBtnModificarCliente(Button btnModificarCliente) {
+			this.btnModificarCliente = btnModificarCliente;
+	}
+
+	public TextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public TextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public TextField getTxtNumDocumento() {
+		return txtNumDocumento;
+	}
+
+	public TextField getTxtEmail() {
+		return txtEmail;
+	}
+
+	public TextField getTxtTelefono() {
+		return txtTelefono;
+	}
+
+	public DatePicker getTxtFecha() {
+		return txtFecha;
+	}
+
+	public ComboBox<String> getComboTipoDoc() {
+		return comboTipoDoc;
+	}
+	
+	
 
 	
 }

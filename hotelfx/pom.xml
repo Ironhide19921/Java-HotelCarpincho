@@ -74,6 +74,21 @@
         <artifactId>javax.mail</artifactId>           
               <version>1.6.2</version>             
               </dependency>
+		
+	
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.6.2</version>
+            </dependency>
+            
+          <dependency>
+  				<groupId>joda-time</groupId>
+  				<artifactId>joda-time</artifactId>
+  				<version>2.10.6</version>
+		  </dependency>
+        
+
     </dependencies>
 
     <build>

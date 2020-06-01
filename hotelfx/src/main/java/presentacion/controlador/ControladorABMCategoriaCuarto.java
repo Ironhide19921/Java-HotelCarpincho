@@ -49,6 +49,8 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 		  private ArrayList<Integer> listaIdCategoriaCuartos;
 	@FXML private TextField ingresarCategoria;
 		  private Alert alert;
+		  
+		  private Validador validador;
 
 	private void cargarColumnas() {
 		nombre.setCellValueFactory(new PropertyValueFactory("Nombre"));		
@@ -85,6 +87,11 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 	 @FXML
 	    private void EditCategoria(ActionEvent event) throws Exception 
 	    {
+		 
+		 	if(tablaCategoriaCuarto.getSelectionModel().getSelectedItem()==null) {
+		 		validador.mostrarMensaje("Debes seleccionar una categoria de la lista antes de editar");
+		 		return;
+		 	}
 		     try { 
 			    Stage primaryStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCategoriaCuarto.fxml");
@@ -97,7 +104,8 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 				scene2Controller.setVisibilityBtnAgregarCategoriaCuarto(false);
 				scene2Controller.setDisableBtnAgregarCategoriaCuarto(true);
 				scene2Controller.setVisibilityBtnModificarCategoriaCuarto(true);
-				scene2Controller.setDisableBtnModificarCategoriaCuarto(false);		 
+
+				scene2Controller.setDisableBtnModificarCategoriaCuarto(false);
 				scene2Controller.setearCamposPantalla(tablaCategoriaCuarto.getSelectionModel().getSelectedItem());
 				primaryStage.setTitle("Modificar categoria de cuarto");
 				primaryStage.sizeToScene();
@@ -111,6 +119,11 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 	 @FXML
 	    private void eliminarCategoria(ActionEvent event) throws Exception 
 	    {
+		 
+		 	if(tablaCategoriaCuarto.getSelectionModel().getSelectedItem()==null) {
+		 		validador.mostrarMensaje("Debes seleccionar una categoria de la lista antes de eliminar");
+		 		return;
+		 	}
 		     try {
 		    	refrescarListaIdCategoriaCuarto();
 		    	 

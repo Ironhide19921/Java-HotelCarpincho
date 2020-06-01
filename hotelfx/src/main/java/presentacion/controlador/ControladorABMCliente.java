@@ -30,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.Main;
 import modelo.Cliente;
+import modelo.Validador;
 import persistencia.conexion.Conexion;
 import persistencia.dao.mysql.DAOSQLFactory;
 
@@ -74,6 +75,7 @@ public class ControladorABMCliente implements Initializable{
 	@FXML
 	private	TableColumn idCliente;
 	private Cliente cliente;
+	private Validador validador;
 	
 	// funcion onload
 	@Override
@@ -123,6 +125,11 @@ public class ControladorABMCliente implements Initializable{
 	 @FXML
 	    private void editarCliente(ActionEvent event) throws Exception 
 	    {
+		 
+		 	 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
+				validador.mostrarMensaje("Debes seleccionar un cliente de la lista para editar");
+				return;
+			 }
 		     try { 
 		    	Stage primaryStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCliente.fxml");
@@ -173,7 +180,11 @@ public class ControladorABMCliente implements Initializable{
 	
 	
 	 @FXML
-	 private void deshabilitarCliente(){	
+	 private void deshabilitarCliente(){
+		 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
+			validador.mostrarMensaje("Debes seleccionar un cliente de la lista para deshabilitar");
+			return;
+		 }
 		 ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 		 clienteSeleccionado.setEstado(false);
 		 
@@ -183,7 +194,11 @@ public class ControladorABMCliente implements Initializable{
 	 
 	 
 	 @FXML
-	 private void habilitarCliente(){	
+	 private void habilitarCliente(){
+		 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
+			validador.mostrarMensaje("Debes seleccionar un cliente de la lista para habilitar");
+			return;
+		 }
 		 ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 		 clienteSeleccionado.setEstado(true);
 		 this.cliente.modificarCliente(clienteSeleccionado);

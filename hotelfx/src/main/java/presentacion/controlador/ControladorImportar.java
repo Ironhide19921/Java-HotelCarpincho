@@ -4,17 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import dto.CategoriaCuartoDTO;
 import dto.ClienteDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +37,6 @@ public class ControladorImportar implements Initializable {
 	@FXML private Button btnRefrescar;
 	@FXML private Button btnInsertar;
 	@FXML private Button btnMail;
-	@FXML ListView lstview;
 	@FXML private TableView<ClienteDTO> tablaClientesImportar;
 	@FXML private TableColumn idCliente;
 	@FXML private TableColumn Nombre;
@@ -201,7 +195,7 @@ public class ControladorImportar implements Initializable {
 //		fc.addChoosableFileFilter(new FileNameExtensionFilter("*.csv", "csv"));
 		File selectedFile = fc.showOpenDialog(null);
 		if(selectedFile != null) {
-			lstview.getItems().add(selectedFile.getAbsolutePath());
+//			lstview.getItems().add(selectedFile.getAbsolutePath());
 			try {
 				Scanner scanner = new Scanner(selectedFile);
 				//Salteo 1er fila con nombres de columnas
@@ -226,7 +220,6 @@ public class ControladorImportar implements Initializable {
 					
 					clientesAcargar.add(clienteParaTabla);
 
-					lstview.getItems().add(data);
 				}
 				crearTabla(clientesAcargar);
 
