@@ -21,5 +21,7 @@ public interface DAOAbstractFactory {
 	public SalonDAO createSalonDAO();
 	
 	public ConfiguracionDAO createConfiguracionDAO();
+	
+	public ErrorImportarDAO createErrorImportarDAO();
 
 }

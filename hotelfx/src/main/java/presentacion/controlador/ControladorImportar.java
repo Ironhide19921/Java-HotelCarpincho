@@ -3,14 +3,18 @@ package presentacion.controlador;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.Scanner;import javax.annotation.processing.FilerException;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import dto.ClienteDTO;
+import dto.ErrorImportarDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,7 +29,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import modelo.Cliente;
+import modelo.ErrorImportar;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import persistencia.dao.mysql.ErrorImportarDAOSQL;
+
+import java.sql.Date;
 
 public class ControladorImportar implements Initializable {
 
@@ -49,7 +58,9 @@ public class ControladorImportar implements Initializable {
 	@FXML private TableColumn FechaNacimiento;
 	private Cliente cliente;
 	private int cantidadNuevosClientes;
+	private ArrayList<String> columnas;
 	@FXML private Mail mail;
+	@FXML private ErrorImportar errorImportar;
 	@FXML private ObservableList<ClienteDTO> activeSession;
 	@FXML private ObservableList<ClienteDTO> clientesAcargar;
 
@@ -62,19 +73,30 @@ public class ControladorImportar implements Initializable {
 		clientesAcargar = FXCollections.observableArrayList();
 		cantidadNuevosClientes = 0;
 		mail = new Mail();
-//		manejoMail();
+		errorImportar = new ErrorImportar(new DAOSQLFactory());
+		//		manejoMail();
 		cargarColumnas();
 		refrescarTabla();
+		columnas = new ArrayList<String>();
+		columnas.add("idCliente");
+		columnas.add("Nombre");
+		columnas.add("Apellido");
+		columnas.add("TipoDocumento");
+		columnas.add("Documento");
+		columnas.add("Email");
+		columnas.add("Telefono");
+		columnas.add("Estado");
+		columnas.add("FechaNacimiento");
 	}
-	
+
 	@FXML
 	private void manejoMail() {
-//		this.mail= new Mail();
-//		this.mail.setearPropiedades();
+		//		this.mail= new Mail();
+		//		this.mail.setearPropiedades();
 		this.mail.enviarMsj();
 	}
-	
-	
+
+
 	private void cargarColumnas() {
 		Nombre.setCellValueFactory(new PropertyValueFactory("nombre"));		
 		Apellido.setCellValueFactory(new PropertyValueFactory("apellido"));
@@ -144,7 +166,7 @@ public class ControladorImportar implements Initializable {
 		tablaClientesImportar.setEditable(true);
 
 	}
-	
+
 	@FXML
 	private void insertarClientesNuevos() {
 		for(ClienteDTO c: clientesAcargar) {
@@ -189,20 +211,41 @@ public class ControladorImportar implements Initializable {
 		FileChooser fc = new FileChooser();
 		fc.getExtensionFilters().addAll(
 				new ExtensionFilter("Archivos CSV", "*.csv"));
-//		ExtensionFilter filter = new ExtensionFilter("*.csv", "csv");
-//		fc.setSelectedExtensionFilter(filter);
-//		fc.setFileFilter(filter);
-//		fc.addChoosableFileFilter(new FileNameExtensionFilter("*.csv", "csv"));
+		//		ExtensionFilter filter = new ExtensionFilter("*.csv", "csv");
+		//		fc.setSelectedExtensionFilter(filter);
+		//		fc.setFileFilter(filter);
+		//		fc.addChoosableFileFilter(new FileNameExtensionFilter("*.csv", "csv"));
+		boolean tieneErrores = false;
 		File selectedFile = fc.showOpenDialog(null);
 		if(selectedFile != null) {
-//			lstview.getItems().add(selectedFile.getAbsolutePath());
+			//			lstview.getItems().add(selectedFile.getAbsolutePath());
 			try {
 				Scanner scanner = new Scanner(selectedFile);
+				String filaColumnas = scanner.nextLine();
+				String[] nombresColumnas = filaColumnas.split(",");
+				for(int f=0; f<nombresColumnas.length; f++) {
+					if(!nombresColumnas[f].equals(columnas.get(f))) {				
+						tieneErrores = true;
+						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+						ErrorImportarDTO error = new ErrorImportarDTO(0, timestamp, 1, "Falta columna: "+columnas.get(f));
+						errorImportar.agregarError(error);
+					}
+				}
+				
+				int fila = 0;
 				//Salteo 1er fila con nombres de columnas
-				scanner.nextLine(); 
+//				scanner.nextLine(); 
 				while(scanner.hasNext()) {
 					String data = scanner.nextLine();
-					String[] valores = data.split(",");					
+					String[] valores = data.split(",");
+					for(int i=0; i<valores.length; i++){
+						if(valores[i].equals("")) {
+							tieneErrores = true;
+							Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+							ErrorImportarDTO error = new ErrorImportarDTO(0, timestamp, 1, "Columna: "+ columnas.get(i) +", fila número: " +fila+" , se encuentra vacía.");
+							errorImportar.agregarError(error);
+						}
+					}
 					Boolean estado = true;
 					//					System.out.println(valores[7].toString().replace("\"", "").equals("1"));
 					if(!valores[7].toString().replace("\"", "").equals("1"))						
@@ -214,20 +257,27 @@ public class ControladorImportar implements Initializable {
 					System.out.println(gettedDatePickerDate);
 
 					ClienteDTO clienteParaTabla = new ClienteDTO(0, valores[1], valores[2], valores[3], valores[4], valores[5], valores[6], estado, gettedDatePickerDate);
-					
+
 					if(consultarRepetidos(clienteParaTabla)!=null)
 						clienteParaTabla.setIdCliente(consultarRepetidos(clienteParaTabla).getIdCliente());
-					
+
 					clientesAcargar.add(clienteParaTabla);
+					fila ++;
 
 				}
 				crearTabla(clientesAcargar);
+				if(tieneErrores) {
+					btnInsertar.setDisable(true);
+					Validador.mostrarMensaje("Archivo con errores, por favor verificar el reporte correspondiente.");
+				}					
 
 				scanner.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+				//Date hoy = new Date(System.currentTimeMillis());
+
+			} 
 
 		} else {
 			System.out.println("file is not valid");

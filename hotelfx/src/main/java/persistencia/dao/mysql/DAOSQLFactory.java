@@ -5,6 +5,7 @@ import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.ConfiguracionDAO;
 import persistencia.dao.interfaz.CuartoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
+import persistencia.dao.interfaz.ErrorImportarDAO;
 import persistencia.dao.interfaz.PerfilDAO;
 import persistencia.dao.interfaz.PermisoPerfilDAO;
 import persistencia.dao.interfaz.ProductoDAO;
@@ -47,6 +48,10 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 
 	public ConfiguracionDAO createConfiguracionDAO() {
 		return new ConfiguracionDAOSQL();
+	}
+
+	public ErrorImportarDAO createErrorImportarDAO() {
+		return new ErrorImportarDAOSQL();
 	}
 
 }
