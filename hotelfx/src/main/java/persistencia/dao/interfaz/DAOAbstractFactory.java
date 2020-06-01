@@ -16,5 +16,14 @@ public interface DAOAbstractFactory {
 	
 	public CuartoDAO createCuartoDAO();
 	
+	public ProductoDAO createProductoDAO();
+
 	public SalonDAO createSalonDAO();
+	
+	public ConfiguracionDAO createConfiguracionDAO();
+	
+	public ErrorImportarDAO createErrorImportarDAO();
+
+	public EmailDAO createEmailDAO();
+
 }
