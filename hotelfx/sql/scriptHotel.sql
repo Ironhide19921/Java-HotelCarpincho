@@ -49,10 +49,6 @@ CREATE TABLE `permiso`
   PRIMARY KEY (`idPermiso`)
 );
 
-INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Usuarios');
-INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Clientes');
-INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Cuartos');
-
 CREATE TABLE `permisoPerfil`
 (
   `idPermisoPerfil` int(11) NOT NULL AUTO_INCREMENT,
@@ -122,13 +118,13 @@ CREATE TABLE `reservaCuarto`
   `idCuarto` int(11) NOT NULL,
   `Senia` decimal(10,3) NOT NULL,
   `MontoReservaCuarto` decimal(10,3) NOT NULL,
-  `EmailFacturacion` varchar(60) NOT NULL,
-  `FechaReserva` timestamp NOT NULL,
-  `FechaCheckIn` timestamp NOT NULL,
-  `FechaIngreso` timestamp NOT NULL,
-  `FechaOut` timestamp NOT NULL,
-  `FechaEgreso` timestamp NOT NULL,
-  `FormaPago` varchar(20) not null,
+  `EmailFacturacion` varchar(50) NOT NULL,
+  `FechaReserva` Timestamp NOT NULL,
+  `FechaCheckIn` Timestamp NOT NULL,
+  `FechaIngreso` Timestamp NOT NULL,
+  `FechaOut` Timestamp NOT NULL,
+  `FechaEgreso` Timestamp NOT NULL,
+  `FormaPago` varchar(20) NOT NULL,
   `TipoTarjeta` varchar(25),
   `NumeroTarjeta` varchar(25),
   `FechaVencTarjeta` varchar(15),

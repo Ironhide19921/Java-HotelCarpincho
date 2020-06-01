@@ -1,5 +1,6 @@
 package presentacion.vista;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -15,7 +16,8 @@ public Pane getPage(String fileName) {
 		System.out.println("presentacion/vista/" + fileName +".fxml");
 		URL fileUrl = getClass().getClassLoader().getResource("presentacion/vista/" + fileName +".fxml");
 		System.out.println(fileUrl.getFile()+" nombre file URL");
-		
+
+	  
 		new FXMLLoader();
 		view = FXMLLoader.load(fileUrl);
 	

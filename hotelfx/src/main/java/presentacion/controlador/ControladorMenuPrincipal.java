@@ -23,42 +23,35 @@ import presentacion.vista.FxmlLoader;
 public class ControladorMenuPrincipal implements Initializable{
 
 	@FXML
-	private Button btnAbrirABMCliente;
-	@FXML
-	private Button btnAbrirABMReservas;
-	@FXML
-	private Button btnAbrirABMUsuarios;
-	@FXML
-	private Button btnAbrirABMPerfiles;
-	@FXML
-	private Button btnAbrirABMCuartos;
-	@FXML
-	private Button btnAbrirABMCategoriasCuartos;
-	@FXML
-	private Button btnAbrirImportar;
-	@FXML
 	private Button btnAbrirABMProductos;
-	@FXML
-	private Button btnAbrirABMSalones;
+
 	@FXML
 	private Button btnAbrirConfig;
 	
-	Controller controler;
 
-	@FXML
-	private BorderPane mainPane;
 
+	@FXML private Button btnAbrirABMCliente;
+	@FXML private Button btnAbrirABMReservas;
+	@FXML private Button btnAbrirABMUsuarios;
+	@FXML private Button btnAbrirABMPerfiles;
+	@FXML private Button btnAbrirABMCuartos;
+	@FXML private Button btnAbrirABMCategoriasCuartos;
+	@FXML private Button btnAbrirImportar;
+	@FXML private Button btnAbrirReservaEvento;
+	@FXML private Button btnAbrirCategoriaEvento;
 	@FXML
-	private Pane pane;
+	private Button btnAbrirABMSalones;
+	@FXML private BorderPane mainPane;
+	@FXML private Pane center;
+	@FXML private Pane pane;
+
 
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		this.controler = new Controller();
+
 		
 		EmailDTO.enviarEmailsEncolados();
-		
 	}
 
 
@@ -151,6 +144,7 @@ public class ControladorMenuPrincipal implements Initializable{
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
 			 Pane view	= fxmlLoader.getPage("VentanaABMSalon");
+			 
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {
@@ -170,4 +164,15 @@ public class ControladorMenuPrincipal implements Initializable{
 		}
 	}
 
+	@FXML
+	public void verReservaCuarto() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMReservaCuarto");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

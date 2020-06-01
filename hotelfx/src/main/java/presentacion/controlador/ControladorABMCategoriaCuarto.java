@@ -12,6 +12,7 @@ import dto.CategoriaCuartoDTO;
 import dto.ClienteDTO;
 import dto.CuartoDTO;
 import dto.UsuarioDTO;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,7 +67,9 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCategoriaCuarto.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
+		
 				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarCategoriaCuarto scene2Controller = fxmlLoader.getController();
 				scene2Controller.setVisibilityBtnAgregarCategoriaCuarto(true);
 				scene2Controller.setDisableBtnAgregarCategoriaCuarto(false);
@@ -95,11 +98,14 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCategoriaCuarto.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
+			
 				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarCategoriaCuarto scene2Controller = fxmlLoader.getController();
 				scene2Controller.setVisibilityBtnAgregarCategoriaCuarto(false);
 				scene2Controller.setDisableBtnAgregarCategoriaCuarto(true);
 				scene2Controller.setVisibilityBtnModificarCategoriaCuarto(true);
+
 				scene2Controller.setDisableBtnModificarCategoriaCuarto(false);
 				scene2Controller.setearCamposPantalla(tablaCategoriaCuarto.getSelectionModel().getSelectedItem());
 				primaryStage.setTitle("Modificar categoria de cuarto");

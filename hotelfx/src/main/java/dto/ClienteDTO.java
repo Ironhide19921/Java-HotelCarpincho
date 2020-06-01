@@ -102,5 +102,8 @@ public class ClienteDTO {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
+	
+	
+	
 
 }

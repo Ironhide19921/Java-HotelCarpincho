@@ -1,5 +1,6 @@
 package dto;
 
+//relacion
 public class PermisoPerfilDTO {
 	
 	private int idPermisoPerfil;
@@ -41,4 +42,9 @@ public class PermisoPerfilDTO {
 	}
 
 
-}
+
+	}
+
+
+
+
