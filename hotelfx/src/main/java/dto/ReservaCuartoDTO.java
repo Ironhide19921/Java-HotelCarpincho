@@ -2,16 +2,18 @@ package dto;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class ReservaCuartoDTO {
 
+	public enum estadosReserva {Pendiente,Cancelado,En_curso,Finalizado};
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
 	private String emailFacturacion, numTarjeta, cantidadDias,
-	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios, estadoReserva;
-	
-	private Date fechaVencTarjeta,fechaReserva,fechaCheckIn,fechaOut,
+	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
+	private estadosReserva estadoReserva;
+	private Timestamp fechaVencTarjeta,fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
 
 	private boolean estado;
@@ -20,9 +22,9 @@ public class ReservaCuartoDTO {
 	public ReservaCuartoDTO(int idCliente, int idCuarto, int idUsuario, BigDecimal senia,
 			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta, 
 			String formaDePago,	String tipoTarjeta,String codSeguridadTarjeta,
-			Date fechaVencTarjeta,Date fechaReserva,Date fechaCheckIn, Date fechaOut,
-			Date fechaIngreso, Date fechaEgreso , 
-		 String estadoReserva, String comentarios, boolean estado) {
+			Timestamp fechaVencTarjeta,Timestamp fechaReserva,Timestamp fechaCheckIn, Timestamp fechaOut,
+			Timestamp fechaIngreso, Timestamp fechaEgreso , 
+			estadosReserva estadoReserva, String comentarios, boolean estado) {
 		
 		this.idCliente = idCliente;
 		this.idCuarto = idCuarto;
@@ -39,7 +41,7 @@ public class ReservaCuartoDTO {
 		this.codSeguridadTarjeta = codSeguridadTarjeta;
 		this.formaDePago = formaDePago;
 		this.tipoTarjeta = tipoTarjeta;
-		this.estadoReserva = estadoReserva;
+		this.estadoReserva = estadosReserva.valueOf(estadoReserva.name());
 		this.comentarios = comentarios;
 		this.estado = estado;
 	}
@@ -124,43 +126,43 @@ public class ReservaCuartoDTO {
 		this.comentarios = comentarios;
 	}
 
-	public Date getFechaReserva() {
+	public Timestamp getFechaReserva() {
 		return fechaReserva;
 	}
 
-	public void setFechaReserva(Date fechaFacturacion) {
+	public void setFechaReserva(Timestamp fechaFacturacion) {
 		this.fechaReserva = fechaFacturacion;
 	}
 
-	public Date getFechaCheckIn() {
+	public Timestamp getFechaCheckIn() {
 		return fechaCheckIn;
 	}
 
-	public void setFechaCheckIn(Date fechaCheckIn) {
+	public void setFechaCheckIn(Timestamp fechaCheckIn) {
 		this.fechaCheckIn = fechaCheckIn;
 	}
 
-	public Date getFechaOut() {
+	public Timestamp getFechaOut() {
 		return fechaOut;
 	}
 
-	public void setFechaOut(Date fechaOut) {
+	public void setFechaOut(Timestamp fechaOut) {
 		this.fechaOut = fechaOut;
 	}
 
-	public Date getFechaIngreso() {
+	public Timestamp getFechaIngreso() {
 		return fechaIngreso;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
+	public void setFechaIngreso(Timestamp fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public Date getFechaEgreso() {
+	public Timestamp getFechaEgreso() {
 		return fechaEgreso;
 	}
 
-	public void setFechaEgreso(Date fechaEgreso) {
+	public void setFechaEgreso(Timestamp fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
 
@@ -181,18 +183,18 @@ public class ReservaCuartoDTO {
 	}
 
 	public String getEstadoReserva() {
-		return estadoReserva;
+		return estadoReserva.name();
 	}
 
 	public void setEstado(String estadoReserva) {
-		this.estadoReserva = estadoReserva;
+		this.estadoReserva.valueOf(estadoReserva);
 	}
 
-	public Date getFechaVencTarjeta() {
+	public Timestamp getFechaVencTarjeta() {
 		return fechaVencTarjeta;
 	}
 
-	public void setFechaVencTarjeta(Date fechaVencTarjeta) {
+	public void setFechaVencTarjeta(Timestamp fechaVencTarjeta) {
 		this.fechaVencTarjeta = fechaVencTarjeta;
 	}
 
@@ -208,10 +210,8 @@ public class ReservaCuartoDTO {
 		this.estado = estado;
 	}
 
-
 	public boolean getEstado() {
 		return this.estado;
 	}
-
 
 }

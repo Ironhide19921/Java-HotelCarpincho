@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarReservaCuarto">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="900.0">
+         <top>
+            <Pane prefHeight="100.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField layoutX="421.0" layoutY="38.0" prefHeight="25.0" prefWidth="170.0" />
+                  <Label layoutX="369.0" layoutY="42.0" prefHeight="17.0" prefWidth="66.0" text="Usuario" />
+                  <DatePicker layoutX="171.0" layoutY="38.0" />
+                  <Label layoutX="38.0" layoutY="42.0" prefHeight="17.0" prefWidth="109.0" text="Fecha de Reserva" />
+                  <Label layoutX="634.0" layoutY="42.0" prefHeight="17.0" prefWidth="108.0" text="Estado de reserva" />
+                  <ComboBox layoutX="742.0" layoutY="38.0" prefHeight="25.0" prefWidth="117.0" />
+               </children>
+            </Pane>
+         </top>
+         <left>
+            <Pane prefHeight="600.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Separator layoutX="343.0" orientation="VERTICAL" prefHeight="419.0" prefWidth="10.0" />
+                  <TextField layoutX="443.0" layoutY="133.0" prefHeight="25.0" prefWidth="222.0" />
+                  <Label layoutX="22.0" layoutY="54.0" prefHeight="17.0" prefWidth="109.0" text="Fecha de Ingreso" />
+                  <Label layoutX="24.0" layoutY="94.0" prefHeight="17.0" prefWidth="100.0" text="Fecha de egreso" />
+                  <Label layoutX="24.0" layoutY="137.0" prefHeight="17.0" prefWidth="89.0" text="Fecha CheckIn" />
+                  <Label layoutX="368.0" layoutY="136.0" prefHeight="17.0" prefWidth="44.0" text="Email" />
+                  <Text layoutX="35.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese los datos de la reserva" wrappingWidth="177.13671875" />
+                  <TextField layoutX="443.0" layoutY="50.0" prefHeight="25.0" prefWidth="170.0" />
+                  <TextField layoutX="443.0" layoutY="90.0" prefHeight="25.0" prefWidth="170.0" />
+                  <Button layoutX="627.0" layoutY="50.0" mnemonicParsing="false" text="Agregar" />
+                  <Button layoutX="627.0" layoutY="90.0" mnemonicParsing="false" text="Agregar" />
+                  <Label layoutX="365.0" layoutY="94.0" prefHeight="17.0" prefWidth="51.0" text="Cliente" />
+                  <Label layoutX="365.0" layoutY="55.0" prefHeight="17.0" prefWidth="51.0" text="Cuarto" />
+                  <Text layoutX="364.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos de pago" wrappingWidth="95.13671875" />
+                  <TextArea layoutX="152.0" layoutY="219.0" prefHeight="82.0" prefWidth="173.0" />
+                  <Label layoutX="24.0" layoutY="225.0" prefHeight="17.0" prefWidth="101.0" text="Observaciones" />
+                  <DatePicker layoutX="152.0" layoutY="51.0" />
+                  <DatePicker layoutX="152.0" layoutY="90.0" />
+                  <DatePicker layoutX="152.0" layoutY="133.0" />
+                  <DatePicker layoutX="152.0" layoutY="175.0" />
+                  <Label layoutX="24.0" layoutY="179.0" prefHeight="17.0" prefWidth="89.0" text="Fecha CheckOut" />
+                  <TextField layoutX="487.0" layoutY="212.0" prefHeight="25.0" prefWidth="179.0" />
+                  <TextField layoutX="488.0" layoutY="292.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Label layoutX="365.0" layoutY="216.0" prefHeight="17.0" prefWidth="66.0" text="Seña" />
+                  <Label layoutX="365.0" layoutY="255.0" prefHeight="17.0" prefWidth="92.0" text="Forma de pago" />
+                  <Label layoutX="365.0" layoutY="296.0" prefHeight="17.0" prefWidth="83.0" text="Tipo de tarjeta" />
+                  <ComboBox layoutX="486.0" layoutY="251.0" prefHeight="25.0" prefWidth="180.0" />
+                  <TextField layoutX="487.0" layoutY="328.0" prefHeight="25.0" prefWidth="182.0" />
+                  <Label layoutX="365.0" layoutY="332.0" prefHeight="17.0" prefWidth="83.0" text="Nº tarjeta" />
+                  <Label layoutX="365.0" layoutY="369.0" prefHeight="17.0" prefWidth="83.0" text="Fecha Venc" />
+                  <TextField layoutX="486.0" layoutY="365.0" prefHeight="25.0" prefWidth="63.0" />
+                  <Label layoutX="552.0" layoutY="369.0" prefHeight="17.0" prefWidth="50.0" text="Cod Seg" />
+                  <TextField layoutX="606.0" layoutY="365.0" prefHeight="25.0" prefWidth="63.0" />
+               </children>
+            </Pane>
+         </center>
+         <right>
+            <Pane prefHeight="600.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="81.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="716.0" layoutY="35.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
+                  <Button layoutX="555.0" layoutY="35.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Cancelar" />
+               </children>
+            </Pane>
+         </bottom></BorderPane>
+   </children>
+</AnchorPane>

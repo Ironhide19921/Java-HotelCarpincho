@@ -17,15 +17,15 @@
          <center>
             <Pane prefHeight="400.0" prefWidth="526.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField id="txtNombre" fx:id="txtNombre" layoutX="126.0" layoutY="38.0" prefHeight="25.0" prefWidth="330.0" />
+                  <TextField id="txtNombre" fx:id="txtNombre" layoutX="151.0" layoutY="37.0" prefHeight="25.0" prefWidth="330.0" />
                   <Text layoutX="31.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo perfil:" />
                   <Text layoutX="31.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar perfil:" />
-                  <ComboBox fx:id="comboPerfiles" layoutX="126.0" layoutY="116.0" onAction="#refrescarPermisos" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="25.0" prefWidth="330.0" promptText="Selecciona perfil" />
-                  <CheckBox fx:id="checkABMUsuarios" layoutX="37.0" layoutY="242.0" mnemonicParsing="false" text="ABM Usuarios" />
-                  <CheckBox fx:id="checkABMClientes" layoutX="39.0" layoutY="270.0" mnemonicParsing="false" text="ABM Clientes" />
-                  <CheckBox fx:id="checkABMCuartos" layoutX="40.0" layoutY="304.0" mnemonicParsing="false" text="ABM Cuartos" />
-                  <Button fx:id="btnAgregarTodos" layoutX="379.0" layoutY="201.0" mnemonicParsing="false" onAction="#agregarTodos" text="Agregar todos" />
-                  <Button fx:id="btnQuitarTodos" layoutX="379.0" layoutY="240.0" mnemonicParsing="false" onAction="#quitarTodos" prefHeight="30.0" prefWidth="100.0" text="Quitar todos" />
+                  <ComboBox fx:id="comboPerfiles" layoutX="151.0" layoutY="113.0" onAction="#refrescarPermisos" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="30.0" prefWidth="330.0" promptText="Selecciona perfil" />
+                  <CheckBox fx:id="checkABMUsuarios" layoutX="45.0" layoutY="227.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="ABM Usuarios" />
+                  <CheckBox fx:id="checkABMClientes" layoutX="45.0" layoutY="257.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="ABM Clientes" />
+                  <CheckBox fx:id="checkABMCuartos" layoutX="45.0" layoutY="283.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="ABM Cuartos" />
+                  <Button fx:id="btnAgregarTodos" layoutX="326.0" layoutY="199.0" mnemonicParsing="false" onAction="#agregarTodos" prefHeight="30.0" prefWidth="160.0" text="Agregar todos" />
+                  <Button fx:id="btnQuitarTodos" layoutX="326.0" layoutY="240.0" mnemonicParsing="false" onAction="#quitarTodos" prefHeight="30.0" prefWidth="160.0" text="Quitar todos" />
                   <Line endX="343.0" layoutX="128.0" layoutY="181.0" startX="-100.0" />
                   <Label layoutX="36.0" layoutY="196.0" prefHeight="17.0" prefWidth="75.0" text="Permisos" />
                </children>

@@ -7,18 +7,23 @@ import java.util.ResourceBundle;
 import dto.ReservaCuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import modelo.ReservaCuarto;
 import persistencia.dao.mysql.DAOSQLFactory;
 
-public class ControladorReservaCuarto implements Initializable
+public class ControladorABMReservaCuarto implements Initializable
 {
 
 	@FXML private Button btnAgregarReserva;
@@ -28,15 +33,15 @@ public class ControladorReservaCuarto implements Initializable
 	@FXML private TextField ingresarCliente;
 	@FXML private TableView<ReservaCuartoDTO> tablaReservas;
 	@FXML private ObservableList<ReservaCuartoDTO> activeSession;
-	@FXML private VBox fondoTabla;
-	@FXML private TableColumn idReserva;
+	//@FXML private VBox fondoTabla;
+//	@FXML private TableColumn idReserva;
 	@FXML private TableColumn cliente;
 	@FXML private TableColumn cuarto;
 	@FXML private TableColumn usuario;
-	@FXML private TableColumn senia;
-	@FXML private TableColumn estado;
-	@FXML private TableColumn monto;
-	@FXML private TableColumn formaPago;
+//	@FXML private TableColumn senia;
+//	@FXML private TableColumn estado;
+//	@FXML private TableColumn monto;
+	//@FXML private TableColumn formaPago;
 	@FXML private TableColumn fechaReserva;
 	@FXML private TableColumn fechaCheckIn;
 	@FXML private TableColumn fechaOut;
@@ -47,11 +52,11 @@ public class ControladorReservaCuarto implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		this.reserva = new ReservaCuarto(new DAOSQLFactory());
+		/*this.reserva = new ReservaCuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaReservas.getItems().clear();
-		cargarColumnas();
-		refrescarTabla();
+		//cargarColumnas();
+		refrescarTabla();*/
 	}
 
 	private void refrescarTabla() 
@@ -62,7 +67,7 @@ public class ControladorReservaCuarto implements Initializable
 	private void crearTabla(ObservableList<ReservaCuartoDTO> allReservasCuartos) 
 	{
 		tablaReservas.setItems(allReservasCuartos);
-		tablaReservas.setEditable(true);
+	//	tablaReservas.setEditable(true);
 	}
 
 	private ObservableList<ReservaCuartoDTO> getAllReservasCuartos() {
@@ -70,21 +75,42 @@ public class ControladorReservaCuarto implements Initializable
 		activeSession.clear();
 		 for(ReservaCuartoDTO r : reservas) {
 		 	activeSession.add(r);
-		 	}
+		 }
 		 return activeSession;
 	}
 
 	private void cargarColumnas() 
 	{
-		cliente.setCellValueFactory(new PropertyValueFactory(""));		
-		cuarto.setCellValueFactory(new PropertyValueFactory("apellido"));	
-		usuario.setCellValueFactory(new PropertyValueFactory("email"));
-		fechaReserva.setCellValueFactory(new PropertyValueFactory("telefono"));
-		fechaCheckIn.setCellValueFactory(new PropertyValueFactory("estado"));
-		fechaOut.setCellValueFactory(new PropertyValueFactory("idCliente"));	
-		fechaIngreso.setCellValueFactory(new PropertyValueFactory("numeroDocumento"));
+		/*cliente.setCellValueFactory(new PropertyValueFactory("idCliente"));		
+		cuarto.setCellValueFactory(new PropertyValueFactory("idCuarto"));	
+		usuario.setCellValueFactory(new PropertyValueFactory("idUsuario"));
+		fechaReserva.setCellValueFactory(new PropertyValueFactory("FechaReserva"));
+		fechaCheckIn.setCellValueFactory(new PropertyValueFactory("FechaCheckIn"));
+		fechaOut.setCellValueFactory(new PropertyValueFactory("FechaOut"));	
+		fechaIngreso.setCellValueFactory(new PropertyValueFactory("FechaIngreso"));
+		fechaEgreso.setCellValueFactory(new PropertyValueFactory("FechaEgreso"));
+	}*/
+		
 	}
 	
+	@FXML
+	public void addReservaCuarto() throws Exception  {
+		 try { 
+			    Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load();
+				primaryStage.setScene(new Scene(root));   
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+				primaryStage.setTitle("Agregar reserva de cuarto");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	}
 	
 	
 }

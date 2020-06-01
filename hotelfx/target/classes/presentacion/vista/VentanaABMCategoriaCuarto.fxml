@@ -13,7 +13,7 @@
          <top>
             <Pane prefHeight="70.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnRefrescar" layoutX="640.0" layoutY="23.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
+                  <Button fx:id="btnRefrescar" layoutX="604.0" layoutY="20.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" />
                </children>
             </Pane>
          </top>
@@ -39,9 +39,9 @@
          <bottom>
             <Pane prefHeight="70.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregar" layoutX="195.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCategoria" prefHeight="25.0" prefWidth="119.0" text="Agregar Categoria" />
-                  <Button fx:id="btnEditar" layoutX="324.0" layoutY="14.0" mnemonicParsing="false" onAction="#EditCategoria" prefHeight="25.0" prefWidth="105.0" text="Editar Categoria" />
-                  <Button fx:id="btnBorrar" layoutX="601.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarCategoria" text="Borrar Categoria" />
+                  <Button fx:id="btnAgregar" layoutX="195.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCategoria" prefHeight="30.0" prefWidth="120.0" text="Agregar Categoria" />
+                  <Button fx:id="btnEditar" layoutX="324.0" layoutY="14.0" mnemonicParsing="false" onAction="#EditCategoria" prefHeight="30.0" prefWidth="120.0" text="Editar Categoria" />
+                  <Button fx:id="btnBorrar" layoutX="584.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarCategoria" prefHeight="30.0" prefWidth="120.0" text="Borrar Categoria" />
                </children>
             </Pane>
          </bottom>

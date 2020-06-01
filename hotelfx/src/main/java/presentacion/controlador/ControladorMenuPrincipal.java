@@ -134,7 +134,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void verReservaCuarto() {
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
-			 Pane view	= fxmlLoader.getPage("VentanaReservaCuarto");
+			 Pane view	= fxmlLoader.getPage("VentanaABMReservaCuarto");
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {

@@ -16,8 +16,8 @@
          <top>
             <Pane prefHeight="50.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnRefrescar" layoutX="735.0" layoutY="16.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
-                  <Text layoutX="200.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de salones">
+                  <Button fx:id="btnRefrescar" layoutX="704.0" layoutY="10.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" />
+                  <Text layoutX="99.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de salones">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -28,10 +28,10 @@
          <bottom>
             <Pane prefHeight="122.0" prefWidth="904.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregar" layoutX="715.0" layoutY="19.0" mnemonicParsing="false" onAction="#addSalon" text="Agregar salon" />
-                  <Button fx:id="btnDeshabilitarCliente" layoutX="174.0" layoutY="20.0" mnemonicParsing="false" onAction="#deshabilitarSalon" text="Deshabilitar" />
-                  <Button fx:id="btnHabilitaCliente" layoutX="99.0" layoutY="20.0" mnemonicParsing="false" onAction="#habilitarSalon" text="Habilitar" />
-                  <Button fx:id="btnEditar" layoutX="625.0" layoutY="20.0" mnemonicParsing="false" onAction="#editSalon" text="Editar salon" />
+                  <Button fx:id="btnAgregar" layoutX="706.0" layoutY="17.0" mnemonicParsing="false" onAction="#addSalon" prefHeight="30.0" prefWidth="100.0" text="Agregar salon" />
+                  <Button fx:id="btnDeshabilitarCliente" layoutX="274.0" layoutY="17.0" mnemonicParsing="false" onAction="#deshabilitarSalon" prefHeight="30.0" prefWidth="160.0" text="Deshabilitar" />
+                  <Button fx:id="btnHabilitaCliente" layoutX="105.0" layoutY="17.0" mnemonicParsing="false" onAction="#habilitarSalon" prefHeight="30.0" prefWidth="160.0" text="Habilitar" />
+                  <Button fx:id="btnEditar" layoutX="594.0" layoutY="17.0" mnemonicParsing="false" onAction="#editSalon" prefHeight="30.0" prefWidth="100.0" text="Editar salon" />
                </children>
             </Pane>
          </bottom>
