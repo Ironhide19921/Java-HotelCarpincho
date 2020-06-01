@@ -245,6 +245,14 @@ CREATE TABLE `configuracion`
 insert into configuracion(username, password, provSMTP)
 values ("carpinchocorp@gmail.com", "covid-19", "smtp.gmail.com");
 
+CREATE TABLE `errorImportar`
+(
+  `idError` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
+  `usuario` int(11) NOT NULL,
+  `detalle` varchar(500) NOT NULL,
+  PRIMARY KEY (`idError`)
+);
 
 --
 -- Índices para tablas volcadas

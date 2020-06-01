@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-/dto/
-/main/
-/modelo/
-/persistencia/
 /presentacion/
-=======
-/presentacion/
-/persistencia/
 /dto/
 /modelo/
->>>>>>> dfffc7383743de6894fed0ff6b005dae7b44860f
+/persistencia/
