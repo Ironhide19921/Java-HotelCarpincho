@@ -116,19 +116,19 @@ CREATE TABLE `reservaCuarto`
   `idCliente` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `idCuarto` int(11) NOT NULL,
-  `Senia` double(10,3) NOT NULL,
-  `MontoReservaCuarto` double(10,3) NOT NULL,
+  `Senia` decimal(10,3) NOT NULL,
+  `MontoReservaCuarto` decimal(10,3) NOT NULL,
   `EmailFacturacion` varchar(50) NOT NULL,
-  `FechaReserva` dateTime NOT NULL,
-  `FechaCheckIn` dateTime NOT NULL,
-  `FechaIngreso` dateTime NOT NULL,
-  `FechaOut` dateTime NOT NULL,
-  `FechaEgreso` dateTime NOT NULL,
+  `FechaReserva` Timestamp NOT NULL,
+  `FechaCheckIn` Timestamp NOT NULL,
+  `FechaIngreso` Timestamp NOT NULL,
+  `FechaOut` Timestamp NOT NULL,
+  `FechaEgreso` Timestamp NOT NULL,
   `FormaPago` varchar(20) NOT NULL,
-  `TipoTarjeta` varchar(25) NOT NULL,
-  `NumeroTarjeta` varchar(25) NOT NULL,
-  `FechaVencTarjeta` varchar(15) NOT NULL,
-  `CodSeguridadTarjeta` varchar(10) NOT NULL,
+  `TipoTarjeta` varchar(25),
+  `NumeroTarjeta` varchar(25),
+  `FechaVencTarjeta` varchar(15),
+  `CodSeguridadTarjeta` varchar(10),
   `EstadoReserva` varchar(20) NOT NULL,
   `Comentarios` varchar(200),
   `Estado` boolean not null,
@@ -241,6 +241,14 @@ CREATE TABLE `configuracion`
 insert into configuracion(username, password, provSMTP)
 values ("carpinchocorp@gmail.com", "covid-19", "smtp.gmail.com");
 
+CREATE TABLE `errorImportar`
+(
+  `idError` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
+  `usuario` int(11) NOT NULL,
+  `detalle` varchar(500) NOT NULL,
+  PRIMARY KEY (`idError`)
+);
 
 --
 -- Índices para tablas volcadas

@@ -21,6 +21,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Cliente;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarCliente implements Initializable {
@@ -205,49 +206,7 @@ public class ControladorAgregarCliente implements Initializable {
 		return comboTipoDoc;
 	}
 	
-	
 
-	
-}
-		this.btnModificarCliente.setDisable(value);
-}
-
-	public Button getBtnModificarCliente() {
-			return btnModificarCliente;
-	}
-
-	public void setBtnModificarCliente(Button btnModificarCliente) {
-			this.btnModificarCliente = btnModificarCliente;
-	}
-
-	public TextField getTxtNombre() {
-		return txtNombre;
-	}
-
-	public TextField getTxtApellido() {
-		return txtApellido;
-	}
-
-	public TextField getTxtNumDocumento() {
-		return txtNumDocumento;
-	}
-
-	public TextField getTxtEmail() {
-		return txtEmail;
-	}
-
-	public TextField getTxtTelefono() {
-		return txtTelefono;
-	}
-
-	public DatePicker getTxtFecha() {
-		return txtFecha;
-	}
-
-	public ComboBox<String> getComboTipoDoc() {
-		return comboTipoDoc;
-	}
-	
 	
 
 	
