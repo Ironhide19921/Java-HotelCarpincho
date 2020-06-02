@@ -12,12 +12,14 @@ public class ReservaCuartoDTO {
 	private BigDecimal senia,montoReservaCuarto;
 	private String emailFacturacion, numTarjeta, cantidadDias,
 	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
+	
 	private estadosReserva estadoReserva;
 	private Timestamp fechaVencTarjeta,fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
 
 	private boolean estado;
 
+	
 	
 	public ReservaCuartoDTO(int idCliente, int idCuarto, int idUsuario, BigDecimal senia,
 			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta, 
