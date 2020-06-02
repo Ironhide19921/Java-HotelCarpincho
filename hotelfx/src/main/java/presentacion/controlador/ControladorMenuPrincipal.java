@@ -50,14 +50,16 @@ public class ControladorMenuPrincipal implements Initializable{
 
 	@FXML
 	private Pane pane;
-
-
+	
+	private EmailDTO email;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		this.controler = new Controller();
 		
-		EmailDTO.enviarEmailsEncolados();
+		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
+
+		email.start();
 		
 	}
 
