@@ -4,6 +4,7 @@ import persistencia.dao.interfaz.CategoriaCuartoDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.CuartoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
+import persistencia.dao.interfaz.OrdenPedidoDAO;
 import persistencia.dao.interfaz.PerfilDAO;
 import persistencia.dao.interfaz.PermisoPerfilDAO;
 import persistencia.dao.interfaz.ProductoDAO;
@@ -42,6 +43,10 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 
 	public SalonDAO createSalonDAO() {
 		return new SalonDAOSQL();
+	}
+	
+	public OrdenPedidoDAO createOrdenPedidoDAO() {
+		return new OrdenPedidoDAOSQL();
 	}
 
 }

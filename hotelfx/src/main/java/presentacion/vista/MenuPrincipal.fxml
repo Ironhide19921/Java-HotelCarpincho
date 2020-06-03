@@ -86,6 +86,15 @@
                               </AnchorPane>
                           </content>
                         </TitledPane>
+                        <TitledPane animated="false" text="Orden Pedidos">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnAbrirABMOrdenPedidos" layoutY="1.0" mnemonicParsing="false" onAction="#verABMOrdenPedidos" prefHeight="27.0" prefWidth="148.0" text="ABM Orden Pedidos" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
                     </panes>
                   </Accordion>
                </children>

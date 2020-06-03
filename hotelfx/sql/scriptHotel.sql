@@ -85,8 +85,8 @@ CREATE TABLE `ordenPedido`
   `idCliente` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `Cantidad` int(20) NOT NULL,
-  `PrecioTotal` decimal(20,3) NOT NULL,
-  PRIMARY KEY (`idOrdenPedido`),
+  `PrecioTotal` decimal(10,3) NOT NULL,
+  PRIMARY KEY (`idOrdenPedido`, `idProducto`),
   CONSTRAINT FOREIGN KEY fk_idProducto (idProducto) REFERENCES producto (idProducto),
   CONSTRAINT FOREIGN KEY fk_id_Cliente (idCliente) REFERENCES cliente (idCliente),
   CONSTRAINT FOREIGN KEY fk_idUsuario (idUsuario) REFERENCES usuario (idUsuario)
@@ -111,47 +111,6 @@ CREATE TABLE `cuarto`
   `Estado` boolean NOT NULL,
   PRIMARY KEY (`idCuarto`),
   CONSTRAINT FOREIGN KEY fk_idCategoriaCuarto (idCategoriaCuarto) REFERENCES categoriaCuarto (idCategoriaCuarto)
-);
-
-CREATE TABLE `categoriaEvento`
-(
-  `idCategoriaEvento` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) NOT NULL,
-  `Detalle` varchar(100) NOT NULL,
-  PRIMARY KEY (`idCategoriaEvento`)
-);
-
-CREATE TABLE `salon`
-(
-  `idSalon` int(11) NOT NULL AUTO_INCREMENT,
-  `Capacidad` int(5) NOT NULL,
-  `Senia` double(10,3) NOT NULL,
-  `Monto` double(10,3) NOT NULL,
-  `Estado` boolean NOT NULL,
-  PRIMARY KEY (`idSalon`)
-);
-
-CREATE TABLE `reservaEvento`
-(
-  `idReservaEvento` int(11) NOT NULL AUTO_INCREMENT,
-  `idCliente` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
-  `idSalon` int(11) NOT NULL,
-  `idCategoriaEvento` int(11) NOT NULL,
-  `Senia` double(10,3) NOT NULL,
-  `FechaGeneracionReserva` dateTime NOT NULL,
-  `FechaInicioReserva` dateTime NOT NULL,
-  `FechaFinReserva` dateTime NOT NULL,
-  `FechaIngreso` dateTime NOT NULL,
-  `FechaEgreso` dateTime NOT NULL,
-  `FormaPago` varchar(20) NOT NULL,
-  `TipoTarjeta` varchar(25) NOT NULL,
-  `NumeroTarjeta` varchar(25) NOT NULL,
-  `FechaVencTarjeta` varchar(15) NOT NULL,
-  `CodSeguridadTarjeta` varchar(10) NOT NULL,
-  `EstadoReserva` varchar(20) NOT NULL,
-  `Observaciones` varchar(200) NOT NULL,
-  PRIMARY KEY (`idReservaEvento`)
 );
 
 CREATE TABLE `reservaCuarto`
@@ -321,8 +280,5 @@ ALTER TABLE `reservaevento`
   ADD CONSTRAINT `reservaevento_ibfk_4` FOREIGN KEY (`idCategoriaEvento`) REFERENCES `categoriaevento` (`idCategoriaEvento`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
