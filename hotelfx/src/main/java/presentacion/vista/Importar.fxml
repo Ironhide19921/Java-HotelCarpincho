@@ -9,7 +9,6 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorImportar">
    <children>
-<<<<<<< HEAD
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <center>
             <Pane prefHeight="421.0" prefWidth="684.0" BorderPane.alignment="CENTER">

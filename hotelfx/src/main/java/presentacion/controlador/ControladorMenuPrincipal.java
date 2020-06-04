@@ -27,8 +27,6 @@ public class ControladorMenuPrincipal implements Initializable{
 
 	@FXML
 	private Button btnAbrirConfig;
-	
-
 
 	@FXML private Button btnAbrirABMCliente;
 	@FXML private Button btnAbrirABMReservas;
@@ -41,6 +39,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirCategoriaEvento;
 	@FXML
 	private Button btnAbrirABMSalones;
+	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
@@ -175,4 +174,17 @@ public class ControladorMenuPrincipal implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	public void verABMOrdenPedidos() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMOrdenPedido");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
