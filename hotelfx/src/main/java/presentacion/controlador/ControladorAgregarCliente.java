@@ -2,8 +2,7 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.ZoneId;
+
 import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
@@ -58,7 +57,7 @@ public class ControladorAgregarCliente implements Initializable {
 	
 	private Validador validador;
 	
-	@FXML private Controller controller;
+
 	
 	@FXML private ControladorMenuPrincipal menuPrincipal;
 	
@@ -167,6 +166,7 @@ public class ControladorAgregarCliente implements Initializable {
 		this.btnModificarCliente.setVisible(value);
 }
 	public void setDisableBtnModificarCliente(Boolean value) {
+
 		this.btnModificarCliente.setDisable(value);
 }
 
@@ -206,6 +206,7 @@ public class ControladorAgregarCliente implements Initializable {
 		return comboTipoDoc;
 	}
 	
+
 	
 
 	

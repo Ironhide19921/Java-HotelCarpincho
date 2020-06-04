@@ -27,7 +27,7 @@ CREATE TABLE `ticket`
 CREATE TABLE `producto`
 (
   `idProducto` int(11) NOT NULL AUTO_INCREMENT,
-  `Precio` decimal(10,3) NOT NULL,
+  `Precio` Decimal(10,3) NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Descripcion` varchar(200) NOT NULL,
   `Proveedor` varchar(50) NOT NULL,
@@ -48,10 +48,6 @@ CREATE TABLE `permiso`
   `NombrePermiso` varchar(45) NOT NULL,
   PRIMARY KEY (`idPermiso`)
 );
-
-INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Usuarios');
-INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Clientes');
-INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Cuartos');
 
 CREATE TABLE `permisoPerfil`
 (
@@ -105,9 +101,10 @@ CREATE TABLE `cuarto`
   `idCuarto` int(11) NOT NULL AUTO_INCREMENT,
   `idCategoriaCuarto` int(11) NOT NULL,
   `Capacidad` int(5) NOT NULL,
-  `Tamanio` int(5) NOT NULL,
   `Monto` double(10,3) NOT NULL,
   `MontoSenia` double(10,3) NOT NULL,
+  `Piso` varchar(5) NOT NULL,   
+  `Habitacion` varchar(5) NOT NULL,
   `Estado` boolean NOT NULL,
   PRIMARY KEY (`idCuarto`),
   CONSTRAINT FOREIGN KEY fk_idCategoriaCuarto (idCategoriaCuarto) REFERENCES categoriaCuarto (idCategoriaCuarto)
@@ -119,21 +116,22 @@ CREATE TABLE `reservaCuarto`
   `idCliente` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `idCuarto` int(11) NOT NULL,
-  `Senia` double(10,3) NOT NULL,
-  `MontoReservaCuarto` double(10,3) NOT NULL,
+  `Senia` decimal(10,3) NOT NULL,
+  `MontoReservaCuarto` decimal(10,3) NOT NULL,
   `EmailFacturacion` varchar(50) NOT NULL,
-  `FechaReserva` dateTime NOT NULL,
-  `FechaCheckIn` dateTime NOT NULL,
-  `FechaIngreso` dateTime NOT NULL,
-  `FechaOut` dateTime NOT NULL,
-  `FechaEgreso` dateTime NOT NULL,
+  `FechaReserva` Timestamp NOT NULL,
+  `FechaCheckIn` Timestamp NOT NULL,
+  `FechaIngreso` Timestamp NOT NULL,
+  `FechaOut` Timestamp NOT NULL,
+  `FechaEgreso` Timestamp NOT NULL,
   `FormaPago` varchar(20) NOT NULL,
-  `TipoTarjeta` varchar(25) NOT NULL,
-  `NumeroTarjeta` varchar(25) NOT NULL,
-  `FechaVencTarjeta` varchar(15) NOT NULL,
-  `CodSeguridadTarjeta` varchar(10) NOT NULL,
+  `TipoTarjeta` varchar(25),
+  `NumeroTarjeta` varchar(25),
+  `FechaVencTarjeta` varchar(15),
+  `CodSeguridadTarjeta` varchar(10),
   `EstadoReserva` varchar(20) NOT NULL,
-  `Comentarios` varchar(200) NOT NULL,
+  `Comentarios` varchar(200),
+  `Estado` boolean not null,
   PRIMARY KEY (`idReservaCuarto`),
   CONSTRAINT FOREIGN KEY fk_clienteId (idCliente) REFERENCES cliente (idCliente),
   CONSTRAINT FOREIGN KEY fk_id_Usuario (idUsuario) REFERENCES usuario (idUsuario),
@@ -218,6 +216,40 @@ CREATE TABLE `salon` (
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `email`(
+  `idEmail` int(11) NOT NULL AUTO_INCREMENT, 
+  `fechaCreacion` datetime NOT NULL,
+  `Texto` VARCHAR(500) NOT NULL,
+  `Asunto` VARCHAR(50) NOT NULL,
+  `Emisor` VARCHAR(50) NOT NULL,
+  `Receptor` VARCHAR(50) NOT NULL,
+  `Estado` TINYINT(1) NOT NULL,
+  `Pass` VARCHAR(50) NOT NULL,
+
+  PRIMARY KEY (`idEmail`)
+);
+
+CREATE TABLE `configuracion`
+(
+  `idConfig` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `provSMTP` varchar(100) NOT NULL,
+  PRIMARY KEY (`idConfig`)
+);
+
+insert into configuracion(username, password, provSMTP)
+values ("carpinchocorp@gmail.com", "covid-19", "smtp.gmail.com");
+
+CREATE TABLE `errorImportar`
+(
+  `idError` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
+  `usuario` int(11) NOT NULL,
+  `detalle` varchar(500) NOT NULL,
+  PRIMARY KEY (`idError`)
+);
+
 --
 -- Índices para tablas volcadas
 --
@@ -279,6 +311,4 @@ ALTER TABLE `reservaevento`
   ADD CONSTRAINT `reservaevento_ibfk_3` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_4` FOREIGN KEY (`idCategoriaEvento`) REFERENCES `categoriaevento` (`idCategoriaEvento`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
-
-
 

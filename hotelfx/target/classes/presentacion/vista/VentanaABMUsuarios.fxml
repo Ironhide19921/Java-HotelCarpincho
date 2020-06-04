@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMUsuarios">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMUsuarios">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="600.0">
+      <BorderPane prefHeight="600.0" prefWidth="900.0">
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tablaPersonas" prefHeight="403.0" prefWidth="462.0">
+                  <TableView fx:id="tablaPersonas" prefHeight="403.0" prefWidth="500.0">
                     <columns>
                       <TableColumn fx:id="id" prefWidth="48.0" text="ID" />
                       <TableColumn fx:id="nombre" prefWidth="102.0" text="Nombre" />
@@ -28,28 +28,28 @@
             </Pane>
          </center>
          <left>
-            <Pane prefHeight="200.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
          <top>
-            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="100.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnBuscar" layoutX="318.0" layoutY="61.0" mnemonicParsing="false" onAction="#buscarCliente" text="Buscar" />
-                  <Button fx:id="btnLimpiarFiltro" layoutX="461.0" layoutY="61.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
-                  <TextField fx:id="txtBuscar" layoutX="161.0" layoutY="61.0" />
-                  <Label layoutX="71.0" layoutY="65.0" text="Buscar Usuario" />
+                  <Button fx:id="btnLimpiarFiltro" layoutX="633.0" layoutY="61.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" text="Refrescar" />
+                  <Button fx:id="btnBuscar" layoutX="446.0" layoutY="61.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="30.0" text="Buscar" />
+                  <TextField fx:id="txtBuscar" layoutX="289.0" layoutY="61.0" prefHeight="30.0" />
+                  <Label layoutX="202.0" layoutY="68.0" text="Buscar Usuario" />
                </children>
             </Pane>
          </top>
          <right>
-            <Pane prefHeight="200.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnHabilitar" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarUsuario" text="Habilitar" />
-                  <Button fx:id="btnDeshabilitar" layoutX="134.0" layoutY="14.0" mnemonicParsing="false" onAction="#deshabilitarUsuario" text="Deshabilitar" />
-                  <Button fx:id="btnAgregar" layoutX="324.0" layoutY="14.0" mnemonicParsing="false" onAction="#addUsuario" text="Agregar Usuario" />
-                  <Button fx:id="btnEditar" layoutX="442.0" layoutY="14.0" mnemonicParsing="false" onAction="#editUsuario" text="Editar Usuario" />
+                  <Button fx:id="btnHabilitar" layoutX="198.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarUsuario" prefHeight="30.0" text="Habilitar" />
+                  <Button fx:id="btnDeshabilitar" layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#deshabilitarUsuario" prefHeight="30.0" text="Deshabilitar" />
+                  <Button fx:id="btnAgregar" layoutX="491.0" layoutY="14.0" mnemonicParsing="false" onAction="#addUsuario" prefHeight="30.0" text="Agregar Usuario" />
+                  <Button fx:id="btnEditar" layoutX="609.0" layoutY="14.0" mnemonicParsing="false" onAction="#editUsuario" prefHeight="30.0" text="Editar Usuario" />
                </children>
             </Pane>
          </bottom>

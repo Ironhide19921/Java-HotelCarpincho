@@ -20,4 +20,11 @@ public interface DAOAbstractFactory {
 	
 	public OrdenPedidoDAO createOrdenPedidoDAO();
 
+	public ConfiguracionDAO createConfiguracionDAO();
+	
+	public ErrorImportarDAO createErrorImportarDAO();
+
+	public EmailDAO createEmailDAO();
+
+
 }
