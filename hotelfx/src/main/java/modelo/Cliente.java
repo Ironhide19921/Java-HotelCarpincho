@@ -32,6 +32,10 @@ private ClienteDAO cliente;
 		return this.cliente.search(buscar);
 	}
 	
+	public ClienteDTO getClientePorId(int id) {
+		return this.cliente.get(id);
+	}
+	
 	
 
 }

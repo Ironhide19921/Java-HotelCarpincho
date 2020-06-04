@@ -24,7 +24,7 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="69.0" prefWidth="140.0">
                                  <children>
                                     <Button fx:id="btnAbrirABMReservas" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas cuartos" />
-                                    <Button layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas Evento" />
+                                    <Button fx:id="btnAbrirMenuReservaEvento" layoutY="27.0" mnemonicParsing="false" onAction="#verMenuReservaEvento" prefHeight="25.0" prefWidth="150.0" text="ABM Reservas Evento" />
                                     <Button fx:id="btnAbrirImportar" layoutY="52.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="25.0" prefWidth="147.0" text="Importar Reservas" />
                                  </children>
                               </AnchorPane>
@@ -63,7 +63,7 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Button fx:id="btnAbrirABMCategoriasCuartos" layoutY="2.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="25.0" prefWidth="150.0" text="ABM Categoria Cuarto" />
-                                    <Button layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="ABM Categoria Evento" />
+                                    <Button fx:id="btnAbrirABMCategoriaEvento" layoutY="27.0" mnemonicParsing="false" onAction="#verABMCategoriaEvento" prefHeight="25.0" prefWidth="150.0" text="ABM Categoria Evento" />
                                  </children>
                               </AnchorPane>
                         </content>

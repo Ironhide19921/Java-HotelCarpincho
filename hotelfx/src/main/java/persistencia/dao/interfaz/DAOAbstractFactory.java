@@ -1,7 +1,5 @@
 package persistencia.dao.interfaz;
 
-import modelo.Usuario;
-
 public interface DAOAbstractFactory {
 		
 	public ClienteDAO createClienteDAO();
@@ -17,4 +15,8 @@ public interface DAOAbstractFactory {
 	public CuartoDAO createCuartoDAO();
 	
 	public SalonDAO createSalonDAO();
+	
+	public CategoriaEventoDAO createCategoriaEventoDAO();
+
+	public ReservaEventoDAO createReservaEventoDAO();
 }
