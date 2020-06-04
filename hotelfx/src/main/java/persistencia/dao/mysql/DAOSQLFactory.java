@@ -6,6 +6,7 @@ import persistencia.dao.interfaz.ConfiguracionDAO;
 import persistencia.dao.interfaz.CuartoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.ErrorImportarDAO;
+import persistencia.dao.interfaz.OrdenPedidoDAO;
 import persistencia.dao.interfaz.EmailDAO;
 import persistencia.dao.interfaz.PerfilDAO;
 import persistencia.dao.interfaz.PermisoPerfilDAO;
@@ -62,6 +63,10 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 	public ReservaCuartoDAO createReservaCuartoDAO() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public OrdenPedidoDAO createOrdenPedidoDAO() {
+		return new OrdenPedidoDAOSQL();
 	}
 
 }
