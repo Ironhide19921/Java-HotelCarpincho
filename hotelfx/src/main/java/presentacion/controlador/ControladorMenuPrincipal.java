@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dto.EmailDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,44 +17,39 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import modelo.Email;
 import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
 
-	@FXML
-	private Button btnAbrirABMCliente;
-	@FXML
-	private Button btnAbrirABMReservas;
-	@FXML
-	private Button btnAbrirABMUsuarios;
-	@FXML
-	private Button btnAbrirABMPerfiles;
-	@FXML
-	private Button btnAbrirABMCuartos;
-	@FXML
-	private Button btnAbrirABMCategoriasCuartos;
-	@FXML
-	private Button btnAbrirImportar;
+	@FXML private Button btnAbrirABMProductos;
+	@FXML private Button btnAbrirConfig;
+	@FXML private Button btnAbrirABMCliente;
+	@FXML private Button btnAbrirABMReservas;
+	@FXML private Button btnAbrirABMUsuarios;
+	@FXML private Button btnAbrirABMPerfiles;
+	@FXML private Button btnAbrirABMCuartos;
+	@FXML private Button btnAbrirABMCategoriasCuartos;
+	@FXML private Button btnAbrirImportar;
+	@FXML private Button btnAbrirReservaEvento;
+	@FXML private Button btnAbrirCategoriaEvento;
 	@FXML
 	private Button btnAbrirABMSalones;
 	@FXML
 	private Button btnAbrirABMCategoriaEvento;
 	@FXML
 	private Button btnMenuReservaEvento;
-	
-	Controller controler;
+	@FXML private Button btnAbrirOrdenPedidos;
+	@FXML private BorderPane mainPane;
+	@FXML private Pane center;
+	@FXML private Pane pane;
 
-	@FXML
-	private BorderPane mainPane;
-
-	@FXML
-	private Pane pane;
 
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		this.controler = new Controller();
+		EmailDTO.enviarEmailsEncolados();
 	}
 
 
@@ -131,10 +127,34 @@ public class ControladorMenuPrincipal implements Initializable{
 	}
 	
 	@FXML
+	public void verABMProductos() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMProducto");
+			 mainPane.setCenter(view);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}	
+			 
+	@FXML
 	public void verABMSalones() {
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
 			 Pane view	= fxmlLoader.getPage("VentanaABMSalon");
+			 
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verConfig() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("Configuracion");
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {
@@ -165,4 +185,28 @@ public class ControladorMenuPrincipal implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	@FXML
+	public void verReservaCuarto() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMReservaCuarto");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verABMOrdenPedidos() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMOrdenPedido");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

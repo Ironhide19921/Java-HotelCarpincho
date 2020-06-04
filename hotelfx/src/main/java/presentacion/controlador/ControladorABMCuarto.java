@@ -4,6 +4,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.table.DefaultTableModel;
+
+import dto.CategoriaCuartoDTO;
+import dto.ClienteDTO;
 import dto.CuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modelo.Cuarto;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorABMCuarto implements Initializable
@@ -27,7 +32,9 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private TableView<CuartoDTO> tablaCuartos;
 	@FXML private Button btnAgregarCuarto;
 	@FXML private Button btnEditar;
+	@FXML private Button btnBorrar;
 	@FXML private Button btnBuscar;
+	@FXML private Button btnReporte;
 	@FXML private TableColumn id;
 	@FXML private TableColumn piso;
 	@FXML private TableColumn habitacion;
@@ -40,10 +47,13 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private Button btnLimpiarFiltro;
 	@FXML private Button btnHabilitarCuarto;
 	@FXML private Button btnDeshabilitarCuarto;
-		private Cuarto cuarto;
+		  private Cuarto cuarto;
+		  
+		  private Validador validador;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaCuartos.getItems().clear();
@@ -88,6 +98,12 @@ public class ControladorABMCuarto implements Initializable
 	 @FXML
 	    private void editCuarto(ActionEvent event) throws Exception 
 	    {
+		 
+		 	if(tablaCuartos.getSelectionModel().getSelectedItem()==null) {
+		 		validador.mostrarMensaje("Debes seleccionar un cuarto de la lista antes de editar");
+		 		return;
+		 	}	
+		 
 		     try { 
 			    Stage primaryStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCuarto.fxml");
@@ -118,14 +134,14 @@ public class ControladorABMCuarto implements Initializable
 		crearTabla(getAllCuartos());
 	}
 
-	private ObservableList<CuartoDTO> getAllCuartos() {
-		List<CuartoDTO> cuartos = this.cuarto.obtenerCuartos();
-		activeSession.clear();
-		for(CuartoDTO c : cuartos) {
-			activeSession.add(c);
+		private ObservableList<CuartoDTO> getAllCuartos() {
+			List<CuartoDTO> cuartos = this.cuarto.obtenerCuartos();
+			activeSession.clear();
+	 		for(CuartoDTO c : cuartos) {
+	 			activeSession.add(c);
+	 		}
+	 		return activeSession;
 		}
-		return activeSession;
-	}
 		
 	 @FXML
 	private void buscarCuartos() {
@@ -140,6 +156,10 @@ public class ControladorABMCuarto implements Initializable
 	
 	 @FXML
 	 private void deshabilitarCuartos(){	
+		 if (tablaCuartos.getSelectionModel().getSelectedItem() == null) {
+			validador.mostrarMensaje("Debes seleccionar un cuarto de la lista para deshabilitar");
+			return;
+		 }
 		 CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
 		 cuartoSeleccionado.setEstado(false);
 		 this.cuarto.modificarCuartos(cuartoSeleccionado);
@@ -148,7 +168,11 @@ public class ControladorABMCuarto implements Initializable
 	 
 	 
 	 @FXML
-	 private void habilitarCuartos(){	
+	 private void habilitarCuartos(){
+		 if (tablaCuartos.getSelectionModel().getSelectedItem() == null) {
+			validador.mostrarMensaje("Debes seleccionar un cuarto de la lista para habilitar");
+			return;
+		 }
 		 CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
 		 cuartoSeleccionado.setEstado(true);
 		 this.cuarto.modificarCuartos(cuartoSeleccionado);
