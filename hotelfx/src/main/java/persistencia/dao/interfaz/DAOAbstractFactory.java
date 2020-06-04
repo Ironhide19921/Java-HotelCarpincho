@@ -26,4 +26,5 @@ public interface DAOAbstractFactory {
 
 	public EmailDAO createEmailDAO();
 
+	public ReservaCuartoDAO createReservaCuartoDAO();
 }

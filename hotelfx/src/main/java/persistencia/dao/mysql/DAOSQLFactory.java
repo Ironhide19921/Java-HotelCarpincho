@@ -61,7 +61,7 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 
 	public ReservaCuartoDAO createReservaCuartoDAO() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ReservaCuartoDAOSQL();
 	}
 
 }

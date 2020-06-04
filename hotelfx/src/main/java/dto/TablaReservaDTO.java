@@ -12,10 +12,10 @@ public class TablaReservaDTO {
 	private CuartoDTO cuarto;
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
-	private String emailFacturacion, numTarjeta, cantidadDias,
+	private String emailFacturacion, numTarjeta, cantidadDias,fechaVencTarjeta,
 	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
 	private estadosReserva estadoReserva;
-	private Timestamp fechaVencTarjeta,fechaReserva,fechaCheckIn,fechaOut,
+	private Timestamp fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
 	private String estado;
 	private String nombre;
@@ -23,8 +23,9 @@ public class TablaReservaDTO {
 	private String descripcionCuarto;
 	
 	public TablaReservaDTO(ReservaCuartoDTO reserva, ClienteDTO cliente, CuartoDTO cuarto) {
-		this.setReserva(reserva);
-		this.setCliente(cliente);
+		this.reserva = reserva;
+		this.cliente= cliente;
+		this.cuarto = cuarto;
 		this.idReserva = reserva.getIdReserva();
 		this.idCliente = reserva.getIdCliente();
 		this.idCuarto = reserva.getIdCuarto();
@@ -46,7 +47,7 @@ public class TablaReservaDTO {
 		this.fechaEgreso = reserva.getFechaEgreso();
 		this.nombre = cliente.getNombre();
 		this.apellido = cliente.getApellido();
-		this.cuarto = cuarto;
+	
 		this.descripcionCuarto = cuarto.getHabitacion();
 		this.estado = reserva.getEstadoReserva();
 	}
@@ -186,11 +187,11 @@ public class TablaReservaDTO {
 		this.estadoReserva = estadoReserva;
 	}
 
-	public Timestamp getFechaVencTarjeta() {
+	public String getFechaVencTarjeta() {
 		return fechaVencTarjeta;
 	}
 
-	public void setFechaVencTarjeta(Timestamp fechaVencTarjeta) {
+	public void setFechaVencTarjeta(String fechaVencTarjeta) {
 		this.fechaVencTarjeta = fechaVencTarjeta;
 	}
 

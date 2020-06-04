@@ -1,6 +1,7 @@
 package presentacion.controlador;
 
 import java.net.URL;
+
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -10,7 +11,7 @@ import dto.ReservaCuartoDTO;
 import dto.TablaReservaDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,7 +22,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.Cuarto;
@@ -77,37 +77,40 @@ public class ControladorABMReservaCuarto implements Initializable
 	}
 
 	private ObservableList<TablaReservaDTO> getAllReservasCuartos() {
-		
 		List<ReservaCuartoDTO> reservas = this.reserva.obtenerReservasCuartos();
-		List<ClienteDTO> cliente= this.clientes.obtenerClientes();
-		List<CuartoDTO> cuarto= this.cuartos.obtenerCuartos();
-		ClienteDTO cli = null;
-		CuartoDTO cuar = null;
-		
 		activeSession.clear();
-		for(ReservaCuartoDTO r : reservas) {
-			for(ClienteDTO c : cliente) {
-				if(c.getIdCliente()== r.getIdCliente()) {
-					cli = c;
-				}
-				else {
-					continue;
-				}
-			}
-			for(CuartoDTO cu : cuarto) {
-				if(cu.getId()== r.getIdCuarto()) {
-					cuar = cu;
-				}
-				else {
-					continue;
-				}
-			}
-			TablaReservaDTO tabla = new TablaReservaDTO(r,cli,cuar);
-			activeSession.add(tabla);
-		 }
+		for(ReservaCuartoDTO reserva : reservas) {
+			ClienteDTO cliente = devolverCliente(reserva.getIdCliente());
+			CuartoDTO cuarto = devolverCuarto(reserva.getIdCuarto());
+			TablaReservaDTO tabla = new TablaReservaDTO(reserva,cliente,cuarto);
+		activeSession.add(tabla);
+		}
 		 return activeSession;
 	}
+	
+	
+	private CuartoDTO devolverCuarto(Integer id) {
+List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
+		
+		for(CuartoDTO c : cuartos) {
+			if(c.getId() == id) {
+				return c;
+			}
+		}
+		return null;
+	}
 
+
+	private ClienteDTO devolverCliente(Integer id) {
+		List<ClienteDTO> clientes = this.clientes.obtenerClientes();
+		
+		for(ClienteDTO c : clientes) {
+			if(c.getIdCliente() == id) {
+				return c;
+			}
+		}
+		return null;
+	}
 	private void cargarColumnas() 
 	{
 		idReserva.setCellValueFactory(new PropertyValueFactory("idReserva"));		

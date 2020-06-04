@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.ClienteDTO;
 import dto.CuartoDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.CuartoDAO;
@@ -19,7 +20,7 @@ public class CuartoDAOSQL implements CuartoDAO{
 	private static final String update = "UPDATE cuarto SET idCategoriaCuarto = ?, capacidad = ?, monto = ?, montoSenia = ?, piso = ?, habitacion = ?, estado = ? WHERE idCuarto = ?";
 	private static final String updateEstado = "UPDATE cuarto SET estado = ? WHERE idCuarto = ?";
 	private static final String search = "SELECT * FROM cuarto WHERE capacidad LIKE ? OR monto LIKE ? OR montoSenia LIKE ? OR piso LIKE ? OR habitacion LIKE ?";
-
+	private static final String search1 = "SELECT * FROM cuarto WHERE idCuarto = ?";
 	@Override
 	public boolean insert(CuartoDTO cuarto) {
 		PreparedStatement statement;
@@ -73,7 +74,32 @@ public class CuartoDAOSQL implements CuartoDAO{
 		}
 		return clientes;
 	}
-		
+	@Override
+	public CuartoDTO traerCuarto(Integer id) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		ResultSet resultSet = null;
+		CuartoDTO cuarto = null;
+		try{
+			statement = conexion.prepareStatement(search1);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				cuarto = getCuartoDTO(resultSet);
+			}
+		} 
+		catch (SQLException e){
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return cuarto;
+	}
+	
 	private CuartoDTO getCuartoDTO(ResultSet resultSet) throws SQLException {
 		int id = resultSet.getInt("idCuarto");
 		int idCateCuarto = resultSet.getInt("idCategoriaCuarto");

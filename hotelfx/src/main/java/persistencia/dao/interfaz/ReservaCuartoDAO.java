@@ -4,6 +4,7 @@ import java.util.List;
 import dto.ReservaCuartoDTO;
 
 public interface ReservaCuartoDAO {
+	
 	public boolean insert(ReservaCuartoDTO cliente);
 
 	public boolean delete(ReservaCuartoDTO cliente_a_eliminar);

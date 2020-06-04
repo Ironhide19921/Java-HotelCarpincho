@@ -33,5 +33,7 @@ private ClienteDAO cliente;
 	}
 	
 	
-
+	public ClienteDTO traerCliente(Integer id) {
+		return this.cliente.traerCliente(id);
+	}
 }

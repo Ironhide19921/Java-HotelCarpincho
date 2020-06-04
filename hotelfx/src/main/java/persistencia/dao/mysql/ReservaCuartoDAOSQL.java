@@ -20,22 +20,22 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 	private static final String insert = "INSERT INTO reservaCuarto(idCliente, idCuarto, idUsuario,"
 			+ "Senia, MontoReservaCuarto,"
 			+ " EmailFacturacion, NumeroTarjeta, FormaPago, TipoTarjeta, CodSeguridadTarjeta,FechaVencTarjeta,"
-			+ " FechaReserva, FechaCheckIn,FechaIngreso,FechaOut,FechaEgreso,EstadoReserva,Comentarios, Estado) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+			+ " FechaReserva, FechaCheckIn, FechaIngreso, FechaOut, FechaEgreso, EstadoReserva, Comentarios, Estado) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?);";
 	private static final String delete = "DELETE FROM reservaCuarto WHERE "
-			+ "idReservaCuarto=?, idCliente = ?, idUsuario = ?, idCuarto = ?";
+			+ "idReservaCuarto = ?";
 	private static final String readall = "SELECT * FROM reservaCuarto";
 	private static final String update = "UPDATE reservaCuarto SET idCliente = ?, idUsuario = ?, "
 			+ "idCuarto = ?, Senia = ?, MontoReservaCuarto = ?, EmailFacturacion = ?, "
-			+ "numTarjeta = ? ,formaDePago = ?, tipoTarjeta = ?, codSeguridadTarjeta = ?, "
+			+ "NumTarjeta = ? ,FormaDePago = ?, TipoTarjeta = ?, CodSeguridadTarjeta = ?, "
 			+ "FechaVencTarjeta = ?, "
 			+ "FechaReserva = ?, FechaCheckIn = ?, FechaIngreso = ?, "
 			+ " FechaOut = ?,  FechaEgreso = ?,  FormaPago = ?, FechaVencTarjeta = ?"
 			+ ",EstadoReserva = ? , Comentarios = ? , Estado = ? WHERE idReservaCuarto = ?";
 	private static final String search = "SELECT * FROM reservaCuarto "
-			+ "WHERE idUsuario LIKE ? OR idCuarto LIKE ? OR idCliente LIKE ? OR nombre LIKE ? " + "OR apellido LIKE ?";
+			+ "WHERE idUsuario LIKE ? OR idCuarto LIKE ? OR idCliente LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
 
-	private static final String search1 = "SELECT  h.habitacion_numero," + 
+	private static final String search1 = "SELECT h.habitacion_numero," + 
 			"        CASE WHEN hr.habitacion_numero is null " + 
 			"              THEN 'Disponible'" + 
 			"              ELSE 'Reservada'" + 
@@ -70,7 +70,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			statement.setString(8, reserva.getFormasDePago());
 			statement.setString(9, reserva.getTiposTarjeta());
 			statement.setString(10, reserva.getCodSeguridadTarjeta());
-			statement.setTimestamp(11, reserva.getFechaVencTarjeta());
+			statement.setString(11, reserva.getFechaVencTarjeta());
 			statement.setTimestamp(12, reserva.getFechaReserva());
 			statement.setTimestamp(13, reserva.getFechaCheckIn());
 			statement.setTimestamp(14, reserva.getFechaIngreso());
@@ -103,14 +103,15 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 
 	@Override
 	public List<ReservaCuartoDTO> readAll() {
-		PreparedStatement statement;
-		ResultSet resultSet; // Guarda el resultado de la query
-		ArrayList<ReservaCuartoDTO> clientes = new ArrayList<ReservaCuartoDTO>();
-		Conexion conexion = Conexion.getConexion();
 
+		ArrayList<ReservaCuartoDTO> clientes = new ArrayList<ReservaCuartoDTO>();
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		ResultSet resultSet; 
 		try {
-			statement = conexion.getSQLConexion().prepareStatement(readall);
+			statement = conexion.prepareStatement(readall);
 			resultSet = statement.executeQuery();
+			
 			while (resultSet.next()) {
 				clientes.add(getReservaDTO(resultSet));
 			}
@@ -118,6 +119,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			e.printStackTrace();
 		}
 		return clientes;
+		
 	}
 
 	private ReservaCuartoDTO getReservaDTO(ResultSet resultSet) throws SQLException {
@@ -133,20 +135,39 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 		String formaDePago = resultSet.getString("FormaPago");
 		String tipoTarjeta = resultSet.getString("TipoTarjeta");
 		String codSeguridadTarjeta = resultSet.getString("CodSeguridadTarjeta");
-		Timestamp fechaVencTarjeta = resultSet.getTimestamp("FechaVencTarjeta");
+		String fechaVencTarjeta = resultSet.getString("FechaVencTarjeta");
 		Timestamp fechaReserva = resultSet.getTimestamp("FechaReserva");
 		Timestamp fechaCheckIn = resultSet.getTimestamp("FechaCheckIn");
 		Timestamp fechaOut = resultSet.getTimestamp("FechaOut");
 		Timestamp fechaIngreso = resultSet.getTimestamp("FechaIngreso");
 		Timestamp fechaEgreso = resultSet.getTimestamp("FechaEgreso");
-		estadosReserva estadoReserva = estadosReserva.valueOf(resultSet.getString("EstadoReserva"));
+		String estadoReserva = resultSet.getString("EstadoReserva");
 		String comentarios = resultSet.getString("Comentarios");
 		boolean estado = resultSet.getBoolean("Estado");
-
+		 /*`idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT,
+		  `idCliente` int(11) NOT NULL,
+		  `idUsuario` int(11) NOT NULL,
+		  `idCuarto` int(11) NOT NULL,
+		  `Senia` decimal(10,3) NOT NULL,
+		  `MontoReservaCuarto` decimal(10,3) NOT NULL,
+		  `EmailFacturacion` varchar(60) NOT NULL,
+		  `FechaReserva` timestamp NOT NULL,
+		  `FechaCheckIn` timestamp NOT NULL,
+		  `FechaIngreso` timestamp NOT NULL,
+		  `FechaOut` timestamp NOT NULL,
+		  `FechaEgreso` timestamp NOT NULL,
+		  `FormaPago` varchar(20) not null,
+		  `TipoTarjeta` varchar(25),
+		  `NumeroTarjeta` varchar(25),
+		  `FechaVencTarjeta` varchar(15),
+		  `CodSeguridadTarjeta` varchar(10),
+		  `EstadoReserva` varchar(20) NOT NULL,
+		  `Comentarios` varchar(200),*/
 		ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
 				emailFacturacion, numTarjeta, formaDePago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
 				fechaReserva, fechaCheckIn, fechaOut, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
-		reserva.setIdReserva(idReserva);
+			reserva.setIdReserva(idReserva);
+			System.out.print(reserva);
 		return reserva;
 	}
 
@@ -166,7 +187,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			statement.setString(8, reserva.getFormasDePago());
 			statement.setString(9, reserva.getTiposTarjeta());
 			statement.setString(10, reserva.getCodSeguridadTarjeta());
-			statement.setTimestamp(11, reserva.getFechaVencTarjeta());
+			statement.setString(11, reserva.getFechaVencTarjeta());
 			statement.setTimestamp(12, reserva.getFechaReserva());
 			statement.setTimestamp(13, reserva.getFechaCheckIn());
 			statement.setTimestamp(14, reserva.getFechaIngreso());
