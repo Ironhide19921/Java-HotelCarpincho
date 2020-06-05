@@ -20,7 +20,8 @@ public class ClienteDAOSQL implements ClienteDAO{
 	private static final String readall = "SELECT * FROM cliente";
 	private static final String update = "UPDATE cliente SET nombre = ?, apellido = ?, tipoDocumento = ?, documento = ?, email = ?, telefono = ?, estado = ?, fechaNacimiento = ? WHERE idCliente = ?";
 	private static final String search = "SELECT * FROM cliente WHERE email LIKE ? OR documento LIKE ? OR idcliente LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
-
+	private static final String search1 = "SELECT * FROM cliente WHERE idCliente = ?";
+	
 	@Override
 	public boolean insert(ClienteDTO cliente) {
 		PreparedStatement statement;
@@ -58,7 +59,32 @@ public class ClienteDAOSQL implements ClienteDAO{
 	public boolean delete(ClienteDTO persona_a_eliminar) {
 		return false;
 	}
-
+	@Override
+	public ClienteDTO traerCliente(Integer id) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		ResultSet resultSet = null;
+		ClienteDTO cliente = null;
+		try{
+			statement = conexion.prepareStatement(search1);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				cliente = getClienteDTOO(resultSet);
+			}
+		} 
+		catch (SQLException e){
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return cliente;
+	}
+	
 	@Override
 	public List<ClienteDTO> readAll() {
 		PreparedStatement statement;

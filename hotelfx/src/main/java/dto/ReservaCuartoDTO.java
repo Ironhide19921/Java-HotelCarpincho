@@ -11,20 +11,22 @@ public class ReservaCuartoDTO {
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
 	private String emailFacturacion, numTarjeta, cantidadDias,
-	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
+	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
+	
 	private estadosReserva estadoReserva;
-	private Timestamp fechaVencTarjeta,fechaReserva,fechaCheckIn,fechaOut,
+	private Timestamp fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
 
 	private boolean estado;
 
 	
+	
 	public ReservaCuartoDTO(int idCliente, int idCuarto, int idUsuario, BigDecimal senia,
 			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta, 
 			String formaDePago,	String tipoTarjeta,String codSeguridadTarjeta,
-			Timestamp fechaVencTarjeta,Timestamp fechaReserva,Timestamp fechaCheckIn, Timestamp fechaOut,
+			String fechaVencTarjeta,Timestamp fechaReserva,Timestamp fechaCheckIn, Timestamp fechaOut,
 			Timestamp fechaIngreso, Timestamp fechaEgreso , 
-			estadosReserva estadoReserva, String comentarios, boolean estado) {
+			String estadoReserva, String comentarios, boolean estado) {
 		
 		this.idCliente = idCliente;
 		this.idCuarto = idCuarto;
@@ -41,7 +43,7 @@ public class ReservaCuartoDTO {
 		this.codSeguridadTarjeta = codSeguridadTarjeta;
 		this.formaDePago = formaDePago;
 		this.tipoTarjeta = tipoTarjeta;
-		this.estadoReserva = estadosReserva.valueOf(estadoReserva.name());
+		this.estadoReserva = estadosReserva.valueOf(estadoReserva);
 		this.comentarios = comentarios;
 		this.estado = estado;
 	}
@@ -190,11 +192,11 @@ public class ReservaCuartoDTO {
 		this.estadoReserva.valueOf(estadoReserva);
 	}
 
-	public Timestamp getFechaVencTarjeta() {
+	public String getFechaVencTarjeta() {
 		return fechaVencTarjeta;
 	}
 
-	public void setFechaVencTarjeta(Timestamp fechaVencTarjeta) {
+	public void setFechaVencTarjeta(String fechaVencTarjeta) {
 		this.fechaVencTarjeta = fechaVencTarjeta;
 	}
 

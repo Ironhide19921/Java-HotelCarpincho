@@ -135,6 +135,7 @@
                   <Button fx:id="btnAbrirABMCategoriasCuartos" layoutY="314.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Categoria Cuarto" />
                   <Button fx:id="btnAbrirABMSalones" layoutY="348.0" mnemonicParsing="false" onAction="#verABMSalones" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Salones" />
                  <Button fx:id="btnAbrirConfig" layoutY="382.0" mnemonicParsing="false" onAction="#verConfig" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ConfigMail" />
+                  <Button fx:id="btnAbrirABMOrdenPedidos" layoutY="416.0" mnemonicParsing="false" onAction="#verABMOrdenPedidos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Orden Pedidos" />
               
 
                                     
