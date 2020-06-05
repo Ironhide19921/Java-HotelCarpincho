@@ -15,4 +15,6 @@ public interface ClienteDAO {
 	public void update(ClienteDTO cliente);
 
 	public List<ClienteDTO> search(String buscar);
+	
+	public ClienteDTO traerCliente(Integer id);
 }

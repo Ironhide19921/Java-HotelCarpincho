@@ -26,4 +26,5 @@ public interface DAOAbstractFactory {
 	
 	public OrdenPedidoDAO createOrdenPedidoDAO();
 
+	public ReservaCuartoDAO createReservaCuartoDAO();
 }

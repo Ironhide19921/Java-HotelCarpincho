@@ -314,3 +314,11 @@ ALTER TABLE `reservaevento`
   ADD CONSTRAINT `reservaevento_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_3` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_4` FOREIGN KEY (`idCategoriaEvento`) REFERENCES `categoriaevento` (`idCategoriaEvento`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+  
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Usuarios'); 
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Clientes');
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Cuartos');
+  
+  
+  
