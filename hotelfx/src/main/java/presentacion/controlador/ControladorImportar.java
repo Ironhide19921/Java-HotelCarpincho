@@ -206,6 +206,7 @@ public class ControladorImportar implements Initializable {
 
 	@FXML
 	public void importarCSV() {
+		
 		//Consulto todos los clientes
 		this.activeSession=getAllClientes();
 		FileChooser fc = new FileChooser();

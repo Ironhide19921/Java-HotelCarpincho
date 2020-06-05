@@ -9,7 +9,6 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorImportar">
    <children>
-<<<<<<< HEAD
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <center>
             <Pane prefHeight="421.0" prefWidth="684.0" BorderPane.alignment="CENTER">
@@ -46,8 +45,8 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnImportar" layoutX="220.0" layoutY="15.0" mnemonicParsing="false" onAction="#importarCSV" prefHeight="30.0" prefWidth="150.0" text="Importar" />
-                  <Button fx:id="btnInsertar" layoutX="52.0" layoutY="15.0" mnemonicParsing="false" onAction="#insertarClientesNuevos" prefHeight="30.0" prefWidth="150.0" text="Insertar" />
+                  <Button fx:id="btnImportar" layoutX="65.0" layoutY="15.0" mnemonicParsing="false" onAction="#importarCSV" prefHeight="30.0" prefWidth="150.0" text="Importar" />
+                  <Button fx:id="btnInsertar" layoutX="287.0" layoutY="15.0" mnemonicParsing="false" onAction="#insertarClientesNuevos" prefHeight="30.0" prefWidth="150.0" text="Insertar" />
                   <Button fx:id="btnMail" layoutX="701.0" layoutY="15.0" mnemonicParsing="false" onAction="#manejoMail" prefHeight="30.0" prefWidth="150.0" text="Mail" />
                </children>
             </Pane>
