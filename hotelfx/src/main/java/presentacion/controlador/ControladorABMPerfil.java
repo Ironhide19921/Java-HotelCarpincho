@@ -60,7 +60,7 @@ public class ControladorABMPerfil implements Initializable {
 	private ArrayList<CheckBox> listaChecks;
 	private ArrayList<Integer> listaIdPerfilesUsuarios;
 	
-	@FXML private Controller controller;
+
 	
 	@FXML private ControladorMenuPrincipal menuPrincipal;
 	

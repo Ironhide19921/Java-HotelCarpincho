@@ -90,7 +90,7 @@ public class Mail {
 
 			MimeBodyPart csvAttachment = new MimeBodyPart();
 			try {
-				csvAttachment.attachFile("C:/Users/gera/Desktop/cliente.csv");
+				csvAttachment.attachFile("C:/Users/marcos/Desktop/carpinchofx/cliente.csv/");
 				System.out.println("Se pudo acceder al archivo");
 			} catch (IOException e) {
 				System.out.println("No se pudo acceder al archivo");

@@ -105,7 +105,9 @@ public class ControladorABMCliente implements Initializable{
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCliente.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
+		
 				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarCliente scene2Controller = fxmlLoader.getController();
 				scene2Controller.setVisibilityBtnAgregarCliente(true);
 				scene2Controller.setDisableBtnAgregarCliente(false);
@@ -134,7 +136,9 @@ public class ControladorABMCliente implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				//cargo el objeto completo que incluye toda la escena y el controlador
 				Parent root = (Parent) fxmlLoader.load();
+		
 				primaryStage.setScene(new Scene(root)); 
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				//tomo el controlador
 				ControladorAgregarCliente scene2Controller = fxmlLoader.getController();
 				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla

@@ -4,6 +4,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.table.DefaultTableModel;
+
+import dto.CategoriaCuartoDTO;
+import dto.ClienteDTO;
 import dto.CuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +32,9 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private TableView<CuartoDTO> tablaCuartos;
 	@FXML private Button btnAgregarCuarto;
 	@FXML private Button btnEditar;
+	@FXML private Button btnBorrar;
 	@FXML private Button btnBuscar;
+	@FXML private Button btnReporte;
 	@FXML private TableColumn id;
 	@FXML private TableColumn piso;
 	@FXML private TableColumn habitacion;
@@ -47,6 +53,7 @@ public class ControladorABMCuarto implements Initializable
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaCuartos.getItems().clear();
@@ -126,14 +133,14 @@ public class ControladorABMCuarto implements Initializable
 		crearTabla(getAllCuartos());
 	}
 
-	private ObservableList<CuartoDTO> getAllCuartos() {
-		List<CuartoDTO> cuartos = this.cuarto.obtenerCuartos();
-		activeSession.clear();
-		for(CuartoDTO c : cuartos) {
-			activeSession.add(c);
+		private ObservableList<CuartoDTO> getAllCuartos() {
+			List<CuartoDTO> cuartos = this.cuarto.obtenerCuartos();
+			activeSession.clear();
+	 		for(CuartoDTO c : cuartos) {
+	 			activeSession.add(c);
+	 		}
+	 		return activeSession;
 		}
-		return activeSession;
-	}
 		
 	 @FXML
 	private void buscarCuartos() {

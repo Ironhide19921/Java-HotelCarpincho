@@ -7,32 +7,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarUsuario">
+<AnchorPane prefHeight="452.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarUsuario">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="600.0">
+      <BorderPane prefHeight="432.0" prefWidth="600.0">
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="txtNombre" layoutX="200.0" layoutY="2.0" prefWidth="200.0" />
-                  <TextField fx:id="txtApellido" layoutX="200.0" layoutY="45.0" prefWidth="200.0" />
-                  <TextField fx:id="txtPassword" layoutX="200.0" layoutY="91.0" prefWidth="200.0" />
-                  <Label layoutX="8.0" layoutY="6.0" text="Nombre" />
-                  <Label layoutX="8.0" layoutY="49.0" text="Apellido" />
-                  <Label layoutX="8.0" layoutY="95.0" text="Password" />
-                  <Label layoutX="8.0" layoutY="142.0" text="Tipo documento" />
-                  <Label layoutX="8.0" layoutY="183.0" text="Numero documento" />
-                  <TextField fx:id="txtNumDocumento" layoutX="200.0" layoutY="179.0" prefWidth="200.0" />
-                  <TextField fx:id="txtEmail" layoutX="200.0" layoutY="221.0" prefWidth="200.0" />
-                  <Label layoutX="7.0" layoutY="225.0" text="Email" />
-                  <Label layoutX="8.0" layoutY="274.0" text="Perfil" />
-                  <ComboBox fx:id="comboPerfil" layoutX="200.0" layoutY="270.0" prefHeight="25.0" prefWidth="202.0" />
-                  <ComboBox fx:id="comboTipoDoc" layoutX="200.0" layoutY="138.0" prefHeight="25.0" prefWidth="199.0" />
+                  <TextField fx:id="txtNombre" layoutX="196.0" layoutY="11.0" prefWidth="200.0" />
+                  <TextField fx:id="txtApellido" layoutX="196.0" layoutY="54.0" prefWidth="200.0" />
+                  <TextField fx:id="txtPassword" layoutX="196.0" layoutY="100.0" prefWidth="200.0" />
+                  <Label layoutX="4.0" layoutY="15.0" text="Nombre" />
+                  <Label layoutX="4.0" layoutY="58.0" text="Apellido" />
+                  <Label layoutX="4.0" layoutY="104.0" text="Password" />
+                  <Label layoutX="4.0" layoutY="151.0" text="Tipo documento" />
+                  <Label layoutX="4.0" layoutY="192.0" text="Numero documento" />
+                  <TextField fx:id="txtNumDocumento" layoutX="196.0" layoutY="188.0" prefWidth="200.0" />
+                  <TextField fx:id="txtEmail" layoutX="196.0" layoutY="230.0" prefWidth="200.0" />
+                  <Label layoutX="3.0" layoutY="234.0" text="Email" />
+                  <Label layoutX="4.0" layoutY="283.0" text="Perfil" />
+                  <ComboBox fx:id="comboPerfil" layoutX="196.0" layoutY="279.0" prefHeight="25.0" prefWidth="202.0" />
+                  <ComboBox fx:id="comboTipoDoc" layoutX="196.0" layoutY="147.0" prefHeight="25.0" prefWidth="199.0" />
                </children>
             </Pane>
          </center>
          <top>
-            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="48.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="44.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+                  <Text layoutX="37.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="rect-header" text="Usuario" wrappingWidth="89.341796875" />
+               </children></Pane>
          </top>
          <left>
             <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
@@ -41,11 +47,11 @@
             <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="69.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnCerrar" layoutX="274.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" />
-                  <Button fx:id="btnAgregarUsuario" layoutX="381.0" layoutY="14.0" mnemonicParsing="false" onAction="#guardarUsuario" text="Agregar" />
-                  <Button fx:id="btnModificarUsuario" layoutX="381.0" layoutY="14.0" mnemonicParsing="false" onAction="#modificarUsuario" text="Modificar" />
+                  <Button fx:id="btnCerrar" layoutX="281.0" layoutY="12.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="100.0" text="Cerrar" />
+                  <Button fx:id="btnAgregarUsuario" layoutX="402.0" layoutY="12.0" mnemonicParsing="false" onAction="#guardarUsuario" prefHeight="30.0" prefWidth="100.0" text="Agregar" />
+                  <Button fx:id="btnModificarUsuario" layoutX="402.0" layoutY="12.0" mnemonicParsing="false" onAction="#modificarUsuario" prefHeight="30.0" prefWidth="100.0" text="Modificar" />
                </children>
             </Pane>
          </bottom>
