@@ -18,8 +18,10 @@ CREATE TABLE `ticket`
 (
   `idTicket` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(10) NOT NULL,
-  `Cantidad` int(10) NOT NULL,
-  `PrecioTotal` int(10) NOT NULL,
+  `precioTotal` decimal(10,3) NOT NULL,
+  `descripcion` varchar(300),
+  `path` varchar(300),
+  `FechaReserva` Timestamp NOT NULL,
   PRIMARY KEY (`idTicket`),
   CONSTRAINT FOREIGN KEY fk_idCliente (idCliente) REFERENCES cliente (idCliente)
 );

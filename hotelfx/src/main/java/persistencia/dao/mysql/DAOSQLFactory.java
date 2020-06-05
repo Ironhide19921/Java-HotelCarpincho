@@ -13,6 +13,7 @@ import persistencia.dao.interfaz.PermisoPerfilDAO;
 import persistencia.dao.interfaz.ProductoDAO;
 import persistencia.dao.interfaz.ReservaCuartoDAO;
 import persistencia.dao.interfaz.SalonDAO;
+import persistencia.dao.interfaz.TicketDAO;
 import persistencia.dao.interfaz.UsuarioDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory{
@@ -69,4 +70,7 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 		return new OrdenPedidoDAOSQL();
 	}
 
+	public TicketDAO createTicketDAO() {
+		return new TicketDAOSQL();
+	}
 }

@@ -45,8 +45,8 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnImportar" layoutX="220.0" layoutY="15.0" mnemonicParsing="false" onAction="#importarCSV" prefHeight="30.0" prefWidth="150.0" text="Importar" />
-                  <Button fx:id="btnInsertar" layoutX="52.0" layoutY="15.0" mnemonicParsing="false" onAction="#insertarClientesNuevos" prefHeight="30.0" prefWidth="150.0" text="Insertar" />
+                  <Button fx:id="btnImportar" layoutX="65.0" layoutY="15.0" mnemonicParsing="false" onAction="#importarCSV" prefHeight="30.0" prefWidth="150.0" text="Importar" />
+                  <Button fx:id="btnInsertar" layoutX="287.0" layoutY="15.0" mnemonicParsing="false" onAction="#insertarClientesNuevos" prefHeight="30.0" prefWidth="150.0" text="Insertar" />
                   <Button fx:id="btnMail" layoutX="701.0" layoutY="15.0" mnemonicParsing="false" onAction="#manejoMail" prefHeight="30.0" prefWidth="150.0" text="Mail" />
                </children>
             </Pane>
