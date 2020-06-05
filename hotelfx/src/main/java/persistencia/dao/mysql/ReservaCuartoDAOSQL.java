@@ -144,25 +144,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 		String estadoReserva = resultSet.getString("EstadoReserva");
 		String comentarios = resultSet.getString("Comentarios");
 		boolean estado = resultSet.getBoolean("Estado");
-		 /*`idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT,
-		  `idCliente` int(11) NOT NULL,
-		  `idUsuario` int(11) NOT NULL,
-		  `idCuarto` int(11) NOT NULL,
-		  `Senia` decimal(10,3) NOT NULL,
-		  `MontoReservaCuarto` decimal(10,3) NOT NULL,
-		  `EmailFacturacion` varchar(60) NOT NULL,
-		  `FechaReserva` timestamp NOT NULL,
-		  `FechaCheckIn` timestamp NOT NULL,
-		  `FechaIngreso` timestamp NOT NULL,
-		  `FechaOut` timestamp NOT NULL,
-		  `FechaEgreso` timestamp NOT NULL,
-		  `FormaPago` varchar(20) not null,
-		  `TipoTarjeta` varchar(25),
-		  `NumeroTarjeta` varchar(25),
-		  `FechaVencTarjeta` varchar(15),
-		  `CodSeguridadTarjeta` varchar(10),
-		  `EstadoReserva` varchar(20) NOT NULL,
-		  `Comentarios` varchar(200),*/
+	
 		ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
 				emailFacturacion, numTarjeta, formaDePago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
 				fechaReserva, fechaCheckIn, fechaOut, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
