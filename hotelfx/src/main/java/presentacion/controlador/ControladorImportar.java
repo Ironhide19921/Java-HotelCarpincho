@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import dto.ClienteDTO;
 import dto.ErrorImportarDTO;
+import dto.TicketDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -59,6 +60,7 @@ public class ControladorImportar implements Initializable {
 	private Cliente cliente;
 	private int cantidadNuevosClientes;
 	private ArrayList<String> columnas;
+	private TicketDTO ticket;
 	@FXML private Mail mail;
 	@FXML private ErrorImportar errorImportar;
 	@FXML private ObservableList<ClienteDTO> activeSession;
