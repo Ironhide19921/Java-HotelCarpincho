@@ -1,0 +1,4 @@
+idCliente,Nombre,Apellido,TipoDocumento,Documento,Email,Telefono,Estado,FechaNacimiento
+1,soynuevo6,nuevo6,DNI,8888,asg,1234,1,2020-05-21
+2,soynuevo7,nuevo7,DNI,7777,gaga,ga,1,2020-05-22
+3,soynuevo3,nuevo3,DNI,3333,GASG,TATA,1,2020-05-21

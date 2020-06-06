@@ -90,6 +90,14 @@ public class ControladorABMPerfil implements Initializable {
 			String nombrePerfil = this.txtNombre.getText();
 			
 			PerfilDTO nuevoPerfil = new PerfilDTO(0, nombrePerfil);
+			
+			for(PerfilDTO perfil : this.observableList) {
+				if(perfil.getNombre().equals(nombrePerfil)) {
+					mostrarMensaje("Este nombre de perfil ya existe");
+					return;
+				}
+			}
+			
 			this.perfil.agregarPerfil(nuevoPerfil);
 			
 			mostrarMensaje("Perfil "+nombrePerfil+" creado con exito");

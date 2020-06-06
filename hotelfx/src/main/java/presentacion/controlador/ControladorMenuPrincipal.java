@@ -2,7 +2,10 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
+
+import org.joda.time.DateTime;
 
 import dto.EmailDTO;
 import javafx.event.ActionEvent;
@@ -18,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modelo.Email;
+import modelo.Validador;
 import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
@@ -37,20 +41,21 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirImportar;
 	@FXML private Button btnAbrirReservaEvento;
 	@FXML private Button btnAbrirCategoriaEvento;
-	@FXML
+	@FXML private EmailDTO email;
+
+	@FXML private Button btnAbrirDivisas;
+	
 	private Button btnAbrirABMSalones;
 	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
 
-
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		
-		EmailDTO.enviarEmailsEncolados();
+		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
+		//email.start();
 	}
 
 
@@ -185,6 +190,28 @@ public class ControladorMenuPrincipal implements Initializable{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	public void verDivisas() {
+		{
+		     try { 
+			    Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/Divisas.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load();
+		
+				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				//ControladorDivisas scene2Controller = fxmlLoader.getController();	 
+				primaryStage.setTitle("Conversión de divisas");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	    }
 	}
 	
 }

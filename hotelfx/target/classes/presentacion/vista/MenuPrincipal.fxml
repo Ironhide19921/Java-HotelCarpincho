@@ -100,7 +100,7 @@
          </left>-->
 
          <top>
-            <Pane prefHeight="123.0" prefWidth="630.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="123.0" prefWidth="1157.0" BorderPane.alignment="CENTER">
                <children>
                   <MenuBar layoutX="-14.0" prefHeight="25.0" prefWidth="1180.0">
                     <menus>
@@ -146,5 +146,6 @@
             <Pane fx:id="center" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center> 
       </BorderPane>
+      <Button fx:id="btnAbrirDivisas" layoutX="1150.0" layoutY="1.0" mnemonicParsing="false" onAction="#verDivisas" text="\$" />
    </children>
 </AnchorPane>
