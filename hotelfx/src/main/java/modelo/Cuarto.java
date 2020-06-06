@@ -33,5 +33,9 @@ private CuartoDAO cuarto;
 	public void modificarEstado(CuartoDTO cuarto) {
 		this.cuarto.cambiarEstado(cuarto);
 	}
+	
+	public CuartoDTO traerCuarto(Integer id) {
+		return this.cuarto.traerCuarto(id);
+	}
 
 }

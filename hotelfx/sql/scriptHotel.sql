@@ -27,7 +27,7 @@ CREATE TABLE `ticket`
 CREATE TABLE `producto`
 (
   `idProducto` int(11) NOT NULL AUTO_INCREMENT,
-  `Precio` int(11) NOT NULL,
+  `Precio` Decimal(10,3) NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Descripcion` varchar(200) NOT NULL,
   `Proveedor` varchar(50) NOT NULL,
@@ -85,8 +85,8 @@ CREATE TABLE `ordenPedido`
   `idCliente` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `Cantidad` int(20) NOT NULL,
-  `PrecioTotal` int(20) NOT NULL,
-  PRIMARY KEY (`idOrdenPedido`),
+  `PrecioTotal` decimal(10,3) NOT NULL,
+  PRIMARY KEY (`idOrdenPedido`, `idProducto`),
   CONSTRAINT FOREIGN KEY fk_idProducto (idProducto) REFERENCES producto (idProducto),
   CONSTRAINT FOREIGN KEY fk_id_Cliente (idCliente) REFERENCES cliente (idCliente),
   CONSTRAINT FOREIGN KEY fk_idUsuario (idUsuario) REFERENCES usuario (idUsuario)
@@ -314,3 +314,11 @@ ALTER TABLE `reservaevento`
   ADD CONSTRAINT `reservaevento_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_3` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_4` FOREIGN KEY (`idCategoriaEvento`) REFERENCES `categoriaevento` (`idCategoriaEvento`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+  
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Usuarios'); 
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Clientes');
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Cuartos');
+  
+  
+  
