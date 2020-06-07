@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,22 @@ public class CuartoDAOSQL implements CuartoDAO{
 	private static final String updateEstado = "UPDATE cuarto SET estado = ? WHERE idCuarto = ?";
 	private static final String search = "SELECT * FROM cuarto WHERE capacidad LIKE ? OR monto LIKE ? OR montoSenia LIKE ? OR piso LIKE ? OR habitacion LIKE ?";
 	private static final String search1 = "SELECT * FROM cuarto WHERE idCuarto = ?";
+	private static final String searchDisponible = "SELECT h.idCuarto, h.idCategoriaCuarto, h.Capacidad, "
+			+ "h.Monto, h.MontoSenia, h.Piso, h.Habitacion, h.Estado FROM cuarto h" + 
+			"	left join reservaCuarto r on" + 
+			"	r.idCuarto = h.idCuarto" + 
+			"	where not" + 
+			"	(? <= r.FechaEgreso" + 
+			"	AND ? >= r.FechaIngreso)" + 
+			"UNION " + 
+			"SELECT cuarto.idCuarto, cuarto.idCategoriaCuarto, cuarto.Capacidad, cuarto.Monto, "
+			+ "cuarto.MontoSenia, cuarto.Piso, cuarto.Habitacion, cuarto.Estado FROM cuarto "
+			+ "left join reservaCuarto rc on" + 
+			"				rc.idCuarto <> cuarto.idCuarto " ;
+	//		"			where " + 
+	//		"			(? <= rc.FechaEgreso " + 
+	//		"				AND ? >= rc.FechaIngreso) ";
+	
 	@Override
 	public boolean insert(CuartoDTO cuarto) {
 		PreparedStatement statement;
@@ -181,6 +198,29 @@ public class CuartoDAOSQL implements CuartoDAO{
 				e1.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public List<CuartoDTO> obtenerCuartosDisponibles(Timestamp fechaEgreso, Timestamp fechaIngreso) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<CuartoDTO> cuartos = new ArrayList<CuartoDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(searchDisponible);
+			statement.setTimestamp(1,fechaEgreso);
+			statement.setTimestamp(2,fechaIngreso);
+		//	statement.setTimestamp(3,fechaEgreso);
+		//	statement.setTimestamp(4,fechaIngreso);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next()){
+				cuartos.add(getCuartoDTO(resultSet));
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cuartos;
 	}
 
 }

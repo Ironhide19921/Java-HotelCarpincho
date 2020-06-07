@@ -155,7 +155,7 @@ public class ControladorABMCliente implements Initializable{
 		     } 
 	    }
 	 @FXML
-		private void refrescarTabla(){
+		public void refrescarTabla(){
 	 		crearTabla(getAllClientes());
 		}
 

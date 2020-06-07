@@ -52,7 +52,7 @@ public class ControladorABMReservaCuarto implements Initializable
 	private Cliente clientes;
 	private ReservaCuarto reserva;
 	private Cuarto cuartos;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -60,6 +60,7 @@ public class ControladorABMReservaCuarto implements Initializable
 		this.clientes = new Cliente(new DAOSQLFactory());
 		this.cuartos =  new Cuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
+		
 		cargarColumnas();
 		refrescarTabla();
 	}

@@ -1,6 +1,7 @@
 package presentacion.controlador;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -9,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import dto.CategoriaCuartoDTO;
 import dto.ClienteDTO;
 import dto.CuartoDTO;
+import dto.ReservaCuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -188,5 +190,17 @@ public class ControladorABMCuarto implements Initializable
 	 		}
 	 		return activeSession;
 		}	
-	
+	 
+	@FXML
+	public void consultaReservaCuarto(Timestamp fechaEgreso, Timestamp fechaIngreso) {
+		tablaCuartos.getItems().clear();
+		cargarColumnas();
+		
+			List<CuartoDTO> cuartos = this.cuarto.obtenerCuartosDisponibles(fechaEgreso,fechaIngreso);
+			activeSession.clear();
+	 		for(CuartoDTO c : cuartos) {
+	 			activeSession.add(c);
+	 		}
+	 		tablaCuartos.setItems(activeSession);
+	}
 }

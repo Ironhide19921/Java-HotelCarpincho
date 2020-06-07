@@ -16,12 +16,16 @@ import dto.UsuarioDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import modelo.ReservaCuarto;
 import modelo.Usuario;
 import persistencia.dao.mysql.DAOSQLFactory;
@@ -106,6 +110,17 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		return lista;
 	}
 
+	private UsuarioDTO obtenerUsuarioConID(Integer id) {
+		List<UsuarioDTO> lista = this.usuarios.obtenerUsuarios();	
+		for(UsuarioDTO u : lista) {
+			if(u.getIdUsuario() == id) {
+				return u;
+			}
+		}
+		
+		return null;
+	}
+	
 	@FXML 
 	public void agregarReservaCuarto() 
 	{
@@ -146,10 +161,27 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	}
 	
 	
-	public void setearCampos() {
-		
+	public void setearCampos(ReservaCuartoDTO reserva) {
+		this.cmbBoxUsuario.getSelectionModel().select(obtenerUsuarioConID(reserva.getIdUsuario()));
+		this.cuarto.setText(reserva.getIdCuarto().toString());
+		this.cliente.setText(reserva.getIdCliente().toString());
+		this.email.setText(reserva.getEmailFacturacion());
+		this.senia.setText(reserva.getSenia().toString());
+		this.montoSenia.setText(reserva.getMontoReservaCuarto().toString());
+		this.tipoTarjeta.setText(reserva.getTiposTarjeta());
+		this.numTarjeta.setText(reserva.getNumTarjeta());
+		this.fechaVecTarjeta.setText(reserva.getFechaVencTarjeta());
+		this.codSeguridad.setText(reserva.getCodSeguridadTarjeta());
+		this.observaciones.setText(reserva.getComentarios());
+		this.cmbBoxEstados.getSelectionModel().select(reserva.getEstadoReserva());
+		this.cmbBoxFormaPago.getSelectionModel().select(reserva.getFormasDePago());
+		this.fechaReserva.getEditor().setText(reserva.getFechaReserva().toString());
+		this.fechaIngreso.getEditor().setText(reserva.getFechaIngreso().toString());
+		this.fechaEgreso.getEditor().setText(reserva.getFechaEgreso().toString());
+		this.fechaCheckIn.getEditor().setText(reserva.getFechaCheckIn().toString());
+		this.fechaCheckOut.getEditor().setText(reserva.getFechaOut().toString());
 	}
-	
+
 	@FXML 
 	public void modificarReservaCuarto() 
 	{
@@ -160,13 +192,47 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	
 	
 	@FXML 
-	public void agregarCliente() {
-		
+	public void consultarCuarto() {
+		 try { 
+			    Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMCuarto.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load();
+				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				ControladorABMCuarto scene2Controller = fxmlLoader.getController();
+				LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
+				LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
+				Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
+				Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
+				scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
+				primaryStage.setTitle("Consulta de cuartos disponibles");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+		       
+				
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
 	}
 	
 	@FXML 
-	public void agregarCuarto() {
-		
+	public void consultarCliente() {
+		 try { 
+			    Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaTablaConsulta.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load();
+				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				ControladorTablaConsulta scene2Controller = fxmlLoader.getController();
+				primaryStage.setTitle("Consulta de clientes activos");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
 	}
 	
 }

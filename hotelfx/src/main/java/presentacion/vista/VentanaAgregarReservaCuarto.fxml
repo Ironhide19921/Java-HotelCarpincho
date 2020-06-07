@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -12,75 +13,74 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarReservaCuarto">
+<AnchorPane prefHeight="600.0" prefWidth="1181.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarReservaCuarto">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="900.0">
+      <BorderPane prefHeight="600.0" prefWidth="1183.0">
          <top>
-            <Pane prefHeight="100.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="49.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="369.0" layoutY="42.0" prefHeight="17.0" prefWidth="66.0" text="Usuario" />
-                  <DatePicker fx:id="fechaReserva" layoutX="171.0" layoutY="38.0" />
-                  <Label layoutX="38.0" layoutY="42.0" prefHeight="17.0" prefWidth="109.0" text="Fecha de Reserva" />
-                  <Label layoutX="634.0" layoutY="42.0" prefHeight="17.0" prefWidth="108.0" text="Estado de reserva" />
-                  <ComboBox fx:id="cmbBoxEstados" layoutX="742.0" layoutY="38.0" prefHeight="25.0" prefWidth="117.0" />
-                  <ComboBox fx:id="cmbBoxUsuario" layoutX="423.0" layoutY="38.0" prefWidth="150.0" />
+                  <Label layoutX="37.0" layoutY="18.0" prefHeight="17.0" prefWidth="66.0" text="Usuario" />
+                  <ComboBox fx:id="cmbBoxUsuario" layoutX="165.0" layoutY="14.0" prefHeight="25.0" prefWidth="174.0" />
+                  <Label layoutX="360.0" layoutY="18.0" prefHeight="17.0" prefWidth="108.0" text="Estado de reserva" />
+                  <ComboBox fx:id="cmbBoxEstados" layoutX="468.0" layoutY="14.0" prefHeight="25.0" prefWidth="117.0" />
                </children>
             </Pane>
          </top>
          <left>
-            <Pane prefHeight="600.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="419.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="502.0" prefWidth="1168.0" BorderPane.alignment="CENTER">
                <children>
-                  <Separator layoutX="343.0" orientation="VERTICAL" prefHeight="419.0" prefWidth="10.0" />
-                  <TextField fx:id="email" layoutX="102.0" layoutY="320.0" prefHeight="25.0" prefWidth="222.0" />
-                  <Label layoutX="22.0" layoutY="54.0" prefHeight="17.0" prefWidth="109.0" text="Fecha de Ingreso" />
-                  <Label layoutX="24.0" layoutY="94.0" prefHeight="17.0" prefWidth="100.0" text="Fecha de egreso" />
-                  <Label layoutX="24.0" layoutY="137.0" prefHeight="17.0" prefWidth="89.0" text="Fecha CheckIn" />
-                  <Label layoutX="24.0" layoutY="323.0" prefHeight="17.0" prefWidth="44.0" text="Email" />
-                  <Text layoutX="35.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese los datos de la reserva" wrappingWidth="177.13671875" />
-                  <TextField fx:id="cuarto" layoutX="443.0" layoutY="50.0" prefHeight="25.0" prefWidth="170.0" />
-                  <TextField fx:id="cliente" layoutX="443.0" layoutY="90.0" prefHeight="25.0" prefWidth="170.0" />
-                  <Button layoutX="627.0" layoutY="50.0" mnemonicParsing="false" text="Agregar" />
-                  <Button layoutX="627.0" layoutY="90.0" mnemonicParsing="false" text="Agregar" />
-                  <Label layoutX="365.0" layoutY="94.0" prefHeight="17.0" prefWidth="51.0" text="Cliente" />
-                  <Label layoutX="365.0" layoutY="55.0" prefHeight="17.0" prefWidth="51.0" text="Cuarto" />
-                  <Text layoutX="363.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos de pago" wrappingWidth="95.13671875" />
-                  <TextArea fx:id="observaciones" layoutX="152.0" layoutY="219.0" prefHeight="82.0" prefWidth="173.0" />
-                  <Label layoutX="24.0" layoutY="225.0" prefHeight="17.0" prefWidth="101.0" text="Observaciones" />
-                  <DatePicker fx:id="fechaIngreso" layoutX="152.0" layoutY="51.0" />
-                  <DatePicker fx:id="fechaEgreso" layoutX="152.0" layoutY="90.0" />
-                  <DatePicker fx:id="fechaCheckIn" layoutX="152.0" layoutY="133.0" />
-                  <DatePicker fx:id="fechaCheckOut" layoutX="152.0" layoutY="175.0" />
-                  <Label layoutX="24.0" layoutY="179.0" prefHeight="17.0" prefWidth="89.0" text="Fecha CheckOut" />
-                  <TextField fx:id="senia" layoutX="487.0" layoutY="212.0" prefHeight="25.0" prefWidth="179.0" />
-                  <TextField fx:id="tipoTarjeta" layoutX="488.0" layoutY="292.0" prefHeight="25.0" prefWidth="181.0" />
-                  <Label layoutX="365.0" layoutY="216.0" prefHeight="17.0" prefWidth="66.0" text="Seña" />
-                  <Label layoutX="365.0" layoutY="255.0" prefHeight="17.0" prefWidth="92.0" text="Forma de pago" />
-                  <Label layoutX="365.0" layoutY="296.0" prefHeight="17.0" prefWidth="83.0" text="Tipo de tarjeta" />
-                  <ComboBox fx:id="cmbBoxFormaPago" layoutX="486.0" layoutY="251.0" prefHeight="25.0" prefWidth="180.0" />
-                  <TextField fx:id="numTarjeta" layoutX="487.0" layoutY="328.0" prefHeight="25.0" prefWidth="182.0" />
-                  <Label layoutX="365.0" layoutY="332.0" prefHeight="17.0" prefWidth="83.0" text="Nº tarjeta" />
-                  <Label layoutX="365.0" layoutY="369.0" prefHeight="17.0" prefWidth="83.0" text="Fecha Venc" />
-                  <TextField fx:id="fechaVecTarjeta" layoutX="486.0" layoutY="365.0" prefHeight="25.0" prefWidth="63.0" />
-                  <Label layoutX="552.0" layoutY="369.0" prefHeight="17.0" prefWidth="50.0" text="Cod Seg" />
-                  <TextField fx:id="codSeguridad" layoutX="606.0" layoutY="365.0" prefHeight="25.0" prefWidth="63.0" />
-                  <TextField fx:id="montoSenia" layoutX="487.0" layoutY="175.0" prefHeight="25.0" prefWidth="179.0" />
-                  <Label layoutX="365.0" layoutY="179.0" prefHeight="17.0" prefWidth="66.0" text="Monto" />
+                  <Separator layoutX="350.0" layoutY="10.0" orientation="VERTICAL" prefHeight="493.0" prefWidth="6.0" />
+                  <TextField fx:id="email" layoutX="160.0" layoutY="455.0" prefHeight="25.0" prefWidth="175.0" />
+                  <Label layoutX="46.0" layoutY="137.0" prefHeight="17.0" prefWidth="89.0" text="Fecha CheckIn" />
+                  <Label layoutX="58.0" layoutY="456.0" prefHeight="17.0" prefWidth="44.0" text="Email" />
+                  <TextField fx:id="cuarto" layoutX="465.0" layoutY="18.0" prefHeight="25.0" prefWidth="180.0" />
+                  <TextField fx:id="cliente" layoutX="465.0" layoutY="58.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Button fx:id="btnAgregarCliente" layoutX="668.0" layoutY="58.0" mnemonicParsing="false" onAction="#consultarCliente" text="Agregar" />
+                  <Button fx:id="btnAgregarCuarto" layoutX="668.0" layoutY="18.0" mnemonicParsing="false" onAction="#consultarCuarto" text="Agregar" />
+                  <Label layoutX="377.0" layoutY="62.0" prefHeight="17.0" prefWidth="51.0" text="Cliente" />
+                  <Label layoutX="377.0" layoutY="22.0" prefHeight="17.0" prefWidth="51.0" text="Cuarto" />
+                  <Text layoutX="40.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos de pago" wrappingWidth="95.13671875" />
+                  <TextArea fx:id="observaciones" layoutX="462.0" layoutY="103.0" prefHeight="87.0" prefWidth="260.0" />
+                  <Label layoutX="368.0" layoutY="103.0" prefHeight="17.0" prefWidth="83.0" text="Observaciones" />
+                  <DatePicker fx:id="fechaCheckIn" layoutX="160.0" layoutY="133.0" styleClass="input-fecha" />
+                  <DatePicker fx:id="fechaCheckOut" layoutX="160.0" layoutY="166.0" styleClass="input-fecha" />
+                  <Label layoutX="46.0" layoutY="170.0" prefHeight="17.0" prefWidth="89.0" text="Fecha CheckOut" />
+                  <TextField fx:id="senia" layoutX="160.0" layoutY="282.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="tipoTarjeta" layoutX="160.0" layoutY="351.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="47.0" layoutY="286.0" prefHeight="17.0" prefWidth="66.0" text="Seña" />
+                  <Label layoutX="42.0" layoutY="321.0" prefHeight="17.0" prefWidth="92.0" text="Forma de pago" />
+                  <Label layoutX="45.0" layoutY="355.0" prefHeight="17.0" prefWidth="83.0" text="Tipo de tarjeta" />
+                  <ComboBox fx:id="cmbBoxFormaPago" layoutX="160.0" layoutY="317.0" prefHeight="25.0" prefWidth="150.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></ComboBox>
+                  <TextField fx:id="numTarjeta" layoutX="160.0" layoutY="385.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="45.0" layoutY="389.0" prefHeight="17.0" prefWidth="83.0" text="Nº tarjeta" />
+                  <Label layoutX="45.0" layoutY="423.0" prefHeight="17.0" prefWidth="83.0" text="Fecha Venc" />
+                  <TextField fx:id="fechaVecTarjeta" layoutX="160.0" layoutY="419.0" prefHeight="25.0" prefWidth="60.0" />
+                  <Label layoutX="225.0" layoutY="423.0" prefHeight="17.0" prefWidth="50.0" text="Cod Seg" />
+                  <TextField fx:id="codSeguridad" layoutX="275.0" layoutY="419.0" prefHeight="25.0" prefWidth="60.0" />
+                  <TextField fx:id="montoSenia" layoutX="160.0" layoutY="249.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="47.0" layoutY="253.0" prefHeight="17.0" prefWidth="66.0" text="Monto" />
+                  <DatePicker fx:id="fechaReserva" layoutX="160.0" layoutY="33.0" styleClass="input-fecha" />
+                  <DatePicker fx:id="fechaIngreso" layoutX="160.0" layoutY="66.0" styleClass="input-fecha" />
+                  <Label layoutX="36.0" layoutY="37.0" prefHeight="17.0" prefWidth="109.0" text="Fecha de Reserva" />
+                  <Label layoutX="36.0" layoutY="70.0" prefHeight="17.0" prefWidth="109.0" text="Fecha de Ingreso" />
+                  <Label layoutX="30.0" layoutY="103.0" prefHeight="17.0" prefWidth="100.0" text="Fecha de egreso" />
+                  <DatePicker fx:id="fechaEgreso" layoutX="160.0" layoutY="99.0" styleClass="input-fecha" />
+                  <Button fx:id="btnAgregar" layoutX="571.0" layoutY="212.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
+                  <Button fx:id="btnCerrar" layoutX="571.0" layoutY="257.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Cancelar" />
                </children>
             </Pane>
          </center>
          <right>
-            <Pane prefHeight="600.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="502.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="81.0" prefWidth="900.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="btnAgregar" layoutX="716.0" layoutY="35.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
-                  <Button layoutX="555.0" layoutY="35.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Cancelar" />
-               </children>
-            </Pane>
+            <Pane prefHeight="49.0" prefWidth="1280.0" BorderPane.alignment="CENTER" />
          </bottom></BorderPane>
    </children>
 </AnchorPane>
