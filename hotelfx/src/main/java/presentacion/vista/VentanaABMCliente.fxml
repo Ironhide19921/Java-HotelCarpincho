@@ -39,7 +39,8 @@ xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"-->
                   <Button fx:id="btnBuscarCliente" layoutX="386.0" layoutY="16.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="30.0" prefWidth="100.0" text="Buscar" />
                   <Label layoutX="50.0" layoutY="20.0" prefHeight="17.0" prefWidth="79.0" text="Buscar cliente" />
                   <TextField fx:id="ingresarCliente" layoutX="129.0" layoutY="16.0" prefHeight="30.0" prefWidth="250.0" />
-                  <Button fx:id="btnEditCliente" layoutX="752.0" layoutY="16.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" />
+                  <Button fx:id="btnEditCliente" layoutX="494.0" layoutY="16.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" />
+                  <Button fx:id="btnSeleccionarCliente" layoutX="722.0" layoutY="16.0" mnemonicParsing="false" onAction="#seleccionarCliente" prefHeight="25.0" prefWidth="135.0" text="Seleccionar" />
                </children>
             </Pane>
          </top>

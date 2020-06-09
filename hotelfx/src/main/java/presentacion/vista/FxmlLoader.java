@@ -27,4 +27,6 @@ public Pane getPage(String fileName) {
 	return view;
 	
 	}
+
+
 }

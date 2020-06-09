@@ -88,20 +88,10 @@ public class ControladorAgregarCliente implements Initializable {
 			java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(txtFecha.getValue());
 			ClienteDTO nuevoCliente = new ClienteDTO(0, nombre, apellido, tipoDoc, documento, email, tel, true,gettedDatePickerDate);
 			this.hotel.agregarCliente(nuevoCliente);
-			
-			Stage primaryStage = new Stage(); 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/MenuPrincipal.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-			//cargo el objeto completo que incluye toda la escena y el controlador
-			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root)); 
-			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-			ControladorMenuPrincipal menu =  fxmlLoader.getController();
-			menu.verABMClientes();
+	
 			//tomo el controlador
 			//ControladorABMCliente scene2Controller = fxmlLoader.getController();
 			//scene2Controller.refrescarTabla();
-			primaryStage.show();
 			cerrarVentanaAgregar();	
 
 	}

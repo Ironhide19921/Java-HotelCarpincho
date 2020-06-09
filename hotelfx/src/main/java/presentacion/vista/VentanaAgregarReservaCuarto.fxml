@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1181.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarReservaCuarto">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarReservaCuarto">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="1183.0">
+      <BorderPane prefHeight="600.0" prefWidth="900.0">
          <top>
             <Pane prefHeight="49.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <children>
@@ -30,7 +30,7 @@
             <Pane prefHeight="419.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <Pane prefHeight="502.0" prefWidth="1168.0" BorderPane.alignment="CENTER">
+            <Pane accessibleRole="COMBO_BOX" prefHeight="502.0" prefWidth="1168.0" BorderPane.alignment="CENTER">
                <children>
                   <Separator layoutX="350.0" layoutY="10.0" orientation="VERTICAL" prefHeight="493.0" prefWidth="6.0" />
                   <TextField fx:id="email" layoutX="160.0" layoutY="455.0" prefHeight="25.0" prefWidth="175.0" />
@@ -73,6 +73,7 @@
                   <DatePicker fx:id="fechaEgreso" layoutX="160.0" layoutY="99.0" styleClass="input-fecha" />
                   <Button fx:id="btnAgregar" layoutX="571.0" layoutY="212.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
                   <Button fx:id="btnCerrar" layoutX="571.0" layoutY="257.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Cancelar" />
+                  <Button fx:id="btnConsultarPendientes" layoutX="387.0" layoutY="212.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Consultar" />
                </children>
             </Pane>
          </center>

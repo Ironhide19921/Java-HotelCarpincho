@@ -34,6 +34,7 @@ public class ControladorABMReservaCuarto implements Initializable
 	@FXML private Button btnAgregarReserva;
 	@FXML private Button btnModificarReserva;
 	@FXML private Button btnHabDesReserva;
+	@FXML private Button btnConsultarReserva;
 	@FXML private Button btnRefresh;
 	@FXML private Button btnBuscar;
 	@FXML private TextField ingresarCliente;
@@ -135,6 +136,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				primaryStage.setScene(new Scene(root));   
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+				
 				primaryStage.setTitle("Agregar reserva de cuarto");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 
@@ -143,5 +145,56 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 		      e.printStackTrace(); 
 		     } 
 	}
+	@FXML
+	public void modificarReservaCuarto() {
+		 try { 
+			    Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load();
+				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+				scene2Controller.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
+				primaryStage.setTitle("Modificar reserva de cuarto");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	}
+	
+	public void consultarReservaCuarto() {
+		 try { 
+			    Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load();
+				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+				scene2Controller.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
+				scene2Controller.modificarPantallaConsulta();
+				primaryStage.setTitle("Consultar reserva de cuarto");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	}
 
+	@FXML 
+	public void habilitarDeshabilitarReserva() {
+		ReservaCuartoDTO reserva = this.tablaReservas.getSelectionModel().getSelectedItem().getReserva();
+		
+		if(reserva.getEstado() == true) {
+			reserva.setEstado(false);
+		}else {
+			reserva.setEstado(true);
+		}
+		
+	}
+	
 }

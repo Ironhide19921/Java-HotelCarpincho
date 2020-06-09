@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.ReservaCuarto;
 import modelo.Usuario;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarReservaCuarto implements Initializable{
@@ -49,6 +50,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML private Button btnCerrar;
 	@FXML private Button btnAgregarCliente;
 	@FXML private Button btnAgregarCuarto;
+	@FXML private Button btnConsultarPendientes;
 	@FXML private TextField usuario;
 	@FXML private TextField cuarto;
 	@FXML private TextField cliente;
@@ -75,10 +77,13 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	private ReservaCuarto reservaCuarto;
 	private Usuario usuarios;
 	private estadosReserva estados;
+	private Validador validador;
 	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		//visualizarBotones();
+		this.btnConsultarPendientes.setVisible(false);
 		this.reservaCuarto = new ReservaCuarto(new DAOSQLFactory());
 		this.usuarios = new Usuario(new DAOSQLFactory());
 		this.listaCmbBoxEstados = FXCollections.observableList(cargarCmbBoxEstados());
@@ -87,6 +92,15 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.cmbBoxFormaPago.setItems(listaCmbBoxFormaPago);
 		this.listaCmbBoxUsuario = FXCollections.observableList(cargarCmbBoxUsuario());
 		this.cmbBoxUsuario.setItems(listaCmbBoxUsuario);
+	}
+
+	private void visualizarBotones() {
+		this.btnAgregar.setVisible(true);
+		this.btnModificar.setVisible(true);
+		this.btnCerrar.setVisible(true);
+		this.btnAgregarCliente.setVisible(true);
+		this.btnAgregarCuarto.setVisible(true);
+		
 	}
 
 	private List<UsuarioDTO> cargarCmbBoxUsuario() {
@@ -128,17 +142,36 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.reservaCuarto.agregarReservaCuarto(reserva);
 	}
 
+
+
 	private ReservaCuartoDTO obtenerDatosReserva() {
+		
 		LocalDate localInicioReserva =  this.fechaReserva.getValue();
 		LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
 		LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();
 		LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
 		LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
-		int idCliente = Integer.parseInt(cliente.getText());
-		int idCuarto = Integer.parseInt(cuarto.getText());
-		int idUsuario = this.cmbBoxUsuario.getValue().getIdPerfil();
-		BigDecimal senia = new BigDecimal(this.senia.getText());
-		BigDecimal montoReservaCuarto =new BigDecimal(this.montoSenia.getText());
+		int idCliente = 0;
+		if(!cliente.getText().isEmpty()) {
+			 idCliente = Integer.parseInt(cliente.getText());
+		}
+	
+		int idCuarto = 0;
+		if(!cuarto.getText().isEmpty()) {
+			idCuarto = Integer.parseInt(cuarto.getText());
+		}
+		int idUsuario = 0;
+		if(cmbBoxUsuario.getValue()!=null) {
+			idUsuario = this.cmbBoxUsuario.getValue().getIdPerfil();
+		}
+		BigDecimal senia = new BigDecimal(0);
+		if(!this.senia.getText().isEmpty()) {
+			senia = new BigDecimal(this.senia.getText());
+		}
+		BigDecimal montoReservaCuarto =new BigDecimal(0);
+		if(!montoSenia.getText().isEmpty()) {
+			senia = new BigDecimal(this.senia.getText());
+		}
 		String emailFacturacion = this.email.getText();
 		String numTarjeta = this.numTarjeta.getText();
 		String formaDePago = this.cmbBoxFormaPago.getValue();
@@ -150,10 +183,18 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		Timestamp fechaOut = Timestamp.valueOf(localInicioCheckOut.atTime(LocalTime.of(8,0,0)));
 		Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
 		Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
-		String estadoReserva = this.cmbBoxEstados.getValue();
+		String estadoReserva = "";
+		if(this.cmbBoxEstados.getValue()!=null) {
+			estadoReserva = this.cmbBoxEstados.getValue();
+		}
+		if(this.cmbBoxEstados.getValue()==null) {
+			this.cmbBoxEstados.getSelectionModel().selectFirst();
+			estadoReserva = this.cmbBoxEstados.getValue();
+		}
+	
 		String comentarios = this.observaciones.getText();
 		boolean estado = true;
-	
+
 		ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
 				emailFacturacion, numTarjeta, formaDePago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
 				fechaReserva, fechaCheckIn, fechaOut, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
@@ -162,6 +203,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	
 	
 	public void setearCampos(ReservaCuartoDTO reserva) {
+		
 		this.cmbBoxUsuario.getSelectionModel().select(obtenerUsuarioConID(reserva.getIdUsuario()));
 		this.cuarto.setText(reserva.getIdCuarto().toString());
 		this.cliente.setText(reserva.getIdCliente().toString());
@@ -175,18 +217,20 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.observaciones.setText(reserva.getComentarios());
 		this.cmbBoxEstados.getSelectionModel().select(reserva.getEstadoReserva());
 		this.cmbBoxFormaPago.getSelectionModel().select(reserva.getFormasDePago());
-		this.fechaReserva.getEditor().setText(reserva.getFechaReserva().toString());
-		this.fechaIngreso.getEditor().setText(reserva.getFechaIngreso().toString());
-		this.fechaEgreso.getEditor().setText(reserva.getFechaEgreso().toString());
-		this.fechaCheckIn.getEditor().setText(reserva.getFechaCheckIn().toString());
-		this.fechaCheckOut.getEditor().setText(reserva.getFechaOut().toString());
+		
+		this.fechaReserva.setValue(reserva.getFechaReserva().toLocalDateTime().toLocalDate());
+		this.fechaIngreso.setValue(reserva.getFechaIngreso().toLocalDateTime().toLocalDate());
+		this.fechaEgreso.setValue(reserva.getFechaEgreso().toLocalDateTime().toLocalDate());
+		this.fechaCheckIn.setValue(reserva.getFechaCheckIn().toLocalDateTime().toLocalDate());
+		this.fechaCheckOut.setValue(reserva.getFechaOut().toLocalDateTime().toLocalDate());
 	}
 
 	@FXML 
 	public void modificarReservaCuarto() 
 	{
+		//Agregar validador
 		ReservaCuartoDTO reserva = obtenerDatosReserva();
-		this.reservaCuarto.agregarReservaCuarto(reserva);
+		this.reservaCuarto.modificarReservaCuarto(reserva);
 	}
 	
 	
@@ -206,11 +250,11 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 				Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
 				Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
 				scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
+
 				primaryStage.setTitle("Consulta de cuartos disponibles");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 
-		       
-				
+		       			
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
@@ -219,20 +263,101 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML 
 	public void consultarCliente() {
 		 try { 
-			    Stage primaryStage = new Stage(); 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaTablaConsulta.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root));   
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				ControladorTablaConsulta scene2Controller = fxmlLoader.getController();
-				primaryStage.setTitle("Consulta de clientes activos");
-				primaryStage.sizeToScene();
-				primaryStage.show(); 
+
+					if(ingresoFechas()) {
+						  Stage primaryStage = new Stage(); 
+					 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMCliente.fxml");
+							FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+							Parent root = (Parent) fxmlLoader.load();
+							primaryStage.setScene(new Scene(root));   
+							primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+							ControladorABMCliente controlador = fxmlLoader.getController();
+							controlador.modificarBotonesReserva();
+							controlador.datosReserva(obtenerDatosReserva());
+
+							primaryStage.setTitle("Consulta de clientes activos");
+							primaryStage.sizeToScene();
+							primaryStage.show(); 
+							
+							 Stage stage = (Stage) btnAgregarCliente.getScene().getWindow();
+								stage.close();
+					}
+					else {
+						validador.mostrarMensaje("El ingreso de fechas son obligatorias para esta consulta");
+					}
+			  
 		       
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
 	}
+
+	private boolean ingresoFechas() {
+		LocalDate localInicioReserva =  this.fechaReserva.getValue();
+		LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
+		LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();
+		LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
+		LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
+		 if(localInicioReserva!=null && localInicioCheckIn!=null && 
+				 localInicioCheckOut!=null&& localInicioIngreso!=null&& 
+				 localInicioEgreso!=null) {
+		 return true;
+		 }
+		 else {
+		 return false;
+		 }
+	}
+	
+
+
+	public void modificarCliente(int idCliente) {
+		// TODO Auto-generated method stub
+		this.cliente.setText(idCliente+"");
+		
+	}
+	
+	@FXML
+	public void modificarPantallaConsulta() {
+		
+		ocultarBotonesConsulta();
+		camposSoloLectura();
+		this.btnConsultarPendientes.setVisible(true);
+	}
+
+	
+
+	private void camposSoloLectura() {
+
+		this.cuarto.setDisable(true);
+		this.cliente.setDisable(true);
+		this.email.setDisable(true);
+		this.senia.setDisable(true);
+		this.montoSenia.setDisable(true);
+		this.tipoTarjeta.setDisable(true);
+		this.numTarjeta.setDisable(true);
+		this.fechaVecTarjeta.setDisable(true);
+		this.codSeguridad.setDisable(true);
+		this.observaciones.setDisable(true);
+		this.cmbBoxEstados.setDisable(true);
+		this.cmbBoxFormaPago.setDisable(true);
+		this.cmbBoxUsuario.setDisable(true);
+		this.fechaIngreso.setDisable(true);
+		this.fechaEgreso.setDisable(true);
+		this.fechaCheckIn.setDisable(true);
+		this.fechaCheckOut.setDisable(true);
+		this.fechaReserva.setDisable(true);
+	}
+
+	private void ocultarBotonesConsulta() {
+		this.btnAgregar.setVisible(false);
+	//	this.btnModificar.setVisible(false);
+		this.btnCerrar.setVisible(false);
+		this.btnAgregarCliente.setVisible(false);
+		this.btnAgregarCuarto.setVisible(false);
+		
+	}
+	
+	
+
 	
 }

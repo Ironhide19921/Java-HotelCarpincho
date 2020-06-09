@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 
 import dto.ClienteDTO;
+import dto.ReservaCuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,6 +51,8 @@ public class ControladorABMCliente implements Initializable{
 	@FXML 
 	private Button btnDeshabilitarCliente;
 	@FXML 
+	private Button btnSeleccionarCliente;
+	@FXML 
 	private Button btnCerrar;
 	@FXML 
 	private TextField ingresarCliente;
@@ -76,10 +79,12 @@ public class ControladorABMCliente implements Initializable{
 	private	TableColumn idCliente;
 	private Cliente cliente;
 	private Validador validador;
+	private ReservaCuartoDTO reserva;
 	
 	// funcion onload
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		this.btnSeleccionarCliente.setVisible(false);
 		this.cliente = new Cliente(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaPersonas.getItems().clear();
@@ -232,4 +237,33 @@ public class ControladorABMCliente implements Initializable{
 			 Stage stage = (Stage) btnCerrar.getScene().getWindow();
 				stage.close();
 		}
+		 
+		 @FXML 
+		 public void modificarBotonesReserva() {
+			 this.btnSeleccionarCliente.setVisible(true);
+		 }
+		 
+		 public void datosReserva(ReservaCuartoDTO reserva) {
+			 this.reserva = reserva;
+		 }
+		 
+		 @FXML
+		 public void seleccionarCliente() throws IOException {
+			 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load(); 	
+				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+				scene2Controller.setearCampos(reserva);
+				scene2Controller.modificarCliente(this.tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
+				Stage stage = (Stage) btnSeleccionarCliente.getScene().getWindow();
+				stage.close();
+				Stage primaryStage = new Stage(); 
+				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				primaryStage.setTitle("Agregar cuartos");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+					
+		 }
 }
