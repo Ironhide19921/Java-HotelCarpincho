@@ -2,10 +2,10 @@ package persistencia.dao.mysql;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import persistencia.dao.interfaz.TicketDAO;
 
 public class TicketDAOSQL implements TicketDAO{
 	
-	private static final String insert = "INSERT INTO ticket(idCliente, precioTotal, descripcion, path, fecha) "
+	private static final String insert = "INSERT INTO ticket(idCliente, precioTotal, descripcion, path, fechaReserva) "
 			+ "VALUES(?, ?, ?, ?, ? )";
 	private static final String readall = "SELECT * FROM ticket";
 	//private static final String update = "UPDATE cliente SET nombre = ?, apellido = ?, tipoDocumento = ?, documento = ?, email = ?, telefono = ?, estado = ?, fechaNacimiento = ? WHERE idCliente = ?";
@@ -35,7 +35,7 @@ public class TicketDAOSQL implements TicketDAO{
 			statement.setBigDecimal(2, ticket.getPrecioTotal());
 			statement.setString(3, ticket.getDescripcion());
 			statement.setString(4, ticket.getPath());
-			statement.setDate(5, ticket.getFecha());			
+			statement.setTimestamp(5, ticket.getFecha());			
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isInsertExitoso = true;
@@ -66,7 +66,7 @@ public class TicketDAOSQL implements TicketDAO{
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			resultSet = statement.executeQuery();
 			while(resultSet.next()){
-				tickets.add(getTicketDTOO(resultSet));
+				tickets.add(getTicketDTO(resultSet));
 			}
 		} 
 		catch (SQLException e) {
@@ -75,13 +75,13 @@ public class TicketDAOSQL implements TicketDAO{
 		return tickets;
 	}
 
-	private TicketDTO getTicketDTOO(ResultSet resultSet) throws SQLException {
+	private TicketDTO getTicketDTO(ResultSet resultSet) throws SQLException {
 		int idTicket = resultSet.getInt("idTicket");
 		int idCliente= resultSet.getInt("idCliente");
 		BigDecimal precioTotal = resultSet.getBigDecimal("precioTotal");
 		String descripcion = resultSet.getString("descripcion");
 		String path = resultSet.getString("path");
-		Date fecha = resultSet.getDate("fecha");
+		Timestamp fecha = resultSet.getTimestamp("FechaReserva");
 		
 		return new TicketDTO(idTicket, idCliente, precioTotal, descripcion, path, fecha);
 	}
@@ -135,7 +135,7 @@ public class TicketDAOSQL implements TicketDAO{
 			statement.setString(5,"%" + buscar + "%");
 			resultSet = statement.executeQuery();
 			while(resultSet.next()){
-				tickets.add(getTicketDTOO(resultSet));
+				tickets.add(getTicketDTO(resultSet));
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
