@@ -3,8 +3,13 @@ package dto;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import dto.ReservaEventoDTO.FormaPago;
+import dto.ReservaEventoDTO.TipoTarjeta;
+
 public class ReservaEventoConNombresDTO {
-public enum EstadoReserva{PENDIENTE, CANCELADO, EN_CURSO, FINALIZADO};
+	public enum TipoTarjeta{VISA, MASTERCARD,NO};
+	public enum FormaPago{EFECTIVO, DEBITO, CREDITO};
+	public enum EstadoReserva{PENDIENTE, CANCELADO, EN_CURSO, FINALIZADO};
 	
 	private int idReservaEvento;
 	private int idCliente;
@@ -24,8 +29,8 @@ public enum EstadoReserva{PENDIENTE, CANCELADO, EN_CURSO, FINALIZADO};
 	private Timestamp FechaFinReserva;
 	private Timestamp FechaIngreso;
 	private Timestamp FechaEgreso;
-	private String FormaPago;
-	private String TipoTarjeta;
+	private FormaPago formaPago;
+	private TipoTarjeta tipoTarjeta;
 	private String NumeroTarjeta;
 	private String FechaVencTarjeta;
 	private String CodSeguridadTarjeta;
@@ -36,8 +41,8 @@ public enum EstadoReserva{PENDIENTE, CANCELADO, EN_CURSO, FINALIZADO};
 			String dniCliente, String nombreCliente, String apellidoCliente, int idUsuario, int idSalon,
 			int idCategoriaEvento, String nombreCategoriaEvento, BigDecimal senia, BigDecimal montoReservaEvento,
 			BigDecimal montoTotal, Timestamp fechaGeneracionReserva, Timestamp fechaInicioReserva,
-			Timestamp fechaFinReserva, Timestamp fechaIngreso, Timestamp fechaEgreso, String formaPago,
-			String tipoTarjeta, String numeroTarjeta, String fechaVencTarjeta, String codSeguridadTarjeta,
+			Timestamp fechaFinReserva, Timestamp fechaIngreso, Timestamp fechaEgreso, FormaPago formaPago,
+			TipoTarjeta tipoTarjeta, String numeroTarjeta, String fechaVencTarjeta, String codSeguridadTarjeta,
 			EstadoReserva estado, String observaciones) {
 		this.idReservaEvento = idReservaEvento;
 		this.idCliente = idCliente;
@@ -57,8 +62,8 @@ public enum EstadoReserva{PENDIENTE, CANCELADO, EN_CURSO, FINALIZADO};
 		this.FechaFinReserva = fechaFinReserva;
 		this.FechaIngreso = fechaIngreso;
 		this.FechaEgreso = fechaEgreso;
-		this.FormaPago = formaPago;
-		this.TipoTarjeta = tipoTarjeta;
+		this.formaPago = formaPago;
+		this.tipoTarjeta = tipoTarjeta;
 		this.NumeroTarjeta = numeroTarjeta;
 		this.FechaVencTarjeta = fechaVencTarjeta;
 		this.CodSeguridadTarjeta = codSeguridadTarjeta;
@@ -210,20 +215,20 @@ public enum EstadoReserva{PENDIENTE, CANCELADO, EN_CURSO, FINALIZADO};
 		FechaEgreso = fechaEgreso;
 	}
 
-	public String getFormaPago() {
-		return FormaPago;
+	public FormaPago getFormaPago() {
+		return this.formaPago;
 	}
 
-	public void setFormaPago(String formaPago) {
-		FormaPago = formaPago;
+	public void setFormaPago(FormaPago formaPago) {
+		this.formaPago = formaPago;
 	}
 
-	public String getTipoTarjeta() {
-		return TipoTarjeta;
+	public TipoTarjeta getTipoTarjeta() {
+		return tipoTarjeta;
 	}
 
-	public void setTipoTarjeta(String tipoTarjeta) {
-		TipoTarjeta = tipoTarjeta;
+	public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
 	}
 
 	public String getNumeroTarjeta() {

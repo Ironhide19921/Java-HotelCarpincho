@@ -34,7 +34,7 @@ public class SalonDAOSQL implements SalonDAO{
 			
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, salon.getCapacidad());
-			statement.setBigDecimal(2, salon.getSenia());
+			statement.setInt(2, salon.getSenia());
 			statement.setString(3, salon.getEstilo());
 			statement.setBigDecimal(4, salon.getMonto());
 			statement.setBoolean(5, salon.getEstado());
@@ -76,7 +76,7 @@ public class SalonDAOSQL implements SalonDAO{
 	private SalonDTO getSalonDTO(ResultSet resultSet) throws SQLException {
 		int idSalon = resultSet.getInt("idSalon");
 		int capacidad = resultSet.getInt("Capacidad");
-		BigDecimal senia = resultSet.getBigDecimal("Senia");
+		int senia = resultSet.getInt("Senia");
 		String estilo = resultSet.getString("Estilo");
 		BigDecimal monto = resultSet.getBigDecimal("Monto");
 		Boolean estado = resultSet.getBoolean("Estado");
@@ -91,7 +91,7 @@ public class SalonDAOSQL implements SalonDAO{
 		try{
 			statement = conexion.prepareStatement(update);
 			statement.setInt(1, salon.getCapacidad());
-			statement.setBigDecimal(2, salon.getSenia());
+			statement.setInt(2, salon.getSenia());
 			statement.setString(3, salon.getEstilo());
 			statement.setBigDecimal(4, salon.getMonto());
 			statement.setInt(5, salon.getId());

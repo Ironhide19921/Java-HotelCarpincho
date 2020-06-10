@@ -1,5 +1,6 @@
 package persistencia.dao.interfaz;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import dto.ReservaEventoDTO;
@@ -14,4 +15,6 @@ public interface ReservaEventoDAO {
 	public boolean delete(ReservaEventoDTO reservaEvento);
 	
 	public List<ReservaEventoDTO> readAllCliente(int idCliente);
+
+	public List<ReservaEventoDTO> getReservasEntre(Timestamp fechaInicio, Timestamp fechaFin);
 }

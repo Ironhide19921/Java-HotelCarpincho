@@ -24,7 +24,6 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Button fx:id="btnAgregarReservaEvento" layoutX="304.0" layoutY="133.0" mnemonicParsing="false" onAction="#addReservaEvento" prefHeight="25.0" prefWidth="130.0" text="Agregar reserva" />
                </children>
             </Pane>
          </center>

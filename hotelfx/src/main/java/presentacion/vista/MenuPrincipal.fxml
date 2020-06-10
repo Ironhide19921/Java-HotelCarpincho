@@ -125,7 +125,7 @@
                <children>
               <Button fx:id="btnAbrirABMProductos" layoutY="8.0" mnemonicParsing="false" onAction="#verABMProductos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Productos" />
                   <Button fx:id="btnAbrirABMReservas" layoutY="42.0" mnemonicParsing="false" onAction="#verReservaCuarto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Reservas cuartos" />
-                  <Button fx:id="btnAbrirReservaEvento" layoutY="76.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Reservas Evento" />
+                  <Button fx:id="btnAbrirReservaEvento" layoutY="76.0" mnemonicParsing="false" onAction="#verMenuReservaEvento" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Reservas Evento" />
                   <Button fx:id="btnAbrirImportar" layoutY="110.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Importar Reservas" />
                   <Button fx:id="btnAbrirABMCuartos" layoutY="144.0" mnemonicParsing="false" onAction="#verABMCuartos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Cuartos" />
                   <Button fx:id="btnAbrirABMCliente" layoutY="178.0" mnemonicParsing="false" onAction="#verABMClientes" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Clientes" />

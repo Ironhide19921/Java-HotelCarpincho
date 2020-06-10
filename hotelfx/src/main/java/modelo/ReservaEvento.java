@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import dto.CategoriaEventoDTO;
@@ -32,5 +33,9 @@ public class ReservaEvento {
 	
 	public void obtenerReservasEventoCliente(int idCliente) {
 		this.reservaEvento.readAllCliente(idCliente);
+	}
+	
+	public List<ReservaEventoDTO> verReservasEntreFechas(Timestamp fechaInicio, Timestamp fechaFin) {
+		return this.reservaEvento.getReservasEntre(fechaInicio, fechaFin);
 	}
 }

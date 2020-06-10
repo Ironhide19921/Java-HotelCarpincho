@@ -60,7 +60,7 @@ public class ControladorABMReservaEvento implements Initializable{
 	private ArrayList<Integer> listaIdReservaEventos;
 	private Alert alert;
 	private int clienteActual;
-	@FXML private BorderPane panelActual;
+	@FXML public BorderPane panelActual;
 	private Cliente cliente;
 	private CategoriaEvento categoriaEvento;
 	private CategoriaEventoDTO categoriaActual;
@@ -100,7 +100,7 @@ public class ControladorABMReservaEvento implements Initializable{
 	
 	
 	@FXML
-	private void refrescarTabla(){
+	public void refrescarTabla(){
 		crearTabla(getNuevasReservas());
 	}
 	
@@ -115,8 +115,12 @@ public class ControladorABMReservaEvento implements Initializable{
 				reservaEventoActual = r;
 				categoriaActual = categoriaEvento.obtenerCategoriaEventoPorId(r.getIdCategoriaEvento());
 				ReservaEventoConNombresDTO.EstadoReserva estado = null;
+				ReservaEventoConNombresDTO.FormaPago formaPago = null;
+				ReservaEventoConNombresDTO.TipoTarjeta tipoTarjeta = null;
+				formaPago = dto.ReservaEventoConNombresDTO.FormaPago.valueOf(r.getFormaPago().name());
+				tipoTarjeta = dto.ReservaEventoConNombresDTO.TipoTarjeta.valueOf(r.getTipoTarjeta().name());
 				estado = dto.ReservaEventoConNombresDTO.EstadoReserva.valueOf(r.getEstado().name());
-				ReservaEventoConNombresDTO reservaConNombres = new ReservaEventoConNombresDTO(r.getIdReservaEvento(), r.getIdCliente(), clienteSeleccionadoActual.getTipoDocumento(), clienteSeleccionadoActual.getNumeroDocumento(), clienteSeleccionadoActual.getNombre(), clienteSeleccionadoActual.getApellido(), 1, r.getIdSalon(), r.getIdCategoriaEvento(), categoriaActual.getNombre(), r.getSenia(), r.getMontoReservaEvento(), r.getMontoTotal(), r.getFechaGeneracionReserva(), r.getFechaInicioReserva(), r.getFechaFinReserva(), r.getFechaIngreso(), r.getFechaEgreso(), r.getFormaPago(), r.getTipoTarjeta(), r.getNumeroTarjeta(), r.getFechaVencTarjeta(), r.getCodSeguridadTarjeta(), estado, r.getObservaciones());
+				ReservaEventoConNombresDTO reservaConNombres = new ReservaEventoConNombresDTO(r.getIdReservaEvento(), r.getIdCliente(), clienteSeleccionadoActual.getTipoDocumento(), clienteSeleccionadoActual.getNumeroDocumento(), clienteSeleccionadoActual.getNombre(), clienteSeleccionadoActual.getApellido(), 1, r.getIdSalon(), r.getIdCategoriaEvento(), categoriaActual.getNombre(), r.getSenia(), r.getMontoReservaEvento(), r.getMontoTotal(), r.getFechaGeneracionReserva(), r.getFechaInicioReserva(), r.getFechaFinReserva(), r.getFechaIngreso(), r.getFechaEgreso(), formaPago, tipoTarjeta, r.getNumeroTarjeta(), r.getFechaVencTarjeta(), r.getCodSeguridadTarjeta(), estado, r.getObservaciones());
 				activeSession.add(reservaConNombres);
 			}
 		}

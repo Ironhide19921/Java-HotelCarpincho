@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class ReservaEventoDTO {
+	public enum TipoTarjeta{VISA, MASTERCARD, NO};
+	public enum FormaPago{EFECTIVO, DEBITO, CREDITO};
 	public enum EstadoReserva{PENDIENTE, CANCELADO, EN_CURSO, FINALIZADO};
-	
 	private int idReservaEvento;
 	private int idCliente;
 	private int idUsuario;
@@ -19,15 +20,15 @@ public class ReservaEventoDTO {
 	private Timestamp FechaFinReserva;
 	private Timestamp FechaIngreso;
 	private Timestamp FechaEgreso;
-	private String FormaPago;
-	private String TipoTarjeta;
+	private FormaPago formaPago;
+	private TipoTarjeta tipoTarjeta;
 	private String NumeroTarjeta;
 	private String FechaVencTarjeta;
 	private String CodSeguridadTarjeta;
 	private EstadoReserva estado;
 	private String Observaciones;
 	
-	public ReservaEventoDTO(int idReservaEvento, int idCliente, int idUsuario, int idSalon, int idCategoriaEvento, BigDecimal Senia, BigDecimal MontoReservaEvento, BigDecimal MontoTotal, Timestamp FechaGeneracionReserva, Timestamp FechaInicioReserva, Timestamp FechaFinReserva, Timestamp FechaIngreso, Timestamp FechaEgreso, String FormaPago, String TipoTarjeta, String NumeroTarjeta, String FechaVencTarjeta, String CodSeguridadTarjeta, EstadoReserva estado, String Observaciones) {
+	public ReservaEventoDTO(int idReservaEvento, int idCliente, int idUsuario, int idSalon, int idCategoriaEvento, BigDecimal Senia, BigDecimal MontoReservaEvento, BigDecimal MontoTotal, Timestamp FechaGeneracionReserva, Timestamp FechaInicioReserva, Timestamp FechaFinReserva, Timestamp FechaIngreso, Timestamp FechaEgreso, FormaPago FormaPago, TipoTarjeta TipoTarjeta, String NumeroTarjeta, String FechaVencTarjeta, String CodSeguridadTarjeta, EstadoReserva estado, String Observaciones) {
 		this.idReservaEvento = idReservaEvento;
 		this.idCliente = idCliente;
 		this.idUsuario = idUsuario;
@@ -41,8 +42,8 @@ public class ReservaEventoDTO {
 		this.FechaFinReserva = FechaFinReserva;
 		this.FechaIngreso = FechaIngreso;
 		this.FechaEgreso = FechaEgreso;
-		this.FormaPago = FormaPago;
-		this.TipoTarjeta = TipoTarjeta;
+		this.formaPago = FormaPago;
+		this.tipoTarjeta = TipoTarjeta;
 		this.NumeroTarjeta = NumeroTarjeta;
 		this.FechaVencTarjeta = FechaVencTarjeta;
 		this.CodSeguridadTarjeta = CodSeguridadTarjeta;
@@ -123,20 +124,20 @@ public class ReservaEventoDTO {
 		FechaEgreso = fechaEgreso;
 	}
 
-	public String getFormaPago() {
-		return FormaPago;
+	public FormaPago getFormaPago() {
+		return formaPago;
 	}
 
-	public void setFormaPago(String formaPago) {
-		FormaPago = formaPago;
+	public void setFormaPago(FormaPago formaPago) {
+		this.formaPago = formaPago;
 	}
 
-	public String getTipoTarjeta() {
-		return TipoTarjeta;
+	public TipoTarjeta getTipoTarjeta() {
+		return tipoTarjeta;
 	}
 
-	public void setTipoTarjeta(String tipoTarjeta) {
-		TipoTarjeta = tipoTarjeta;
+	public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
 	}
 
 	public String getNumeroTarjeta() {

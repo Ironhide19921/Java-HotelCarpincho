@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -18,37 +17,58 @@
          <center>
             <Pane prefHeight="238.0" prefWidth="479.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="tipoTarjeta" layoutX="27.0" layoutY="65.0" promptText="Tipo" />
-                  <TextField fx:id="codSeguridadTarjeta" layoutX="27.0" layoutY="99.0" promptText="CodSeg" />
-                  <TextField fx:id="fechaVencTarjeta" layoutX="29.0" layoutY="160.0" promptText="MM/AAAA" />
-                  <TextField fx:id="numeroTarjeta" layoutX="29.0" layoutY="194.0" promptText="Numero" />
-                  <ComboBox fx:id="comboSalones" layoutX="284.0" layoutY="23.0" prefWidth="150.0" promptText="Salon" />
-                  <ComboBox fx:id="comboCategoriasEvento" layoutX="284.0" layoutY="59.0" prefWidth="150.0" promptText="Categoria" />
-                  <Text layoutX="28.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de vencimiento" />
-                  <Text layoutX="52.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos de tarjeta">
+                  <ComboBox fx:id="comboTarjetas" layoutX="28.0" layoutY="105.0" prefWidth="150.0" promptText="Tipo de tarjeta" visible="false" />
+                  <TextField fx:id="codSeguridadTarjeta" layoutX="29.0" layoutY="145.0" promptText="CodSeg" visible="false" />
+                  <TextField fx:id="fechaVencTarjeta" layoutX="31.0" layoutY="206.0" promptText="MM/AAAA" visible="false" />
+                  <TextField fx:id="numeroTarjeta" layoutX="31.0" layoutY="240.0" promptText="Numero" visible="false" />
+                  <ComboBox fx:id="comboSalones" layoutX="263.0" layoutY="22.0" onAction="#verPrecioSalon" prefWidth="150.0" promptText="Salon" />
+                  <ComboBox fx:id="comboCategoriasEvento" layoutX="267.0" layoutY="119.0" prefWidth="150.0" promptText="Categoria" />
+                  <Text fx:id="textoFechaVencimientoTarjeta" layoutX="30.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de vencimiento" visible="false" />
+                  <Text fx:id="textoDatosTarjeta" layoutX="54.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos de tarjeta" visible="false">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Line endX="-17.5" endY="163.5" layoutX="204.0" layoutY="71.0" startX="-17.5" startY="-47.5" stroke="#0000004d" />
-                  <Line endX="6.5" endY="142.5" layoutX="8.0" layoutY="97.0" startX="6.5" startY="-72.5" stroke="#0000004d" />
-                  <TextField fx:id="formaPago" layoutX="284.0" layoutY="99.0" promptText="Forma de pago" />
-                  <TextField fx:id="montoTotal" layoutX="285.0" layoutY="132.0" promptText="Monto total" />
-                  <TextField fx:id="montoReserva" layoutX="285.0" layoutY="169.0" promptText="Monto reserva" />
-                  <TextField fx:id="senia" layoutX="285.0" layoutY="207.0" promptText="Seña" />
-                  <DatePicker fx:id="fechaInicioReserva" layoutX="554.0" layoutY="23.0" prefHeight="25.0" prefWidth="151.0" promptText="Fecha Inicio" />
-                  <DatePicker fx:id="fechaFinReserva" layoutX="553.0" layoutY="63.0" prefHeight="25.0" prefWidth="152.0" promptText="Fecha Fin" />
-                  <DatePicker fx:id="fechaIngresoReserva" layoutX="553.0" layoutY="96.0" prefHeight="25.0" prefWidth="151.0" promptText="Fecha Ingreso" />
-                  <DatePicker fx:id="fechaEgresoReserva" layoutX="554.0" layoutY="132.0" prefHeight="25.0" prefWidth="151.0" promptText="Fecha Egreso" />
-                  <ComboBox fx:id="comboEstados" layoutX="554.0" layoutY="169.0" prefWidth="150.0" promptText="Estado" />
-                  <TextArea fx:id="observaciones" layoutX="552.0" layoutY="203.0" prefHeight="128.0" prefWidth="154.0" promptText="Observaciones" />
+                  <ComboBox fx:id="comboFormasPago" layoutX="30.0" layoutY="22.0" onAction="#verificarFormaPago" prefWidth="150.0" promptText="Forma de Pago" />
+                  <TextField fx:id="montoTotal" editable="false" layoutX="22.0" layoutY="312.0" promptText="Monto total">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <Text layoutX="267.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monto del salon (por hora)" />
+                  <TextField fx:id="montoReserva" editable="false" layoutX="268.0" layoutY="84.0" promptText="Monto reserva" />
+                  <TextField fx:id="senia" editable="false" layoutX="266.0" layoutY="312.0" promptText="Seña">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <DatePicker fx:id="fechaInicioReserva" layoutX="266.0" layoutY="177.0" onAction="#verificarFechas" prefHeight="25.0" prefWidth="151.0" promptText="Fecha Inicio" />
+                  <DatePicker fx:id="fechaFinReserva" layoutX="266.0" layoutY="232.0" onAction="#verificarFechas" prefHeight="25.0" prefWidth="152.0" promptText="Fecha Fin" />
+                  <DatePicker fx:id="fechaIngresoReserva" layoutX="554.0" layoutY="225.0" prefHeight="25.0" prefWidth="151.0" promptText="Fecha Ingreso" />
+                  <DatePicker fx:id="fechaEgresoReserva" layoutX="553.0" layoutY="261.0" prefHeight="25.0" prefWidth="151.0" promptText="Fecha Egreso" />
+                  <ComboBox fx:id="comboEstados" layoutX="554.0" layoutY="22.0" prefWidth="150.0" promptText="Estado" />
+                  <TextArea fx:id="observaciones" layoutX="552.0" layoutY="56.0" prefHeight="156.0" prefWidth="154.0" promptText="Observaciones" />
+                  <Text layoutX="266.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seña que deberá abonar" y="100.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="-78.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monto total de la reserva" x="100.0" y="100.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="266.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha Inicio de reserva" />
+                  <Text layoutX="266.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha Fin de reserva" />
+                  <ComboBox fx:id="comboHoraInicio" layoutX="429.0" layoutY="177.0" onAction="#verificarHoras" prefHeight="25.0" prefWidth="60.0" />
+                  <ComboBox fx:id="comboHoraFin" layoutX="429.0" layoutY="232.0" onAction="#verificarHoras" prefHeight="25.0" prefWidth="61.0" />
+                  <Text layoutX="429.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora fin" />
+                  <Text layoutX="429.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora Inicio" />
                </children>
             </Pane>
          </center>
          <bottom>
             <Pane prefHeight="41.0" prefWidth="479.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnModificar" alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="8.0" mnemonicParsing="false" text="Modificar" />
+                  <Button fx:id="btnModificar" alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="8.0" mnemonicParsing="false" onAction="#modificarReservaEventoCliente" text="Modificar" />
                   <Button fx:id="btnAgregar" layoutX="329.0" layoutY="8.0" mnemonicParsing="false" onAction="#agregarReservaEventoCliente" text="Agregar" />
                </children>
             </Pane>
@@ -62,7 +82,8 @@
                      </font>
                   </Text>
                   <Text fx:id="txtCabeza" layoutX="317.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="424.826171875" />
-               </children></Pane>
+               </children>
+            </Pane>
          </top>
       </BorderPane>
    </children>
