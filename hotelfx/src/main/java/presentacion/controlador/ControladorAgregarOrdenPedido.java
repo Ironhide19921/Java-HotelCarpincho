@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -10,6 +11,7 @@ import dto.ClienteDTO;
 import dto.OrdenPedidoDTO;
 import dto.ProductoDTO;
 import dto.ProductoPedidoDTO;
+import dto.TicketDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,6 +28,7 @@ import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.OrdenPedido;
 import modelo.Producto;
+import modelo.Ticket;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
@@ -74,6 +77,8 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	@FXML private Label codSegTarj;
 	@FXML private TextField codSegTarjeta;
 	
+	private Ticket ticket;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.ordenPedido = new OrdenPedido(new DAOSQLFactory());
@@ -115,6 +120,10 @@ public class ControladorAgregarOrdenPedido implements Initializable{
     	fechaVencTarjeta.setVisible(false);
     	codSegTarj.setVisible(false);
     	codSegTarjeta.setVisible(false);
+    	
+    	btnConfirmarY_GenerarTicket.setDisable(true);
+    	
+    	this.ticket = new Ticket(new DAOSQLFactory());
 	    
 	}
 
@@ -324,6 +333,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		int cantidad = 0;
 		int idPedido = 0;
 		int idCliente = 0;
+		BigDecimal total = new BigDecimal(0);
 		
 		if(idPedido == 0) {
 			
@@ -340,7 +350,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					
 					cantidad = listaPedidosEnTabla.get(i).getCantidad();
 					
-					BigDecimal total = new BigDecimal(txtSubtotal.getText());
+					total = new BigDecimal(txtSubtotal.getText());
 					
 					//Datos del pago
 					String pagoSelec = cmbBoxFormasPago.getValue();
@@ -348,7 +358,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					String numTarj = numTarjeta.getText();
 					String fecVenc = fechaVencTarjeta.getText();
 					String codSeg = codSegTarjeta.getText();
-					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, 1, cantidad, total, "con plata", tipoTarj, numTarj, fecVenc, codSeg, true);
+					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarj, numTarj, fecVenc, codSeg, true);
 					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
 					
 				}
@@ -365,7 +375,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					
 					cantidad = listaPedidosEnTabla.get(i).getCantidad();
 					
-					BigDecimal total = new BigDecimal(txtSubtotal.getText());
+					total = new BigDecimal(txtSubtotal.getText());
 					
 					//Datos del pago
 					String pagoSelec = cmbBoxFormasPago.getValue();
@@ -377,9 +387,15 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					this.ordenPedido.agregarOrdenPedido(nuevoPedido);					
 					
 					idPedido = this.ordenPedido.obtenerIdMaximo();
+										
 				}								
 			}
 		}
+		
+		//datos del ticket
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		TicketDTO nuevoTicket = new TicketDTO(0, idCliente, total, "descripcion", "path", timestamp);
+		this.ticket.agregarCliente(nuevoTicket);
 		
 		cerrarVentanaAgregarY_GenerarTicket();
 		
