@@ -11,7 +11,7 @@ public class ReservaCuartoDTO {
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
 	private String emailFacturacion, numTarjeta, cantidadDias,
-	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
+	tipoTarjeta, forma, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
 	
 	private estadosReserva estadoReserva;
 	private Timestamp fechaReserva,fechaCheckIn,fechaOut,
@@ -41,11 +41,12 @@ public class ReservaCuartoDTO {
 		this.fechaIngreso = fechaIngreso;
 		this.fechaEgreso = fechaEgreso;
 		this.codSeguridadTarjeta = codSeguridadTarjeta;
-		this.formaDePago = formaDePago;
+		this.forma = formaDePago;
 		this.tipoTarjeta = tipoTarjeta;
 		this.estadoReserva = estadosReserva.valueOf(estadoReserva);
 		this.comentarios = comentarios;
 		this.estado = estado;
+		this.fechaVencTarjeta = fechaVencTarjeta;
 	}
 	
 	public Integer getIdReserva() {
@@ -177,11 +178,11 @@ public class ReservaCuartoDTO {
 	}
 
 	public String getFormasDePago() {
-		return formaDePago;
+		return forma;
 	}
 
 	public void setFormasDePago(String formasDePago) {
-		this.formaDePago = formasDePago;
+		this.forma = formasDePago;
 	}
 
 	public String getEstadoReserva() {
