@@ -61,8 +61,8 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, reserva.getIdCliente());
-			statement.setInt(3, reserva.getIdCuarto());
-			statement.setInt(2, reserva.getIdUsuario());
+			statement.setInt(2, reserva.getIdCuarto());
+			statement.setInt(3, reserva.getIdUsuario());
 			statement.setBigDecimal(4, reserva.getSenia());
 			statement.setBigDecimal(5, reserva.getMontoReservaCuarto());
 			statement.setString(6, reserva.getEmailFacturacion());
