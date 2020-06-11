@@ -17,7 +17,7 @@ import modelo.Email;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
-public class EmailDTO {
+public class EmailDTO extends Thread{
 	
 	private int idEmail;
 	private Date fechaCreacion;
@@ -50,6 +50,10 @@ public class EmailDTO {
 				return new PasswordAuthentication(emisor,pass);
 			}
 		});
+	}
+	
+	public void run() {
+		enviarEmailsEncolados();
 	}
 	
 	public void  setearPropiedades() {
@@ -120,8 +124,6 @@ public class EmailDTO {
 				cant++;
 			}
 		}
-		
-		Validador.mostrarMensaje("Se enviaron "+cant+" mensajes");
 	}
 	
 	public static int compararFechas(Date fechaInicial, Date fechaFinal) {
@@ -134,6 +136,7 @@ public class EmailDTO {
             dias=(int)Math.floor(diferencia/86400);
             diferencia=diferencia-(dias*86400);
         }
+        
 		return dias;
 	}
 	

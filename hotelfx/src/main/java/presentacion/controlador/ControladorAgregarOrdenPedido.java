@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -10,12 +11,15 @@ import dto.ClienteDTO;
 import dto.OrdenPedidoDTO;
 import dto.ProductoDTO;
 import dto.ProductoPedidoDTO;
+import dto.TicketDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,6 +28,7 @@ import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.OrdenPedido;
 import modelo.Producto;
+import modelo.Ticket;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
@@ -33,6 +38,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	@FXML private Button btnEliminarProducto;
 	@FXML private Button btnConfirmarPedido;
 	@FXML private Button btnEditarPedido;
+	@FXML private Button btnConfirmarY_GenerarTicket;
 	@FXML private ComboBox<String> cmbBoxProductos;
 	@FXML private ObservableList<String> listaCmbBoxProductos;
 	@FXML private ComboBox<Integer> cmbBoxCantidad;
@@ -57,6 +63,21 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	private Integer idCliente;
 	private Integer idUsuario;
 	private BigDecimal subtotalPedido = new BigDecimal(0);
+	
+	@FXML private CheckBox pagoRestoran;
+	@FXML private Label formaPago;
+	@FXML private ComboBox<String> cmbBoxFormasPago;
+	@FXML private ObservableList<String> listaCmbBoxFormasPago;
+	@FXML private Label tipoTarj;
+	@FXML private TextField tipoTarjeta;
+	@FXML private Label numTarj;
+	@FXML private TextField numTarjeta;
+	@FXML private Label fechaVencTarj;
+	@FXML private TextField fechaVencTarjeta;
+	@FXML private Label codSegTarj;
+	@FXML private TextField codSegTarjeta;
+	
+	private Ticket ticket;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -84,7 +105,25 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		listaPedidosEnTabla = FXCollections.observableArrayList();
 		productosEnTabla.getItems().clear();
 		
+		this.listaCmbBoxFormasPago = FXCollections.observableList(cargarCmbFormasPago());
+		this.cmbBoxFormasPago.setItems(listaCmbBoxFormasPago);
+		
 	    cargarColumnasTablaProd();
+	    
+	    formaPago.setVisible(false);
+    	cmbBoxFormasPago.setVisible(false);
+    	tipoTarj.setVisible(false);
+    	tipoTarjeta.setVisible(false);
+    	numTarj.setVisible(false);
+    	numTarjeta.setVisible(false);
+    	fechaVencTarj.setVisible(false);
+    	fechaVencTarjeta.setVisible(false);
+    	codSegTarj.setVisible(false);
+    	codSegTarjeta.setVisible(false);
+    	
+    	btnConfirmarY_GenerarTicket.setDisable(true);
+    	
+    	this.ticket = new Ticket(new DAOSQLFactory());
 	    
 	}
 
@@ -104,12 +143,51 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		return lista;
 	}
 	
+	private List<String> cargarCmbFormasPago(){
+		List<String> lista = new ArrayList<>();
+		lista.add("Efectivo");
+		lista.add("Tarjeta Debito");
+		lista.add("Tarjeta Credito");
+		return lista;
+	}
+	
 	private void cargarColumnasTablaProd() {
 		nombreProd.setCellValueFactory(new PropertyValueFactory("nombre"));
 		precio.setCellValueFactory(new PropertyValueFactory("precio"));
 		cantidad.setCellValueFactory(new PropertyValueFactory("cantidad"));		
 		subtotal.setCellValueFactory(new PropertyValueFactory("precioTotal"));
-	}	
+	}
+	
+	@FXML
+	public void mostrarCamposPago() {
+		if(pagoRestoran.isSelected()) {
+	    	formaPago.setVisible(true);
+	    	cmbBoxFormasPago.setVisible(true);
+	    	tipoTarj.setVisible(true);
+	    	tipoTarjeta.setVisible(true);
+	    	numTarj.setVisible(true);
+	    	numTarjeta.setVisible(true);
+	    	fechaVencTarj.setVisible(true);
+	    	fechaVencTarjeta.setVisible(true);
+	    	codSegTarj.setVisible(true);
+	    	codSegTarjeta.setVisible(true);
+	    	btnConfirmarPedido.setDisable(true);
+	    	btnConfirmarY_GenerarTicket.setDisable(false);
+	    }else {
+	    	formaPago.setVisible(false);
+	    	cmbBoxFormasPago.setVisible(false);
+	    	tipoTarj.setVisible(false);
+	    	tipoTarjeta.setVisible(false);
+	    	numTarj.setVisible(false);
+	    	numTarjeta.setVisible(false);
+	    	fechaVencTarj.setVisible(false);
+	    	fechaVencTarjeta.setVisible(false);
+	    	codSegTarj.setVisible(false);
+	    	codSegTarjeta.setVisible(false);
+	    	btnConfirmarPedido.setDisable(false);
+	    	btnConfirmarY_GenerarTicket.setDisable(true);
+	    }
+	}
 	
 	@FXML
 	public void verPrecio() throws Exception {
@@ -249,6 +327,87 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	}
 	
 	@FXML
+	public void confirmarY_GenerarTicket() {
+		
+		int idProd = 0;
+		int cantidad = 0;
+		int idPedido = 0;
+		int idCliente = 0;
+		BigDecimal total = new BigDecimal(0);
+		
+		if(idPedido == 0) {
+			
+			for(int i=0; i < listaPedidosEnTabla.size(); i++) {
+				
+				if(i > 0) {
+					String produ = listaPedidosEnTabla.get(i).getNombre();
+					String[] prodArray = produ.split("-");
+					idProd = Integer.valueOf(prodArray[0]);
+					
+					String cliente = cmbBoxClientes.getSelectionModel().getSelectedItem();
+					String[] clienteSpliteado = cliente.split("-");
+					idCliente = Integer.valueOf(clienteSpliteado[0]);
+					
+					cantidad = listaPedidosEnTabla.get(i).getCantidad();
+					
+					total = new BigDecimal(txtSubtotal.getText());
+					
+					//Datos del pago
+					String pagoSelec = cmbBoxFormasPago.getValue();
+					String tipoTarj = tipoTarjeta.getText();
+					String numTarj = numTarjeta.getText();
+					String fecVenc = fechaVencTarjeta.getText();
+					String codSeg = codSegTarjeta.getText();
+					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarj, numTarj, fecVenc, codSeg, true);
+					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
+					
+				}
+								
+				if(i == 0 ) {
+					
+					String produ = listaPedidosEnTabla.get(i).getNombre();
+					String[] prodArray = produ.split("-");
+					idProd = Integer.valueOf(prodArray[0]);					
+					
+					String cliente = cmbBoxClientes.getSelectionModel().getSelectedItem();
+					String[] clienteSpliteado = cliente.split("-");
+					idCliente = Integer.valueOf(clienteSpliteado[0]);
+					
+					cantidad = listaPedidosEnTabla.get(i).getCantidad();
+					
+					total = new BigDecimal(txtSubtotal.getText());
+					
+					//Datos del pago
+					String pagoSelec = cmbBoxFormasPago.getValue();
+					String tipoTarj = tipoTarjeta.getText();
+					String numTarj = numTarjeta.getText();
+					String fecVenc = fechaVencTarjeta.getText();
+					String codSeg = codSegTarjeta.getText();
+					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarj, numTarj, fecVenc, codSeg, true);
+					this.ordenPedido.agregarOrdenPedido(nuevoPedido);					
+					
+					idPedido = this.ordenPedido.obtenerIdMaximo();
+										
+				}								
+			}
+		}
+		
+		//datos del ticket
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		TicketDTO nuevoTicket = new TicketDTO(0, idCliente, total, "descripcion", "path", timestamp);
+		this.ticket.agregarCliente(nuevoTicket);
+		
+		cerrarVentanaAgregarY_GenerarTicket();
+		
+	}
+	
+	@FXML
+	private void cerrarVentanaAgregarY_GenerarTicket() {
+		Stage stage = (Stage) btnConfirmarY_GenerarTicket.getScene().getWindow();
+		stage.close();
+	}
+	
+	@FXML
 	public void editarPedido() throws Exception {
 		int idProd = 0;
 		int cantidad = 0;
@@ -263,10 +422,25 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 			cantidad = listaPedidosEnTabla.get(i).getCantidad();
 			
 			total = new BigDecimal(txtSubtotal.getText());
-			OrdenPedidoDTO pedidoEditado = new OrdenPedidoDTO(idOrdenPedido, idProd, idCliente, idUsuario, cantidad, total);
-			this.ordenPedido.modificarOrdenPedido(pedidoEditado);
+			
+			if(!pagoRestoran.isSelected()) {
+				OrdenPedidoDTO pedidoEditado = new OrdenPedidoDTO(idOrdenPedido, idProd, idCliente, idUsuario, cantidad, total);
+				this.ordenPedido.modificarOrdenPedido(pedidoEditado);
+			}else {
+				
+				String formaPago = cmbBoxFormasPago.getValue();
+				String tipoTarj = tipoTarjeta.getText();
+				String numTarj = numTarjeta.getText();
+				System.out.println(formaPago);
+				String fecVenTarj = fechaVencTarjeta.getText();
+				String codSegTarj = codSegTarjeta.getText();
+				
+				OrdenPedidoDTO pedidoEditado = new OrdenPedidoDTO(idOrdenPedido, idProd, idCliente, idUsuario, cantidad, total, formaPago, tipoTarj, numTarj, fecVenTarj, codSegTarj, true);
+				this.ordenPedido.modificarOrdenPedido(pedidoEditado);
+				
+			}
 		}
-		
+		cerrarVentanaEditar();
 	}
 	
 	@FXML
@@ -313,13 +487,38 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 				}
 			}
 		}
-
+		System.out.println("pago restoran? "+pedidoSeleccionado.isEsRestoran());
+		//datos del pago
+		if(pedidoSeleccionado.isEsRestoran()) {
+			System.out.println("si pago");
+			pagoRestoran.setSelected(true);			
+			formaPago.setVisible(true);
+			cmbBoxFormasPago.setVisible(true);
+			cmbBoxFormasPago.setValue(pedidoSeleccionado.getFormaPago());
+			tipoTarj.setVisible(true);
+			tipoTarjeta.setVisible(true);
+			tipoTarjeta.setText(pedidoSeleccionado.getTipoTarjeta());
+			numTarj.setVisible(true);
+			numTarjeta.setVisible(true);
+			numTarjeta.setText(pedidoSeleccionado.getNumTarjeta());
+			fechaVencTarj.setVisible(true);
+			fechaVencTarjeta.setVisible(true);
+			fechaVencTarjeta.setText(pedidoSeleccionado.getFechaVencTarjeta());
+			codSegTarj.setVisible(true);
+			codSegTarjeta.setVisible(true);
+			codSegTarjeta.setText(pedidoSeleccionado.getCodSeguridadTarjeta());
+		}
+		
 		productosEnTabla.setItems(listaPedidosEnTabla);
 		
 	}
 	
 	public void setVisibilityBtnConfirmarPedido(Boolean value) {
 		this.btnConfirmarPedido.setVisible(value);
+	}
+	
+	public void setVisibilityBtnConfirmarGenerarTicket(Boolean value) {
+		this.btnConfirmarY_GenerarTicket.setVisible(value);
 	}
 	
 	public void setVisibilityBtnEditarPedido(Boolean value) {
@@ -333,5 +532,9 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	public void setCmbBoxClientes(ComboBox<String> cmbBoxClientes) {
 		this.cmbBoxClientes = cmbBoxClientes;
 	}
+
+	public CheckBox getPagoRestoran() {
+		return pagoRestoran;
+	}	
 
 }
