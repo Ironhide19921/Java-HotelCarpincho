@@ -1,5 +1,6 @@
 package presentacion.controlador;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -78,6 +79,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	private Usuario usuarios;
 	private estadosReserva estados;
 	private Validador validador;
+	private int idReserva;
 	
 	
 	@Override
@@ -217,7 +219,6 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.observaciones.setText(reserva.getComentarios());
 		this.cmbBoxEstados.getSelectionModel().select(reserva.getEstadoReserva());
 		this.cmbBoxFormaPago.getSelectionModel().select(reserva.getFormasDePago());
-		
 		this.fechaReserva.setValue(reserva.getFechaReserva().toLocalDateTime().toLocalDate());
 		this.fechaIngreso.setValue(reserva.getFechaIngreso().toLocalDateTime().toLocalDate());
 		this.fechaEgreso.setValue(reserva.getFechaEgreso().toLocalDateTime().toLocalDate());
@@ -238,6 +239,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML 
 	public void consultarCuarto() {
 		 try { 
+				if(ingresoFechas()) {
 			    Stage primaryStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMCuarto.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
@@ -245,15 +247,23 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 				primaryStage.setScene(new Scene(root));   
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorABMCuarto scene2Controller = fxmlLoader.getController();
+				scene2Controller.datosReserva(obtenerDatosReserva());
 				LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
 				LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
 				Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
 				Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
 				scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
-
+				
 				primaryStage.setTitle("Consulta de cuartos disponibles");
 				primaryStage.sizeToScene();
-				primaryStage.show(); 
+				primaryStage.show();
+				
+				 Stage stage = (Stage) btnAgregarCuarto.getScene().getWindow();
+					stage.close();
+				}
+				else {
+					validador.mostrarMensaje("El ingreso de fechas son obligatorias para esta consulta");
+				}
 		       			
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
@@ -263,7 +273,6 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML 
 	public void consultarCliente() {
 		 try { 
-
 					if(ingresoFechas()) {
 						  Stage primaryStage = new Stage(); 
 					 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMCliente.fxml");
@@ -311,23 +320,28 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 
 
 	public void modificarCliente(int idCliente) {
-		// TODO Auto-generated method stub
 		this.cliente.setText(idCliente+"");
 		
 	}
 	
+
+	public void modificarCuarto(int idCuarto) {
+	
+		this.cuarto.setText(idCuarto+"");
+	}
+		
 	@FXML
-	public void modificarPantallaConsulta() {
+	public void modificarPantallaConsulta(int id) {
 		
 		ocultarBotonesConsulta();
 		camposSoloLectura();
 		this.btnConsultarPendientes.setVisible(true);
+		this.idReserva = id;
 	}
 
 	
 
 	private void camposSoloLectura() {
-
 		this.cuarto.setDisable(true);
 		this.cliente.setDisable(true);
 		this.email.setDisable(true);
@@ -357,6 +371,24 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		
 	}
 	
+	@FXML
+	public void consultarPendientes() throws IOException {
+		 Stage primaryStage = new Stage(); 
+	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMOrdenPedido.fxml");
+			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+			Parent root = (Parent) fxmlLoader.load();
+			primaryStage.setScene(new Scene(root));   
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+			ControladorABMOrdenPedido controlador = fxmlLoader.getController();
+			controlador.enviarIdReserva(Integer.parseInt(this.cliente.getText()));
+			controlador.modificarBotones();
+			//controlador.datosReserva(obtenerDatosReserva());
+			primaryStage.setTitle("Consulta de orden de pedido del cliente" );
+			primaryStage.sizeToScene();
+			primaryStage.show(); 
+			 Stage stage = (Stage) btnConsultarPendientes.getScene().getWindow();
+			stage.close();
+	}
 	
 
 	

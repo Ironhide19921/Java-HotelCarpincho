@@ -73,7 +73,7 @@
                   <DatePicker fx:id="fechaEgreso" layoutX="160.0" layoutY="99.0" styleClass="input-fecha" />
                   <Button fx:id="btnAgregar" layoutX="571.0" layoutY="212.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
                   <Button fx:id="btnCerrar" layoutX="571.0" layoutY="257.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Cancelar" />
-                  <Button fx:id="btnConsultarPendientes" layoutX="387.0" layoutY="212.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Consultar" />
+                  <Button fx:id="btnConsultarPendientes" layoutX="387.0" layoutY="212.0" mnemonicParsing="false" onAction="#consultarPendientes" prefHeight="30.0" prefWidth="150.0" text="Consultar" />
                </children>
             </Pane>
          </center>

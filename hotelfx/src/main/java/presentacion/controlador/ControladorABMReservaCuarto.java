@@ -175,7 +175,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
 				scene2Controller.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
-				scene2Controller.modificarPantallaConsulta();
+				scene2Controller.modificarPantallaConsulta(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva().getIdReserva());
 				primaryStage.setTitle("Consultar reserva de cuarto");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 

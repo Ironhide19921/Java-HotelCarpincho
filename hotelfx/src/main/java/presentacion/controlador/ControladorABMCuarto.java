@@ -1,5 +1,6 @@
 package presentacion.controlador;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.List;
@@ -39,6 +40,7 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private Button btnAgregarCuartoReserva;
 	@FXML private Button btnEditarReserva;
 	@FXML private Button btnReporte;
+	@FXML private Button btnSeleccionarCuarto;
 	@FXML private TableColumn id;
 	@FXML private TableColumn piso;
 	@FXML private TableColumn habitacion;
@@ -52,12 +54,12 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private Button btnHabilitarCuarto;
 	@FXML private Button btnDeshabilitarCuarto;
 		  private Cuarto cuarto;
-		  
+		  private ReservaCuartoDTO reserva;
 		  private Validador validador;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaCuartos.getItems().clear();
@@ -211,4 +213,28 @@ public class ControladorABMCuarto implements Initializable
 			this.btnEditarReserva.setVisible(false);
 		}
 	}
+	
+	 public void datosReserva(ReservaCuartoDTO reserva) {
+		 this.reserva = reserva;
+	 }
+	 
+	 @FXML
+	 public void seleccionarCuarto() throws IOException {
+		 
+	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+			Parent root = (Parent) fxmlLoader.load(); 	
+			ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+			scene2Controller.setearCampos(reserva);
+			scene2Controller.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
+			Stage stage = (Stage) btnSeleccionarCuarto.getScene().getWindow();
+			stage.close();
+			Stage primaryStage = new Stage(); 
+			primaryStage.setScene(new Scene(root));   
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+			primaryStage.setTitle("Agregar cuartos");
+			primaryStage.sizeToScene();
+			primaryStage.show(); 
+	 }		
+	
 }

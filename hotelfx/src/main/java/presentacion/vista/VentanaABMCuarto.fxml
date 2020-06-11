@@ -33,10 +33,11 @@
          <top>
             <Pane prefHeight="50.0" prefWidth="892.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnBuscar" layoutX="446.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscarCuartos" prefHeight="30.0" prefWidth="115.0" text="Buscar" />
-                  <Button fx:id="btnLimpiarFiltro" layoutX="664.0" layoutY="10.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="120.0" text="Refresh" />
-                  <TextField fx:id="txtBuscar" layoutX="160.0" layoutY="12.0" prefHeight="27.0" prefWidth="274.0" />
+                  <Button fx:id="btnBuscar" layoutX="364.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscarCuartos" prefHeight="30.0" prefWidth="115.0" text="Buscar" />
+                  <Button fx:id="btnLimpiarFiltro" layoutX="490.0" layoutY="10.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="120.0" text="Refresh" />
+                  <TextField fx:id="txtBuscar" layoutX="160.0" layoutY="12.0" prefHeight="27.0" prefWidth="190.0" />
                   <Label layoutX="92.0" layoutY="17.0" prefHeight="17.0" prefWidth="110.0" text="Búsqueda" />
+                  <Button fx:id="btnSeleccionarCuarto" layoutX="679.0" layoutY="10.0" mnemonicParsing="false" onAction="#seleccionarCuarto" prefHeight="30.0" prefWidth="120.0" text="Seleccionar Cuarto" />
                </children>
             </Pane>
          </top>

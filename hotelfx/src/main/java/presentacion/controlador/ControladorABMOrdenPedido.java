@@ -124,4 +124,14 @@ public class ControladorABMOrdenPedido implements Initializable{
 		}
 	}
 
+	public void enviarIdReserva(int idCliente) {
+		List<OrdenPedidoDTO> pedidosDelCliente = this.ordenPedido.buscarOrdenesPedidosPorReserva(idCliente);
+		
+	}
+
+	public void modificarBotones() {
+		// TODO Auto-generated method stub
+			
+	}
+
 }
