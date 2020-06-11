@@ -1,8 +1,7 @@
 package dto;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 public class TicketDTO {
 	
@@ -11,9 +10,9 @@ public class TicketDTO {
 	private BigDecimal precioTotal;
 	private String descripcion;
 	private String path;
-	private Date fecha;
+	private Timestamp fecha;
 	
-	public TicketDTO(int idTicket, int idCliente, BigDecimal precioTotal, String descripcion, String path, Date fecha) 
+	public TicketDTO(int idTicket, int idCliente, BigDecimal precioTotal, String descripcion, String path, Timestamp fecha) 
 	{
 		this.setIdTicket(idTicket);
 		this.idCliente = idCliente;
@@ -64,11 +63,11 @@ public class TicketDTO {
 		this.path = path;
 	}
 
-	public Date getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 
