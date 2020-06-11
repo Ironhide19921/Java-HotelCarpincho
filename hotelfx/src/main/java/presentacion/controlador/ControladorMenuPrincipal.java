@@ -41,21 +41,30 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirImportar;
 	@FXML private Button btnAbrirReservaEvento;
 	@FXML private Button btnAbrirCategoriaEvento;
+	@FXML private Button btnAbrirVentanaBackup;
 	@FXML private EmailDTO email;
 
 	@FXML private Button btnAbrirDivisas;
 	
-	private Button btnAbrirABMSalones;
+	@FXML private Button btnAbrirABMSalones;
 	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
+	
+	Date hoy = new Date(System.currentTimeMillis());
+	
+	ControladorBackup gestionBackup = new ControladorBackup();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
 		//email.start();
+		
+		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
+			gestionBackup.backup();
+		}
 	}
 
 
@@ -185,6 +194,18 @@ public class ControladorMenuPrincipal implements Initializable{
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
 			 Pane view	= fxmlLoader.getPage("VentanaABMOrdenPedido");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verVentanaBackup() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaBackup");
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {
