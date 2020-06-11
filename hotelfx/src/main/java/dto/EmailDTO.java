@@ -136,6 +136,7 @@ public class EmailDTO extends Thread{
             dias=(int)Math.floor(diferencia/86400);
             diferencia=diferencia-(dias*86400);
         }
+        
 		return dias;
 	}
 	
