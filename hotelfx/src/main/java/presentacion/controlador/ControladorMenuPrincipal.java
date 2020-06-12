@@ -62,9 +62,9 @@ public class ControladorMenuPrincipal implements Initializable{
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
 		//email.start();
 		
-		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
-			gestionBackup.backup();
-		}
+//		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
+//			gestionBackup.backup();
+//		}
 	}
 
 

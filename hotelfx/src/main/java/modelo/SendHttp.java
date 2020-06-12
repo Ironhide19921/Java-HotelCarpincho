@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Base64;
+
 import org.json.JSONObject;
 
 public class SendHttp {
@@ -38,6 +40,30 @@ public class SendHttp {
 		JSONObject myResponse = new JSONObject(response.toString());
 
 		return (Double) myResponse.getJSONObject("result").get("amount");
+
+	}
+	
+	public static String getLinkEncuesta() throws Exception {
+		String url = "https://api.surveymonkey.net/v3/surveys/286034049";
+		
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		// optional default is GET
+		con.setRequestMethod("GET");
+		String basicAuth = "Bearer IsDKHHgBqYrQWHP2UNbiIpb3EChcPcg6DtuGkuA2izwrUv.D85L0J4EY0KdmmJOy3dAyqY9QrX7Jq4gmzWUqiuwCdw4vSKi1ls2V.fc-1BbWjsOPF9p6V6VOG-UZxppO";
+		con.setRequestProperty ("Authorization", basicAuth);
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine);
+		}
+		in.close();
+
+		JSONObject myResponse = new JSONObject(response.toString());
+
+		return (String) myResponse.get("preview");
 
 	}
 }

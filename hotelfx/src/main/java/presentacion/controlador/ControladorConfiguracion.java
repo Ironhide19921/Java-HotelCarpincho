@@ -121,7 +121,7 @@ public class ControladorConfiguracion implements Initializable{
 	@FXML
 	private void testMail() {
 		this.mail = new Mail();
-		mail.enviarMsj();
+		mail.enviarMsj("Test mail");
 		
 	}
 
