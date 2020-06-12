@@ -38,8 +38,8 @@ public class OrdenPedido {
 		this.ordenPedido.delete(pedidoAeliminar);
 	}
 
-	public List<OrdenPedidoDTO> buscarOrdenesPedidosPorReserva(int idReserva) {
-		return this.ordenPedido.buscarOrdenesPedidosPorReserva(idReserva);
+	public List<OrdenPedidoDTO> buscarOrdenesPedidosPorReserva(int idCliente) {
+		return this.ordenPedido.buscarOrdenesPedidosPorReserva(idCliente);
 		
 	}
 

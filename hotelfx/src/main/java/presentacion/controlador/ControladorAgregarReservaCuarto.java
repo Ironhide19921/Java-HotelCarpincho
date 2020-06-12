@@ -140,8 +140,14 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML 
 	public void agregarReservaCuarto() 
 	{
+
 		ReservaCuartoDTO reserva = obtenerDatosReserva();
-		this.reservaCuarto.agregarReservaCuarto(reserva);
+		if(validador.formatoMail(reserva.getEmailFacturacion())) 
+		{
+			this.reservaCuarto.agregarReservaCuarto(reserva);	
+			validador.mostrarMensaje("Su reserva ha sido agregada con exito");
+		}
+		
 	}
 
 
@@ -336,10 +342,12 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		ocultarBotonesConsulta();
 		camposSoloLectura();
 		this.btnConsultarPendientes.setVisible(true);
+	
+	}
+	@FXML
+	public void pasarIdReserva(int id) {
 		this.idReserva = id;
 	}
-
-	
 
 	private void camposSoloLectura() {
 		this.cuarto.setDisable(true);

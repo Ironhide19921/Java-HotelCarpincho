@@ -13,9 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modelo.OrdenPedido;
 import persistencia.dao.mysql.DAOSQLFactory;
@@ -29,6 +31,11 @@ public class ControladorABMOrdenPedido implements Initializable{
 	@FXML private Button btnEditarPedido;
 	@FXML private Button btnEliminarPedido;
 	@FXML private Button btnRefrescar;
+	@FXML private Button btnGenerarTicket;
+	@FXML private Label labelCliente,labelCliente1,labelReserva,labelReserva1,
+	labelClienteNombre,idCliente, idReserva, montoReserva;
+	@FXML private Label resultadoTotal,totalLabel;
+	@FXML private Pane panelDatos, panelTotal;
 	@FXML private TableColumn id;
 	@FXML private TableColumn idProducto;
 	@FXML private TableColumn cantidad;
@@ -37,9 +44,12 @@ public class ControladorABMOrdenPedido implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		this.ordenPedido = new OrdenPedido(new DAOSQLFactory());
 		listaOrdenPedidos = FXCollections.observableArrayList();
 		tablaOrdenPedidos.getItems().clear();
+		this.panelDatos.setVisible(false);
+		this.panelTotal.setVisible(false);
 		cargarColumnas();
 		refrescarTablaOrdenPedidos();
 	}
@@ -126,12 +136,20 @@ public class ControladorABMOrdenPedido implements Initializable{
 
 	public void enviarIdReserva(int idCliente) {
 		List<OrdenPedidoDTO> pedidosDelCliente = this.ordenPedido.buscarOrdenesPedidosPorReserva(idCliente);
-		
+		listaOrdenPedidos.clear();
+		listaOrdenPedidos.addAll(pedidosDelCliente);
+		this.tablaOrdenPedidos.setItems(listaOrdenPedidos);
 	}
 
 	public void modificarBotones() {
-		// TODO Auto-generated method stub
-			
+ 
+		this.btnAgregarPedido.setVisible(false);
+		this.btnEditarPedido.setVisible(false);
+		this.btnEliminarPedido.setVisible(false);
+		this.btnRefrescar.setVisible(false);
+		this.btnGenerarTicket.setVisible(true);
+		this.panelDatos.setVisible(true);
+		this.panelTotal.setVisible(true);
 	}
 
 }

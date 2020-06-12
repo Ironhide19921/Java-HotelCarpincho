@@ -18,7 +18,7 @@ public interface OrdenPedidoDAO {
 	
 	public boolean delete(OrdenPedidoDTO pedidoAeliminar);
 
-	public List<OrdenPedidoDTO> buscarOrdenesPedidosPorReserva(int idReserva);
+	public List<OrdenPedidoDTO> buscarOrdenesPedidosPorReserva(int idCliente);
 
 }
 
