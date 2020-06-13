@@ -40,6 +40,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -70,6 +71,9 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	@FXML private ComboBox<Integer> comboHoraInicio;
 	@FXML private ObservableList<Integer> listaHoraFin;
 	@FXML private ComboBox<Integer> comboHoraFin;
+	@FXML private ObservableList<String> listaClientes;
+	@FXML private ComboBox<String> comboClientes;
+	@FXML private BorderPane panelBorde;
 	
 	@FXML private Text txtCabeza;
 	@FXML private Text textoDatosTarjeta;
@@ -86,9 +90,8 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	private Timestamp fechaGeneracionReserva;
 	@FXML private DatePicker fechaInicioReserva;
 	@FXML private DatePicker fechaFinReserva;
-	@FXML private DatePicker fechaIngresoReserva;
-	@FXML private DatePicker fechaEgresoReserva;
 	@FXML private TextArea observaciones;
+	@FXML private TextField cantHoras;
 	private ReservaEvento reserva;
 	private Cliente cliente;
 	private Salon salon;
@@ -98,12 +101,16 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	private int idUsuario = 1;
 	private Alert alert;
 	private Integer idReservaEvento;
+	private Timestamp FechaIngreso = null;
+	private Timestamp FechaEgreso = null;
+	
 	
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		if(this.idCliente != 0) {
+			
 			this.cliente = new Cliente(new DAOSQLFactory());
 			this.reserva = new ReservaEvento(new DAOSQLFactory());
 			this.salon = new Salon(new DAOSQLFactory());
@@ -112,23 +119,27 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			this.comboSalones.setItems(listaSalones);	
 			this.listaCategoriasEvento = FXCollections.observableList(cargarComboCategoriasEvento());
 			this.comboCategoriasEvento.setItems(listaCategoriasEvento);
-			this.listaEstados = FXCollections.observableList(cargarComboEstados());
-			this.comboEstados.setItems(listaEstados);
+			
+			this.listaClientes = FXCollections.observableList(cargarComboClientes());
+			this.comboClientes.setItems(listaClientes);
+			
 			this.listaFormasPago = FXCollections.observableList(cargarComboFormasPago());
 			this.comboFormasPago.setItems(listaFormasPago);
 			this.listaTarjetas = FXCollections.observableList(cargarComboTarjetas());
 			this.comboTarjetas.setItems(listaTarjetas);
 			this.listaHoraInicio = FXCollections.observableList(cargarCombosHoras());
 			this.comboHoraInicio.setItems(listaHoraInicio);
+			this.listaEstados = FXCollections.observableList(cargarComboEstados());
+			this.comboEstados.setItems(listaEstados);
 			
-			
-			this.clienteActual = this.cliente.getClientePorId(idCliente);
-			this.txtCabeza.setText(clienteActual.getApellido() + " " + clienteActual.getNombre());
+			if(this.idCliente != -1) {
+				this.clienteActual = this.cliente.getClientePorId(idCliente);
+				this.txtCabeza.setText(clienteActual.getApellido() + " " + clienteActual.getNombre());	
+			}
 			
 			this.alert = new Alert(AlertType.INFORMATION);
 		}
-		
-		
+			
 	}
 	
 
@@ -136,14 +147,13 @@ public class ControladorAgregarReservaEvento implements Initializable{
 
 	void initData(int id) {
 		this.idCliente = id;
+		
 		initialize(null, null);
+		
 	}
 
 	@FXML
     public void agregarReservaEventoCliente() throws Exception {
-		
-		
-		
 		this.fechaGeneracionReserva = new Timestamp(System.currentTimeMillis());
 		
 		TipoTarjeta tipoTarjeta = TipoTarjeta.NO;
@@ -157,8 +167,8 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			FechaVencTarjeta = fechaVencTarjeta.getText();
 			CodSeguridadTarjeta = codSeguridadTarjeta.getText();	
 		}
-		
-		
+
+		//QUIEro DEJAR PENDIENTE SELECCIONADO
 		
 		String comboSalonSeleccionado = this.comboSalones.getSelectionModel().getSelectedItem().toString();
 		int idSalon = obtenerSalonSeleccionado(comboSalonSeleccionado);
@@ -178,9 +188,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		//la reserva termina a las 0000
 		LocalDate localFinReserva = fechaFinReserva.getValue();
 		Timestamp FechaFinReserva;
-		Timestamp FechaIngreso = null;
-		Timestamp FechaEgreso = null;
-//		
+		
 		
 		if(comboHoraFin.getSelectionModel().getSelectedItem() != 23) {
 			FechaFinReserva = Timestamp.valueOf(localFinReserva.atTime(LocalTime.of(comboHoraFin.getSelectionModel().getSelectedItem() + 1,0,0)));	
@@ -189,19 +197,44 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			localFinReserva = localFinReserva.plusDays(1);
 			FechaFinReserva = Timestamp.valueOf(localFinReserva.atTime(LocalTime.of(0,0,0)));
 		}
-		
-		System.out.println("Reserva inicia el " + FechaInicioReserva + " y termina el " + FechaFinReserva);
-		
-		List<ReservaEventoDTO> reservas = this.reserva.verReservasEntreFechas(FechaInicioReserva, FechaFinReserva);
-		
-		System.out.println(reservas.size() + " Cantidad de reservas en el array de reservas entre las fechas que indican");
-		
 		EstadoReserva estado = EstadoReserva.valueOf(comboEstados.getValue());
 		String Observaciones = observaciones.getText();
-		
-//		ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(0, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, FechaIngreso, FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
-//		this.reserva.agregarReservaEvento(nuevaReserva);
-//		cerrarVentana();	
+
+		List<ReservaEventoDTO> reservas = this.reserva.verReservasEntreFechas(FechaInicioReserva, FechaFinReserva);
+		if(reservas.size() >= 1) {
+			List<ReservaEventoDTO> reservasMismoSalon = new ArrayList<ReservaEventoDTO>();;
+			
+			//si hay una reserva en el array que tenga el mismo salon, la agrego al nuevo array y la muestro, sino inserto lo más bien.
+			for(ReservaEventoDTO r : reservas) {
+				if(r.getIdSalon() == idSalon)
+				reservasMismoSalon.add(r);
+			}
+			String mensaje = "Encontramos algunas reservas para ese salon\n\n";
+			if(!reservasMismoSalon.isEmpty()) {
+				for(ReservaEventoDTO r : reservasMismoSalon) {
+					mensaje += " - del " + r.getFechaInicioReserva() + " al " + r.getFechaFinReserva() + ".\n\n";
+				}
+				mensaje += "Por favor elija otra fecha o salon.\n";
+				mostrarMensaje(mensaje);
+			}
+			else {
+				mostrarMensaje("Reserva dada de alta correctamente");
+				//cuando se agrega hay que enviar un mail al cliente
+				ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(0, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, this.FechaIngreso, this.FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
+				this.reserva.agregarReservaEvento(nuevaReserva);
+				cerrarVentana();
+			}
+		}
+		else {
+			
+			ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(0, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, this.FechaIngreso, this.FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
+			System.out.println(this.idCliente);
+			
+			this.reserva.agregarReservaEvento(nuevaReserva);
+			mostrarMensaje("Reserva dada de alta correctamente");
+			//cuando se agrega hay que enviar un mail al cliente
+			cerrarVentana();
+		}
     }
 	
 	@FXML
@@ -214,14 +247,13 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		String FechaVencTarjeta = "0";
 		String CodSeguridadTarjeta = "0";	
 		FormaPago formaPago = FormaPago.valueOf(comboFormasPago.getValue());
+		
 		if(!(formaPago.equals(FormaPago.EFECTIVO))){
 			tipoTarjeta = TipoTarjeta.valueOf(comboTarjetas.getValue());
 			NumeroTarjeta = numeroTarjeta.getText();
 			FechaVencTarjeta = fechaVencTarjeta.getText();
 			CodSeguridadTarjeta = codSeguridadTarjeta.getText();	
 		}
-		
-		
 		
 		String comboSalonSeleccionado = this.comboSalones.getSelectionModel().getSelectedItem().toString();
 		int idSalon = obtenerSalonSeleccionado(comboSalonSeleccionado);
@@ -238,19 +270,58 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		
 		LocalDate localFinReserva = fechaFinReserva.getValue();
 		Timestamp FechaFinReserva = Timestamp.valueOf(localFinReserva.atTime(LocalTime.of(comboHoraFin.getSelectionModel().getSelectedItem(),0,0)));
-		Timestamp FechaIngreso = null;
-		Timestamp FechaEgreso = null;
 		
+		if(comboHoraFin.getSelectionModel().getSelectedItem() != 23) {
+			FechaFinReserva = Timestamp.valueOf(localFinReserva.atTime(LocalTime.of(comboHoraFin.getSelectionModel().getSelectedItem() + 1,0,0)));	
+		}
+		else {
+			localFinReserva = localFinReserva.plusDays(1);
+			FechaFinReserva = Timestamp.valueOf(localFinReserva.atTime(LocalTime.of(0,0,0)));
+		}
+				
 		EstadoReserva estado = EstadoReserva.valueOf(comboEstados.getValue());
 		String Observaciones = observaciones.getText();
 		
-		ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(this.idReservaEvento, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, FechaIngreso, FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
-		this.reserva.modificarReservaEvento(nuevaReserva);
-		cerrarVentana();	
+		List<ReservaEventoDTO> reservas = this.reserva.verReservasEntreFechas(FechaInicioReserva, FechaFinReserva);
+		if(reservas.size() >= 1) {
+			List<ReservaEventoDTO> reservasMismoSalon = new ArrayList<ReservaEventoDTO>();;
+			
+			//si hay una reserva en el array que tenga el mismo salon, la agrego al nuevo array y la muestro, sino inserto lo más bien.
+			//si esa reserva que hay tiene el mismo id que la nuestra(es decir es la misma) no la agrego a la lista de reservas del mismo salon.
+			for(ReservaEventoDTO r : reservas) {
+				if(r.getIdSalon() == idSalon && r.getIdReservaEvento() != this.idReservaEvento) {
+					reservasMismoSalon.add(r);	
+				}
+			}
+			String mensaje = "Encontramos algunas reservas para ese salon\n\n";
+			if(!reservasMismoSalon.isEmpty()) {
+				for(ReservaEventoDTO r : reservasMismoSalon) {
+					mensaje += " - del " + r.getFechaInicioReserva() + " al " + r.getFechaFinReserva() + ".\n\n";
+				}
+				mensaje += "Por favor elija otra fecha o salon.\n";
+				mostrarMensaje(mensaje);
+			}
+			else {
+				mostrarMensaje("Reserva modificada correctamente");
+				ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(this.idReservaEvento, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, FechaIngreso, FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
+				this.reserva.modificarReservaEvento(nuevaReserva);
+				cerrarVentana();
+			}
+		}
+		else {
+			
+			ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(this.idReservaEvento, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, FechaIngreso, FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
+			this.reserva.modificarReservaEvento(nuevaReserva);
+			mostrarMensaje("Reserva modificada correctamente");
+			cerrarVentana();
+		}
+		
+
 	}
 	
 	@FXML
 	public void verificarFormaPago() throws Exception {
+		
 		if(!(this.comboFormasPago.getSelectionModel().getSelectedItem().equals(FormaPago.EFECTIVO.name()))) {
 			this.comboTarjetas.setVisible(true);
 			this.codSeguridadTarjeta.setVisible(true);
@@ -266,8 +337,11 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			this.numeroTarjeta.setVisible(false);
 			this.textoDatosTarjeta.setVisible(false);
 			this.textoFechaVencimientoTarjeta.setVisible(false);
-		}
+		}	
+		
 	}
+	
+	
 	
 
 	@FXML
@@ -297,6 +371,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 				this.fechaFinReserva.setValue(null);
 				this.montoTotal.setText(null);
 				this.senia.setText(null);
+				this.cantHoras.setText(null);
 				this.comboHoraFin.setItems(null);
 				this.listaHoraFin = FXCollections.observableList(cargarCombosHoras());
 				this.comboHoraFin.setItems(listaHoraFin);
@@ -309,6 +384,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 				this.comboHoraFin.setItems(listaHoraFin);
 				this.montoTotal.setText(null);
 				this.senia.setText(null);
+				this.cantHoras.setText(null);
 				verificarHoras();
 			}
 			
@@ -331,6 +407,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 				this.comboHoraFin.setItems(listaHoraFin);
 				this.montoTotal.setText(null);
 				this.senia.setText(null);	
+				this.cantHoras.setText(null);
 			}
 			else {
 				verMontoTotalySenia();
@@ -343,16 +420,31 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			this.comboHoraFin.setItems(listaHoraFin);
 			this.montoTotal.setText(null);
 			this.senia.setText(null);
+			this.cantHoras.setText(null);
 		}
 		else {
-			System.out.println("Deberia ver monto total y senia");
 			verMontoTotalySenia();
 		}
 		
 	}
 
+	@FXML
+	public void verificarFormaPagoYcampos() throws Exception{
+		verificarFormaPago();
+		limpiarCamposTarjeta();
+	}
 
 
+	private void limpiarCamposTarjeta() {
+		this.listaTarjetas = FXCollections.observableList(cargarComboTarjetas());
+		this.comboTarjetas.setItems(listaTarjetas);
+		
+		this.codSeguridadTarjeta.setText(null);
+		this.fechaVencTarjeta.setText(null);
+		this.numeroTarjeta.setText(null);
+		this.textoDatosTarjeta.setText(null);
+		this.textoFechaVencimientoTarjeta.setText(null);
+	}
 
 	@FXML
 	public void verMontoTotalySenia() throws Exception {
@@ -379,8 +471,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			}		
 			
 			long diferenciaHoras = Duration.between(localInicioReserva.atTime(horaInicioCombo, 0),localFinReserva.atTime(horaFinCombo, 0)).toHours();
-			System.out.println(diferenciaHoras + "<-Diferencia de horas");
-			
+			this.cantHoras.setText(String.valueOf(diferenciaHoras));
 			BigDecimal porcentajeSenia = BigDecimal.valueOf(porcentaje);
 			
 			BigDecimal montoFinal = BigDecimal.valueOf(Double.valueOf(this.montoReserva.getText())).multiply(BigDecimal.valueOf(diferenciaHoras));
@@ -392,15 +483,60 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		else {
 			this.montoTotal.setText(null);
 			this.senia.setText(null);
+			this.cantHoras.setText(null);
 		}
 	}
 	
+	@FXML
+	public void verificarEstado() throws Exception{
+		if(this.btnModificar.isVisible()){
+			if(this.comboEstados.getValue().equals(String.valueOf(dto.ReservaEventoConNombresDTO.EstadoReserva.EN_CURSO)) && this.FechaIngreso == null) {
+				this.setearFechaIngreso();
+				this.panelBorde.setDisable(false);
+			}
+			else if(this.comboEstados.getValue().equals(String.valueOf(dto.ReservaEventoConNombresDTO.EstadoReserva.FINALIZADO)) && this.FechaEgreso == null) {
+				setearFechaEgreso();
+				
+				this.panelBorde.setDisable(false);
+			}
+			else if(this.comboEstados.getValue().equals(String.valueOf(dto.ReservaEventoConNombresDTO.EstadoReserva.CANCELADO))) {
+				this.panelBorde.setDisable(true);
+			}
+			
+			else if(this.comboEstados.getValue().equals(String.valueOf(dto.ReservaEventoConNombresDTO.EstadoReserva.PENDIENTE))) {
+				this.FechaEgreso = null;
+				this.FechaIngreso = null;
+				this.panelBorde.setDisable(false);
+			}	
+		}
+	}
+	
+	@FXML
+	public void verificarCliente() throws Exception{
+		String clienteSeleccionado = this.comboClientes.getSelectionModel().getSelectedItem().toString();
+		String[] datos = clienteSeleccionado.split("-");
+		int idClienteSeleccionado = Integer.valueOf(datos[0]);
+		this.idCliente = idClienteSeleccionado;
+		this.clienteActual = this.cliente.getClientePorId(idClienteSeleccionado);
+		this.txtCabeza.setText(clienteActual.getApellido() + " " + clienteActual.getNombre());	
+	}
+	
+	private void setearFechaIngreso() {
+		this.FechaIngreso = new Timestamp(System.currentTimeMillis());
+	}
+
+	private void setearFechaEgreso() {
+		this.FechaEgreso = new Timestamp(System.currentTimeMillis());
+	}
+
 	public void setearCamposPantalla(ReservaEventoConNombresDTO reservaEventoConNombresDTO) throws IOException {
 		initData(reservaEventoConNombresDTO.getIdCliente());
+		this.FechaIngreso = reservaEventoConNombresDTO.getFechaIngreso();
+		this.FechaEgreso = reservaEventoConNombresDTO.getFechaEgreso();
 		this.idReservaEvento = reservaEventoConNombresDTO.getIdReservaEvento();
 		LocalDateTime reservaInicio = reservaEventoConNombresDTO.getFechaInicioReserva().toLocalDateTime();
 		LocalDateTime reservaFin = reservaEventoConNombresDTO.getFechaFinReserva().toLocalDateTime();
-
+		
 		for(SalonDTO c : this.salon.obtenerSalones()) {
 			if(c.getId() == reservaEventoConNombresDTO.getIdSalon()) {
 				this.comboSalones.setValue(String.valueOf(c.getId() + "-" + c.getEstilo()));	
@@ -414,26 +550,42 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		}
 		
 		this.comboHoraInicio.setValue(reservaInicio.getHour());
-		this.comboHoraFin.setValue(reservaFin.getHour() - 1);
+		
+		
+		
 		this.comboEstados.setValue(String.valueOf(reservaEventoConNombresDTO.getEstado()));
 		this.comboTarjetas.setValue(String.valueOf(reservaEventoConNombresDTO.getTipoTarjeta()));
 		this.codSeguridadTarjeta.setText(reservaEventoConNombresDTO.getCodSeguridadTarjeta());
 		this.fechaVencTarjeta.setText(reservaEventoConNombresDTO.getFechaVencTarjeta());
 		this.numeroTarjeta.setText(reservaEventoConNombresDTO.getNumeroTarjeta());
 		this.comboFormasPago.setValue(String.valueOf(reservaEventoConNombresDTO.getFormaPago()));
-		this.montoTotal.setText(String.valueOf(reservaEventoConNombresDTO.getMontoTotal()));
-		this.montoReserva.setText(String.valueOf(reservaEventoConNombresDTO.getMontoReservaEvento()));
-		this.senia.setText(String.valueOf(reservaEventoConNombresDTO.getSenia()));
+		try {
+			verificarFormaPago();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		this.fechaGeneracionReserva = reservaEventoConNombresDTO.getFechaGeneracionReserva();
 		this.fechaInicioReserva.setValue(LocalDate.of(reservaInicio.getYear(),reservaInicio.getMonthValue(),reservaInicio.getDayOfMonth()));
 		this.fechaFinReserva.setValue(LocalDate.of(reservaFin.getYear(), reservaFin.getMonthValue(), reservaFin.getDayOfMonth()));
-		if(!this.fechaIngresoReserva.equals(null)){
-			this.fechaIngresoReserva.setAccessibleText(String.valueOf(reservaEventoConNombresDTO.getFechaIngreso()));	
-		}
-		if(!this.fechaEgresoReserva.equals(null)) {
-			this.fechaEgresoReserva.setAccessibleText(String.valueOf(reservaEventoConNombresDTO.getFechaEgreso()));
-		}
 		this.observaciones.setText(reservaEventoConNombresDTO.getObservaciones());
+		
+		try {
+			verificarFechas();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		this.comboHoraFin.setValue(reservaFin.getHour() - 1);
+		
+		
+		LocalDate localFinReserva = fechaFinReserva.getValue();
+		LocalDate localInicioReserva = fechaInicioReserva.getValue();
+		long diferenciaHoras = Duration.between(localInicioReserva.atTime(this.comboHoraInicio.getValue(), 0),localFinReserva.atTime(this.comboHoraFin.getValue(), 0)).toHours();
+		this.cantHoras.setText(String.valueOf(diferenciaHoras));
+		this.montoTotal.setText(String.valueOf(reservaEventoConNombresDTO.getMontoTotal()));
+		this.montoReserva.setText(String.valueOf(reservaEventoConNombresDTO.getMontoReservaEvento()));
+		this.senia.setText(String.valueOf(reservaEventoConNombresDTO.getSenia()));
 	}
 	
 	
@@ -502,11 +654,25 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		return lista;
 	}
 	
+	public List<String> cargarComboClientes() {
+		List<String> lista = new ArrayList<>();
+		for(ClienteDTO c : this.cliente.obtenerClientes()) {
+			lista.add(c.getIdCliente() + "-" + c.getNombre());
+		}
+		return lista;
+	}
+	
 	public List<String> cargarComboEstados() {
+		
 		List<String> lista = new ArrayList<>();
 		EstadoReserva[] estados = EstadoReserva.values();
 		for(EstadoReserva e : estados) {
-			lista.add(e.name());
+			if(this.btnModificar.isVisible()) {
+				lista.add(e.name());	
+			}
+			else if(e.equals(dto.ReservaEventoDTO.EstadoReserva.PENDIENTE)) {
+				lista.add(e.name());
+			}
 		}
 		return lista;
 	}
@@ -541,20 +707,12 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	public void setDisableBtnModificarReservaEvento(boolean b) {
 		this.btnModificar.setDisable(b);
 	}
-	
-	public void setVisibilityFechaIngresoReservaEvento(boolean b) {
-		this.fechaIngresoReserva.setVisible(b);
-	}
 
-	public void setDisableFechaIngresoReservaEvento(boolean b) {
-		this.fechaIngresoReserva.setDisable(b);
+
+
+
+	public void setVisibilityComboClientes(boolean b) {
+		this.comboClientes.setVisible(b);
 	}
 	
-	public void setVisibilityFechaEgresoReservaEvento(boolean b) {
-		this.fechaEgresoReserva.setVisible(b);
-	}
-
-	public void setDisableFechaEgresoReservaEvento(boolean b) {
-		this.fechaEgresoReserva.setDisable(b);
-	}
 }

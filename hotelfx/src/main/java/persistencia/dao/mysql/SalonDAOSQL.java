@@ -24,14 +24,7 @@ public class SalonDAOSQL implements SalonDAO{
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
-		try{
-			System.out.println("CARLITOS");
-			System.out.println(salon.getCapacidad());
-			System.out.println(salon.getSenia());
-			System.out.println(salon.getEstilo());
-			System.out.println(salon.getMonto());
-			System.out.println(salon.getEstado());
-			
+		try{			
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, salon.getCapacidad());
 			statement.setInt(2, salon.getSenia());

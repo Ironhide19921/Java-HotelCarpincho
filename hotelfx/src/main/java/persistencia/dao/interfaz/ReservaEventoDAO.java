@@ -17,4 +17,8 @@ public interface ReservaEventoDAO {
 	public List<ReservaEventoDTO> readAllCliente(int idCliente);
 
 	public List<ReservaEventoDTO> getReservasEntre(Timestamp fechaInicio, Timestamp fechaFin);
+
+	public void setCheckinCheckout(Timestamp ingreso, Timestamp egreso, int idReserva);
+	
+	public void cambiarEstado(int idReserva, String estado);
 }

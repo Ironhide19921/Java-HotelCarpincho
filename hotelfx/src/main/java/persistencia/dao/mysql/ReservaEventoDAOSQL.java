@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.ReservaEventoDTO;
+import dto.SalonDTO;
 import dto.ReservaEventoDTO.EstadoReserva;
 import dto.ReservaEventoDTO.FormaPago;
 import dto.ReservaEventoDTO.TipoTarjeta;
@@ -23,7 +24,8 @@ public class ReservaEventoDAOSQL implements ReservaEventoDAO {
 	private static final String update = "UPDATE reservaevento SET idSalon = ?, idCategoriaEvento = ?, TipoTarjeta = ?, CodSeguridadTarjeta = ?, FechaVencTarjeta = ?, NumeroTarjeta = ?, FormaPago = ?, MontoTotal = ?, MontoReservaEvento = ?, Senia = ?, FechaGeneracionReserva = ?, FechaInicioReserva = ?, FechaFinReserva = ?, FechaIngreso = ?, FechaEgreso = ?, EstadoReserva = ?, Observaciones = ? WHERE idReservaEvento = ?"; 
 	private static final String delete = "DELETE FROM reservaevento WHERE idReservaEvento = ?";
 	private static final String readAllCliente = "SELECT * FROM reservaevento WHERE idCliente = ?";
-	
+	private static final String setCheckinCheckout = "UPDATE reservaevento SET FechaIngreso = ?, FechaEgreso = ? WHERE idReservaEvento = ?";
+	private static final String updateEstado = "UPDATE reservaevento SET EstadoReserva = ? WHERE idReservaEvento = ?";
 	//fechainicio -> primer y segundo parametro //fechafin tercer y cuarto-> parametro
 	//FechaInicioReserva
 	//FechaFinReserva
@@ -148,11 +150,8 @@ public class ReservaEventoDAOSQL implements ReservaEventoDAO {
 			statement.setString(17, reservaEvento.getObservaciones());
 			statement.setInt(18, reservaEvento.getIdReservaEvento());
 			
-			System.out.println(statement.executeUpdate());		
-			System.out.println("Hasta acá no se ejecutó");
 			if(statement.executeUpdate() > 0)
 			{
-				System.out.println("SE EJECUTó");
 				conexion.commit();
 			}
 		} 
@@ -231,17 +230,61 @@ public class ReservaEventoDAOSQL implements ReservaEventoDAO {
 			statement.setTimestamp(9, fechaFin);
 			statement.setTimestamp(10, fechaFin);
 			
-			System.out.println(statement.toString());
-			
 			resultSet = statement.executeQuery();
 			while(resultSet.next()){
 				reservasEventos.add(getReservaEventoDTOO(resultSet));
 			}
-		} 
+		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return reservasEventos;
 	}
-
+	
+	@Override
+	public void setCheckinCheckout(Timestamp ingreso, Timestamp egreso, int idReserva) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		try{
+			statement = conexion.prepareStatement(setCheckinCheckout);
+			statement.setTimestamp(1, ingreso);
+			statement.setTimestamp(2, egreso);
+			statement.setInt(3, idReserva);
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void cambiarEstado(int idReserva, String estado) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		try{
+			statement = conexion.prepareStatement(updateEstado);
+			statement.setString(1, estado);
+			statement.setInt(2, idReserva);
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
 }

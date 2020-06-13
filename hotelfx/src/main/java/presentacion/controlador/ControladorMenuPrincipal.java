@@ -178,7 +178,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void verMenuReservaEvento() {
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
-			 Pane view	= fxmlLoader.getPage("VentanaMenuReservaEvento");
+			 Pane view	= fxmlLoader.getPage("VentanaABMReservaEvento2");
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {

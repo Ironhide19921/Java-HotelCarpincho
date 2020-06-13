@@ -3,7 +3,6 @@ package modelo;
 import java.sql.Timestamp;
 import java.util.List;
 
-import dto.CategoriaEventoDTO;
 import dto.ReservaEventoDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.ReservaEventoDAO;
@@ -37,5 +36,13 @@ public class ReservaEvento {
 	
 	public List<ReservaEventoDTO> verReservasEntreFechas(Timestamp fechaInicio, Timestamp fechaFin) {
 		return this.reservaEvento.getReservasEntre(fechaInicio, fechaFin);
+	}
+	
+	public void setearIngresoEgresoReservaEvento(Timestamp ingreso, Timestamp egreso, int idReserva) {
+		this.reservaEvento.setCheckinCheckout(ingreso, egreso, idReserva);
+	}
+	
+	public void cambiarEstadoReserva(int idReserva, String estado) {
+		this.reservaEvento.cambiarEstado(idReserva, estado);
 	}
 }

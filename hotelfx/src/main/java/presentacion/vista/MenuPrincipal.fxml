@@ -129,7 +129,7 @@
                   <Button fx:id="btnAbrirImportar" layoutY="110.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Importar Reservas" />
                   <Button fx:id="btnAbrirABMCuartos" layoutY="144.0" mnemonicParsing="false" onAction="#verABMCuartos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Cuartos" />
                   <Button fx:id="btnAbrirABMCliente" layoutY="178.0" mnemonicParsing="false" onAction="#verABMClientes" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Clientes" />
-                  <Button fx:id="btnAbrirCategoriaEvento" layoutY="212.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Categoria Evento" />
+                  <Button fx:id="btnAbrirCategoriaEvento" layoutY="212.0" mnemonicParsing="false" onAction="#verABMCategoriaEvento" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Categoria Evento" />
                   <Button fx:id="btnAbrirABMUsuarios" layoutY="246.0" mnemonicParsing="false" onAction="#verABMUsuarios" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Usuarios" />
                   <Button fx:id="btnAbrirABMPerfiles" layoutY="280.0" mnemonicParsing="false" onAction="#verABMPerfiles" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Perfiles" />
                   <Button fx:id="btnAbrirABMCategoriasCuartos" layoutY="314.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Categoria Cuarto" />
