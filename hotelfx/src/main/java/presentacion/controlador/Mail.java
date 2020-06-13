@@ -72,25 +72,115 @@ public class Mail {
 
 	}
 
-	public void enviarMsj() {
+	public void enviarMsj(String msj) {
 		//Start our mail message
 		MimeMessage msg = new MimeMessage(session);
 		try {
 			msg.setFrom(new InternetAddress(fromEmail));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			msg.setSubject("Mensaje de prueba");
-			msg.setText("Texto dentro del mail");
+			msg.setContent("<html>\r\n" + 
+					"<head>\r\n" + 
+					"<title>Firmas Soporte AR-PY-MX</title>\r\n" + 
+					"</head>\r\n" + 
+					"<body>\r\n" + 
+					"<header><img src=\"https://i.imgur.com/aDOl5Qj.png\" width=100%></header>\r\n" + 
+					"<br><br>\r\n" + 
+					"<p style=\"width:90%;font-family:Calibri;margin-left:5%\">\r\n" + 
+					"    Estimado cliente,<br><br><br>\r\n" + 
+					"\r\n" + 
+					"    Le adjuntamos una pequeña encuesta para poder conocer su opinión de nuestros servicios, gracias por elegirnos!\r\n" + 
+					"\r\n" + 
+					"    <a href=\""+msj+"\">"+msj+"</a>\r\n" + 
+					"    \r\n" + 
+					"</p>\r\n" + 
+					"</body>\r\n" + 
+					"</html>", "text/html");
+//			msg.setText(msj);
+			System.out.println("Mensaje enviado");
+
+//			//Adjunto
+//			Multipart emailContent = new MimeMultipart();
+//
+//			MimeBodyPart textBodyPart = new MimeBodyPart();
+//			textBodyPart.setText("Mensaje multiparte");
+//
+//			MimeBodyPart csvAttachment = new MimeBodyPart();
+//			try {
+//				csvAttachment.attachFile("C:/Users/marcos/Desktop/carpinchofx/cliente.csv/");
+//				System.out.println("Se pudo acceder al archivo");
+//			} catch (IOException e) {
+//				System.out.println("No se pudo acceder al archivo");
+//				e.printStackTrace();
+//			}
+
+			//Attach body parts
+//			emailContent.addBodyPart(textBodyPart);
+//			emailContent.addBodyPart(csvAttachment);
+//			//Attach multipart to message
+//			msg.setContent(emailContent);
+			
+			
+			//String mensaje = "Mensaje enviado";
+			//Transport.send(msg -> System.out.println("Mensaje enviado"));
+			Transport.send(msg);
+			Validador.mostrarMensaje("Testing exitoso!");
+		} catch (AddressException e) {
+			e.printStackTrace();
+			Validador.mostrarMensaje("Error con cuenta de mail");
+			System.out.println(username);
+			System.out.println(password);
+			System.out.println(puerto);
+			System.out.println(prov);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Validador.mostrarMensaje("Error con mensaje");
+			System.out.println(username);
+			System.out.println(password);
+			System.out.println(puerto);
+			System.out.println(prov);
+		}
+	}
+	
+	public void enviarMsjAdjunto(String msj, String path) {
+		//Start our mail message
+		MimeMessage msg = new MimeMessage(session);
+		try {
+			msg.setFrom(new InternetAddress(fromEmail));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+			msg.setSubject("Mensaje de prueba con adjunto");
+//			msg.setContent("<html>\r\n" + 
+//					"<head>\r\n" + 
+//					"<title>Firmas Soporte AR-PY-MX</title>\r\n" + 
+//					"</head>\r\n" + 
+//					"<body>\r\n" + 
+//					"<header><img src=\"http://190.105.226.50/~cosas/GEestrada-Carpinchos.jpeg\" width=100%></header>\r\n" + 
+//					"<br><br>\r\n" + 
+//					"<p style=\"width:90%;font-family:Calibri;margin-left:5%\">\r\n" + 
+//					"    Estimado cliente,<br><br><br>\r\n" + 
+//					"\r\n" + 
+//					"    Le adjuntamos una pequeña encuesta para poder conocer su opinión de nuestros servicios, gracias por elegirnos!\r\n" + 
+//					"\r\n" + 
+//					"    <a href=\""+msj+"\">"+msj+"</a>\r\n" + 
+//					"    \r\n" + 
+//					"</p>\r\n" + 
+//					"</body>\r\n" + 
+//					"</html>", "text/html");
+			
+//			
 			System.out.println("Mensaje enviado");
 
 			//Adjunto
 			Multipart emailContent = new MimeMultipart();
 
 			MimeBodyPart textBodyPart = new MimeBodyPart();
-			textBodyPart.setText("Mensaje multiparte");
+			textBodyPart.setText(msj);
 
 			MimeBodyPart csvAttachment = new MimeBodyPart();
 			try {
-				csvAttachment.attachFile("C:/Users/gera/Desktop/cliente.csv");
+//				csvAttachment.attachFile("C:/Users/marcos/Desktop/carpinchofx/cliente.csv/");
+				csvAttachment.attachFile(path);
 				System.out.println("Se pudo acceder al archivo");
 			} catch (IOException e) {
 				System.out.println("No se pudo acceder al archivo");
@@ -100,9 +190,10 @@ public class Mail {
 			//Attach body parts
 			emailContent.addBodyPart(textBodyPart);
 			emailContent.addBodyPart(csvAttachment);
-
 			//Attach multipart to message
 			msg.setContent(emailContent);
+			
+			
 			//String mensaje = "Mensaje enviado";
 			//Transport.send(msg -> System.out.println("Mensaje enviado"));
 			Transport.send(msg);

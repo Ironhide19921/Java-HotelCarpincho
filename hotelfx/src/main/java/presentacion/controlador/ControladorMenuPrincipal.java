@@ -2,7 +2,10 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
+
+import org.joda.time.DateTime;
 
 import dto.EmailDTO;
 import javafx.event.ActionEvent;
@@ -18,12 +21,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modelo.Email;
+import modelo.Validador;
 import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
 
-	@FXML private Button btnAbrirABMProductos;
-	@FXML private Button btnAbrirConfig;
+	@FXML
+	private Button btnAbrirABMProductos;
+
+	@FXML
+	private Button btnAbrirConfig;
+
 	@FXML private Button btnAbrirABMCliente;
 	@FXML private Button btnAbrirABMReservas;
 	@FXML private Button btnAbrirABMUsuarios;
@@ -33,8 +41,12 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirImportar;
 	@FXML private Button btnAbrirReservaEvento;
 	@FXML private Button btnAbrirCategoriaEvento;
-	@FXML
-	private Button btnAbrirABMSalones;
+	@FXML private Button btnAbrirVentanaBackup;
+	@FXML private EmailDTO email;
+
+	@FXML private Button btnAbrirDivisas;
+	
+	@FXML private Button btnAbrirABMSalones;
 	@FXML
 	private Button btnAbrirABMCategoriaEvento;
 	@FXML
@@ -43,13 +55,21 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
-
-
+	
+	Date hoy = new Date(System.currentTimeMillis());
+	
+	ControladorBackup gestionBackup = new ControladorBackup();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		EmailDTO.enviarEmailsEncolados();
+
+		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
+		//email.start();
+		
+//		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
+//			gestionBackup.backup();
+//		}
 	}
 
 
@@ -207,6 +227,40 @@ public class ControladorMenuPrincipal implements Initializable{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	public void verVentanaBackup() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaBackup");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verDivisas() {
+		{
+		     try { 
+			    Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/Divisas.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load();
+		
+				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				//ControladorDivisas scene2Controller = fxmlLoader.getController();	 
+				primaryStage.setTitle("Conversión de divisas");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	    }
 	}
 	
 }

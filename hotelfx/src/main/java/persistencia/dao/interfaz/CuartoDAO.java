@@ -17,5 +17,6 @@ public interface CuartoDAO {
 	public List<CuartoDTO> search(String buscar);
 	
 	public void cambiarEstado(CuartoDTO cuarto);
-
+	
+	public CuartoDTO traerCuarto(Integer id);
 }

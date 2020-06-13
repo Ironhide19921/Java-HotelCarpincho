@@ -11,20 +11,22 @@ public class ReservaCuartoDTO {
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
 	private String emailFacturacion, numTarjeta, cantidadDias,
-	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
+	tipoTarjeta, forma, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
+	
 	private estadosReserva estadoReserva;
-	private Timestamp fechaVencTarjeta,fechaReserva,fechaCheckIn,fechaOut,
+	private Timestamp fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
 
 	private boolean estado;
 
 	
+	
 	public ReservaCuartoDTO(int idCliente, int idCuarto, int idUsuario, BigDecimal senia,
 			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta, 
 			String formaDePago,	String tipoTarjeta,String codSeguridadTarjeta,
-			Timestamp fechaVencTarjeta,Timestamp fechaReserva,Timestamp fechaCheckIn, Timestamp fechaOut,
+			String fechaVencTarjeta,Timestamp fechaReserva,Timestamp fechaCheckIn, Timestamp fechaOut,
 			Timestamp fechaIngreso, Timestamp fechaEgreso , 
-			estadosReserva estadoReserva, String comentarios, boolean estado) {
+			String estadoReserva, String comentarios, boolean estado) {
 		
 		this.idCliente = idCliente;
 		this.idCuarto = idCuarto;
@@ -39,11 +41,12 @@ public class ReservaCuartoDTO {
 		this.fechaIngreso = fechaIngreso;
 		this.fechaEgreso = fechaEgreso;
 		this.codSeguridadTarjeta = codSeguridadTarjeta;
-		this.formaDePago = formaDePago;
+		this.forma = formaDePago;
 		this.tipoTarjeta = tipoTarjeta;
-		this.estadoReserva = estadosReserva.valueOf(estadoReserva.name());
+		this.estadoReserva = estadosReserva.valueOf(estadoReserva);
 		this.comentarios = comentarios;
 		this.estado = estado;
+		this.fechaVencTarjeta = fechaVencTarjeta;
 	}
 	
 	public Integer getIdReserva() {
@@ -175,11 +178,11 @@ public class ReservaCuartoDTO {
 	}
 
 	public String getFormasDePago() {
-		return formaDePago;
+		return forma;
 	}
 
 	public void setFormasDePago(String formasDePago) {
-		this.formaDePago = formasDePago;
+		this.forma = formasDePago;
 	}
 
 	public String getEstadoReserva() {
@@ -190,11 +193,11 @@ public class ReservaCuartoDTO {
 		this.estadoReserva.valueOf(estadoReserva);
 	}
 
-	public Timestamp getFechaVencTarjeta() {
+	public String getFechaVencTarjeta() {
 		return fechaVencTarjeta;
 	}
 
-	public void setFechaVencTarjeta(Timestamp fechaVencTarjeta) {
+	public void setFechaVencTarjeta(String fechaVencTarjeta) {
 		this.fechaVencTarjeta = fechaVencTarjeta;
 	}
 

@@ -17,4 +17,6 @@ public interface ClienteDAO {
 	public List<ClienteDTO> search(String buscar);
 
 	public ClienteDTO get(int id);
+	
+	public ClienteDTO traerCliente(Integer id);
 }

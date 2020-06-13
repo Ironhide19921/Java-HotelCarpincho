@@ -18,8 +18,10 @@ CREATE TABLE `ticket`
 (
   `idTicket` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(10) NOT NULL,
-  `Cantidad` int(10) NOT NULL,
-  `PrecioTotal` int(10) NOT NULL,
+  `precioTotal` decimal(10,3) NOT NULL,
+  `descripcion` varchar(300),
+  `path` varchar(300),
+  `FechaReserva` Timestamp NOT NULL,
   PRIMARY KEY (`idTicket`),
   CONSTRAINT FOREIGN KEY fk_idCliente (idCliente) REFERENCES cliente (idCliente)
 );
@@ -86,6 +88,12 @@ CREATE TABLE `ordenPedido`
   `idUsuario` int(11) NOT NULL,
   `Cantidad` int(20) NOT NULL,
   `PrecioTotal` decimal(10,3) NOT NULL,
+  `FormaPago` varchar(20),
+  `TipoTarjeta` varchar(25),
+  `NumeroTarjeta` varchar(25),
+  `FechaVencTarjeta` varchar(15),
+  `CodSeguridadTarjeta` varchar(10),
+  `esRestoran` boolean NOT NULL,
   PRIMARY KEY (`idOrdenPedido`, `idProducto`),
   CONSTRAINT FOREIGN KEY fk_idProducto (idProducto) REFERENCES producto (idProducto),
   CONSTRAINT FOREIGN KEY fk_id_Cliente (idCliente) REFERENCES cliente (idCliente),
@@ -122,13 +130,13 @@ CREATE TABLE `reservaCuarto`
   `idCuarto` int(11) NOT NULL,
   `Senia` decimal(10,3) NOT NULL,
   `MontoReservaCuarto` decimal(10,3) NOT NULL,
-  `EmailFacturacion` varchar(50) NOT NULL,
-  `FechaReserva` Timestamp NOT NULL,
-  `FechaCheckIn` Timestamp NOT NULL,
-  `FechaIngreso` Timestamp NOT NULL,
-  `FechaOut` Timestamp NOT NULL,
-  `FechaEgreso` Timestamp NOT NULL,
-  `FormaPago` varchar(20) NOT NULL,
+  `EmailFacturacion` varchar(60) NOT NULL,
+  `FechaReserva` timestamp NOT NULL,
+  `FechaCheckIn` timestamp NOT NULL,
+  `FechaIngreso` timestamp NOT NULL,
+  `FechaOut` timestamp NOT NULL,
+  `FechaEgreso` timestamp NOT NULL,
+  `FormaPago` varchar(20) not null,
   `TipoTarjeta` varchar(25),
   `NumeroTarjeta` varchar(25),
   `FechaVencTarjeta` varchar(15),
@@ -314,3 +322,11 @@ ALTER TABLE `reservaevento`
   ADD CONSTRAINT `reservaevento_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_3` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservaevento_ibfk_4` FOREIGN KEY (`idCategoriaEvento`) REFERENCES `categoriaevento` (`idCategoriaEvento`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+  
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Usuarios'); 
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Clientes');
+  INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Cuartos');
+  
+  
+  

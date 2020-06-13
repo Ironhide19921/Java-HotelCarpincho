@@ -15,6 +15,7 @@ import persistencia.dao.interfaz.ReservaEventoDAO;
 import persistencia.dao.interfaz.ProductoDAO;
 import persistencia.dao.interfaz.ReservaCuartoDAO;
 import persistencia.dao.interfaz.SalonDAO;
+import persistencia.dao.interfaz.TicketDAO;
 import persistencia.dao.interfaz.UsuarioDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory{
@@ -64,7 +65,7 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 
 	public ReservaCuartoDAO createReservaCuartoDAO() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ReservaCuartoDAOSQL();
 	}
 	
 	public OrdenPedidoDAO createOrdenPedidoDAO() {
@@ -78,5 +79,8 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 	@Override
 	public ReservaEventoDAO createReservaEventoDAO() {
 		return new ReservaEventoDAOSQL();
+	}
+	public TicketDAO createTicketDAO() {
+		return new TicketDAOSQL();
 	}
 }
