@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import dto.EmailDTO;
 import dto.PerfilDTO;
 import dto.UsuarioDTO;
 import javafx.collections.FXCollections;
@@ -42,7 +43,6 @@ public class ControladorAgregarUsuario implements Initializable {
 		  
 		  private Validador validador;
 		  
-		  
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {
 			this.perfil = new Perfil(new DAOSQLFactory());
@@ -55,8 +55,7 @@ public class ControladorAgregarUsuario implements Initializable {
 			
 			this.comboTipoDoc.setItems(listaTipoDocExistentes);
 			this.comboPerfil.setItems(listaPerfiles);
-			
-			
+				
 		}
 		
 		 @FXML

@@ -53,6 +53,8 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML private Button btnAgregarCuarto;
 	@FXML private Button btnConsultarPendientes;
 	@FXML private TextField usuario;
+	
+
 	@FXML private TextField cuarto;
 	@FXML private TextField cliente;
 	@FXML private TextField email;
@@ -399,5 +401,88 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	}
 	
 
+	public TextField getCuarto() {
+		return cuarto;
+	}
+
+	public TextField getCliente() {
+		return cliente;
+	}
+
+	public TextField getEmail() {
+		return email;
+	}
+
+	public TextField getSenia() {
+		return senia;
+	}
+
 	
+	public TextField getMontoSenia() {
+		return montoSenia;
+	}
+
+	public TextField getTipoTarjeta() {
+		return tipoTarjeta;
+	}
+
+	
+	public TextField getNumTarjeta() {
+		return numTarjeta;
+	}
+
+	public TextField getFechaVecTarjeta() {
+		return fechaVecTarjeta;
+	}
+
+
+	public TextField getCodSeguridad() {
+		return codSeguridad;
+	}
+
+	public TextArea getObservaciones() {
+		return observaciones;
+	}
+
+	public ComboBox<String> getCmbBoxEstados() {
+		return cmbBoxEstados;
+	}
+
+	public ComboBox<String> getCmbBoxFormaPago() {
+		return cmbBoxFormaPago;
+	}
+
+	public ComboBox<UsuarioDTO> getCmbBoxUsuario() {
+		return cmbBoxUsuario;
+	}
+
+	public DatePicker getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public DatePicker getFechaEgreso() {
+		return fechaEgreso;
+	}
+
+
+	public DatePicker getFechaCheckIn() {
+		return fechaCheckIn;
+	}
+
+	public DatePicker getFechaCheckOut() {
+		return fechaCheckOut;
+	}
+
+	public DatePicker getFechaReserva() {
+		return fechaReserva;
+	}
+
+	public ReservaCuarto getReservaCuarto() {
+		return reservaCuarto;
+	}
+
+	public estadosReserva getEstados() {
+		return estados;
+	}
+
 }

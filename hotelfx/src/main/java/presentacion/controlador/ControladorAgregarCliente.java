@@ -171,7 +171,6 @@ public class ControladorAgregarCliente implements Initializable {
 		this.btnModificarCliente.setVisible(value);
 }
 	public void setDisableBtnModificarCliente(Boolean value) {
-
 		this.btnModificarCliente.setDisable(value);
 }
 

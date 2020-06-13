@@ -25,11 +25,7 @@ public class OrdenPedido {
 	public List<OrdenPedidoDTO> obtenerOrdenesPedidos() {
 		return this.ordenPedido.readAll();
 	}
-	
-	public List<OrdenPedidoDTO> buscarOrdenesPedidos(String buscar) {
-		return this.ordenPedido.search(buscar);
-	}
-	
+		
 	public int obtenerIdMaximo() {
 		return this.ordenPedido.obtenerIdMaximo();
 	}

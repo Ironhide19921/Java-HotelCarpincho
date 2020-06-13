@@ -100,7 +100,7 @@
          </left>-->
 
          <top>
-            <Pane prefHeight="123.0" prefWidth="630.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="123.0" prefWidth="1157.0" BorderPane.alignment="CENTER">
                <children>
                   <MenuBar layoutX="-14.0" prefHeight="25.0" prefWidth="1180.0">
                     <menus>
@@ -136,6 +136,7 @@
                   <Button fx:id="btnAbrirABMSalones" layoutY="348.0" mnemonicParsing="false" onAction="#verABMSalones" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Salones" />
                  <Button fx:id="btnAbrirConfig" layoutY="382.0" mnemonicParsing="false" onAction="#verConfig" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ConfigMail" />
                   <Button fx:id="btnAbrirABMOrdenPedidos" layoutY="416.0" mnemonicParsing="false" onAction="#verABMOrdenPedidos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Orden Pedidos" />
+                  <Button fx:id="btnAbrirVentanaBackup" layoutY="451.0" mnemonicParsing="false" onAction="#verVentanaBackup" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Gestión de backups" />
               
 
                                     
@@ -146,5 +147,6 @@
             <Pane fx:id="center" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center> 
       </BorderPane>
+      <Button fx:id="btnAbrirDivisas" layoutX="1150.0" layoutY="1.0" mnemonicParsing="false" onAction="#verDivisas" text="\$" />
    </children>
 </AnchorPane>

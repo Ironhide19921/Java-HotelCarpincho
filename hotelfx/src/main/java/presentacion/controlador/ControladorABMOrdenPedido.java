@@ -91,6 +91,7 @@ public class ControladorABMOrdenPedido implements Initializable{
 			ControladorAgregarOrdenPedido scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnConfirmarPedido(true);
 			scene2Controller.setVisibilityBtnEditarPedido(false);
+			scene2Controller.setVisibilityBtnConfirmarGenerarTicket(true);
 			primaryStage.setTitle("Agregar Orden Pedido");
 			primaryStage.sizeToScene();
 			primaryStage.show();
@@ -114,6 +115,8 @@ public class ControladorABMOrdenPedido implements Initializable{
 			scene2Controller.getCmbBoxClientes().setDisable(true);
 			scene2Controller.setVisibilityBtnConfirmarPedido(false);
 			scene2Controller.setVisibilityBtnEditarPedido(true);
+			scene2Controller.setVisibilityBtnConfirmarGenerarTicket(false);
+			scene2Controller.getPagoRestoran().setDisable(true);
 			primaryStage.setTitle("Editar Orden Pedido");
 			primaryStage.sizeToScene();
 			primaryStage.show();

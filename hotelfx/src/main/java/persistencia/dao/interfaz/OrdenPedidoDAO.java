@@ -12,8 +12,6 @@ public interface OrdenPedidoDAO {
 	
 	List<OrdenPedidoDTO> readAll();
 
-	List<OrdenPedidoDTO> search(String buscar);
-
 	public int obtenerIdMaximo();
 	
 	public boolean delete(OrdenPedidoDTO pedidoAeliminar);

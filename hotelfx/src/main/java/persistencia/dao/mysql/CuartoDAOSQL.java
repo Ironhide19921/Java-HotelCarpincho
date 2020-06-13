@@ -34,10 +34,7 @@ public class CuartoDAOSQL implements CuartoDAO{
 			+ "cuarto.MontoSenia, cuarto.Piso, cuarto.Habitacion, cuarto.Estado FROM cuarto "
 			+ "left join reservaCuarto rc on" + 
 			"				rc.idCuarto <> cuarto.idCuarto " ;
-	//		"			where " + 
-	//		"			(? <= rc.FechaEgreso " + 
-	//		"				AND ? >= rc.FechaIngreso) ";
-	
+
 	@Override
 	public boolean insert(CuartoDTO cuarto) {
 		PreparedStatement statement;
@@ -91,18 +88,18 @@ public class CuartoDAOSQL implements CuartoDAO{
 		}
 		return clientes;
 	}
+	
 	@Override
 	public CuartoDTO traerCuarto(Integer id) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		ResultSet resultSet = null;
+		ResultSet resultSet ;
 		CuartoDTO cuarto = null;
 		try{
 			statement = conexion.prepareStatement(search1);
 			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
-			if(statement.executeUpdate() > 0){
-				conexion.commit();
+			while(resultSet.next()) {
 				cuarto = getCuartoDTO(resultSet);
 			}
 		} 
@@ -114,7 +111,7 @@ public class CuartoDAOSQL implements CuartoDAO{
 				e1.printStackTrace();
 			}
 		}
-		return cuarto;
+		return cuarto;		
 	}
 	
 	private CuartoDTO getCuartoDTO(ResultSet resultSet) throws SQLException {
@@ -210,8 +207,6 @@ public class CuartoDAOSQL implements CuartoDAO{
 			statement = conexion.getSQLConexion().prepareStatement(searchDisponible);
 			statement.setTimestamp(1,fechaEgreso);
 			statement.setTimestamp(2,fechaIngreso);
-		//	statement.setTimestamp(3,fechaEgreso);
-		//	statement.setTimestamp(4,fechaIngreso);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()){

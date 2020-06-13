@@ -14,11 +14,14 @@ import persistencia.dao.interfaz.OrdenPedidoDAO;
 
 public class OrdenPedidoDAOSQL implements OrdenPedidoDAO {
 	
-	private static final String insert = "INSERT INTO ordenPedido(idOrdenPedido, idProducto, idCliente, idUsuario, cantidad, precioTotal) "
-			+ "VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO ordenPedido("
+			+ "idOrdenPedido, idProducto, idCliente, idUsuario, cantidad, precioTotal, "
+			+ "formaPago, tipoTarjeta, numeroTarjeta, fechaVencTarjeta, codSeguridadTarjeta, esRestoran) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String readall = "SELECT * FROM ordenPedido";
-	private static final String update = "UPDATE ordenPedido SET idCliente = ?, idUsuario = ?, cantidad = ?, precioTotal = ? WHERE idOrdenPedido = ?";
-	private static final String search = "SELECT * FROM ordenPedido WHERE idProducto LIKE ? OR idCliente LIKE ? OR idUsuario LIKE ? OR cantidad LIKE ? OR precioTotal LIKE ?";
+	private static final String update = "UPDATE ordenPedido SET idCliente = ?, idUsuario = ?, cantidad = ?, precioTotal = ?,"
+			+ " formaPago = ?, tipoTarjeta = ?, numeroTarjeta = ?, fechaVencTarjeta = ?, codSeguridadTarjeta = ?, esRestoran = ?"
+			+ " WHERE idOrdenPedido = ?";
 	private static final String obtenerIdMax = "SELECT MAX(idOrdenPedido) FROM ordenPedido"; 
 	private static final String delete = "DELETE FROM ordenPedido WHERE idOrdenPedido = ?";
 	private static final String pedidoReserva = "SELECT * FROM ordenPedido where idCliente = ?";
@@ -56,6 +59,12 @@ public class OrdenPedidoDAOSQL implements OrdenPedidoDAO {
 			statement.setInt(4, nuevaOrdenPedido.getIdUsuario());
 			statement.setInt(5, nuevaOrdenPedido.getCantidad());
 			statement.setBigDecimal(6, nuevaOrdenPedido.getPrecioTotal());
+			statement.setString(7, nuevaOrdenPedido.getFormaPago());
+			statement.setString(8, nuevaOrdenPedido.getTipoTarjeta());
+			statement.setString(9, nuevaOrdenPedido.getNumTarjeta());
+			statement.setString(10, nuevaOrdenPedido.getFechaVencTarjeta());
+			statement.setString(11, nuevaOrdenPedido.getCodSeguridadTarjeta());
+			statement.setBoolean(12, nuevaOrdenPedido.isEsRestoran());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isInsertExitoso = true;
@@ -78,12 +87,17 @@ public class OrdenPedidoDAOSQL implements OrdenPedidoDAO {
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		try{
 			statement = conexion.prepareStatement(update);
-			//statement.setInt(1, ordenPedido.getIdProducto());
 			statement.setInt(1, ordenPedido.getIdCliente());
 			statement.setInt(2, ordenPedido.getIdUsuario());
 			statement.setInt(3, ordenPedido.getCantidad());
 			statement.setBigDecimal(4, ordenPedido.getPrecioTotal());
-			statement.setInt(5, ordenPedido.getIdOrdenPedido());
+			statement.setString(5, ordenPedido.getFormaPago());
+			statement.setString(6, ordenPedido.getTipoTarjeta());
+			statement.setString(7, ordenPedido.getNumTarjeta());
+			statement.setString(8, ordenPedido.getFechaVencTarjeta());
+			statement.setString(9, ordenPedido.getCodSeguridadTarjeta());
+			statement.setBoolean(10, ordenPedido.isEsRestoran());
+			statement.setInt(11, ordenPedido.getIdOrdenPedido());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 			}
@@ -122,30 +136,13 @@ public class OrdenPedidoDAOSQL implements OrdenPedidoDAO {
 		int idUsuario = resultSet.getInt("idUsuario");
 		int cantidad = resultSet.getInt("Cantidad");
 		BigDecimal precioTotal = resultSet.getBigDecimal("PrecioTotal");
-		return new OrdenPedidoDTO(id, idProducto, idCliente, idUsuario, cantidad, precioTotal);
-	}
-
-	@Override
-	public List<OrdenPedidoDTO> search(String buscar) {
-		PreparedStatement statement;
-		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<OrdenPedidoDTO> ordenesPedidos = new ArrayList<OrdenPedidoDTO>();
-		Conexion conexion = Conexion.getConexion();
-		try {
-			statement = conexion.getSQLConexion().prepareStatement(search);
-			statement.setString(1,"%" + buscar + "%");
-			statement.setString(2,"%" + buscar + "%");
-			statement.setString(3,"%" + buscar + "%");
-			statement.setString(4,"%" + buscar + "%");
-			statement.setString(5,"%" + buscar + "%");
-			resultSet = statement.executeQuery();
-			while(resultSet.next()){
-				ordenesPedidos.add(getOrdenPedidoDTO(resultSet));
-			}
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ordenesPedidos;
+		String formaPago = resultSet.getString("FormaPago");
+		String tipoTarjeta = resultSet.getString("TipoTarjeta");
+		String numTarjeta = resultSet.getString("NumeroTarjeta");
+		String fecVencTarjeta = resultSet.getString("FechaVencTarjeta");
+		String codSegTarjeta = resultSet.getString("CodSeguridadTarjeta");
+		Boolean esRestoran = resultSet.getBoolean("esRestoran");
+		return new OrdenPedidoDTO(id, idProducto, idCliente, idUsuario, cantidad, precioTotal, formaPago, tipoTarjeta, numTarjeta, fecVencTarjeta, codSegTarjeta, esRestoran);
 	}
 
 	@Override
