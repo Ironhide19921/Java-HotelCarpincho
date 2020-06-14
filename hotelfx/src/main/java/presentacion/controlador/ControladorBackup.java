@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dto.ConexionConfigDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -40,14 +41,15 @@ public class ControladorBackup implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		Conexion.getConexion();
 	}
 	
 	@FXML
 	public void seleccionar() {
+		File file = new File(".\\backups");
 		FileChooser fc = new FileChooser();
-		fc.getExtensionFilters().addAll(
-		new ExtensionFilter("Archivos SQL", "*.sql"));
+		fc.setInitialDirectory(file);
+		fc.getExtensionFilters().addAll(new ExtensionFilter("Archivos SQL", "*.sql"));
 		File selectedFile = fc.showOpenDialog(null);
 		
 		this.archivoSeleccionado = selectedFile;
@@ -62,11 +64,15 @@ public class ControladorBackup implements Initializable{
 	
 	@FXML
 	public void backup() {
+		
+		ConexionConfigDTO config = new ConexionConfigDTO(0, null, null, null);
+		config = ControladorConexionConfig.leerFicheroConexion();
 
 		try {
 			Process p = Runtime.getRuntime().exec(
 			//Este path hay que cambiarlo con el absoluto de la instalación!!!
-					"C:\\Users\\marcos\\Documents\\Facultad\\Especificacion\\TP talleres\\Base\\mysql-5.7.19-winx64\\bin\\mysqldump -u labo -p1234 hotel");
+					//"C:\\Users\\marcos\\Documents\\Facultad\\Especificacion\\TP talleres\\Base\\mysql-5.7.19-winx64\\bin\\mysqldump -u labo -p1234 hotel");
+					".\\sql\\bin\\mysqldump -u "+config.getUser()+" -p"+config.getPass()+" hotel");
 			
 			Date hoy = new Date(System.currentTimeMillis());
 			
@@ -91,13 +97,18 @@ public class ControladorBackup implements Initializable{
 	
 	@FXML
 	public void restore() {
+		
+		ConexionConfigDTO config = new ConexionConfigDTO(0, null, null, null);
+		config = ControladorConexionConfig.leerFicheroConexion();
+		
 		try {
 
 			Conexion.getConexion().cerrarConexion();
 
 			Process p = Runtime.getRuntime().exec(
 					// Este path hay que cambiarlo con el absoluto de la instalación!!!
-					"C:\\Users\\marcos\\Documents\\Facultad\\Especificacion\\TP talleres\\Base\\mysql-5.7.19-winx64\\bin\\mysql -u labo -p1234 hotel");
+					//"C:\\Users\\marcos\\Documents\\Facultad\\Especificacion\\TP talleres\\Base\\mysql-5.7.19-winx64\\bin\\mysql -u labo -p1234 hotel");
+					".\\sql\\bin\\mysql -u "+config.getUser()+" -p"+config.getPass()+" hotel");
 
 			OutputStream os = p.getOutputStream();
 			FileInputStream fis = new FileInputStream(archivoSeleccionado);
@@ -123,7 +134,8 @@ public class ControladorBackup implements Initializable{
 	
 	public Date fechaUltimoBackup() {
 		
-			File file = new File("C:\\Users\\marcos\\Desktop\\carpinchofx\\hotelfx\\Backups"); 
+			//File file = new File("C:\\Users\\marcos\\Desktop\\carpinchofx\\hotelfx\\Backups"); 
+			File file = new File(".\\backups");
 			Date fecha = new Date(file.getAbsoluteFile().lastModified());
 			
 			return fecha;
