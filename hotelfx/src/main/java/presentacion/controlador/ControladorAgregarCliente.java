@@ -39,17 +39,11 @@ public class ControladorAgregarCliente implements Initializable {
 	private RadioButton radioEstado;
 	@FXML
 	private DatePicker txtFecha;
-	@FXML
-	private Button btnAgregarCliente;
-	
-	@FXML
-	private ComboBox<String> comboTipoDoc;
+	@FXML private Button btnAgregarCliente;
+	@FXML private ComboBox<String> comboTipoDoc;
 	private ObservableList<String> listaTipoDocExistentes;
-
-	@FXML
-	private Button btnModificarCliente;
-	@FXML
-	private Button btnReservaCuarto;
+	@FXML private Button btnModificarCliente;
+	@FXML private Button btnReservaCuarto;
 	@FXML
 	private Button btnCerrar;
 	
@@ -65,11 +59,14 @@ public class ControladorAgregarCliente implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		 this.hotel = new Cliente(new DAOSQLFactory());
 		 this.listaTipoDocExistentes = FXCollections.observableArrayList();
-		 this.listaTipoDocExistentes.add("DNI");
+		 agregarListaTiposDoc();
+		 comboTipoDoc.setItems(listaTipoDocExistentes);
+	}
+
+	private void agregarListaTiposDoc() {
+		this.listaTipoDocExistentes.add("DNI");
 		 this.listaTipoDocExistentes.add("Segundo tipo");
 		 this.listaTipoDocExistentes.add("Tercer tipo");
-		 
-		 comboTipoDoc.setItems(listaTipoDocExistentes);
 	}
 	
 	 @FXML
@@ -88,25 +85,19 @@ public class ControladorAgregarCliente implements Initializable {
 			java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(txtFecha.getValue());
 			ClienteDTO nuevoCliente = new ClienteDTO(0, nombre, apellido, tipoDoc, documento, email, tel, true,gettedDatePickerDate);
 			this.hotel.agregarCliente(nuevoCliente);
-	
-			//tomo el controlador
-			//ControladorABMCliente scene2Controller = fxmlLoader.getController();
-			//scene2Controller.refrescarTabla();
+
 			cerrarVentanaAgregar();	
 
 	}
 	 
 
 	public void setearCamposPantalla(ClienteDTO clienteSeleccionado) throws IOException {
-		
-			   //ClienteDTO clienteSeleccionado = controlador.getTablaPersonas().getSelectionModel().getSelectedItem();
 			   txtNombre.setText(clienteSeleccionado.getNombre());
 			   txtApellido.setText(clienteSeleccionado.getApellido());
 			   this.comboTipoDoc.setValue(clienteSeleccionado.getTipoDocumento());
 			   txtNumDocumento.setText(clienteSeleccionado.getNumeroDocumento());
 			   txtEmail.setText(clienteSeleccionado.getEmail());
 			   txtTelefono.setText(clienteSeleccionado.getTelefono());
-			   
 			   this.txtFecha.setValue(clienteSeleccionado.getFechaNacimiento().toLocalDate());
 			   id = clienteSeleccionado.getIdCliente();
 			   	    

@@ -26,76 +26,93 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modelo.ReservaCuarto;
 import modelo.Usuario;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.FxmlLoader;
 
 public class ControladorAgregarReservaCuarto implements Initializable{
 	
-	/*public enum estadosReserva {Pendiente,Cancelado,En_curso,Finalizado};
-	private Integer idReserva,idCliente,idCuarto,idUsuario;
-	private BigDecimal senia,montoReservaCuarto;
-	private String emailFacturacion, numTarjeta, cantidadDias,
-	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
-	
-	private estadosReserva estadoReserva;
-	private Timestamp fechaReserva,fechaCheckIn,fechaOut,
-	fechaIngreso,fechaEgreso;
-
-	private boolean estado;
-*/
+	//botones
 	@FXML private Button btnAgregar;
 	@FXML private Button btnModificar;
 	@FXML private Button btnCerrar;
 	@FXML private Button btnAgregarCliente;
 	@FXML private Button btnAgregarCuarto;
 	@FXML private Button btnConsultarPendientes;
+	//campos
 	@FXML private TextField usuario;
-	
-
 	@FXML private TextField cuarto;
 	@FXML private TextField cliente;
 	@FXML private TextField email;
 	@FXML private TextField senia;
 	@FXML private TextField montoSenia;
-	@FXML private TextField tipoTarjeta;
 	@FXML private TextField numTarjeta;
 	@FXML private TextField fechaVecTarjeta;
 	@FXML private TextField codSeguridad;
 	@FXML private TextArea observaciones;
+	//combos
 	@FXML private ComboBox<String> cmbBoxEstados;
 	@FXML private ObservableList<String> listaCmbBoxEstados;
 	@FXML private ComboBox<String> cmbBoxFormaPago;
 	@FXML private ObservableList<String> listaCmbBoxFormaPago;
 	@FXML private ComboBox<UsuarioDTO> cmbBoxUsuario;
 	@FXML private ObservableList<UsuarioDTO> listaCmbBoxUsuario;
+	@FXML private ComboBox<String> cmbBoxTiposTarjeta;
+	@FXML private ObservableList<String> listaCmbBoxTiposTarjeta;
+	//fechas
 	@FXML private DatePicker fechaIngreso;
 	@FXML private DatePicker fechaEgreso;
 	@FXML private DatePicker fechaCheckIn;
 	@FXML private DatePicker fechaCheckOut;
 	@FXML private DatePicker fechaReserva;
-	//@FXML private TimerPicker timer;
+//	@FXML private DatePicker fechaVecTarjeta;
+	
+	//div
+	@FXML private Pane infoTarjeta;
+	@FXML private Pane izquierda;
+	@FXML private Pane derecha;
+	//otros
 	private ReservaCuarto reservaCuarto;
 	private Usuario usuarios;
 	private estadosReserva estados;
 	private Validador validador;
 	private int idReserva;
+	private FxmlLoader fxml;
+	private Stage primaryStage;
 	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		//visualizarBotones();
+		primaryStage = new Stage(); 
+		fxml = new FxmlLoader();
+		inicializarElementos();
+		inicializarModelo();
+		inicializarObservableList();
+	}
+
+	private void inicializarElementos() {
 		this.btnConsultarPendientes.setVisible(false);
-		this.reservaCuarto = new ReservaCuarto(new DAOSQLFactory());
-		this.usuarios = new Usuario(new DAOSQLFactory());
+		this.infoTarjeta.setVisible(false);
+	}
+
+	private void inicializarObservableList() {
 		this.listaCmbBoxEstados = FXCollections.observableList(cargarCmbBoxEstados());
 		this.cmbBoxEstados.setItems(listaCmbBoxEstados);
 		this.listaCmbBoxFormaPago = FXCollections.observableList(cargarCmbBoxFormaPago());
 		this.cmbBoxFormaPago.setItems(listaCmbBoxFormaPago);
 		this.listaCmbBoxUsuario = FXCollections.observableList(cargarCmbBoxUsuario());
 		this.cmbBoxUsuario.setItems(listaCmbBoxUsuario);
+		this.listaCmbBoxTiposTarjeta = FXCollections.observableList(cargarCmbBoxTiposTarjeta());
+		this.cmbBoxTiposTarjeta.setItems(listaCmbBoxTiposTarjeta);
+	}
+
+	private void inicializarModelo() {
+		this.reservaCuarto = new ReservaCuarto(new DAOSQLFactory());
+		this.usuarios = new Usuario(new DAOSQLFactory());
 	}
 
 	private void visualizarBotones() {
@@ -127,6 +144,13 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		}
 		return lista;
 	}
+	
+	private List<String> cargarCmbBoxTiposTarjeta() {
+		List<String> lista = new ArrayList<>();
+		lista.add("Visa");
+		lista.add("MasterCard");
+		return lista;
+	}
 
 	private UsuarioDTO obtenerUsuarioConID(Integer id) {
 		List<UsuarioDTO> lista = this.usuarios.obtenerUsuarios();	
@@ -134,8 +158,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 			if(u.getIdUsuario() == id) {
 				return u;
 			}
-		}
-		
+		}	
 		return null;
 	}
 	
@@ -144,14 +167,24 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	{
 
 		ReservaCuartoDTO reserva = obtenerDatosReserva();
-		if(validador.formatoMail(reserva.getEmailFacturacion())) 
+		if(validador.validarReserva(this)) 
 		{
 			this.reservaCuarto.agregarReservaCuarto(reserva);	
 			validador.mostrarMensaje("Su reserva ha sido agregada con exito");
+			
 		}
 		
 	}
 
+	@FXML private void mostrarDatosTarjeta() {
+		if(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem()==null || 
+				this.cmbBoxFormaPago.getSelectionModel().getSelectedItem() == "Efectivo" ){
+			this.infoTarjeta.setVisible(false);
+		}
+		else {
+			this.infoTarjeta.setVisible(true);
+		}
+	}
 
 
 	private ReservaCuartoDTO obtenerDatosReserva() {
@@ -185,7 +218,10 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		String emailFacturacion = this.email.getText();
 		String numTarjeta = this.numTarjeta.getText();
 		String formaDePago = this.cmbBoxFormaPago.getValue();
-		String tipoTarjeta = this.tipoTarjeta.getText();
+		String tipoTarjeta = "";
+		if(cmbBoxTiposTarjeta.getValue()!=null) {
+			tipoTarjeta = this.cmbBoxTiposTarjeta.getValue();
+		}
 		String codSeguridadTarjeta = this.codSeguridad.getText();
 		String fechaVencTarjeta = this.fechaVecTarjeta.getText();
 		Timestamp fechaReserva =Timestamp.valueOf(localInicioReserva.atTime(LocalTime.of(8,0,0)));
@@ -220,7 +256,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.email.setText(reserva.getEmailFacturacion());
 		this.senia.setText(reserva.getSenia().toString());
 		this.montoSenia.setText(reserva.getMontoReservaCuarto().toString());
-		this.tipoTarjeta.setText(reserva.getTiposTarjeta());
+		this.cmbBoxTiposTarjeta.getSelectionModel().select(reserva.getTiposTarjeta());
 		this.numTarjeta.setText(reserva.getNumTarjeta());
 		this.fechaVecTarjeta.setText(reserva.getFechaVencTarjeta());
 		this.codSeguridad.setText(reserva.getCodSeguridadTarjeta());
@@ -241,9 +277,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		ReservaCuartoDTO reserva = obtenerDatosReserva();
 		this.reservaCuarto.modificarReservaCuarto(reserva);
 	}
-	
-	
-	
+
 	@FXML 
 	public void consultarCuarto() {
 		 try { 
@@ -308,6 +342,26 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		      e.printStackTrace(); 
 		     } 
 	}
+	
+	@FXML
+	public void consultarPendientes() throws IOException {
+		 Stage primaryStage = new Stage(); 
+	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMOrdenPedido.fxml");
+			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+			Parent root = (Parent) fxmlLoader.load();
+			primaryStage.setScene(new Scene(root));   
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+			
+			ControladorABMOrdenPedido controlador = fxmlLoader.getController();
+			controlador.enviarIdReserva(Integer.parseInt(this.cliente.getText()));
+			controlador.modificarBotones();
+			//controlador.datosReserva(obtenerDatosReserva());
+			primaryStage.setTitle("Consulta de orden de pedido del cliente" );
+			primaryStage.sizeToScene();
+			primaryStage.show(); 
+			 Stage stage = (Stage) btnConsultarPendientes.getScene().getWindow();
+			stage.close();
+	}
 
 	private boolean ingresoFechas() {
 		LocalDate localInicioReserva =  this.fechaReserva.getValue();
@@ -324,8 +378,6 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		 return false;
 		 }
 	}
-	
-
 
 	public void modificarCliente(int idCliente) {
 		this.cliente.setText(idCliente+"");
@@ -357,7 +409,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.email.setDisable(true);
 		this.senia.setDisable(true);
 		this.montoSenia.setDisable(true);
-		this.tipoTarjeta.setDisable(true);
+		this.cmbBoxTiposTarjeta.setDisable(true);
 		this.numTarjeta.setDisable(true);
 		this.fechaVecTarjeta.setDisable(true);
 		this.codSeguridad.setDisable(true);
@@ -381,24 +433,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		
 	}
 	
-	@FXML
-	public void consultarPendientes() throws IOException {
-		 Stage primaryStage = new Stage(); 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMOrdenPedido.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));   
-			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-			ControladorABMOrdenPedido controlador = fxmlLoader.getController();
-			controlador.enviarIdReserva(Integer.parseInt(this.cliente.getText()));
-			controlador.modificarBotones();
-			//controlador.datosReserva(obtenerDatosReserva());
-			primaryStage.setTitle("Consulta de orden de pedido del cliente" );
-			primaryStage.sizeToScene();
-			primaryStage.show(); 
-			 Stage stage = (Stage) btnConsultarPendientes.getScene().getWindow();
-			stage.close();
-	}
+	
 	
 
 	public TextField getCuarto() {
@@ -420,10 +455,6 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	
 	public TextField getMontoSenia() {
 		return montoSenia;
-	}
-
-	public TextField getTipoTarjeta() {
-		return tipoTarjeta;
 	}
 
 	
@@ -452,6 +483,10 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		return cmbBoxFormaPago;
 	}
 
+	public ComboBox<String> getCmbBoxTiposTarjeta() {
+		return cmbBoxTiposTarjeta;
+	}
+	
 	public ComboBox<UsuarioDTO> getCmbBoxUsuario() {
 		return cmbBoxUsuario;
 	}

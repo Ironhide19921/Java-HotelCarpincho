@@ -92,7 +92,6 @@ public class ControladorABMReservaCuarto implements Initializable
 	
 	@FXML
 	public ObservableList<TablaReservaDTO> getAllReservasCuartosPorCliente(List<ReservaCuartoDTO> reservas) {
-		//activeSession = FXCollections.observableArrayList();	
 		activeSession.clear();
 		for(ReservaCuartoDTO reserva : reservas) {
 			ClienteDTO cliente = devolverCliente(reserva.getIdCliente());

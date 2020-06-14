@@ -35,6 +35,7 @@ import modelo.ReservaCuarto;
 import modelo.Validador;
 import persistencia.conexion.Conexion;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.FxmlLoader;
 
 
 public class ControladorABMCliente implements Initializable{
@@ -82,10 +83,15 @@ public class ControladorABMCliente implements Initializable{
 	private Validador validador;
 	private ReservaCuartoDTO reserva;
 	private ReservaCuarto reservas;
+	private FxmlLoader fxml;
+	private Stage primaryStage;
+	
 	
 	// funcion onload
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		primaryStage = new Stage(); 
+		fxml = new FxmlLoader();
 		this.btnSeleccionarCliente.setVisible(false);
 		this.reservas = new ReservaCuarto(new DAOSQLFactory());
 		this.cliente = new Cliente(new DAOSQLFactory());
@@ -109,22 +115,14 @@ public class ControladorABMCliente implements Initializable{
 	    private void addCliente(ActionEvent event) throws Exception 
 	    {
 		     try { 
-			    Stage primaryStage = new Stage(); 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCliente.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				Parent root = (Parent) fxmlLoader.load();
-		
-				primaryStage.setScene(new Scene(root));   
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				ControladorAgregarCliente scene2Controller = fxmlLoader.getController();
-				scene2Controller.setVisibilityBtnAgregarCliente(true);
-				scene2Controller.setDisableBtnAgregarCliente(false);
-				scene2Controller.setVisibilityBtnModificarCliente(false);
-				scene2Controller.setDisableBtnModificarCliente(true);		 
-				primaryStage.setTitle("Agregar Cliente");
-				primaryStage.sizeToScene();
-				primaryStage.show(); 
-		       
+				primaryStage.setScene(fxml.getScene("VentanaAgregarCliente"));   
+				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
+				ControladorAgregarCliente controlador = fxmlLoader.getController();
+				controlador.setVisibilityBtnAgregarCliente(true);
+				controlador.setDisableBtnAgregarCliente(false);
+				controlador.setVisibilityBtnModificarCliente(false);
+				controlador.setDisableBtnModificarCliente(true);		 
+				fxml.mostrarStage(primaryStage, "Agregar cliente");
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
@@ -133,28 +131,19 @@ public class ControladorABMCliente implements Initializable{
 	 @FXML
 	    private void editarCliente(ActionEvent event) throws Exception 
 	    {
-		 
 		 	 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
 				validador.mostrarMensaje("Debes seleccionar un cliente de la lista para editar");
 				return;
 			 }
-		     try { 
-		    	Stage primaryStage = new Stage(); 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCliente.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				//cargo el objeto completo que incluye toda la escena y el controlador
-				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root)); 
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				ControladorAgregarCliente scene2Controller = fxmlLoader.getController();
+		     try { 	
+				primaryStage.setScene(fxml.getScene("VentanaAgregarCliente"));   
+				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
+				ControladorAgregarCliente controlador = fxmlLoader.getController();
 				ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
-				scene2Controller.setearCamposPantalla(clienteSeleccionado);
-				scene2Controller.setVisibilityBtnAgregarCliente(false);
-				scene2Controller.setVisibilityBtnModificarCliente(true);	 
-				primaryStage.setTitle("Modificar Cliente");
-				primaryStage.sizeToScene();
-				primaryStage.show(); 
-		       
+				controlador.setearCamposPantalla(clienteSeleccionado);
+				controlador.setVisibilityBtnAgregarCliente(false);
+				controlador.setVisibilityBtnModificarCliente(true);	 
+				fxml.mostrarStage(primaryStage, "Modificar cliente");
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
@@ -167,24 +156,13 @@ public class ControladorABMCliente implements Initializable{
 				return;
 			 }
 		     try { 
-		    	Stage primaryStage = new Stage(); 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				//cargo el objeto completo que incluye toda la escena y el controlador
-				Parent root = (Parent) fxmlLoader.load();
-		
-				primaryStage.setScene(new Scene(root)); 
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				//tomo el controlador
+				primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
+				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
 				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
 				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
 				ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 				scene2Controller.modificarCliente(clienteSeleccionado.getIdCliente());
-				primaryStage.setTitle("Modificar Cliente");
-				primaryStage.sizeToScene();
-				primaryStage.show(); 
-				
-		       
+				fxml.mostrarStage(primaryStage, "Agregar reserva de cuarto");
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
@@ -194,35 +172,40 @@ public class ControladorABMCliente implements Initializable{
 		 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
 				validador.mostrarMensaje("Debes seleccionar un cliente de la lista para editar");
 				return;
-			 }
-		     
-		    	 List<ReservaCuartoDTO> reservas = this.reservas.buscarReservaCuartoCliente(tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
-		  
-		    	 if(reservas.size()>0) {
-		    		 try { 
-		    			Stage primaryStage = new Stage(); 
-				 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMReservaCuarto.fxml");
-						FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-						//cargo el objeto completo que incluye toda la escena y el controlador
-						Parent root = (Parent) fxmlLoader.load();
-						primaryStage.setScene(new Scene(root)); 
-						primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-						//tomo el controlador
-						ControladorABMReservaCuarto controlador = fxmlLoader.getController();
-						//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
-						controlador.crearTabla(controlador.getAllReservasCuartosPorCliente(reservas));
-						primaryStage.setTitle("Reservas del cliente");
-						primaryStage.sizeToScene();
-						primaryStage.show();
-		    		 } catch(Exception e) { 
+		 }
+		 List<ReservaCuartoDTO> reservas = this.reservas.buscarReservaCuartoCliente(tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
+		 if(reservas.size()>0) {
+		    try { 
+		    	primaryStage.setScene(fxml.getScene("VentanaABMReservaCuarto"));   
+				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
+				ControladorABMReservaCuarto scene2Controller = fxmlLoader.getController();
+				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
+				scene2Controller.crearTabla(scene2Controller.getAllReservasCuartosPorCliente(reservas));
+				fxml.mostrarStage(primaryStage, "Reservas de cuarto del cliente: " + tablaPersonas.getSelectionModel().getSelectedItem().getNombre() + " " + 
+				tablaPersonas.getSelectionModel().getSelectedItem().getApellido() );
+		    	 } 
+		    catch(Exception e) { 
 		   		      e.printStackTrace(); 
-		   		     } 
-		    		 return;
-		    	 }
-		    	 else {
-		    		 validador.mostrarMensaje("No existen reservas vinculadas a este cliente");
-		    		 return;
-		    	 }	    
+		    } 
+		    return;
+		 }
+	   	 else {
+		    validador.mostrarMensaje("No existen reservas vinculadas a este cliente");
+			return;
+	  	 }	    
+	 }
+	 
+	 @FXML
+	 public void seleccionarCliente() throws IOException
+	 {	 
+			primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
+			FXMLLoader fxmlLoader = fxml.getFXMLLoader();
+			ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+			scene2Controller.setearCampos(reserva);
+			scene2Controller.modificarCliente(this.tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
+			Stage stage = (Stage) btnSeleccionarCliente.getScene().getWindow();
+			stage.close();
+			fxml.mostrarStage(primaryStage, "Agregar reserva de cuarto");	
 	 }
 	 
 	 @FXML
@@ -230,14 +213,14 @@ public class ControladorABMCliente implements Initializable{
 	 		crearTabla(getAllClientes());
 		}
 
-		private ObservableList<ClienteDTO> getAllClientes() {
-			List<ClienteDTO> clientes = this.cliente.obtenerClientes();
-			activeSession.clear();
-	 		for(ClienteDTO c : clientes) {
-	 			activeSession.add(c);
-	 		}
-	 		return activeSession;
-		}
+	private ObservableList<ClienteDTO> getAllClientes() {
+		List<ClienteDTO> clientes = this.cliente.obtenerClientes();
+		activeSession.clear();
+	 	for(ClienteDTO c : clientes) {
+	 		activeSession.add(c);
+	 	}
+	 	return activeSession;
+	}
 		
 	 @FXML
 	private void buscarCliente() {
@@ -248,9 +231,6 @@ public class ControladorABMCliente implements Initializable{
 		tablaPersonas.setItems(lista);
 		tablaPersonas.setEditable(true);
 	 }
-	
-	
-	 
 	 
 	 @FXML
 	 private void habilitarCliente(){
@@ -274,8 +254,7 @@ public class ControladorABMCliente implements Initializable{
 		 }
 	
 	 }
-	 
-	 
+	
 	 @FXML
 	 	private ObservableList<ClienteDTO> traerClientes() {
 		 		
@@ -287,7 +266,6 @@ public class ControladorABMCliente implements Initializable{
 	 		return activeSession;
 		}
 
-	 
 	 	public TableView<ClienteDTO> getTablaPersonas() {
 			return tablaPersonas;
 		}
@@ -295,7 +273,6 @@ public class ControladorABMCliente implements Initializable{
 		public void setTablaPersonas(TableView<ClienteDTO> tablaPersonas) {
 			this.tablaPersonas = tablaPersonas;
 		}
-		
 		 
 		 @FXML
 		 private void cerrarVentana() {
@@ -312,23 +289,5 @@ public class ControladorABMCliente implements Initializable{
 			 this.reserva = reserva;
 		 }
 		 
-		 @FXML
-		 public void seleccionarCliente() throws IOException {
-			 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				Parent root = (Parent) fxmlLoader.load(); 	
-				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
-				scene2Controller.setearCampos(reserva);
-				scene2Controller.modificarCliente(this.tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
-				Stage stage = (Stage) btnSeleccionarCliente.getScene().getWindow();
-				stage.close();
-				Stage primaryStage = new Stage(); 
-				primaryStage.setScene(new Scene(root));   
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				primaryStage.setTitle("Agregar cuartos");
-				primaryStage.sizeToScene();
-				primaryStage.show(); 
-					
-		 }
+
 }

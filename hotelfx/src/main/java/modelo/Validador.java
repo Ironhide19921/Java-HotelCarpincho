@@ -1,5 +1,7 @@
 package modelo;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -51,6 +53,7 @@ public class Validador {
 	public static boolean validarTarjeta(String numero, String cod, Date expira) {
 		return ((formatoVisa(numero,cod) || formatoMaster(numero,cod)) && (expira.after(new Date(System.currentTimeMillis()))));
 	}
+
 	
 	public static boolean validarUsuario(ControladorAgregarUsuario ventanaUsuario){
 		
