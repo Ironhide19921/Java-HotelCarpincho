@@ -31,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.Main;
 import modelo.Cliente;
+import modelo.ReservaCuarto;
 import modelo.Validador;
 import persistencia.conexion.Conexion;
 import persistencia.dao.mysql.DAOSQLFactory;
@@ -49,11 +50,11 @@ public class ControladorABMCliente implements Initializable{
 	@FXML 
 	private Button btnHabilitaCliente;
 	@FXML 
-	private Button btnDeshabilitarCliente;
-	@FXML 
 	private Button btnSeleccionarCliente;
+	@FXML private Button btnVerReservaCuarto;
 	@FXML 
 	private Button btnCerrar;
+	@FXML private Button btnReservaCuarto;
 	@FXML 
 	private TextField ingresarCliente;
 	@FXML 
@@ -80,11 +81,13 @@ public class ControladorABMCliente implements Initializable{
 	private Cliente cliente;
 	private Validador validador;
 	private ReservaCuartoDTO reserva;
+	private ReservaCuarto reservas;
 	
 	// funcion onload
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.btnSeleccionarCliente.setVisible(false);
+		this.reservas = new ReservaCuarto(new DAOSQLFactory());
 		this.cliente = new Cliente(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaPersonas.getItems().clear();
@@ -141,12 +144,9 @@ public class ControladorABMCliente implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				//cargo el objeto completo que incluye toda la escena y el controlador
 				Parent root = (Parent) fxmlLoader.load();
-		
 				primaryStage.setScene(new Scene(root)); 
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				//tomo el controlador
 				ControladorAgregarCliente scene2Controller = fxmlLoader.getController();
-				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
 				ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 				scene2Controller.setearCamposPantalla(clienteSeleccionado);
 				scene2Controller.setVisibilityBtnAgregarCliente(false);
@@ -159,6 +159,72 @@ public class ControladorABMCliente implements Initializable{
 		      e.printStackTrace(); 
 		     } 
 	    }
+	 
+	 
+	 @FXML private void addReservaCuarto() throws Exception {
+		 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
+				validador.mostrarMensaje("Debes seleccionar un cliente de la lista para editar");
+				return;
+			 }
+		     try { 
+		    	Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				//cargo el objeto completo que incluye toda la escena y el controlador
+				Parent root = (Parent) fxmlLoader.load();
+		
+				primaryStage.setScene(new Scene(root)); 
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				//tomo el controlador
+				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
+				ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
+				scene2Controller.modificarCliente(clienteSeleccionado.getIdCliente());
+				primaryStage.setTitle("Modificar Cliente");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+				
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	 }
+	 
+	 @FXML private void verReservasCuarto() throws Exception {
+		 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
+				validador.mostrarMensaje("Debes seleccionar un cliente de la lista para editar");
+				return;
+			 }
+		     
+		    	 List<ReservaCuartoDTO> reservas = this.reservas.buscarReservaCuartoCliente(tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
+		  
+		    	 if(reservas.size()>0) {
+		    		 try { 
+		    			Stage primaryStage = new Stage(); 
+				 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMReservaCuarto.fxml");
+						FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+						//cargo el objeto completo que incluye toda la escena y el controlador
+						Parent root = (Parent) fxmlLoader.load();
+						primaryStage.setScene(new Scene(root)); 
+						primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+						//tomo el controlador
+						ControladorABMReservaCuarto controlador = fxmlLoader.getController();
+						//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
+						controlador.crearTabla(controlador.getAllReservasCuartosPorCliente(reservas));
+						primaryStage.setTitle("Reservas del cliente");
+						primaryStage.sizeToScene();
+						primaryStage.show();
+		    		 } catch(Exception e) { 
+		   		      e.printStackTrace(); 
+		   		     } 
+		    		 return;
+		    	 }
+		    	 else {
+		    		 validador.mostrarMensaje("No existen reservas vinculadas a este cliente");
+		    		 return;
+		    	 }	    
+	 }
+	 
 	 @FXML
 		public void refrescarTabla(){
 	 		crearTabla(getAllClientes());
@@ -184,18 +250,6 @@ public class ControladorABMCliente implements Initializable{
 	 }
 	
 	
-	 @FXML
-	 private void deshabilitarCliente(){
-		 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
-			validador.mostrarMensaje("Debes seleccionar un cliente de la lista para deshabilitar");
-			return;
-		 }
-		 ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
-		 clienteSeleccionado.setEstado(false);
-		 
-		 this.cliente.modificarCliente(clienteSeleccionado);
-		 refrescarTabla();
-	 }
 	 
 	 
 	 @FXML
@@ -205,9 +259,20 @@ public class ControladorABMCliente implements Initializable{
 			return;
 		 }
 		 ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
-		 clienteSeleccionado.setEstado(true);
-		 this.cliente.modificarCliente(clienteSeleccionado);
-		 refrescarTabla();
+		 if(clienteSeleccionado.getEstado() == true) {
+			 clienteSeleccionado.setEstado(false);
+			 
+			 this.cliente.modificarCliente(clienteSeleccionado);
+			 refrescarTabla();
+			 return;
+		 }
+		 else {
+			 clienteSeleccionado.setEstado(true);
+			 this.cliente.modificarCliente(clienteSeleccionado);
+			 refrescarTabla();
+			 return;
+		 }
+	
 	 }
 	 
 	 

@@ -39,6 +39,7 @@ import modelo.Cliente;
 import modelo.Cuarto;
 import modelo.ErrorImportar;
 import modelo.ReservaCuarto;
+import modelo.SendHttp;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import persistencia.dao.mysql.ErrorImportarDAOSQL;
@@ -136,9 +137,14 @@ public class ControladorImportar implements Initializable {
 
 	@FXML
 	private void manejoMail() {
-		//		this.mail= new Mail();
 		//		this.mail.setearPropiedades();
-		this.mail.enviarMsj();
+				
+		try {
+			this.mail.enviarMsj(SendHttp.getLinkEncuesta());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 

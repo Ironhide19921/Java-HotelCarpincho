@@ -41,6 +41,7 @@ public class ControladorAgregarCliente implements Initializable {
 	private DatePicker txtFecha;
 	@FXML
 	private Button btnAgregarCliente;
+	
 	@FXML
 	private ComboBox<String> comboTipoDoc;
 	private ObservableList<String> listaTipoDocExistentes;
@@ -48,13 +49,12 @@ public class ControladorAgregarCliente implements Initializable {
 	@FXML
 	private Button btnModificarCliente;
 	@FXML
-	private Button btnReservas;
+	private Button btnReservaCuarto;
 	@FXML
 	private Button btnCerrar;
 	
 	private Integer id;
 	private Cliente hotel;
-	
 	private Validador validador;
 	
 
@@ -97,7 +97,7 @@ public class ControladorAgregarCliente implements Initializable {
 	}
 	 
 
-		public void setearCamposPantalla(ClienteDTO clienteSeleccionado) throws IOException {
+	public void setearCamposPantalla(ClienteDTO clienteSeleccionado) throws IOException {
 		
 			   //ClienteDTO clienteSeleccionado = controlador.getTablaPersonas().getSelectionModel().getSelectedItem();
 			   txtNombre.setText(clienteSeleccionado.getNombre());
@@ -133,6 +133,37 @@ public class ControladorAgregarCliente implements Initializable {
 				cerrarVentanaModificar();	
 		}
 	 
+	 @FXML 
+	 public void agregarReservaCuarto() throws IOException {
+		 if(!Validador.validarCliente(this)) {
+		 		return;
+		 }else {
+			 guardarCliente();
+		
+			     try { 
+			    	Stage primaryStage = new Stage(); 
+			 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+					FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+					//cargo el objeto completo que incluye toda la escena y el controlador
+					Parent root = (Parent) fxmlLoader.load();
+			
+					primaryStage.setScene(new Scene(root)); 
+					primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+					//tomo el controlador
+					ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+					//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
+		
+					primaryStage.setTitle("Modificar Cliente");
+					primaryStage.sizeToScene();
+					primaryStage.show(); 
+					
+			       
+			     } catch(Exception e) { 
+			      e.printStackTrace(); 
+			     } 
+		 }
+ 
+	 }
 	 
 	 @FXML
 	 private void cerrarVentanaAgregar() {

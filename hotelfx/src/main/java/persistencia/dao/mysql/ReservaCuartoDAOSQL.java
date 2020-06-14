@@ -35,21 +35,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 	private static final String search = "SELECT * FROM reservaCuarto "
 			+ "WHERE idUsuario LIKE ? OR idCuarto LIKE ? OR idCliente LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
 
-	private static final String search1 = "SELECT h.habitacion_numero," + 
-			"        CASE WHEN hr.habitacion_numero is null " + 
-			"              THEN 'Disponible'" + 
-			"              ELSE 'Reservada'" + 
-			"        END  AS 'Estado'      " + 
-			"        FROM habitaciones " + 
-			"        left JOIN (SELECT   h1.habitacion_numero" + 
-			"                      FROM habitaciones " + 
-			"                       inner join reservas r " + 
-			"                       on h1.habitacion_numero=r.habitacion" + 
-			"                       WHERE @fecha BETWEEN r.inicio_fecha AND r.fin_fecha or " + 
-			"                             @fecha2 BETWEEN r.inicio_fecha AND r.fin_fecha" + 
-			"                       AND r.fin_fecha" + 
-			"          ) hr" + 
-			"          on hr.habitacion_numero = h.habitacion_numero;";
+	private static final String search1 = "SELECT * FROM reservaCuarto where idCliente = ?";
 	
 	
 	@Override
@@ -220,6 +206,29 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			e.printStackTrace();
 		}
 		return reservas;
+	}
+	
+	@Override
+	public List<ReservaCuartoDTO> buscarReservaCuartoCliente(int idCliente) {
+
+		PreparedStatement statement;
+
+		ResultSet resultSet; // Guarda el resultado de la query
+		ArrayList<ReservaCuartoDTO> reservas = new ArrayList<ReservaCuartoDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(search1);
+			statement.setInt(1,idCliente);
+			resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				reservas.add(getReservaDTO(resultSet));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reservas;
+		
 	}
 	
 	

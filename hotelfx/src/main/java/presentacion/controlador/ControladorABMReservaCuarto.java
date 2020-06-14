@@ -73,7 +73,7 @@ public class ControladorABMReservaCuarto implements Initializable
 		crearTabla(getAllReservasCuartos());
 	}
 
-	private void crearTabla(ObservableList<TablaReservaDTO> allReservasCuartos) 
+	public void crearTabla(ObservableList<TablaReservaDTO> allReservasCuartos) 
 	{
 		tablaReservas.setItems(allReservasCuartos);
 	}
@@ -89,6 +89,20 @@ public class ControladorABMReservaCuarto implements Initializable
 		}
 		 return activeSession;
 	}
+	
+	@FXML
+	public ObservableList<TablaReservaDTO> getAllReservasCuartosPorCliente(List<ReservaCuartoDTO> reservas) {
+		//activeSession = FXCollections.observableArrayList();	
+		activeSession.clear();
+		for(ReservaCuartoDTO reserva : reservas) {
+			ClienteDTO cliente = devolverCliente(reserva.getIdCliente());
+			CuartoDTO cuarto = devolverCuarto(reserva.getIdCuarto());
+			TablaReservaDTO tabla = new TablaReservaDTO(reserva,cliente,cuarto);
+		activeSession.add(tabla);
+		}
+		 return activeSession;
+	}
+	
 	
 	
 	private CuartoDTO devolverCuarto(Integer id) {

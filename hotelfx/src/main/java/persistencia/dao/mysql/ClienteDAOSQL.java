@@ -69,7 +69,7 @@ public class ClienteDAOSQL implements ClienteDAO{
 			statement = conexion.prepareStatement(search1);
 			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
-			if(statement.executeUpdate() > 0){
+			if(resultSet.next()){
 				conexion.commit();
 				cliente = getClienteDTOO(resultSet);
 			}

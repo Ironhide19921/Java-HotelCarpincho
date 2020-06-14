@@ -14,4 +14,6 @@ public interface ReservaCuartoDAO {
 	public void update(ReservaCuartoDTO cliente);
 
 	public List<ReservaCuartoDTO> search(String buscar);
+
+	public List<ReservaCuartoDTO> buscarReservaCuartoCliente(int idCliente);
 }
