@@ -20,6 +20,10 @@ public interface DAOAbstractFactory {
 
 	public SalonDAO createSalonDAO();
 	
+	public CategoriaEventoDAO createCategoriaEventoDAO();
+
+	public ReservaEventoDAO createReservaEventoDAO();
+	
 	public ConfiguracionDAO createConfiguracionDAO();
 	
 	public ErrorImportarDAO createErrorImportarDAO();

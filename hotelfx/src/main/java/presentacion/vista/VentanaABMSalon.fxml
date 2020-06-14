@@ -42,9 +42,9 @@
                     <columns>
                       <TableColumn fx:id="id" prefWidth="75.0" text="id" visible="false" />
                       <TableColumn fx:id="capacidad" prefWidth="75.0" text="Capacidad" />
-                        <TableColumn fx:id="senia" prefWidth="75.0" text="Seña" />
+                        <TableColumn fx:id="senia" prefWidth="75.0" text="Seña (%)" />
                         <TableColumn fx:id="estilo" prefWidth="75.0" text="Estilo" />
-                        <TableColumn fx:id="monto" prefWidth="75.0" text="Monto" />
+                        <TableColumn fx:id="monto" prefWidth="75.0" text="Monto (por hora)" />
                         <TableColumn fx:id="estado" prefWidth="75.0" text="Estado" />
                     </columns>
                      <columnResizePolicy>

@@ -21,6 +21,7 @@ public class CuartoDAOSQL implements CuartoDAO{
 	private static final String updateEstado = "UPDATE cuarto SET estado = ? WHERE idCuarto = ?";
 	private static final String search = "SELECT * FROM cuarto WHERE capacidad LIKE ? OR monto LIKE ? OR montoSenia LIKE ? OR piso LIKE ? OR habitacion LIKE ?";
 	private static final String search1 = "SELECT * FROM cuarto WHERE idCuarto = ?";
+	
 	@Override
 	public boolean insert(CuartoDTO cuarto) {
 		PreparedStatement statement;
@@ -74,18 +75,18 @@ public class CuartoDAOSQL implements CuartoDAO{
 		}
 		return clientes;
 	}
+	
 	@Override
 	public CuartoDTO traerCuarto(Integer id) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		ResultSet resultSet = null;
+		ResultSet resultSet ;
 		CuartoDTO cuarto = null;
 		try{
 			statement = conexion.prepareStatement(search1);
 			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
-			if(statement.executeUpdate() > 0){
-				conexion.commit();
+			while(resultSet.next()) {
 				cuarto = getCuartoDTO(resultSet);
 			}
 		} 
@@ -97,7 +98,7 @@ public class CuartoDAOSQL implements CuartoDAO{
 				e1.printStackTrace();
 			}
 		}
-		return cuarto;
+		return cuarto;		
 	}
 	
 	private CuartoDTO getCuartoDTO(ResultSet resultSet) throws SQLException {
