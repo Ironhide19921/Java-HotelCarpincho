@@ -20,22 +20,22 @@
                   <TextField fx:id="txtSenia" layoutX="172.0" layoutY="91.0" minWidth="100.0" />
                   <TextField fx:id="txtEstilo" layoutX="172.0" layoutY="131.0" minWidth="100.0" />
                   <TextField fx:id="txtMonto" layoutX="172.0" layoutY="171.0" minWidth="100.0" />
-                  <Label layoutX="94.0" layoutY="54.0" text="Capacidad">
+                  <Label layoutX="56.0" layoutY="54.0" text="Capacidad">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="94.0" layoutY="94.0" text="Seña">
+                  <Label layoutX="56.0" layoutY="94.0" text="Seña(%)">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="94.0" layoutY="134.0" text="Estilo">
+                  <Label layoutX="56.0" layoutY="134.0" text="Estilo">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="94.0" layoutY="174.0" text="Monto">
+                  <Label layoutX="56.0" layoutY="174.0" text="Monto (por hora)">
                      <font>
                         <Font size="14.0" />
                      </font>

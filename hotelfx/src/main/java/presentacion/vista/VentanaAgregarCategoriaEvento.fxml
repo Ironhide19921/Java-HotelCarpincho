@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="359.0" prefWidth="524.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="presentacion.controlador.ControladorAgregarCategoriaEvento">
+   <children>
+      <BorderPane layoutX="1.0" prefHeight="359.0" prefWidth="524.0">
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label contentDisplay="RIGHT" layoutX="152.0" layoutY="48.0" text="Nombre">
+                     <graphic>
+                        <TextField fx:id="txtNombre" />
+                     </graphic>
+                  </Label>
+                  <Label contentDisplay="RIGHT" layoutX="161.0" layoutY="93.0" text="Detalle">
+                     <graphic>
+                        <TextField fx:id="txtDetalle" />
+                     </graphic>
+                  </Label>
+               </children>
+            </Pane>
+         </center>
+         <top>
+            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </top>
+         <bottom>
+            <Pane prefHeight="100.0" prefWidth="0.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnAgregarCategoriaEvento" layoutX="218.0" layoutY="20.0" mnemonicParsing="false" onAction="#guardarCategoriaEvento" text="Agregar ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEditarCategoriaEvento" layoutX="216.0" layoutY="19.0" mnemonicParsing="false" onAction="#editarCategoriaEvento" text="Modificar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

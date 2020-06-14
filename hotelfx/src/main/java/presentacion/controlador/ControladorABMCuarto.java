@@ -59,6 +59,7 @@ public class ControladorABMCuarto implements Initializable
 		tablaCuartos.getItems().clear();
 		cargarColumnas();
 		refrescarTabla();
+		
 	}
 	
 	private void cargarColumnas() {
