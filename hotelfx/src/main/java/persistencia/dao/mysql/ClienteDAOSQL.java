@@ -183,4 +183,26 @@ public class ClienteDAOSQL implements ClienteDAO{
 		return clientes;
 	}
 
+	@Override
+	public ClienteDTO get(int id) {
+		ClienteDTO cliente = null;
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(get);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				cliente = getClienteDTOO(resultSet);
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cliente;
+	}
+
+
 }
