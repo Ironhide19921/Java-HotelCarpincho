@@ -1,5 +1,9 @@
 CREATE DATABASE `hotel`;
 USE hotel;
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+
+
 CREATE TABLE `cliente`
 (
   `idCliente` int(11) NOT NULL AUTO_INCREMENT,
@@ -122,33 +126,55 @@ CREATE TABLE `cuarto`
   CONSTRAINT FOREIGN KEY fk_idCategoriaCuarto (idCategoriaCuarto) REFERENCES categoriaCuarto (idCategoriaCuarto)
 );
 
-CREATE TABLE `reservaCuarto`
-(
-  `idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `reservacuarto` (
+  `idReservaCuarto` int(11) NOT NULL,
   `idCliente` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `idCuarto` int(11) NOT NULL,
   `Senia` decimal(10,3) NOT NULL,
   `MontoReservaCuarto` decimal(10,3) NOT NULL,
-  `EmailFacturacion` varchar(60) NOT NULL,
-  `FechaReserva` timestamp NOT NULL,
-  `FechaCheckIn` timestamp NOT NULL,
-  `FechaIngreso` timestamp NOT NULL,
-  `FechaOut` timestamp NOT NULL,
-  `FechaEgreso` timestamp NOT NULL,
-  `FormaPago` varchar(20) not null,
-  `TipoTarjeta` varchar(25),
-  `NumeroTarjeta` varchar(25),
-  `FechaVencTarjeta` varchar(15),
-  `CodSeguridadTarjeta` varchar(10),
+  `EmailFacturacion` varchar(50) NOT NULL,
+  `FechaReserva` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `FechaCheckIn` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FechaIngreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FechaOut` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FechaEgreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FormaPago` varchar(20) NOT NULL,
+  `TipoTarjeta` varchar(25) DEFAULT NULL,
+  `NumeroTarjeta` varchar(25) DEFAULT NULL,
+  `FechaVencTarjeta` varchar(15) DEFAULT NULL,
+  `CodSeguridadTarjeta` varchar(10) DEFAULT NULL,
   `EstadoReserva` varchar(20) NOT NULL,
-  `Comentarios` varchar(200),
-  `Estado` boolean not null,
-  PRIMARY KEY (`idReservaCuarto`),
-  CONSTRAINT FOREIGN KEY fk_clienteId (idCliente) REFERENCES cliente (idCliente),
-  CONSTRAINT FOREIGN KEY fk_id_Usuario (idUsuario) REFERENCES usuario (idUsuario),
-  CONSTRAINT FOREIGN KEY fk_idCuarto (idCuarto) REFERENCES cuarto (idCuarto)
-);
+  `Comentarios` varchar(200) DEFAULT NULL,
+  `Estado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indices de la tabla `reservacuarto`
+--
+
+ALTER TABLE `reservacuarto`
+  ADD PRIMARY KEY (`idReservaCuarto`),
+  ADD KEY `fk_clienteId` (`idCliente`),
+  ADD KEY `fk_id_Usuario` (`idUsuario`),
+  ADD KEY `fk_idCuarto` (`idCuarto`);
+
+--
+-- AUTO_INCREMENT de la tabla `reservacuarto`
+--
+
+ALTER TABLE `reservacuarto`
+  MODIFY `idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Filtros para la tabla `reservacuarto`
+--
+
+ALTER TABLE `reservacuarto`
+  ADD CONSTRAINT `fk_clienteId` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
+  ADD CONSTRAINT `fk_idCuarto` FOREIGN KEY (`idCuarto`) REFERENCES `cuarto` (`idCuarto`),
+  ADD CONSTRAINT `fk_id_Usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
+COMMIT;
 
 CREATE TABLE `notificacion`
 (
@@ -184,6 +210,15 @@ CREATE TABLE `categoriaevento` (
   `Detalle` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `categoriaevento`
+--
+
+INSERT INTO `categoriaevento` (`idCategoriaEvento`, `Nombre`, `Detalle`) VALUES
+(1, 'Cumpleaños', 'Un cumple con papitas y pancho'),
+(2, 'Casamiento', 'Con torta y musica'),
+(3, 'Infantil', 'Algo infantil con lo basico');
+
 -- --------------------------------------------------------
 
 --
@@ -196,22 +231,23 @@ CREATE TABLE `reservaevento` (
   `idUsuario` int(11) NOT NULL,
   `idSalon` int(11) NOT NULL,
   `idCategoriaEvento` int(11) NOT NULL,
-  `TipoTarjeta` varchar(25) NOT NULL,
+  `TipoTarjeta` enum('VISA','MASTERCARD','NO') NOT NULL,
   `CodSeguridadTarjeta` varchar(10) NOT NULL,
   `FechaVencTarjeta` varchar(15) NOT NULL,
   `NumeroTarjeta` varchar(25) NOT NULL,
-  `FormaPago` varchar(20) NOT NULL,
+  `FormaPago` enum('EFECTIVO','DEBITO','CREDITO') NOT NULL,
   `MontoTotal` decimal(20,3) NOT NULL,
   `MontoReservaEvento` decimal(20,3) NOT NULL,
   `Senia` decimal(20,3) NOT NULL,
-  `FechaGeneracionReserva` datetime NOT NULL,
-  `FechaInicioReserva` datetime NOT NULL,
-  `FechaFinReserva` datetime NOT NULL,
-  `FechaIngreso` datetime NOT NULL,
-  `FechaEgreso` datetime NOT NULL,
-  `EstadoReserva` varchar(20) NOT NULL,
+  `FechaGeneracionReserva` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `FechaInicioReserva` timestamp NULL DEFAULT NULL,
+  `FechaFinReserva` timestamp NULL DEFAULT NULL,
+  `FechaIngreso` timestamp NULL DEFAULT NULL,
+  `FechaEgreso` timestamp NULL DEFAULT NULL,
+  `EstadoReserva` enum('PENDIENTE','CANCELADO','EN_CURSO','FINALIZADO') NOT NULL,
   `Observaciones` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- --------------------------------------------------------
 
@@ -222,11 +258,21 @@ CREATE TABLE `reservaevento` (
 CREATE TABLE `salon` (
   `idSalon` int(11) NOT NULL,
   `Capacidad` int(5) NOT NULL,
-  `Senia` decimal(20,3) NOT NULL,
+  `Senia` int(20) NOT NULL,
   `Estilo` varchar(150) NOT NULL,
   `Monto` decimal(20,3) NOT NULL,
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `salon`
+--
+
+INSERT INTO `salon` (`idSalon`, `Capacidad`, `Senia`, `Estilo`, `Monto`, `Estado`) VALUES
+(19, 150, 23, 'Amplio salon 150 personas', '1300.000', 1),
+(20, 50, 40, 'Salon pequeño ', '349.990', 1),
+(21, 300, 35, 'Salon grande', '2300.990', 1);
+
 
 CREATE TABLE `email`(
   `idEmail` int(11) NOT NULL AUTO_INCREMENT, 

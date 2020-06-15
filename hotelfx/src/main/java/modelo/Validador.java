@@ -127,31 +127,28 @@ public class Validador {
 		boolean condicionInput = true;
 		boolean condicionFormato = true;
 		
-		/*condicionInput = condicionInput
-		&& !ventanaReserva
-		
-		/*condicionInput = condicionInput  
-		&& !ventanaCliente.getTxtNombre().getText().equals("")		
-		&& !ventanaCliente.getTxtApellido().getText().equals("")
-		&& !ventanaCliente.getTxtTelefono().getText().equals("")
-		&& !ventanaCliente.getTxtEmail().getText().equals("")
-		&& !ventanaCliente.getTxtNumDocumento().getText().equals("")
-		&& (!(ventanaCliente.getComboTipoDoc().getValue()==null))
-		&& (!(ventanaCliente.getTxtFecha().getValue()==null))
-		;
-		
-		condicionFormato = condicionFormato && formatoApellido(ventanaCliente.getTxtNombre().getText())
-		&& formatoApellido(ventanaCliente.getTxtApellido().getText())
-		&& formatoNumerico(ventanaCliente.getTxtNumDocumento().getText())
-		&& formatoNumerico(ventanaCliente.getTxtTelefono().getText())
-		&& formatoMail(ventanaCliente.getTxtEmail().getText());
-		;
+		condicionInput = condicionInput
+		&& !ventanaReserva.getEmail().equals("")
+		&& (ventanaReserva.getCmbBoxFormaPago().getSelectionModel().getSelectedItem()!=null)
+		&& !ventanaReserva.getCliente().equals("")
 
+		&& !ventanaReserva.getCuarto().equals("")
+		&& (ventanaReserva.getFechaReserva()!=null)
+		&& (ventanaReserva.getFechaIngreso()!=null)
+		&& (ventanaReserva.getFechaEgreso()!=null)
+		&& (ventanaReserva.getCmbBoxUsuario().getSelectionModel().getSelectedItem()!=null) 
+		;
+		
+		condicionFormato = condicionFormato 
+		&& formatoMail(ventanaReserva.getEmail().getText())			
+		&& formatoNumerico(ventanaReserva.getMontoSenia().getText())	
+		&& formatoNumerico(ventanaReserva.getSenia().getText())	
+		;
+		
 		if (!condicionInput)
 			mostrarMensaje("Campos obligatorios vacios");
 		if (!condicionFormato)
-			mostrarMensaje("Contienen un formato incorrecto\\n");
-		*/
+			mostrarMensaje("Contienen un formato incorrecto\\n");	
 		condicionCompleta = condicionInput && condicionFormato;
 		return condicionCompleta;
 

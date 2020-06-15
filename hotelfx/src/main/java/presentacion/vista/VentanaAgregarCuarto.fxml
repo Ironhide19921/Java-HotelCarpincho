@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="484.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCuarto">
 	<children>
-      <BorderPane layoutX="7.0" layoutY="7.0" prefHeight="454.0" prefWidth="831.0">
+      <BorderPane layoutX="31.0" layoutY="3.0" prefHeight="482.0" prefWidth="883.0">
          <top>
             <Pane prefHeight="45.0" prefWidth="831.0" BorderPane.alignment="CENTER">
                <children>
@@ -38,18 +38,19 @@
          <center>
             <Pane prefHeight="377.0" prefWidth="640.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="98.0" layoutY="26.0" prefHeight="25.0" prefWidth="74.0" text="Capacidad" />
-                  <Label layoutX="98.0" layoutY="81.0" prefHeight="17.0" prefWidth="71.0" text="Monto" />
-                  <Label layoutX="98.0" layoutY="130.0" text="Monto senia" />
-                  <Label layoutX="98.0" layoutY="179.0" text="Piso" />
-                  <Label layoutX="101.0" layoutY="228.0" text="Habitacion" />
-                  <Label layoutX="98.0" layoutY="281.0" text="Categorias de cuarto" />
-                  <TextField fx:id="txtCapacidad" layoutX="350.0" layoutY="25.0" prefHeight="30.0" prefWidth="170.0" />
-                  <TextField fx:id="txtMonto" layoutX="350.0" layoutY="76.0" prefHeight="30.0" prefWidth="170.0" />
-                  <TextField fx:id="txtMontoSenia" layoutX="350.0" layoutY="125.0" prefHeight="30.0" prefWidth="170.0" />
-                  <TextField fx:id="txtPiso" layoutX="350.0" layoutY="174.0" prefHeight="30.0" prefWidth="170.0" />
-                  <TextField fx:id="txtHabitacion" layoutX="350.0" layoutY="223.0" prefHeight="30.0" prefWidth="170.0" />
-                  <ComboBox fx:id="cmbBoxCatesCuarto" layoutX="350.0" layoutY="275.0" onAction="#cargarCmbCateCuarto" onMousePressed="#recargarCmbCategoriasCuarto" prefHeight="30.0" prefWidth="170.0" />
+                  <Label layoutX="75.0" layoutY="30.0" prefHeight="25.0" prefWidth="74.0" text="Capacidad" />
+                  <Label layoutX="75.0" layoutY="85.0" prefHeight="17.0" prefWidth="71.0" text="Monto" />
+                  <Label layoutX="75.0" layoutY="134.0" text="Monto senia" />
+                  <Label layoutX="75.0" layoutY="183.0" text="Piso" />
+                  <Label layoutX="78.0" layoutY="232.0" text="Habitacion" />
+                  <Label layoutX="75.0" layoutY="285.0" text="Categorias de cuarto" />
+                  <TextField fx:id="txtCapacidad" layoutX="403.0" layoutY="29.0" />
+                  <TextField fx:id="txtMonto" layoutX="403.0" layoutY="80.0" />
+                  <TextField fx:id="txtMontoSenia" layoutX="403.0" layoutY="129.0" />
+                  <TextField fx:id="txtPiso" layoutX="403.0" layoutY="178.0" />
+                  <TextField fx:id="txtHabitacion" layoutX="403.0" layoutY="227.0" />
+                  <ComboBox fx:id="cmbBoxCatesCuarto" layoutX="403.0" layoutY="280.0" onAction="#cargarCmbCateCuarto" onMousePressed="#recargarCmbCategoriasCuarto" prefHeight="27.0" prefWidth="167.0" />
+            
                </children>
             </Pane>
          </center>

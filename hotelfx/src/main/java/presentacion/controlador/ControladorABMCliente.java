@@ -20,13 +20,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.Main;
@@ -55,7 +58,12 @@ public class ControladorABMCliente implements Initializable{
 	@FXML private Button btnVerReservaCuarto;
 	@FXML 
 	private Button btnCerrar;
+
 	@FXML private Button btnReservaCuarto;
+
+	@FXML
+	private Button btnVerReservasCliente;
+
 	@FXML 
 	private TextField ingresarCliente;
 	@FXML 
@@ -79,6 +87,7 @@ public class ControladorABMCliente implements Initializable{
 	private	TableColumn estado  ;
 	@FXML
 	private	TableColumn idCliente;
+	@FXML private BorderPane panelActual;
 	private Cliente cliente;
 	private Validador validador;
 	private ReservaCuartoDTO reserva;
@@ -86,6 +95,8 @@ public class ControladorABMCliente implements Initializable{
 	private FxmlLoader fxml;
 	private Stage primaryStage;
 	
+	
+	private Alert alert;
 	
 	// funcion onload
 	@Override
@@ -97,6 +108,7 @@ public class ControladorABMCliente implements Initializable{
 		this.cliente = new Cliente(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaPersonas.getItems().clear();
+		this.alert = new Alert(AlertType.INFORMATION);
 		cargarColumnas();
 		refrescarTabla();
 	}
@@ -254,7 +266,43 @@ public class ControladorABMCliente implements Initializable{
 		 }
 	
 	 }
-	
+
+	 
+	 @FXML
+	 private void verReservasEvento(){
+		try {
+			if(this.tablaPersonas.getSelectionModel().getSelectedItem() != null) {
+				int idClienteSeleccionado = this.tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente();		
+
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("presentacion/vista/VentanaABMReservaEvento.fxml"));
+				
+			    Parent root = (Parent) fxmlLoader.load();
+				ControladorABMReservaEvento controller = fxmlLoader.<ControladorABMReservaEvento>getController();
+				controller.initData(idClienteSeleccionado);
+				
+				panelActual.setCenter(root);
+				panelActual.setTop(null);
+				panelActual.setBottom(null);
+				panelActual.setLeft(null);
+				panelActual.setRight(null);
+			}
+			else {
+				mostrarMensaje("Debe seleccionar un cliente para ver sus reservas de evento");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	 }
+	 
+	 private void mostrarMensaje(String mensaje) {
+			alert.setTitle("Información");
+			alert.setHeaderText(null);
+			alert.setContentText(mensaje);
+
+			alert.showAndWait();
+	}
+	 
 	 @FXML
 	 	private ObservableList<ClienteDTO> traerClientes() {
 		 		

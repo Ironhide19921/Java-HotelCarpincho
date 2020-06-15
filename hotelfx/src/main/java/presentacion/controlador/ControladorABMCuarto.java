@@ -52,7 +52,6 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private TextField txtBuscar;
 	@FXML private Button btnLimpiarFiltro;
 	@FXML private Button btnHabilitarCuarto;
-	@FXML private Button btnDeshabilitarCuarto;
 		  private Cuarto cuarto;
 		  private ReservaCuartoDTO reserva;
 		  private Validador validador;
@@ -65,6 +64,7 @@ public class ControladorABMCuarto implements Initializable
 		tablaCuartos.getItems().clear();
 		cargarColumnas();
 		refrescarTabla();
+		
 	}
 	
 	private void cargarColumnas() {
@@ -150,18 +150,6 @@ public class ControladorABMCuarto implements Initializable
 		 tablaCuartos.setEditable(true);
 	 }
 	
-	
-	 @FXML
-	 private void deshabilitarCuartos(){	
-		 if (tablaCuartos.getSelectionModel().getSelectedItem() == null) {
-			validador.mostrarMensaje("Debes seleccionar un cuarto de la lista para deshabilitar");
-			return;
-		 }
-		 CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
-		 cuartoSeleccionado.setEstado(false);
-		 this.cuarto.modificarCuartos(cuartoSeleccionado);
-		 refrescarTabla();
-	 }
 	 
 	 
 	 @FXML
@@ -171,9 +159,19 @@ public class ControladorABMCuarto implements Initializable
 			return;
 		 }
 		 CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
-		 cuartoSeleccionado.setEstado(true);
-		 this.cuarto.modificarCuartos(cuartoSeleccionado);
-		 refrescarTabla();
+		 if(cuartoSeleccionado.getEstado() == true) {
+			 cuartoSeleccionado.setEstado(false);
+			 this.cuarto.modificarCuartos(cuartoSeleccionado);
+			 refrescarTabla();
+			 return;
+		 }else {
+			 cuartoSeleccionado.setEstado(true);
+			 this.cuarto.modificarCuartos(cuartoSeleccionado);
+			 refrescarTabla();
+			 return;
+		 }
+		
+		
 	 }
 	 
 	 

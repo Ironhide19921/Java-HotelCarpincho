@@ -28,6 +28,7 @@ import modelo.Cuarto;
 import modelo.ReservaCuarto;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.FxmlLoader;
 
 public class ControladorABMReservaCuarto implements Initializable
 {
@@ -54,10 +55,15 @@ public class ControladorABMReservaCuarto implements Initializable
 	private Cliente clientes;
 	private ReservaCuarto reserva;
 	private Cuarto cuartos;
+	private FxmlLoader fxml;
+	private Stage primaryStage;
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		primaryStage = new Stage(); 
+		fxml = new FxmlLoader();
 		this.reserva = new ReservaCuarto(new DAOSQLFactory());
 		this.clientes = new Cliente(new DAOSQLFactory());
 		this.cuartos =  new Cuarto(new DAOSQLFactory());
@@ -142,22 +148,17 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 	@FXML
 	public void addReservaCuarto() throws Exception  {
 		 try { 
-			    Stage primaryStage = new Stage(); 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root));   
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
-				
-				primaryStage.setTitle("Agregar reserva de cuarto");
-				primaryStage.sizeToScene();
-				primaryStage.show(); 
+		
+			 primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
+				//FXMLLoader fxmlLoader = fxml.getFXMLLoader();
+				//ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
+				fxml.mostrarStage(primaryStage,"Agregar reserva de cuarto");
 		       
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
 	}
+	
 	@FXML
 	public void modificarReservaCuarto() {
 		 try { 

@@ -12,7 +12,9 @@ import java.util.ResourceBundle;
 
 import dto.ProductoDTO;
 import dto.ReservaCuartoDTO;
-import dto.ReservaCuartoDTO.estadosReserva;
+import dto.ReservaCuartoDTO.EstadoReserva;
+import dto.ReservaCuartoDTO.FormaPago;
+import dto.ReservaCuartoDTO.TipoTarjeta;
 import dto.UsuarioDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,16 +71,17 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML private DatePicker fechaCheckIn;
 	@FXML private DatePicker fechaCheckOut;
 	@FXML private DatePicker fechaReserva;
-//	@FXML private DatePicker fechaVecTarjeta;
-	
 	//div
 	@FXML private Pane infoTarjeta;
 	@FXML private Pane izquierda;
 	@FXML private Pane derecha;
+	@FXML private Pane fechasCheck;
 	//otros
 	private ReservaCuarto reservaCuarto;
 	private Usuario usuarios;
-	private estadosReserva estados;
+	private EstadoReserva estados;
+	private TipoTarjeta tipoTarjeta;
+	private FormaPago formaPago;
 	private Validador validador;
 	private int idReserva;
 	private FxmlLoader fxml;
@@ -97,6 +100,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	private void inicializarElementos() {
 		this.btnConsultarPendientes.setVisible(false);
 		this.infoTarjeta.setVisible(false);
+		this.fechasCheck.setVisible(false);
 	}
 
 	private void inicializarObservableList() {
@@ -131,15 +135,15 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 
 	private List<String> cargarCmbBoxFormaPago() {
 		List<String> lista = new ArrayList<>();
-		lista.add("Efectivo");
-		lista.add("Tarjeta débito");
-		lista.add("Tarjeta crédito - 1 sólo pago");
+		for(FormaPago s : formaPago.values()) {
+			lista.add(s.name());
+		}
 		return lista;
 	}
 
 	private List<String> cargarCmbBoxEstados() {
 		List<String> lista = new ArrayList<>();
-		for(estadosReserva s : estados.values()) {
+		for(EstadoReserva s : estados.values()) {
 			lista.add(s.name());
 		}
 		return lista;
@@ -147,8 +151,9 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	
 	private List<String> cargarCmbBoxTiposTarjeta() {
 		List<String> lista = new ArrayList<>();
-		lista.add("Visa");
-		lista.add("MasterCard");
+		for(TipoTarjeta s : tipoTarjeta.values()) {
+			lista.add(s.name());
+		}
 		return lista;
 	}
 
@@ -190,8 +195,6 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	private ReservaCuartoDTO obtenerDatosReserva() {
 		
 		LocalDate localInicioReserva =  this.fechaReserva.getValue();
-		LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
-		LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();
 		LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
 		LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
 		int idCliente = 0;
@@ -216,34 +219,32 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 			senia = new BigDecimal(this.senia.getText());
 		}
 		String emailFacturacion = this.email.getText();
+		
 		String numTarjeta = this.numTarjeta.getText();
-		String formaDePago = this.cmbBoxFormaPago.getValue();
-		String tipoTarjeta = "";
-		if(cmbBoxTiposTarjeta.getValue()!=null) {
-			tipoTarjeta = this.cmbBoxTiposTarjeta.getValue();
-		}
 		String codSeguridadTarjeta = this.codSeguridad.getText();
 		String fechaVencTarjeta = this.fechaVecTarjeta.getText();
+		
+		if(!Validador.formatoNumerico(numTarjeta)) {
+			Validador.mostrarMensaje("Ingrese un numero de tarjeta valido");
+		}
+		if(!Validador.formatoNumerico(codSeguridadTarjeta)) {
+			Validador.mostrarMensaje("Ingrese un codigo de seguridad valido");
+		}
+		if(!Validador.formatoNumerico(fechaVencTarjeta)) {
+			Validador.mostrarMensaje("Ingrese una fecha de vencimiento valida");
+		}
+		FormaPago formaDePago = FormaPago.valueOf(this.cmbBoxFormaPago.getValue());
+		TipoTarjeta tipoTarjeta = TipoTarjeta.valueOf(this.cmbBoxTiposTarjeta.getValue());
 		Timestamp fechaReserva =Timestamp.valueOf(localInicioReserva.atTime(LocalTime.of(8,0,0)));
-		Timestamp fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(8,0,0)));
-		Timestamp fechaOut = Timestamp.valueOf(localInicioCheckOut.atTime(LocalTime.of(8,0,0)));
 		Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
 		Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
-		String estadoReserva = "";
-		if(this.cmbBoxEstados.getValue()!=null) {
-			estadoReserva = this.cmbBoxEstados.getValue();
-		}
-		if(this.cmbBoxEstados.getValue()==null) {
-			this.cmbBoxEstados.getSelectionModel().selectFirst();
-			estadoReserva = this.cmbBoxEstados.getValue();
-		}
-	
+		EstadoReserva estadoReserva = EstadoReserva.valueOf(this.cmbBoxEstados.getValue());
 		String comentarios = this.observaciones.getText();
 		boolean estado = true;
 
 		ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
 				emailFacturacion, numTarjeta, formaDePago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
-				fechaReserva, fechaCheckIn, fechaOut, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
+				fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
 		return reserva;
 	}
 	
@@ -256,38 +257,61 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.email.setText(reserva.getEmailFacturacion());
 		this.senia.setText(reserva.getSenia().toString());
 		this.montoSenia.setText(reserva.getMontoReservaCuarto().toString());
-		this.cmbBoxTiposTarjeta.getSelectionModel().select(reserva.getTiposTarjeta());
+		this.cmbBoxTiposTarjeta.getSelectionModel().select(reserva.getTipoTarjeta().name());
 		this.numTarjeta.setText(reserva.getNumTarjeta());
 		this.fechaVecTarjeta.setText(reserva.getFechaVencTarjeta());
 		this.codSeguridad.setText(reserva.getCodSeguridadTarjeta());
 		this.observaciones.setText(reserva.getComentarios());
-		this.cmbBoxEstados.getSelectionModel().select(reserva.getEstadoReserva());
-		this.cmbBoxFormaPago.getSelectionModel().select(reserva.getFormasDePago());
+		this.cmbBoxEstados.getSelectionModel().select(reserva.getEstadoReserva().name());
+		this.cmbBoxFormaPago.getSelectionModel().select(reserva.getFormaPago().name());
 		this.fechaReserva.setValue(reserva.getFechaReserva().toLocalDateTime().toLocalDate());
 		this.fechaIngreso.setValue(reserva.getFechaIngreso().toLocalDateTime().toLocalDate());
 		this.fechaEgreso.setValue(reserva.getFechaEgreso().toLocalDateTime().toLocalDate());
-		this.fechaCheckIn.setValue(reserva.getFechaCheckIn().toLocalDateTime().toLocalDate());
-		this.fechaCheckOut.setValue(reserva.getFechaOut().toLocalDateTime().toLocalDate());
+		if(reserva.getFechaCheckIn()!=null) {
+			this.fechaCheckIn.setValue(reserva.getFechaCheckIn().toLocalDateTime().toLocalDate());
+			
+		}
+		if(reserva.getFechaOut()!=null) {
+			this.fechaCheckOut.setValue(reserva.getFechaOut().toLocalDateTime().toLocalDate());
+		}
+		
+	
 	}
 
 	@FXML 
 	public void modificarReservaCuarto() 
-	{
-		//Agregar validador
+	{	
 		ReservaCuartoDTO reserva = obtenerDatosReserva();
-		this.reservaCuarto.modificarReservaCuarto(reserva);
+		LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
+		LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();
+		Timestamp fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(8,0,0)));
+		Timestamp fechaOut = Timestamp.valueOf(localInicioCheckOut.atTime(LocalTime.of(8,0,0)));
+		
+		if(fechaCheckIn!=null) 
+		{
+			reserva.setFechaCheckIn(fechaCheckIn);
+			if(validador.validarReserva(this)) 
+			{
+				this.reservaCuarto.modificarReservaCuarto(reserva);
+			}
+		}	
+		if(fechaCheckIn != null && fechaOut != null)
+		{
+			reserva.setFechaCheckIn(fechaCheckIn);
+			reserva.setFechaOut(fechaOut);
+			if(validador.validarReserva(this)) 
+			{
+				this.reservaCuarto.modificarReservaCuarto(reserva);				
+			}
+		}	
 	}
 
 	@FXML 
 	public void consultarCuarto() {
 		 try { 
 				if(ingresoFechas()) {
-			    Stage primaryStage = new Stage(); 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMCuarto.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root));   
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				primaryStage.setScene(fxml.getScene("VentanaABMCuarto"));   
+				FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 				ControladorABMCuarto scene2Controller = fxmlLoader.getController();
 				scene2Controller.datosReserva(obtenerDatosReserva());
 				LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
@@ -295,12 +319,8 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 				Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
 				Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
 				scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
-				
-				primaryStage.setTitle("Consulta de cuartos disponibles");
-				primaryStage.sizeToScene();
-				primaryStage.show();
-				
-				 Stage stage = (Stage) btnAgregarCuarto.getScene().getWindow();
+				fxml.mostrarStage(primaryStage, "Consulta de cuartos disponible");
+				Stage stage = (Stage) btnAgregarCuarto.getScene().getWindow();
 					stage.close();
 				}
 				else {
@@ -316,22 +336,14 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	public void consultarCliente() {
 		 try { 
 					if(ingresoFechas()) {
-						  Stage primaryStage = new Stage(); 
-					 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMCliente.fxml");
-							FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-							Parent root = (Parent) fxmlLoader.load();
-							primaryStage.setScene(new Scene(root));   
-							primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-							ControladorABMCliente controlador = fxmlLoader.getController();
-							controlador.modificarBotonesReserva();
-							controlador.datosReserva(obtenerDatosReserva());
-
-							primaryStage.setTitle("Consulta de clientes activos");
-							primaryStage.sizeToScene();
-							primaryStage.show(); 
-							
-							 Stage stage = (Stage) btnAgregarCliente.getScene().getWindow();
-								stage.close();
+						primaryStage.setScene(fxml.getScene("VentanaABMCliente"));   
+						FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
+						ControladorABMCliente controlador = fxmlLoader.getController();
+						controlador.modificarBotonesReserva();
+						controlador.datosReserva(obtenerDatosReserva());
+						fxml.mostrarStage(primaryStage, "Lista de clientes");
+						Stage stage = (Stage) btnAgregarCliente.getScene().getWindow();
+						stage.close();
 					}
 					else {
 						validador.mostrarMensaje("El ingreso de fechas son obligatorias para esta consulta");
@@ -345,32 +357,24 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	
 	@FXML
 	public void consultarPendientes() throws IOException {
-		 Stage primaryStage = new Stage(); 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMOrdenPedido.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));   
-			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-			
-			ControladorABMOrdenPedido controlador = fxmlLoader.getController();
-			controlador.enviarIdReserva(Integer.parseInt(this.cliente.getText()));
-			controlador.modificarBotones();
+		primaryStage.setScene(fxml.getScene("VentanaABMOrdenPedido"));   
+		FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
+		ControladorABMOrdenPedido controlador = fxmlLoader.getController();
+		controlador.enviarIdReserva(Integer.parseInt(this.cliente.getText()));
+		controlador.modificarBotones();
 			//controlador.datosReserva(obtenerDatosReserva());
-			primaryStage.setTitle("Consulta de orden de pedido del cliente" );
-			primaryStage.sizeToScene();
-			primaryStage.show(); 
-			 Stage stage = (Stage) btnConsultarPendientes.getScene().getWindow();
-			stage.close();
+		fxml.mostrarStage(primaryStage, "Consulta de orden de pedido del cliente");
+	    Stage stage = (Stage) btnConsultarPendientes.getScene().getWindow();
+		stage.close();
 	}
 
 	private boolean ingresoFechas() {
 		LocalDate localInicioReserva =  this.fechaReserva.getValue();
-		LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
-		LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();
+	//	LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
+	//	LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();
 		LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
 		LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
-		 if(localInicioReserva!=null && localInicioCheckIn!=null && 
-				 localInicioCheckOut!=null&& localInicioIngreso!=null&& 
+		 if(localInicioReserva!=null && localInicioIngreso!=null&& 
 				 localInicioEgreso!=null) {
 		 return true;
 		 }
@@ -516,7 +520,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		return reservaCuarto;
 	}
 
-	public estadosReserva getEstados() {
+	public EstadoReserva getEstados() {
 		return estados;
 	}
 

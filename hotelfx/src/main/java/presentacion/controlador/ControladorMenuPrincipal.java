@@ -47,6 +47,10 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirDivisas;
 	
 	@FXML private Button btnAbrirABMSalones;
+	@FXML
+	private Button btnAbrirABMCategoriaEvento;
+	@FXML
+	private Button btnMenuReservaEvento;
 	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
@@ -58,6 +62,7 @@ public class ControladorMenuPrincipal implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
 
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
 		//email.start();
@@ -179,6 +184,29 @@ public class ControladorMenuPrincipal implements Initializable{
 		}
 	}
 
+	@FXML
+	public void verABMCategoriaEvento() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMCategoriaEvento");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verMenuReservaEvento() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMReservaEvento2");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@FXML
 	public void verReservaCuarto() {
 		try {

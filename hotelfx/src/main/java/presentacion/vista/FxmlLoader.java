@@ -50,22 +50,7 @@ public Scene getScene(String fileName) {
 	}
 	return null;
 	}
-/*
-	public FXMLLoader getFXMLLoader(String fileName) {
-		try {
-			System.out.println("presentacion/vista/" + fileName +".fxml");
-			URL fileUrl = getClass().getClassLoader().getResource("presentacion/vista/" + fileName +".fxml");
-			System.out.println(fileUrl.getFile()+" nombre file URL");
-			FXMLLoader fxmlLoader =  new FXMLLoader(fileUrl);
-			fxmlLoader.load();
-			return fxmlLoader;
-			
-		} catch (Exception e) {
-			System.out.println("No page " + fileName +" please check FXMLLoader");
-		}
-		return null;
-		}
-*/
+
 	public void mostrarStage(Stage primaryStage, String titulo) {
 		primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 		primaryStage.setTitle(titulo);

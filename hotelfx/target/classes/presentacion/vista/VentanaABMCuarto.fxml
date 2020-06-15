@@ -10,8 +10,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
+
 <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMCuarto">
 	<children>
+
       <BorderPane layoutX="17.0" layoutY="9.0" prefHeight="600.0" prefWidth="892.0">
          <center>
             <VBox prefHeight="560.0" prefWidth="701.0" BorderPane.alignment="CENTER">
@@ -48,15 +50,18 @@
             <Pane prefHeight="492.0" prefWidth="104.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="100.0" prefWidth="892.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="153.0" prefWidth="910.0" BorderPane.alignment="CENTER">
+           
                <children>
                   <Button fx:id="btnAgregarCuarto" layoutX="86.0" layoutY="13.0" mnemonicParsing="false" onAction="#addCuarto" prefHeight="30.0" prefWidth="122.0" text="Agregar cuarto" />
                   <Button fx:id="btnEditar" layoutX="240.0" layoutY="13.0" mnemonicParsing="false" onAction="#editCuarto" prefHeight="30.0" prefWidth="118.0" text="Editar cuarto" />
                   <Button fx:id="btnHabilitarCuarto" layoutX="625.0" layoutY="13.0" mnemonicParsing="false" onAction="#habilitarCuartos" prefHeight="30.0" prefWidth="70.0" text="Habilitar" />
-                  <Button fx:id="btnDeshabilitarCuarto" layoutX="708.0" layoutY="12.0" mnemonicParsing="false" onAction="#deshabilitarCuartos" prefHeight="30.0" text="Deshabilitar" />
+             
                </children>
             </Pane>
+         
          </bottom>
       </BorderPane>
+
    </children>
 </AnchorPane>

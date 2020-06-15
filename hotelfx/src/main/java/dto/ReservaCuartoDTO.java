@@ -5,15 +5,20 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import dto.ReservaEventoDTO.FormaPago;
+import dto.ReservaEventoDTO.TipoTarjeta;
+
 public class ReservaCuartoDTO {
 
-	public enum estadosReserva {Pendiente,Cancelado,En_curso,Finalizado};
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
-	private String emailFacturacion, numTarjeta, cantidadDias,
-	tipoTarjeta, forma, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
-	
-	private estadosReserva estadoReserva;
+	private String emailFacturacion, numTarjeta, cantidadDias, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
+	public enum TipoTarjeta{VISA, MASTERCARD, NO};
+	public enum FormaPago{EFECTIVO, DEBITO, CREDITO};
+	public enum EstadoReserva{PENDIENTE, CANCELADO, EN_CURSO, FINALIZADO};
+	private EstadoReserva estadoReserva;
+	private FormaPago formaPago;
+	private TipoTarjeta tipoTarjeta;
 	private Timestamp fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
 
@@ -23,10 +28,10 @@ public class ReservaCuartoDTO {
 	
 	public ReservaCuartoDTO(int idCliente, int idCuarto, int idUsuario, BigDecimal senia,
 			BigDecimal montoReservaCuarto,String emailFacturacion,String numTarjeta, 
-			String formaDePago,	String tipoTarjeta,String codSeguridadTarjeta,
-			String fechaVencTarjeta,Timestamp fechaReserva,Timestamp fechaCheckIn, Timestamp fechaOut,
+			FormaPago formaDePago,	TipoTarjeta tipoTarjeta,String codSeguridadTarjeta,
+			String fechaVencTarjeta,Timestamp fechaReserva,
 			Timestamp fechaIngreso, Timestamp fechaEgreso , 
-			String estadoReserva, String comentarios, boolean estado) {
+			EstadoReserva estadoReserva, String comentarios, boolean estado) {
 		
 		this.idCliente = idCliente;
 		this.idCuarto = idCuarto;
@@ -36,14 +41,12 @@ public class ReservaCuartoDTO {
 		this.emailFacturacion = emailFacturacion;
 		this.numTarjeta = numTarjeta;
 		this.fechaReserva = fechaReserva;
-		this.fechaCheckIn = fechaCheckIn;
-		this.fechaOut = fechaOut;
 		this.fechaIngreso = fechaIngreso;
 		this.fechaEgreso = fechaEgreso;
 		this.codSeguridadTarjeta = codSeguridadTarjeta;
-		this.forma = formaDePago;
-		this.tipoTarjeta = tipoTarjeta;
-		this.estadoReserva = estadosReserva.valueOf(estadoReserva);
+		this.setFormaPago(formaDePago);
+		this.setTipoTarjeta(tipoTarjeta);
+		this.estadoReserva = estadoReserva;
 		this.comentarios = comentarios;
 		this.estado = estado;
 		this.fechaVencTarjeta = fechaVencTarjeta;
@@ -169,28 +172,13 @@ public class ReservaCuartoDTO {
 		this.fechaEgreso = fechaEgreso;
 	}
 
-	public String getTiposTarjeta() {
-		return tipoTarjeta;
+
+	public EstadoReserva getEstadoReserva() {
+		return estadoReserva;
 	}
 
-	public void setTiposTarjeta(String tiposTarjeta) {
-		this.tipoTarjeta = tiposTarjeta;
-	}
-
-	public String getFormasDePago() {
-		return forma;
-	}
-
-	public void setFormasDePago(String formasDePago) {
-		this.forma = formasDePago;
-	}
-
-	public String getEstadoReserva() {
-		return estadoReserva.name();
-	}
-
-	public void setEstado(String estadoReserva) {
-		this.estadoReserva.valueOf(estadoReserva);
+	public void setEstado(EstadoReserva estadoReserva) {
+		this.estadoReserva= estadoReserva;
 	}
 
 	public String getFechaVencTarjeta() {
@@ -215,6 +203,22 @@ public class ReservaCuartoDTO {
 
 	public boolean getEstado() {
 		return this.estado;
+	}
+
+	public FormaPago getFormaPago() {
+		return formaPago;
+	}
+
+	public void setFormaPago(FormaPago formaPago) {
+		this.formaPago = formaPago;
+	}
+
+	public TipoTarjeta getTipoTarjeta() {
+		return tipoTarjeta;
+	}
+
+	public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
 	}
 
 }
