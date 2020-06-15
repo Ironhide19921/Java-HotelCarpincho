@@ -39,6 +39,7 @@ import modelo.Cliente;
 import modelo.ReservaEvento;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.reportes.ReporteReservaEvento;
 import presentacion.vista.FxmlLoader;
 
 public class ControladorABMReservaEvento implements Initializable{
@@ -70,6 +71,7 @@ public class ControladorABMReservaEvento implements Initializable{
 	private CategoriaEventoDTO categoriaActual;
 	private ClienteDTO clienteSeleccionadoActual;
 	private ReservaEventoDTO reservaEventoActual;
+	@FXML private Button btnTicket;
 	
 	
 	@Override
@@ -254,6 +256,14 @@ public class ControladorABMReservaEvento implements Initializable{
 		checkincheckoutReserva(ingreso, egreso, idReserva);
 		this.reservaEvento.cambiarEstadoReserva(idReserva, String.valueOf(dto.ReservaEventoConNombresDTO.EstadoReserva.FINALIZADO));
 		crearTabla(getNuevasReservas());
+	}
+	
+	@FXML
+	public void generarReporteReservaEvento() {
+//		System.out.println("Reporte");
+		
+		ReporteReservaEvento reporte = new ReporteReservaEvento(this.reservaEvento.obtenerReservasEvento());
+		reporte.mostrar();
 	}
 	
 	private void checkincheckoutReserva(Timestamp ingreso, Timestamp egreso, int idReserva2) {
