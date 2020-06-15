@@ -44,7 +44,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirVentanaBackup;
 	@FXML private EmailDTO email;
 
-	@FXML private Button btnAbrirDivisas;
+	@FXML private static Button btnAbrirDivisas;
 	
 	@FXML private Button btnAbrirABMSalones;
 	@FXML
@@ -67,9 +67,10 @@ public class ControladorMenuPrincipal implements Initializable{
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
 		//email.start();
 		
-//		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
-//			gestionBackup.backup();
-//		}
+		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
+			gestionBackup.backup();
+		}
+
 	}
 
 
@@ -252,11 +253,10 @@ public class ControladorMenuPrincipal implements Initializable{
 		
 				primaryStage.setScene(new Scene(root));   
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				//ControladorDivisas scene2Controller = fxmlLoader.getController();	 
 				primaryStage.setTitle("Conversión de divisas");
 				primaryStage.sizeToScene();
-				primaryStage.show(); 
-		       
+				primaryStage.show();
+
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 

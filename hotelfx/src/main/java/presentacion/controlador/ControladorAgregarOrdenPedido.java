@@ -31,6 +31,7 @@ import modelo.Producto;
 import modelo.Ticket;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.reportes.ReportePedidoTicket;
 
 public class ControladorAgregarOrdenPedido implements Initializable{
 	
@@ -396,6 +397,11 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		TicketDTO nuevoTicket = new TicketDTO(0, idCliente, total, "descripcion", "path", timestamp);
 		this.ticket.agregarCliente(nuevoTicket);
+		
+		//datos del reporte
+		//ReportePedidoTicket reporte = new ReportePedidoTicket(this.ordenPedido.obtenerOrdenesPedidos());
+		ReportePedidoTicket reporte = new ReportePedidoTicket(this.ordenPedido.obtenerOrdenPedido(idPedido));
+		reporte.mostrar();
 		
 		cerrarVentanaAgregarY_GenerarTicket();
 		

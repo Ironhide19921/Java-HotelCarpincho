@@ -24,6 +24,7 @@ public class OrdenPedidoDAOSQL implements OrdenPedidoDAO {
 			+ " WHERE idOrdenPedido = ?";
 	private static final String obtenerIdMax = "SELECT MAX(idOrdenPedido) FROM ordenPedido"; 
 	private static final String delete = "DELETE FROM ordenPedido WHERE idOrdenPedido = ?";
+	private static final String get = "SELECT * FROM ordenPedido WHERE idOrdenPedido = ?";
 	
 	@Override
 	public int obtenerIdMaximo() {
@@ -166,6 +167,27 @@ public class OrdenPedidoDAOSQL implements OrdenPedidoDAO {
 			}
 		}			
 		return isDeleteExitoso;
+	}
+	
+	@Override
+	public OrdenPedidoDTO obtenerPedido(int idPedido) {
+		OrdenPedidoDTO ordenPedido = null;
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(get);
+			statement.setInt(1, idPedido);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				ordenPedido = getOrdenPedidoDTO(resultSet);
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ordenPedido;
 	}
 
 }
