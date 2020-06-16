@@ -52,7 +52,7 @@
                   <Label layoutX="212.0" layoutY="23.0" prefHeight="17.0" prefWidth="55.0" text="Total" />
                   <TextField fx:id="txtSubtotal" layoutX="296.0" layoutY="18.0" />
                   <Label fx:id="formaPago" layoutX="29.0" layoutY="85.0" prefHeight="17.0" prefWidth="97.0" text="Forma de pago" />
-                  <ComboBox fx:id="cmbBoxFormasPago" layoutX="175.0" layoutY="80.0" prefHeight="27.0" prefWidth="164.0" />
+                  <ComboBox fx:id="cmbBoxFormasPago" layoutX="175.0" layoutY="80.0" onAction="#verificarFormaPago" prefHeight="27.0" prefWidth="164.0" />
                   <Label fx:id="tipoTarj" layoutX="29.0" layoutY="125.0" text="Tipo de tarjeta" />
                   <TextField fx:id="tipoTarjeta" layoutX="175.0" layoutY="120.0" />
                   <Label fx:id="numTarj" layoutX="29.0" layoutY="164.0" text="Nº de tarjeta" />
@@ -83,5 +83,3 @@
       </BorderPane>
    </children>
 </AnchorPane>
-
-
