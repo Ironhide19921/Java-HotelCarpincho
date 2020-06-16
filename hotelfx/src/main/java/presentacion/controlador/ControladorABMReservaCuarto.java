@@ -1,7 +1,7 @@
 package presentacion.controlador;
 
 import java.net.URL;
-
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -9,6 +9,7 @@ import dto.ClienteDTO;
 import dto.CuartoDTO;
 import dto.ReservaCuartoDTO;
 import dto.TablaReservaDTO;
+import dto.ReservaCuartoDTO.EstadoReserva;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -150,8 +151,12 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 		 try { 
 		
 			 primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
-				//FXMLLoader fxmlLoader = fxml.getFXMLLoader();
-				//ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
+				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
+				ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
+				controlador.setCmbBoxEstados(EstadoReserva.PENDIENTE);
+				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+				controlador.setFechaReserva(timestamp);
+				controlador.setCmbBoxUsuarioFirst();
 				fxml.mostrarStage(primaryStage,"Agregar reserva de cuarto");
 		       
 		     } catch(Exception e) { 
