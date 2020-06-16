@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modelo.OrdenPedido;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.controlador.ControladorAgregarOrdenPedido;
 
@@ -93,6 +94,10 @@ public class ControladorABMOrdenPedido implements Initializable{
 	
 	@FXML
 	private void editarOrdenPedido()throws Exception {
+		if(tablaOrdenPedidos.getSelectionModel().getSelectedItem() == null) {
+			Validador.mostrarMensaje("Debe seleccionar un pedido para editarlo");
+			return;
+		}
 		try {
 			Stage primaryStage = new Stage(); 
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarOrdenPedido.fxml");
@@ -118,6 +123,10 @@ public class ControladorABMOrdenPedido implements Initializable{
 	
 	@FXML
 	private void eliminarOrdenPedido() throws Exception {
+		if(tablaOrdenPedidos.getSelectionModel().getSelectedItem() == null) {
+			Validador.mostrarMensaje("Debe seleccionar un pedido para eliminarlo");
+			return;
+		}
 		try{
 			OrdenPedidoDTO productoSeleccionado = tablaOrdenPedidos.getSelectionModel().getSelectedItem();
 			this.ordenPedido.eliminarOrdenPedido(productoSeleccionado);
