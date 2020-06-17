@@ -14,6 +14,7 @@ import dto.CuartoDTO;
 import dto.ReservaEventoConNombresDTO;
 import dto.ReservaEventoDTO;
 import dto.ReservaEventoDTO.EstadoReserva;
+import dto.TicketDTO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +38,7 @@ import modelo.CategoriaCuarto;
 import modelo.CategoriaEvento;
 import modelo.Cliente;
 import modelo.ReservaEvento;
+import modelo.Ticket;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.reportes.ReporteReservaEvento;
@@ -71,6 +73,8 @@ public class ControladorABMReservaEvento implements Initializable{
 	private CategoriaEventoDTO categoriaActual;
 	private ClienteDTO clienteSeleccionadoActual;
 	private ReservaEventoDTO reservaEventoActual;
+	private TicketDTO ticketDTO;
+	private Ticket ticket;
 	@FXML private Button btnTicket;
 	
 	
@@ -80,6 +84,7 @@ public class ControladorABMReservaEvento implements Initializable{
 			this.reservaEvento = new ReservaEvento(new DAOSQLFactory());
 			this.cliente = new Cliente(new DAOSQLFactory());
 			this.categoriaEvento = new CategoriaEvento(new DAOSQLFactory());
+			this.ticket = new Ticket(new DAOSQLFactory());
 			activeSession = FXCollections.observableArrayList();
 			tablaReservasCliente.getItems().clear();
 			cargarColumnas();
@@ -260,10 +265,34 @@ public class ControladorABMReservaEvento implements Initializable{
 	
 	@FXML
 	public void generarReporteReservaEvento() {
-//		System.out.println("Reporte");
+		List<ReservaEventoDTO> reservas = this.reservaEvento.obtenerReservasEvento();
+		int idReserva = tablaReservasCliente.getSelectionModel().getSelectedItem().getIdReservaEvento();
+		ReservaEventoDTO reservaSeleccionada = null;
+		for(ReservaEventoDTO r : reservas) {
+			if(r.getIdReservaEvento() == idReserva) {
+				reservaSeleccionada = r;
+			}
+		}
 		
-		ReporteReservaEvento reporte = new ReporteReservaEvento(this.reservaEvento.obtenerReservasEvento());
+		
+		//agregar ticket a tabla
+		Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+		
+		this.ticketDTO = new TicketDTO(0, reservaSeleccionada.getIdCliente(), reservaSeleccionada.getMontoTotal(), reservaSeleccionada.getObservaciones(), "", fechaActual);
+		System.out.println(this.ticketDTO.getIdCliente() + this.ticketDTO.getDescripcion());
+		this.ticket.agregarCliente(this.ticketDTO);
+		
+		int idTicket = ticket.obtenerIdTicketRecienInsertado(this.ticketDTO.getIdCliente());
+		
+		TicketDTO t = ticket.getTicket(idTicket);
+		String path = "/tickets/evento/ticketEvento_"+ reservaSeleccionada.getIdReservaEvento() + "_" + t.getIdTicket() + ".pdf";
+		String pathPdf = ".//tickets//evento//ticketEvento_" + reservaSeleccionada.getIdReservaEvento() + "_" + t.getIdTicket() + ".pdf";
+		ticket.modificarTicket(t, path);
+		
+		ReporteReservaEvento reporte = new ReporteReservaEvento(reservaSeleccionada, pathPdf);
+		
 		reporte.mostrar();
+		reporte.guardarPdf();
 	}
 	
 	private void checkincheckoutReserva(Timestamp ingreso, Timestamp egreso, int idReserva2) {

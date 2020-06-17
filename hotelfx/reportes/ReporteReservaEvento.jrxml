@@ -1,28 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteReservaEvento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23357fd3-8d49-44c5-aaf0-8d61db522563">
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="479"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="521"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="hotelDB"/>
+	<parameter name="idReservaEvento" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT *
+FROM reservaevento
+WHERE 
+	 idReservaEvento = $P{idReservaEvento}]]>
 	</queryString>
+	<field name="idReservaEvento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idReservaEvento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="idCliente" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idCliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="idUsuario" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idUsuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="idSalon" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idSalon"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="idCategoriaEvento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idCategoriaEvento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="TipoTarjeta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TipoTarjeta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="CodSeguridadTarjeta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CodSeguridadTarjeta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="FechaVencTarjeta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FechaVencTarjeta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="NumeroTarjeta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NumeroTarjeta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="FormaPago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FormaPago"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="MontoTotal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="MontoTotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="MontoReservaEvento" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="MontoReservaEvento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="Senia" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Senia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="FechaGeneracionReserva" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FechaGeneracionReserva"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="FechaInicioReserva" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FechaInicioReserva"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="FechaFinReserva" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FechaFinReserva"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="FechaIngreso" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FechaIngreso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="FechaEgreso" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FechaEgreso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="EstadoReserva" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EstadoReserva"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
+	<field name="Observaciones" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Observaciones"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaevento"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="109" splitType="Stretch">
 			<textField>
-				<reportElement x="111" y="24" width="333" height="30" uuid="93b120f2-5570-4c87-ba14-62ce71a3abd6"/>
+				<reportElement x="111" y="50" width="333" height="30" uuid="93b120f2-5570-4c87-ba14-62ce71a3abd6"/>
 				<textElement textAlignment="Center">
 					<font size="20"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Ticket de reserva de evento "]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="376" y="0" width="180" height="40" uuid="7102b4b8-7cfc-4bdf-a73f-07a6fe4d0b98"/>
+				<imageExpression><![CDATA["C:/Users/Liseokpo/Documents/UNGS/logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="94" splitType="Stretch">
+			<frame>
+				<reportElement x="-18" y="0" width="590" height="94" uuid="1d19a8f9-a68c-4b98-aade-ea21ea3c5a6a"/>
+				<staticText>
+					<reportElement x="356" y="59" width="100" height="30" uuid="96face1b-d208-41f0-99b6-7f8388bc7d82"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Seña]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="188" y="59" width="150" height="30" uuid="a986e6ed-ad6f-451d-b9e2-afc6e643d1f6"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Check-out]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="474" y="59" width="100" height="30" uuid="cd3643c5-3443-4046-94fd-dba2d320cf78"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Monto total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="21" y="59" width="150" height="30" uuid="63635a0c-d193-4d73-be54-94a3de3b2f96"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Check-in]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="21" y="10" width="553" height="30" uuid="acd3fc2d-6492-4dd6-b795-6b1d408e7a8a"/>
+					<textElement textAlignment="Center">
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Evento: "+$F{Observaciones}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="200" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="15" width="150" height="30" uuid="809c84ab-a795-44fd-b45a-07e131547eb1"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FechaIngreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="15" width="150" height="30" uuid="31b6986a-ac21-47e9-8c52-9aee652239ca"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FechaEgreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="15" width="100" height="30" uuid="9dc66576-5f35-4b35-ac66-0278567a09a4"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Senia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="15" width="100" height="30" uuid="fac24d79-cfc7-4b67-a1bf-e78f36773b02"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoTotal}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch"/>

@@ -26,5 +26,15 @@ private TicketDAO ticket;
 		return this.ticket.search(buscar);
 	}
 	
+	public int obtenerIdTicketRecienInsertado(int idCliente) {
+		return this.ticket.getIdTicketRecienInsertado(idCliente);
+	}
+
+	public void modificarTicket(TicketDTO ticketDTO, String path) {
+		this.ticket.modif(ticketDTO.getIdTicket(), path);
+	}
 	
+	public TicketDTO getTicket(int idTicket) {
+		return this.ticket.get(idTicket);
+	}
 }
