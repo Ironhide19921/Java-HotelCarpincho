@@ -12,5 +12,12 @@ public interface TicketDAO {
 	public List<TicketDTO> readAll();
 
 	public List<TicketDTO> search(String buscar);
+
+	public int getIdTicketRecienInsertado(int idCliente);
+
+	public void modif(int idTicket, String path);
+
+	public TicketDTO get(int id);
+
 	
 }
