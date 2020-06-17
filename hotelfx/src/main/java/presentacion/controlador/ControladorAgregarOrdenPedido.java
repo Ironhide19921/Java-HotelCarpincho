@@ -459,12 +459,34 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		TicketDTO nuevoTicket = new TicketDTO(0, idCliente, total, "descripcion", "path", timestamp);
 		this.ticket.agregarCliente(nuevoTicket);
 		
+		int ultimoIdTicket = this.ticket.obtenerIdTicketRecienInsertado(nuevoTicket.getIdCliente());
+		TicketDTO ticket = this.ticket.getTicket(ultimoIdTicket);
+		String path = "/tickets/ordenPedido/ticketPedido_" + idPedido + "_"+ ticket.getIdTicket() +".pdf";
+		String pathPDF = ".//tickets//ordenPedido//ticketPedido_" + idPedido + "_"+ ticket.getIdTicket() +".pdf";
+		
 		//datos del reporte
-		ReportePedidoTicket reporte = new ReportePedidoTicket(this.ordenPedido.obtenerOrdenPedido(idPedido));
+		ReportePedidoTicket reporte = new ReportePedidoTicket(this.ordenPedido.obtenerOrdenPedido(idPedido), pathPDF);
 		reporte.mostrar();
+		
+		if(!verificarPath(path)) {
+			this.ticket.modificarTicket(ticket, path);
+			reporte.guardarPdf();
+		}else {
+			Validador.mostrarMensaje("El path del ticket visualizado ya existe.");
+		}
 		
 		cerrarVentanaAgregarY_GenerarTicket();
 		
+	}
+	
+	private boolean verificarPath(String path) {
+		boolean pathRepetido = false;
+		for(TicketDTO t : this.ticket.obtenerClientes()) {
+			if(t.getPath().equalsIgnoreCase(path)) {
+				pathRepetido = true;
+			}
+		}
+		return pathRepetido;
 	}
 	
 	@FXML
