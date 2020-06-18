@@ -29,4 +29,6 @@ public interface DAOAbstractFactory {
 	public ReservaCuartoDAO createReservaCuartoDAO();
 	
 	public TicketDAO createTicketDAO();
+
+	public EncuestaDAO createEncuestaDAO();
 }

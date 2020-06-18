@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;import javax.annotation.processing.FilerException;
@@ -19,6 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import dto.ClienteDTO;
 import dto.ErrorImportarDTO;
 import dto.ReservaCuartoDTO;
+import dto.RespuestaEncuestaDTO;
 import dto.TicketDTO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -133,6 +135,25 @@ public class ControladorImportar implements Initializable {
 		columnas2.add("CodSeguridadTarjeta");
 		columnas2.add("Comentarios");
 
+		try {
+//			String collector = SendHttp.crearCollector();
+//			String mensaje =SendHttp.crearMensaje(collector);
+//			String recipientes = SendHttp.crearRecipientes(collector, mensaje);
+//			String envio = SendHttp.enviarEncuestasMail(collector, mensaje);
+			
+			System.out.println(SendHttp.traerRespuestas("5541016993"));
+//			ArrayList<RespuestaEncuestaDTO> resultado = SendHttp.consultarRespuestaEncuesta("5541016993");
+//			for(RespuestaEncuestaDTO r: resultado) {
+//				System.out.println(r.getIdPregunta());
+//				for(String s: r.getListaRespuestas()) {
+//					 System.out.println(s);
+//				}
+//			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -140,7 +161,7 @@ public class ControladorImportar implements Initializable {
 		//		this.mail.setearPropiedades();
 				
 		try {
-			this.mail.enviarMsj(SendHttp.getLinkEncuesta());
+			this.mail.enviarEncuesta(SendHttp.getLinkEncuesta());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
