@@ -28,6 +28,10 @@ private ClienteDAO cliente;
 		return this.cliente.readAll();
 	}
 	
+	public List<ClienteDTO> obtenerClientesaEncuestar() 	{
+		return this.cliente.readAllEncuesta();
+	}
+	
 	public List<ClienteDTO> buscarClientes(String buscar) 	{
 		return this.cliente.search(buscar);
 	}
@@ -35,7 +39,6 @@ private ClienteDAO cliente;
 	public ClienteDTO getClientePorId(int id) {
 		return this.cliente.get(id);
 	}
-	
 	
 	public ClienteDTO traerCliente(Integer id) {
 		return this.cliente.traerCliente(id);
