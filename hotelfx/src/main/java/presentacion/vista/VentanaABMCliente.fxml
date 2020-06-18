@@ -15,7 +15,7 @@ xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"-->
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMCliente">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="904.0">
+      <BorderPane fx:id="panelActual" prefHeight="600.0" prefWidth="904.0">
          <center>
             <VBox fx:id="fondoTabla" prefHeight="419.0" prefWidth="731.0" BorderPane.alignment="CENTER">
                <children>
@@ -53,7 +53,11 @@ xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"-->
                   <Button fx:id="btnHabilitaCliente" layoutX="49.0" layoutY="11.0" mnemonicParsing="false" onAction="#habilitarCliente" prefHeight="30.0" prefWidth="150.0" text="Habilitar" />
                   <Button fx:id="btnAddCliente" layoutX="544.0" layoutY="11.0" mnemonicParsing="false" onAction="#addCliente" prefHeight="30.0" prefWidth="150.0" text="Agregar Cliente" />
                   <Button fx:id="btnEditarCliente" layoutX="705.0" layoutY="11.0" mnemonicParsing="false" onAction="#editarCliente" prefHeight="30.0" prefWidth="150.0" text="Editar Cliente" />
+<<<<<<< HEAD
                   <Button fx:id="btnVerEncuesta" layoutX="379.0" layoutY="10.0" mnemonicParsing="false" onAction="#verEncuesta" prefHeight="29.0" prefWidth="144.0" text="Ver Encuesta" />
+=======
+                  <Button fx:id="btnVerReservasEvento" layoutX="544.0" layoutY="61.0" mnemonicParsing="false" onAction="#verReservasEvento" prefHeight="25.0" prefWidth="150.0" text="Ver reservas de evento" />
+>>>>>>> a26569ff3d55e67ade4902ba2332b676c1527110
                </children>
             </Pane>
          </bottom>

@@ -14,7 +14,7 @@ public class ClienteDTO {
 	private String telefono;
 	private Boolean estado;
 	private Date fechaNacimiento;
-	
+	//datepicker
 	public ClienteDTO(int idCliente, String nombre, String apellido, String tipoDocumento, String numeroDocumento, String email, 
 			String telefono, Boolean estado, Date fechaNacimiento) {
 		

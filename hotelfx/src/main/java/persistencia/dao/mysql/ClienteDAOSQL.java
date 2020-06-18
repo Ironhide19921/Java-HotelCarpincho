@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.CategoriaEventoDTO;
 import dto.ClienteDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ClienteDAO;
@@ -21,6 +22,7 @@ public class ClienteDAOSQL implements ClienteDAO{
 	private static final String update = "UPDATE cliente SET nombre = ?, apellido = ?, tipoDocumento = ?, documento = ?, email = ?, telefono = ?, estado = ?, fechaNacimiento = ? WHERE idCliente = ?";
 	private static final String search = "SELECT * FROM cliente WHERE email LIKE ? OR documento LIKE ? OR idcliente LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
 	private static final String readallEncuesta = "SELECT DISTINCT c.* from cliente c left join reservacuarto rc ON c.idCliente=rc.idCliente left JOIN reservaevento re on re.idCliente=c.idCliente	left join ordenpedido op on op.idCliente=c.idCliente left join encuesta e on e.idCliente=c.idCliente where e.idCliente is null AND rc.FechaEgreso is not null OR re.FechaEgreso is not null";
+	private static final String get = "SELECT * FROM cliente WHERE idCliente = ?";
 	private static final String search1 = "SELECT * FROM cliente WHERE idCliente = ?";
 	
 	@Override
@@ -200,5 +202,27 @@ public class ClienteDAOSQL implements ClienteDAO{
 		}
 		return clientes;
 	}
+
+	@Override
+	public ClienteDTO get(int id) {
+		ClienteDTO cliente = null;
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(get);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				cliente = getClienteDTOO(resultSet);
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cliente;
+	}
+
 
 }

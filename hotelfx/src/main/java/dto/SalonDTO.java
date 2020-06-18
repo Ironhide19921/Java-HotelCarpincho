@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 public class SalonDTO {
 	private int id;
 	private int capacidad;
-	private BigDecimal senia;
+	private int senia;
 	private String estilo;
 	private BigDecimal monto;
 	private Boolean estado;
 	
-	public SalonDTO(int id, int capacidad, BigDecimal senia, String estilo, BigDecimal monto, Boolean estado) {
+	public SalonDTO(int id, int capacidad, int senia, String estilo, BigDecimal monto, Boolean estado) {
 		this.id = id;
 		this.capacidad = capacidad;
 		this.senia = senia;
@@ -35,11 +35,11 @@ public class SalonDTO {
 		this.capacidad = capacidad;
 	}
 
-	public BigDecimal getSenia() {
+	public int getSenia() {
 		return senia;
 	}
 
-	public void setSenia(BigDecimal senia) {
+	public void setSenia(int senia) {
 		this.senia = senia;
 	}
 

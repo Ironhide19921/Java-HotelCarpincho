@@ -94,6 +94,32 @@ LOCK TABLES `cliente` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `conexionconfig`
+--
+
+DROP TABLE IF EXISTS `conexionconfig`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `conexionconfig` (
+  `idconexionConfig` int NOT NULL AUTO_INCREMENT,
+  `host` varchar(45) NOT NULL,
+  `user` varchar(45) NOT NULL,
+  `pass` varchar(45) NOT NULL,
+  PRIMARY KEY (`idconexionConfig`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `conexionconfig`
+--
+
+LOCK TABLES `conexionconfig` WRITE;
+/*!40000 ALTER TABLE `conexionconfig` DISABLE KEYS */;
+INSERT INTO `conexionconfig` VALUES (0,'localhost','labo','1234');
+/*!40000 ALTER TABLE `conexionconfig` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `configuracion`
 --
 
@@ -384,7 +410,7 @@ CREATE TABLE `producto` (
   `Proveedor` varchar(50) NOT NULL,
   `Tipo` varchar(20) NOT NULL,
   PRIMARY KEY (`idProducto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -393,6 +419,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (1,450.000,'Milanesa','ultra milanesa','proveedor','tipo');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -589,4 +616,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-10 20:47:35
+-- Dump completed on 2020-06-14 19:49:12

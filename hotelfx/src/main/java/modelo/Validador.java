@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import presentacion.controlador.ControladorAgregarCliente;
 import presentacion.controlador.ControladorAgregarUsuario;
+import presentacion.controlador.ControladorAgregarOrdenPedido;
 
 public class Validador {
 	
@@ -49,6 +50,10 @@ public class Validador {
 	
 	public static boolean validarTarjeta(String numero, String cod, Date expira) {
 		return ((formatoVisa(numero,cod) || formatoMaster(numero,cod)) && (expira.after(new Date(System.currentTimeMillis()))));
+	}
+	
+	public static boolean validarFechaVenc(String fechaVenc) {
+		return fechaVenc.matches("(0[1-9]|1[0-2])\\/[0-9]{2}");
 	}
 	
 	public static boolean validarUsuario(ControladorAgregarUsuario ventanaUsuario){
@@ -114,6 +119,141 @@ public class Validador {
 		condicionCompleta = condicionInput && condicionFormato;
 		return condicionCompleta;
 
+	}
+	
+	public static boolean validarPedido(ControladorAgregarOrdenPedido pedido) {
+		
+		boolean condicionCompleta = true;
+		boolean condicionLista = true;
+		boolean condicionCliente = true;
+		
+		condicionLista = condicionLista 
+				&& !pedido.getListaPedidosEnTabla().isEmpty();
+		
+		condicionCliente = condicionCliente 
+				&& pedido.getCmbBoxClientes().getSelectionModel().getSelectedItem() != null;
+		
+		if(!condicionLista) {
+			mostrarMensaje("Lista vacia");
+		}
+		if(!condicionCliente) {
+			mostrarMensaje("Debe seleccionar un cliente");
+		}
+		
+		condicionCompleta = condicionLista && condicionCliente;
+		return condicionCompleta;
+	}
+	
+	public static boolean validarPedidoConTicket(ControladorAgregarOrdenPedido pedido){
+		boolean condicionCompleta = true;
+		boolean condicionLista = true;
+		boolean condicionCliente = true;
+		boolean condicionInput = true;
+		boolean condicionFormato = true;
+		boolean condicionVisa = true;
+		boolean condicionMaster = true;
+		boolean condicionFormaPago = true;
+		boolean pagoEfectivo = false;
+		boolean condicionFechaVenc = true;
+		boolean condicionTipoTarjeta = false;
+		
+		condicionLista = condicionLista 
+				&& !pedido.getListaPedidosEnTabla().isEmpty();
+		
+		condicionCliente = condicionCliente 
+				&& pedido.getCmbBoxClientes().getSelectionModel().getSelectedItem() != null;
+		
+		condicionFormaPago = condicionFormaPago
+				&& pedido.getCmbBoxFormasPago().getSelectionModel().getSelectedItem() != null;
+		
+		if(condicionFormaPago) {
+			
+			if(pedido.getCmbBoxFormasPago().getSelectionModel().getSelectedItem().equals("Efectivo")) {
+				pagoEfectivo = true;
+				condicionTipoTarjeta = true;
+						 
+			}else {
+				
+				if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem() != null) {
+					condicionTipoTarjeta = true;
+					
+					if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem().equals("VISA")) {
+						condicionVisa = condicionVisa 
+								&& formatoVisa(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
+					
+						condicionInput = condicionInput
+								&& !pedido.getNumTarjeta().getText().equals("")
+								&& !pedido.getFechaVencTarjeta().getText().equals("")
+								&& !pedido.getCodSegTarjeta().getText().equals("");
+						
+						condicionFormato = condicionFormato
+								&& formatoNumerico(pedido.getNumTarjeta().getText())
+								&& formatoNumerico(pedido.getCodSegTarjeta().getText());
+						
+						condicionFechaVenc = condicionFechaVenc
+								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
+					}
+					
+					if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem().equals("MASTERCARD")) {
+						condicionMaster = condicionMaster
+								&& formatoMaster(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
+					
+						condicionInput = condicionInput
+								&& !pedido.getNumTarjeta().getText().equals("")
+								&& !pedido.getFechaVencTarjeta().getText().equals("")
+								&& !pedido.getCodSegTarjeta().getText().equals("");
+						
+						condicionFormato = condicionFormato
+								&& formatoNumerico(pedido.getNumTarjeta().getText())
+								&& formatoNumerico(pedido.getCodSegTarjeta().getText());
+						
+						condicionFechaVenc = condicionFechaVenc
+								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
+					}					
+				}				
+			}			
+		}				
+		
+		if(!condicionLista) {
+			mostrarMensaje("Lista vacia");
+		}
+		if(!condicionCliente) {
+			mostrarMensaje("Debe seleccionar un cliente");
+		}
+		if (!condicionInput) {
+			mostrarMensaje("Campos obligatorios vacios");
+		}
+		if (!condicionFormato) {
+			mostrarMensaje("Contienen un formato incorrecto");
+		}
+		if(!condicionFormaPago) {
+			mostrarMensaje("Elija una forma de pago");
+		}
+		if(!condicionVisa) {
+			mostrarMensaje("Ingrese numero de tarjeta y/o codigo de seguridad correcto");
+		}
+		if(!condicionMaster) {
+			mostrarMensaje("Ingrese numero de tarjeta y/o codigo de seguridad correcto");
+		}
+		if(!condicionFechaVenc) {
+			mostrarMensaje("La fecha de vencimiento no es correcta. \n "
+					+ "Formato correcto: mm/aa. \n "
+					+ "Ejemplo: 07/21, 04/00");
+		}
+		if(!condicionTipoTarjeta) {
+			mostrarMensaje("Elija un tipo de tarjeta");
+		}
+		
+		if(pagoEfectivo) {
+			condicionCompleta = condicionLista && condicionCliente 
+					&& condicionFormaPago && pagoEfectivo;
+		}else {
+			condicionCompleta = condicionLista && condicionCliente && condicionInput 
+					&& condicionFormato && condicionFechaVenc && condicionVisa 
+					&& condicionMaster && condicionFormaPago && condicionTipoTarjeta;
+		}	
+		
+		return condicionCompleta;
 	}
 	
 	public static void mostrarMensaje(String mensaje) {

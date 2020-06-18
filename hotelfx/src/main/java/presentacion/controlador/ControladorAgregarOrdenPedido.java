@@ -31,13 +31,13 @@ import modelo.Producto;
 import modelo.Ticket;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.reportes.ReportePedidoTicket;
 
 public class ControladorAgregarOrdenPedido implements Initializable{
 	
 	@FXML private Button btnAgregarProducto;
 	@FXML private Button btnEliminarProducto;
 	@FXML private Button btnConfirmarPedido;
-	@FXML private Button btnEditarPedido;
 	@FXML private Button btnConfirmarY_GenerarTicket;
 	@FXML private ComboBox<String> cmbBoxProductos;
 	@FXML private ObservableList<String> listaCmbBoxProductos;
@@ -69,7 +69,8 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	@FXML private ComboBox<String> cmbBoxFormasPago;
 	@FXML private ObservableList<String> listaCmbBoxFormasPago;
 	@FXML private Label tipoTarj;
-	@FXML private TextField tipoTarjeta;
+	@FXML private ComboBox<String> cmbBoxTiposTarjeta;
+	@FXML private ObservableList<String> listaCmbBoxTiposTarjeta;
 	@FXML private Label numTarj;
 	@FXML private TextField numTarjeta;
 	@FXML private Label fechaVencTarj;
@@ -94,12 +95,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		this.listaCmbBoxClientes = FXCollections.observableList(cargarCmbClientes());
 		this.cmbBoxClientes.setItems(listaCmbBoxClientes);
 		
-		this.listaCantidad = FXCollections.observableArrayList();
-		this.listaCantidad.add(1);
-		this.listaCantidad.add(2);
-		this.listaCantidad.add(3);
-		this.listaCantidad.add(4);
-		this.listaCantidad.add(5);
+		this.listaCantidad = FXCollections.observableList(cargarCmbCantidad());
 		this.cmbBoxCantidad.setItems(listaCantidad);
 		
 		listaPedidosEnTabla = FXCollections.observableArrayList();
@@ -108,12 +104,17 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		this.listaCmbBoxFormasPago = FXCollections.observableList(cargarCmbFormasPago());
 		this.cmbBoxFormasPago.setItems(listaCmbBoxFormasPago);
 		
+		this.listaCmbBoxTiposTarjeta = FXCollections.observableList(cargarCmbTiposTarjeta());
+		this.cmbBoxTiposTarjeta.setItems(listaCmbBoxTiposTarjeta);
+		
 	    cargarColumnasTablaProd();
+	    
+	    cmbBoxCantidad.setDisable(true);
 	    
 	    formaPago.setVisible(false);
     	cmbBoxFormasPago.setVisible(false);
     	tipoTarj.setVisible(false);
-    	tipoTarjeta.setVisible(false);
+    	cmbBoxTiposTarjeta.setVisible(false);
     	numTarj.setVisible(false);
     	numTarjeta.setVisible(false);
     	fechaVencTarj.setVisible(false);
@@ -135,6 +136,17 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		return lista;
 	}
 	
+	private List<Integer> cargarCmbCantidad() {
+		List<Integer> lista = new ArrayList<>();
+		for(int i=1; i<=10; i++) {
+			lista.add(i);
+		}
+		for(int j=15; j<=50; j=j+5) {
+			lista.add(j);
+		}
+		return lista;
+	}
+	
 	private List<String> cargarCmbClientes() {
 		List<String> lista = new ArrayList<>();
 		for(ClienteDTO c : this.cliente.obtenerClientes()) {
@@ -151,6 +163,13 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		return lista;
 	}
 	
+	private List<String> cargarCmbTiposTarjeta() {
+		List<String> lista = new ArrayList<>();
+		lista.add("VISA");
+		lista.add("MASTERCARD");
+		return lista;
+	}
+	
 	private void cargarColumnasTablaProd() {
 		nombreProd.setCellValueFactory(new PropertyValueFactory("nombre"));
 		precio.setCellValueFactory(new PropertyValueFactory("precio"));
@@ -164,7 +183,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	    	formaPago.setVisible(true);
 	    	cmbBoxFormasPago.setVisible(true);
 	    	tipoTarj.setVisible(true);
-	    	tipoTarjeta.setVisible(true);
+	    	cmbBoxTiposTarjeta.setVisible(true);
 	    	numTarj.setVisible(true);
 	    	numTarjeta.setVisible(true);
 	    	fechaVencTarj.setVisible(true);
@@ -177,7 +196,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	    	formaPago.setVisible(false);
 	    	cmbBoxFormasPago.setVisible(false);
 	    	tipoTarj.setVisible(false);
-	    	tipoTarjeta.setVisible(false);
+	    	cmbBoxTiposTarjeta.setVisible(false);
 	    	numTarj.setVisible(false);
 	    	numTarjeta.setVisible(false);
 	    	fechaVencTarj.setVisible(false);
@@ -201,6 +220,8 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 				txtPrecio.setText(String.valueOf(p.getPrecio()));
 			}
 		}
+		
+		cmbBoxCantidad.setDisable(false);
 	}
 	
 	@FXML
@@ -214,10 +235,18 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	
 	@FXML
 	public void agregarProducto() throws Exception {
+		ProductoPedidoDTO prodOrden = null;
+		String prodSeleccionado = "";
+		String[] prod = {};
+		String producto = "";
 		
-		String prodSeleccionado = cmbBoxProductos.getValue();
-		String[] prod = prodSeleccionado.split("-");
-		String producto = prod[1];
+		if(cmbBoxProductos.getSelectionModel().getSelectedItem() == null) {
+			Validador.mostrarMensaje("Seleccione un producto para agregar");
+		}else {
+			prodSeleccionado = cmbBoxProductos.getValue();
+			prod = prodSeleccionado.split("-");
+			producto = prod[1];
+		}
 		
 		BigDecimal precioProd = null;
 		for(ProductoDTO p : this.producto.obtenerProductos()) {
@@ -226,9 +255,15 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 			}
 		}
 		
-		int cantidadSelec = cmbBoxCantidad.getSelectionModel().getSelectedItem();
+		int cantidadSelec = 0;
+		if(cmbBoxCantidad.getSelectionModel().getSelectedItem() == null) {
+			Validador.mostrarMensaje("Elija la cantidad");
+		}else {
+			cantidadSelec = cmbBoxCantidad.getSelectionModel().getSelectedItem();
+		}
+		
 		BigDecimal prodSubtotal = new BigDecimal(txtPrecioSubtotal.getText());
-		ProductoPedidoDTO prodOrden = new ProductoPedidoDTO(prodSeleccionado, precioProd, cantidadSelec, prodSubtotal);
+		prodOrden = new ProductoPedidoDTO(prodSeleccionado, precioProd, cantidadSelec, prodSubtotal);
 		
 		boolean estaRepetido = false;
 		if(listaPedidosEnTabla.isEmpty()) {
@@ -240,16 +275,14 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 				if(listaPedidosEnTabla.get(i).getNombre().equals(prodSeleccionado)) {
 					estaRepetido = true;									
 				}
-			}
-			
+			}			
 			if(!estaRepetido) {
 				listaPedidosEnTabla.add(prodOrden);
 				subtotalPedido = subtotalPedido.add(prodSubtotal);
 				txtSubtotal.setText(String.valueOf(subtotalPedido));
 			}else {
 				Validador.mostrarMensaje("Este producto " + prodSeleccionado + " esta repetido en la lista");
-			}
-			
+			}			
 		}			
 		
 		productosEnTabla.setItems(listaPedidosEnTabla);
@@ -258,21 +291,36 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	
 	@FXML
 	public void eliminarProducto() throws Exception {
-		ProductoPedidoDTO prodSeleccionado = productosEnTabla.getSelectionModel().getSelectedItem();		
-		listaPedidosEnTabla.remove(prodSeleccionado);
-		
-		subtotalPedido = subtotalPedido.subtract(prodSeleccionado.getPrecioTotal());
-		txtSubtotal.setText(String.valueOf(subtotalPedido));
-		
-		productosEnTabla.setItems(listaPedidosEnTabla);	
+		if(listaPedidosEnTabla.isEmpty()){
+			Validador.mostrarMensaje("La lista esta vacia");
+		}else {
+			if(productosEnTabla.getSelectionModel().getSelectedItem() == null) {
+				Validador.mostrarMensaje("Seleccione un producto a eliminar");
+			}else {
+				ProductoPedidoDTO prodSeleccionado = productosEnTabla.getSelectionModel().getSelectedItem();		
+				listaPedidosEnTabla.remove(prodSeleccionado);
+				
+				subtotalPedido = subtotalPedido.subtract(prodSeleccionado.getPrecioTotal());
+				txtSubtotal.setText(String.valueOf(subtotalPedido));
+				
+				productosEnTabla.setItems(listaPedidosEnTabla);
+			}
+		}	
 	}
 	
 	@FXML
 	public void confirmarPedido() throws Exception {
 		
+		if(!Validador.validarPedido(this)) {
+			return;
+		}
+		
 		int idProd = 0;
 		int cantidad = 0;
 		int idPedido = 0;
+		
+		String cliente = "";
+		String[] clienteSpliteado = {};
 		int idCliente = 0;
 		
 		if(idPedido == 0) {
@@ -283,10 +331,6 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					String produ = listaPedidosEnTabla.get(i).getNombre();
 					String[] prodArray = produ.split("-");
 					idProd = Integer.valueOf(prodArray[0]);
-					
-					String cliente = cmbBoxClientes.getSelectionModel().getSelectedItem();
-					String[] clienteSpliteado = cliente.split("-");
-					idCliente = Integer.valueOf(clienteSpliteado[0]);
 					
 					cantidad = listaPedidosEnTabla.get(i).getCantidad();
 					
@@ -302,8 +346,8 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					String[] prodArray = produ.split("-");
 					idProd = Integer.valueOf(prodArray[0]);					
 					
-					String cliente = cmbBoxClientes.getSelectionModel().getSelectedItem();
-					String[] clienteSpliteado = cliente.split("-");
+					cliente = cmbBoxClientes.getSelectionModel().getSelectedItem();
+					clienteSpliteado = cliente.split("-");
 					idCliente = Integer.valueOf(clienteSpliteado[0]);
 					
 					cantidad = listaPedidosEnTabla.get(i).getCantidad();
@@ -327,13 +371,33 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	}
 	
 	@FXML
+	public void verificarFormaPago() {
+		if(cmbBoxFormasPago.getSelectionModel().getSelectedItem().equals("Efectivo")) {
+			cmbBoxTiposTarjeta.setDisable(true);
+			numTarjeta.setDisable(true);
+			fechaVencTarjeta.setDisable(true);
+			codSegTarjeta.setDisable(true);
+		}else {
+			cmbBoxTiposTarjeta.setDisable(false);
+			numTarjeta.setDisable(false);
+			fechaVencTarjeta.setDisable(false);
+			codSegTarjeta.setDisable(false);
+		}
+	}
+	
+	@FXML
 	public void confirmarY_GenerarTicket() {
+		
+		if(!Validador.validarPedidoConTicket(this)) {
+			return;
+		}
 		
 		int idProd = 0;
 		int cantidad = 0;
 		int idPedido = 0;
 		int idCliente = 0;
 		BigDecimal total = new BigDecimal(0);
+		OrdenPedidoDTO nuevoPedido = null;
 		
 		if(idPedido == 0) {
 			
@@ -354,11 +418,11 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					
 					//Datos del pago
 					String pagoSelec = cmbBoxFormasPago.getValue();
-					String tipoTarj = tipoTarjeta.getText();
+					String tipoTarjSelec = cmbBoxTiposTarjeta.getValue();
 					String numTarj = numTarjeta.getText();
 					String fecVenc = fechaVencTarjeta.getText();
 					String codSeg = codSegTarjeta.getText();
-					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarj, numTarj, fecVenc, codSeg, true);
+					nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarjSelec, numTarj, fecVenc, codSeg, true);
 					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
 					
 				}
@@ -379,15 +443,22 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					
 					//Datos del pago
 					String pagoSelec = cmbBoxFormasPago.getValue();
-					String tipoTarj = tipoTarjeta.getText();
-					String numTarj = numTarjeta.getText();
-					String fecVenc = fechaVencTarjeta.getText();
-					String codSeg = codSegTarjeta.getText();
-					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarj, numTarj, fecVenc, codSeg, true);
-					this.ordenPedido.agregarOrdenPedido(nuevoPedido);					
 					
-					idPedido = this.ordenPedido.obtenerIdMaximo();
-										
+					if(pagoSelec.equals("Efectivo")) {
+						nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, 1, cantidad, total, pagoSelec, "", "", "", "", true);
+						this.ordenPedido.agregarOrdenPedido(nuevoPedido);				
+						idPedido = this.ordenPedido.obtenerIdMaximo();
+						
+					}else {
+						String tipoTarjSelec = cmbBoxTiposTarjeta.getValue();
+						String numTarj = numTarjeta.getText();
+						String fecVenc = fechaVencTarjeta.getText();
+						String codSeg = codSegTarjeta.getText();
+						nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarjSelec, numTarj, fecVenc, codSeg, true);
+						this.ordenPedido.agregarOrdenPedido(nuevoPedido);				
+						idPedido = this.ordenPedido.obtenerIdMaximo();
+						
+					}										
 				}								
 			}
 		}
@@ -397,8 +468,34 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		TicketDTO nuevoTicket = new TicketDTO(0, idCliente, total, "descripcion", "path", timestamp);
 		this.ticket.agregarCliente(nuevoTicket);
 		
+		int ultimoIdTicket = this.ticket.obtenerIdTicketRecienInsertado(nuevoTicket.getIdCliente());
+		TicketDTO ticket = this.ticket.getTicket(ultimoIdTicket);
+		String path = "/tickets/ordenPedido/ticketPedido_" + idPedido + "_"+ ticket.getIdTicket() +".pdf";
+		String pathPDF = ".//tickets//ordenPedido//ticketPedido_" + idPedido + "_"+ ticket.getIdTicket() +".pdf";
+		
+		//datos del reporte
+		ReportePedidoTicket reporte = new ReportePedidoTicket(this.ordenPedido.obtenerOrdenPedido(idPedido), pathPDF);
+		reporte.mostrar();
+		
+		if(!verificarPath(path)) {
+			this.ticket.modificarTicket(ticket, path);
+			reporte.guardarPdf();
+		}else {
+			Validador.mostrarMensaje("El path del ticket visualizado ya existe.");
+		}
+		
 		cerrarVentanaAgregarY_GenerarTicket();
 		
+	}
+	
+	private boolean verificarPath(String path) {
+		boolean pathRepetido = false;
+		for(TicketDTO t : this.ticket.obtenerClientes()) {
+			if(t.getPath().equalsIgnoreCase(path)) {
+				pathRepetido = true;
+			}
+		}
+		return pathRepetido;
 	}
 	
 	@FXML
@@ -406,123 +503,13 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		Stage stage = (Stage) btnConfirmarY_GenerarTicket.getScene().getWindow();
 		stage.close();
 	}
-	
-	@FXML
-	public void editarPedido() throws Exception {
-		int idProd = 0;
-		int cantidad = 0;
-		BigDecimal total = new BigDecimal(0);
 		
-		for(int i=0; i < listaPedidosEnTabla.size(); i++) {
-			
-			String nombreProd = listaPedidosEnTabla.get(i).getNombre();
-			String[] prodArray = nombreProd.split("-");
-			idProd = Integer.valueOf(prodArray[0]);					
-			
-			cantidad = listaPedidosEnTabla.get(i).getCantidad();
-			
-			total = new BigDecimal(txtSubtotal.getText());
-			
-			if(!pagoRestoran.isSelected()) {
-				OrdenPedidoDTO pedidoEditado = new OrdenPedidoDTO(idOrdenPedido, idProd, idCliente, idUsuario, cantidad, total);
-				this.ordenPedido.modificarOrdenPedido(pedidoEditado);
-			}else {
-				
-				String formaPago = cmbBoxFormasPago.getValue();
-				String tipoTarj = tipoTarjeta.getText();
-				String numTarj = numTarjeta.getText();
-				System.out.println(formaPago);
-				String fecVenTarj = fechaVencTarjeta.getText();
-				String codSegTarj = codSegTarjeta.getText();
-				
-				OrdenPedidoDTO pedidoEditado = new OrdenPedidoDTO(idOrdenPedido, idProd, idCliente, idUsuario, cantidad, total, formaPago, tipoTarj, numTarj, fecVenTarj, codSegTarj, true);
-				this.ordenPedido.modificarOrdenPedido(pedidoEditado);
-				
-			}
-		}
-		cerrarVentanaEditar();
-	}
-	
-	@FXML
-	private void cerrarVentanaEditar() {
-		Stage stage = (Stage) btnEditarPedido.getScene().getWindow();
-		stage.close();
-	}
-	
-	public void setearCampos(OrdenPedidoDTO pedidoSeleccionado) {
-		System.out.println(pedidoSeleccionado.getIdOrdenPedido() + " "+pedidoSeleccionado.getIdProducto());
-		idOrdenPedido = pedidoSeleccionado.getIdOrdenPedido();
-		
-		idCliente = pedidoSeleccionado.getIdCliente();
-		for(ClienteDTO c : this.cliente.obtenerClientes()) {
-			if(c.getIdCliente() == idCliente) {
-				cmbBoxClientes.getSelectionModel().select(c.getIdCliente()+"-"+c.getNombre());
-			}
-		}
-				
-		idUsuario = pedidoSeleccionado.getIdUsuario();
-		
-		int idProd = pedidoSeleccionado.getIdProducto();
-		String idNombreProd = "";
-		
-		BigDecimal precioProd = new BigDecimal(0);
-		
-		subtotalPedido = pedidoSeleccionado.getPrecioTotal();
-		txtSubtotal.setText(String.valueOf(subtotalPedido));
-		
-		for(OrdenPedidoDTO op : this.ordenPedido.obtenerOrdenesPedidos()) {
-			if(idOrdenPedido == op.getIdOrdenPedido()) {
-				for(ProductoDTO p : this.producto.obtenerProductos()) {
-					if(op.getIdProducto() == p.getIdProducto()) {
-						precioProd = p.getPrecio();
-						
-						idNombreProd = p.getIdProducto() + "-"+ p.getNombre();
-						
-						BigDecimal cantProd = new BigDecimal(op.getCantidad());
-						BigDecimal subtotalProd = precioProd.multiply(cantProd);
-						
-						ProductoPedidoDTO pedido = new ProductoPedidoDTO(idNombreProd, precioProd, op.getCantidad(), subtotalProd);
-						listaPedidosEnTabla.add(pedido);
-					}
-				}
-			}
-		}
-		System.out.println("pago restoran? "+pedidoSeleccionado.isEsRestoran());
-		//datos del pago
-		if(pedidoSeleccionado.isEsRestoran()) {
-			System.out.println("si pago");
-			pagoRestoran.setSelected(true);			
-			formaPago.setVisible(true);
-			cmbBoxFormasPago.setVisible(true);
-			cmbBoxFormasPago.setValue(pedidoSeleccionado.getFormaPago());
-			tipoTarj.setVisible(true);
-			tipoTarjeta.setVisible(true);
-			tipoTarjeta.setText(pedidoSeleccionado.getTipoTarjeta());
-			numTarj.setVisible(true);
-			numTarjeta.setVisible(true);
-			numTarjeta.setText(pedidoSeleccionado.getNumTarjeta());
-			fechaVencTarj.setVisible(true);
-			fechaVencTarjeta.setVisible(true);
-			fechaVencTarjeta.setText(pedidoSeleccionado.getFechaVencTarjeta());
-			codSegTarj.setVisible(true);
-			codSegTarjeta.setVisible(true);
-			codSegTarjeta.setText(pedidoSeleccionado.getCodSeguridadTarjeta());
-		}
-		
-		productosEnTabla.setItems(listaPedidosEnTabla);
-		
-	}
-	
 	public void setVisibilityBtnConfirmarPedido(Boolean value) {
 		this.btnConfirmarPedido.setVisible(value);
 	}
 	
 	public void setVisibilityBtnConfirmarGenerarTicket(Boolean value) {
 		this.btnConfirmarY_GenerarTicket.setVisible(value);
-	}
-	
-	public void setVisibilityBtnEditarPedido(Boolean value) {
-		this.btnEditarPedido.setVisible(value);
 	}
 
 	public ComboBox<String> getCmbBoxClientes() {
@@ -535,6 +522,30 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 
 	public CheckBox getPagoRestoran() {
 		return pagoRestoran;
-	}	
+	}
+	
+	public ObservableList<ProductoPedidoDTO> getListaPedidosEnTabla() {
+		return listaPedidosEnTabla;
+	}
+
+	public ComboBox<String> getCmbBoxFormasPago() {
+		return cmbBoxFormasPago;
+	}
+
+	public ComboBox<String> getCmbBoxTiposTarjeta() {
+		return cmbBoxTiposTarjeta;
+	}
+
+	public TextField getNumTarjeta() {
+		return numTarjeta;
+	}
+
+	public TextField getFechaVencTarjeta() {
+		return fechaVencTarjeta;
+	}
+
+	public TextField getCodSegTarjeta() {
+		return codSegTarjeta;
+	}
 
 }

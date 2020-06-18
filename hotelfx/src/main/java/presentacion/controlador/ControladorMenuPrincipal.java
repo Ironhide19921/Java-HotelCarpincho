@@ -57,9 +57,13 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Encuesta encuesta;
 	@FXML private Cliente cliente;
 
-	@FXML private Button btnAbrirDivisas;
+	@FXML private static Button btnAbrirDivisas;
 	
 	@FXML private Button btnAbrirABMSalones;
+	@FXML
+	private Button btnAbrirABMCategoriaEvento;
+	@FXML
+	private Button btnMenuReservaEvento;
 	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
@@ -73,6 +77,7 @@ public class ControladorMenuPrincipal implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
 
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
 		this.cliente = new Cliente(new DAOSQLFactory());
@@ -85,9 +90,10 @@ public class ControladorMenuPrincipal implements Initializable{
 		
 		//email.start();
 		
-//		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
-//			gestionBackup.backup();
-//		}
+		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
+			gestionBackup.backup();
+		}
+
 	}
 
 
@@ -245,6 +251,29 @@ public class ControladorMenuPrincipal implements Initializable{
 	}
 
 	@FXML
+	public void verABMCategoriaEvento() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMCategoriaEvento");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verMenuReservaEvento() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaABMReservaEvento2");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@FXML
 	public void verReservaCuarto() {
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
@@ -291,11 +320,10 @@ public class ControladorMenuPrincipal implements Initializable{
 		
 				primaryStage.setScene(new Scene(root));   
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				//ControladorDivisas scene2Controller = fxmlLoader.getController();	 
 				primaryStage.setTitle("Conversión de divisas");
 				primaryStage.sizeToScene();
-				primaryStage.show(); 
-		       
+				primaryStage.show();
+
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 

@@ -1,5 +1,7 @@
 package persistencia.dao.interfaz;
 
+import modelo.ConexionConfig;
+
 public interface DAOAbstractFactory {
 		
 	public ClienteDAO createClienteDAO();
@@ -18,6 +20,10 @@ public interface DAOAbstractFactory {
 
 	public SalonDAO createSalonDAO();
 	
+	public CategoriaEventoDAO createCategoriaEventoDAO();
+
+	public ReservaEventoDAO createReservaEventoDAO();
+	
 	public ConfiguracionDAO createConfiguracionDAO();
 	
 	public ErrorImportarDAO createErrorImportarDAO();
@@ -31,4 +37,7 @@ public interface DAOAbstractFactory {
 	public TicketDAO createTicketDAO();
 
 	public EncuestaDAO createEncuestaDAO();
+
+	public ConexionConfigDAO createConexionConfigDAO();
+
 }
