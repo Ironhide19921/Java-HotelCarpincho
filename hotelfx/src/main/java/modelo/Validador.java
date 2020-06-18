@@ -155,6 +155,7 @@ public class Validador {
 		boolean condicionFormaPago = true;
 		boolean pagoEfectivo = false;
 		boolean condicionFechaVenc = true;
+		boolean condicionTipoTarjeta = false;
 		
 		condicionLista = condicionLista 
 				&& !pedido.getListaPedidosEnTabla().isEmpty();
@@ -168,35 +169,49 @@ public class Validador {
 		if(condicionFormaPago) {
 			
 			if(pedido.getCmbBoxFormasPago().getSelectionModel().getSelectedItem().equals("Efectivo")) {
-				pagoEfectivo = true; 
+				pagoEfectivo = true;
+				condicionTipoTarjeta = true;
 						 
 			}else {
 				
-				condicionInput = condicionInput
-						&& !pedido.getTipoTarjeta().getText().equals("")
-						&& !pedido.getNumTarjeta().getText().equals("")
-						&& !pedido.getFechaVencTarjeta().getText().equals("")
-						&& !pedido.getCodSegTarjeta().getText().equals("");
-				
-				condicionFormato = condicionFormato
-						&& formatoNumerico(pedido.getNumTarjeta().getText())
-						&& formatoNumerico(pedido.getCodSegTarjeta().getText());
-				
-				condicionFechaVenc = condicionFechaVenc
-						&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
-				
-				if(pedido.getTipoTarjeta().getText().equals("visa")) {
-					condicionVisa = condicionVisa 
-							&& formatoVisa(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
-				}
-				
-				if(pedido.getTipoTarjeta().getText().equals("mastercard")) {
-					condicionMaster = condicionMaster
-							&& formatoMaster(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
-				}
-				
+				if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem() != null) {
+					condicionTipoTarjeta = true;
+					
+					if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem().equals("VISA")) {
+						condicionVisa = condicionVisa 
+								&& formatoVisa(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
+					
+						condicionInput = condicionInput
+								&& !pedido.getNumTarjeta().getText().equals("")
+								&& !pedido.getFechaVencTarjeta().getText().equals("")
+								&& !pedido.getCodSegTarjeta().getText().equals("");
+						
+						condicionFormato = condicionFormato
+								&& formatoNumerico(pedido.getNumTarjeta().getText())
+								&& formatoNumerico(pedido.getCodSegTarjeta().getText());
+						
+						condicionFechaVenc = condicionFechaVenc
+								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
+					}
+					
+					if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem().equals("MASTERCARD")) {
+						condicionMaster = condicionMaster
+								&& formatoMaster(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
+					
+						condicionInput = condicionInput
+								&& !pedido.getNumTarjeta().getText().equals("")
+								&& !pedido.getFechaVencTarjeta().getText().equals("")
+								&& !pedido.getCodSegTarjeta().getText().equals("");
+						
+						condicionFormato = condicionFormato
+								&& formatoNumerico(pedido.getNumTarjeta().getText())
+								&& formatoNumerico(pedido.getCodSegTarjeta().getText());
+						
+						condicionFechaVenc = condicionFechaVenc
+								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
+					}					
+				}				
 			}			
-			
 		}				
 		
 		if(!condicionLista) {
@@ -225,6 +240,9 @@ public class Validador {
 					+ "Formato correcto: mm/aa. \n "
 					+ "Ejemplo: 07/21, 04/00");
 		}
+		if(!condicionTipoTarjeta) {
+			mostrarMensaje("Elija un tipo de tarjeta");
+		}
 		
 		if(pagoEfectivo) {
 			condicionCompleta = condicionLista && condicionCliente 
@@ -232,7 +250,7 @@ public class Validador {
 		}else {
 			condicionCompleta = condicionLista && condicionCliente && condicionInput 
 					&& condicionFormato && condicionFechaVenc && condicionVisa 
-					&& condicionMaster && condicionFormaPago;	
+					&& condicionMaster && condicionFormaPago && condicionTipoTarjeta;
 		}	
 		
 		return condicionCompleta;

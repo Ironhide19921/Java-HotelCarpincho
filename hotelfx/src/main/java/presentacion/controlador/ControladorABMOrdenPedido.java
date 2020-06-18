@@ -27,7 +27,6 @@ public class ControladorABMOrdenPedido implements Initializable{
 	@FXML private TableView<OrdenPedidoDTO> tablaOrdenPedidos;
 	@FXML private ObservableList<OrdenPedidoDTO> listaOrdenPedidos;
 	@FXML private Button btnAgregarPedido;
-	@FXML private Button btnEditarPedido;
 	@FXML private Button btnEliminarPedido;
 	@FXML private Button btnRefrescar;
 	@FXML private TableColumn id;
@@ -81,38 +80,8 @@ public class ControladorABMOrdenPedido implements Initializable{
 			primaryStage.setScene(new Scene(root));
 			ControladorAgregarOrdenPedido scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnConfirmarPedido(true);
-			scene2Controller.setVisibilityBtnEditarPedido(false);
 			scene2Controller.setVisibilityBtnConfirmarGenerarTicket(true);
 			primaryStage.setTitle("Agregar Orden Pedido");
-			primaryStage.sizeToScene();
-			primaryStage.show();
-			
-		} catch(Exception e) {
-	    	e.printStackTrace(); 
-	    } 
-	}
-	
-	@FXML
-	private void editarOrdenPedido()throws Exception {
-		if(tablaOrdenPedidos.getSelectionModel().getSelectedItem() == null) {
-			Validador.mostrarMensaje("Debe seleccionar un pedido para editarlo");
-			return;
-		}
-		try {
-			Stage primaryStage = new Stage(); 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarOrdenPedido.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));
-			ControladorAgregarOrdenPedido scene2Controller = fxmlLoader.getController();
-			OrdenPedidoDTO pedidoSeleccionado = tablaOrdenPedidos.getSelectionModel().getSelectedItem();
-			scene2Controller.setearCampos(pedidoSeleccionado);
-			scene2Controller.getCmbBoxClientes().setDisable(true);
-			scene2Controller.setVisibilityBtnConfirmarPedido(false);
-			scene2Controller.setVisibilityBtnEditarPedido(true);
-			scene2Controller.setVisibilityBtnConfirmarGenerarTicket(false);
-			scene2Controller.getPagoRestoran().setDisable(true);
-			primaryStage.setTitle("Editar Orden Pedido");
 			primaryStage.sizeToScene();
 			primaryStage.show();
 			

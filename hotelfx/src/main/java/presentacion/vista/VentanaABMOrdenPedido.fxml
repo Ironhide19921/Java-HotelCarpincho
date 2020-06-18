@@ -27,8 +27,7 @@
             <Pane prefHeight="72.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnAgregarPedido" layoutX="88.0" layoutY="23.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" text="Agregar pedido" />
-                  <Button fx:id="btnEditarPedido" layoutX="220.0" layoutY="23.0" mnemonicParsing="false" onAction="#editarOrdenPedido" text="Editar pedido" />
-                  <Button fx:id="btnEliminarPedido" layoutX="339.0" layoutY="23.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" text="Eliminar pedido" />
+                  <Button fx:id="btnEliminarPedido" layoutX="223.0" layoutY="23.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" text="Eliminar pedido" />
                </children>
             </Pane>
          </bottom>
