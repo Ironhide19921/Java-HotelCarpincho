@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import dto.CuartoDTO;
 import dto.ProductoDTO;
 import dto.ReservaCuartoDTO;
 import dto.SalonDTO;
@@ -28,10 +29,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import modelo.Cuarto;
 import modelo.ReservaCuarto;
 import modelo.Usuario;
 import modelo.Validador;
@@ -52,12 +55,16 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML private TextField cuarto;
 	@FXML private TextField cliente;
 	@FXML private TextField email;
-	@FXML private TextField senia;
-	@FXML private TextField montoSenia;
+
 	@FXML private TextField numTarjeta;
 	@FXML private TextField fechaVecTarjeta;
 	@FXML private TextField codSeguridad;
 	@FXML private TextArea observaciones;
+	
+	@FXML private Label senia;
+	@FXML private Label montoSenia;
+	@FXML private Label montoCompleto;
+	
 	//combos
 	@FXML private ComboBox<String> cmbBoxEstados;
 	@FXML private ObservableList<String> listaCmbBoxEstados;
@@ -92,6 +99,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	//otros
 	private ReservaCuarto reservaCuarto;
 	private Usuario usuarios;
+	private Cuarto cuartos;
 	private EstadoReserva estados;
 	private TipoTarjeta tipoTarjeta;
 	private FormaPago formaPago;
@@ -100,6 +108,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	private FxmlLoader fxml;
 	private Stage primaryStage;
 	private BigDecimal montoTotal, cantidadHoras;
+	private ReservaCuartoDTO reserva;
 	
 	
 	@Override
@@ -115,6 +124,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.btnConsultarPendientes.setVisible(false);
 		this.infoTarjeta.setVisible(false);
 		this.fechasCheck.setVisible(false);
+	
 	}
 
 	private void inicializarObservableList() {
@@ -222,8 +232,8 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		String NumeroTarjeta = "0";
 		String FechaVencTarjeta = "0";
 		String CodSeguridadTarjeta = "0";	
-		FormaPago formaPago = FormaPago.valueOf(cmbBoxFormaPago.getValue());
-		
+		this.formaPago =FormaPago.valueOf(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem());
+		/*
 		if(!(formaPago.equals(FormaPago.EFECTIVO))){
 			tipoTarjeta = TipoTarjeta.valueOf(cmbBoxTiposTarjeta.getValue());
 			
@@ -240,7 +250,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 			FechaVencTarjeta = fechaVecTarjeta.getText();
 			CodSeguridadTarjeta = codSeguridad.getText();	
 		}
-
+*/
 		LocalDate localInicioReserva =  this.fechaReserva.getValue();
 		LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
 		LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
@@ -260,16 +270,19 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		}
 		BigDecimal senia = new BigDecimal(0);
 		if(!this.senia.getText().isEmpty()) {
-			senia = new BigDecimal(this.senia.getText());
+		
+		//	BigDecimal.valueOf(this.senia.getText());
+			senia = new BigDecimal(Double.parseDouble(this.senia.getText()));
 		}
 		BigDecimal montoReservaCuarto =new BigDecimal(0);
-		if(!montoSenia.getText().isEmpty()) {
-			senia = new BigDecimal(this.senia.getText());
+		if(!this.montoSenia.getText().isEmpty()) {
+			montoReservaCuarto = new BigDecimal(this.montoSenia.getText());
 		}
 		String emailFacturacion = "";
 		if(Validador.formatoMail(this.email.getText())) {
 			emailFacturacion = this.email.getText();
 		}
+		
 		Timestamp fechaReserva =Timestamp.valueOf(localInicioReserva.atTime(LocalTime.of(cmbBoxHoraReserva.getSelectionModel().getSelectedItem(),0,0)));
 		Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(cmbBoxHoraIngreso.getSelectionModel().getSelectedItem(),0,0)));
 		Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(cmbBoxHoraEgreso.getSelectionModel().getSelectedItem()+1,0,0)));
@@ -348,13 +361,13 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML 
 	public void consultarCuarto() {
 		 try { 
-				if(ingresoFechas()) {
+				if(ingresoFechas() && !this.cliente.getText().isEmpty()) {
 				primaryStage.setScene(fxml.getScene("VentanaABMCuarto"));   
 				FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 				ControladorABMCuarto scene2Controller = fxmlLoader.getController();
 				scene2Controller.datosReserva(obtenerDatosReserva());
-				LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
-				LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
+				LocalDate localInicioIngreso = this.fechaIngreso.getValue();
+				LocalDate localInicioEgreso = this.fechaEgreso.getValue();
 				Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
 				Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
 				scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
@@ -363,7 +376,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 					stage.close();
 				}
 				else {
-					validador.mostrarMensaje("El ingreso de fechas son obligatorias para esta consulta");
+					validador.mostrarMensaje("El ingreso de fechas y el cliente son obligatorias para esta consulta");
 				}
 		       			
 		     } catch(Exception e) { 
@@ -399,7 +412,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		primaryStage.setScene(fxml.getScene("VentanaABMOrdenPedido"));   
 		FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 		ControladorABMOrdenPedido controlador = fxmlLoader.getController();
-		controlador.enviarIdReserva(Integer.parseInt(this.cliente.getText()));
+		controlador.enviarIdReserva(reserva);
 		controlador.modificarBotones();
 			//controlador.datosReserva(obtenerDatosReserva());
 		fxml.mostrarStage(primaryStage, "Consulta de orden de pedido del cliente");
@@ -434,11 +447,12 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	}
 		
 	@FXML
-	public void modificarPantallaConsulta(int id) {
+	public void modificarPantallaConsulta(ReservaCuartoDTO reserva) {
 		
 		ocultarBotonesConsulta();
 		camposSoloLectura();
 		this.btnConsultarPendientes.setVisible(true);
+		this.reserva =  reserva;
 	
 	}
 	@FXML
@@ -555,7 +569,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		if(!(localFinReserva == null) && !(localInicioReserva == null)) {
 			if((localFinReserva.isBefore(localInicioReserva))) {
 				this.fechaEgreso.setValue(null);
-				this.montoSenia.setText(null);
+			
 				//this.senia.setText(null);
 				this.cantidadHoras = BigDecimal.valueOf(0);
 				this.cmbBoxHoraEgreso.setItems(null);
@@ -568,7 +582,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 				this.cmbBoxHoraEgreso.setItems(null);
 				this.listaCmbBoxHorasEgreso = FXCollections.observableList(cargarCombosHoras());
 				this.cmbBoxHoraEgreso.setItems(listaCmbBoxHorasEgreso);
-				this.montoSenia.setText(null);
+		
 				//this.senia.setText(null);
 				this.cantidadHoras = BigDecimal.valueOf(0);
 				verificarHoras();
@@ -591,30 +605,27 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 				this.cmbBoxHoraEgreso.setItems(null);
 				this.listaCmbBoxHorasEgreso = FXCollections.observableList(cargarCombosHorasFin());
 				this.cmbBoxHoraEgreso.setItems(listaCmbBoxHorasEgreso);
-				this.montoSenia.setText(null);
+	
 				//this.senia.setText(null);
 				this.cantidadHoras = BigDecimal.valueOf(0);
 			}
-			else {
-				verMontoTotalySenia();
-			}
+			
 		}
 		else if(this.cmbBoxHoraEgreso == null){
 			//si no son iguales entonces las horas están s/n
 			this.cmbBoxHoraEgreso.setItems(null);
 			this.listaCmbBoxHorasEgreso = FXCollections.observableList(cargarCombosHoras());
 			this.cmbBoxHoraEgreso.setItems(listaCmbBoxHorasEgreso);
-			this.montoSenia.setText(null);
 			//this.senia.setText(null);
 			this.cantidadHoras = BigDecimal.valueOf(0);
 		}
-		else {
+		/*else {
 			verMontoTotalySenia();
-		}
+		}*/
 		
 	}
-	
-	private void verMontoTotalySenia() {
+	@FXML
+	public void verMontoTotalySenia(int i) {
 		Integer horaInicioCombo = cmbBoxHoraIngreso.getValue();
 		Integer horaFinCombo = cmbBoxHoraEgreso.getValue();
 		
@@ -622,28 +633,39 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		LocalDate localInicioReserva = fechaIngreso.getValue();
 	
 		if(!(horaInicioCombo == null) && !(horaFinCombo == null)) {
-			long porcentaje = 15;
-			this.montoTotal = BigDecimal.valueOf(200);
+			long porcentaje = 0;
+			
 			//calculo porcentaje segun cantidad de reservas
-			if(this.cliente.getText().isEmpty() ) {
+			if(this.cliente.getText().isEmpty()) {
 				Validador.mostrarMensaje("Ingrese un cliente valido");
 				cmbBoxHoraEgreso.getSelectionModel().clearSelection();
 				return;
 			}
+			
 			List<ReservaCuartoDTO> reservas = this.reservaCuarto.buscarReservaCuartoCliente(Integer.parseInt(cliente.getText()));
+			
 			if(reservas.size()>0) {
 				porcentaje = porcentaje + (5 * reservas.size());
 			}
-			this.senia.setText(String.valueOf(porcentaje));		
-			long diferenciaHoras = Duration.between(localInicioReserva.atTime(horaInicioCombo, 0),localFinReserva.atTime(horaFinCombo, 0)).toHours();
-			this.cantidadHoras = BigDecimal.valueOf(diferenciaHoras);
-			BigDecimal porcentajeSenia = BigDecimal.valueOf(porcentaje);
-			BigDecimal montoFinal = montoTotal.multiply(cantidadHoras);
-			BigDecimal montoSenia = montoFinal.multiply(porcentajeSenia).divide(BigDecimal.valueOf(100));
-			this.montoSenia.setText(String.valueOf(montoSenia));		
+			
+			List<CuartoDTO> cuarto = this.cuartos.obtenerCuarto(i); 
+			if(cuarto.size()>0) {
+				this.montoTotal = BigDecimal.valueOf(cuarto.get(0).getMonto());
+				this.senia.setText(String.valueOf(cuarto.get(0).getMontoSenia()));		
+				long diferenciaHoras = Duration.between(localInicioReserva.atTime(horaInicioCombo, 0),localFinReserva.atTime(horaFinCombo, 0)).toHours();
+				this.cantidadHoras = BigDecimal.valueOf(diferenciaHoras);
+				BigDecimal porcentajeSenia = BigDecimal.valueOf(cuarto.get(0).getMontoSenia());
+				long porcentajeDescuento = 100 - porcentaje;
+				BigDecimal montoFinal = montoTotal.multiply(cantidadHoras);
+				BigDecimal montoFinalDescuento = montoFinal.multiply(BigDecimal.valueOf(porcentajeDescuento)).divide(BigDecimal.valueOf(100));
+				BigDecimal montoSenia = montoFinal.multiply(montoFinalDescuento).divide(BigDecimal.valueOf(100));
+				this.montoSenia.setText(String.valueOf(montoSenia));	
+				this.montoCompleto.setText(String.valueOf(montoFinalDescuento));
+			}
+			
 		}		
 		else {
-			this.montoSenia.setText(null);
+			//this.montoSenia.setText(null);
 		//	this.senia.setText(null);
 			this.cantidadHoras =  BigDecimal.valueOf(0);
 		}
@@ -662,12 +684,12 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		return email;
 	}
 
-	public TextField getSenia() {
+	public Label getSenia() {
 		return senia;
 	}
 
 	
-	public TextField getMontoSenia() {
+	public Label getMontoSenia() {
 		return montoSenia;
 	}
 
@@ -748,6 +770,12 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	public void setCmbBoxUsuarioFirst() {
 		// TODO Auto-generated method stub
 		this.cmbBoxUsuario.getSelectionModel().selectFirst(); 
+	}
+
+	public void setCmbBoxFormaPago() {
+		// TODO Auto-generated method stub
+		this.cmbBoxFormaPago.getSelectionModel().selectFirst();
+		this.formaPago.valueOf(cmbBoxFormaPago.getSelectionModel().getSelectedItem()); 
 	}
 
 }

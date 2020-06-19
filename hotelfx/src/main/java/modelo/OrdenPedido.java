@@ -33,6 +33,10 @@ public class OrdenPedido {
 	public void eliminarOrdenPedido(OrdenPedidoDTO pedidoAeliminar) {
 		this.ordenPedido.delete(pedidoAeliminar);
 	}
+	
+	public OrdenPedidoDTO obtenerOrdenPedido(int idPedido) {
+		return this.ordenPedido.obtenerPedido(idPedido);
+	}
 
 	public List<OrdenPedidoDTO> buscarOrdenesPedidosPorReserva(int idCliente) {
 		return this.ordenPedido.buscarOrdenesPedidosPorReserva(idCliente);

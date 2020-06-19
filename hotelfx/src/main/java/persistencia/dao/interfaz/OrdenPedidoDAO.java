@@ -15,6 +15,8 @@ public interface OrdenPedidoDAO {
 	public int obtenerIdMaximo();
 	
 	public boolean delete(OrdenPedidoDTO pedidoAeliminar);
+	
+	public OrdenPedidoDTO obtenerPedido(int idPedido);
 
 	public List<OrdenPedidoDTO> buscarOrdenesPedidosPorReserva(int idCliente);
 

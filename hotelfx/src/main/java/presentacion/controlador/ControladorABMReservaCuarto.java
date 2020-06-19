@@ -10,6 +10,7 @@ import dto.CuartoDTO;
 import dto.ReservaCuartoDTO;
 import dto.TablaReservaDTO;
 import dto.ReservaCuartoDTO.EstadoReserva;
+import dto.ReservaCuartoDTO.FormaPago;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -154,6 +155,8 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
 				ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
 				controlador.setCmbBoxEstados(EstadoReserva.PENDIENTE);
+				controlador.setCmbBoxFormaPago();
+		
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				controlador.setFechaReserva(timestamp);
 				controlador.setCmbBoxUsuarioFirst();
@@ -202,7 +205,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
 				controlador.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
-				controlador.modificarPantallaConsulta(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva().getIdReserva());
+				controlador.modificarPantallaConsulta(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
 				
 				primaryStage.setTitle("Consultar reserva de cuarto");
 				primaryStage.sizeToScene();

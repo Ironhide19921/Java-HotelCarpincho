@@ -11,7 +11,7 @@ import dto.ReservaEventoDTO.TipoTarjeta;
 public class ReservaCuartoDTO {
 
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
-	private BigDecimal senia,montoReservaCuarto;
+	private BigDecimal senia,montoReservaCuarto, montoTotal;
 	private String emailFacturacion, numTarjeta, cantidadDias, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
 	public enum TipoTarjeta{VISA, MASTERCARD, NO};
 	public enum FormaPago{EFECTIVO, DEBITO, CREDITO};
@@ -219,6 +219,14 @@ public class ReservaCuartoDTO {
 
 	public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
 		this.tipoTarjeta = tipoTarjeta;
+	}
+
+	public BigDecimal getMontoTotal() {
+		return montoTotal;
+	}
+
+	public void setMontoTotal(BigDecimal montoTotal) {
+		this.montoTotal = montoTotal;
 	}
 
 }

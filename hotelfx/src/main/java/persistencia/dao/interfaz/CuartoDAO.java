@@ -22,4 +22,6 @@ public interface CuartoDAO {
 	public CuartoDTO traerCuarto(Integer id);
 
 	public List<CuartoDTO> obtenerCuartosDisponibles(Timestamp fechaEgreso, Timestamp fechaIngreso);
+
+	public List<CuartoDTO> obtenerCuarto(int parseInt);
 }

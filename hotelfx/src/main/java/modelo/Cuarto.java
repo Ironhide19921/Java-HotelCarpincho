@@ -44,4 +44,9 @@ private CuartoDAO cuarto;
 		return this.cuarto.obtenerCuartosDisponibles(fechaEgreso,fechaIngreso);
 	}
 
+	public List<CuartoDTO> obtenerCuarto(int parseInt) {
+		// TODO Auto-generated method stub
+		return this.cuarto.obtenerCuarto(parseInt);
+	}
+
 }
