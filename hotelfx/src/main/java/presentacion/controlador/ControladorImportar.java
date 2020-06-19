@@ -14,13 +14,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;import javax.annotation.processing.FilerException;
+import java.util.Scanner;
+import javax.annotation.processing.FilerException;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import dto.ClienteDTO;
 import dto.ErrorImportarDTO;
 import dto.ReservaCuartoDTO;
+
+import dto.ReservaCuartoDTO.EstadoReserva;
+import dto.ReservaCuartoDTO.TipoTarjeta;
+import dto.ReservaCuartoDTO.FormaPago;
+
 import dto.RespuestaEncuestaDTO;
+
 import dto.TicketDTO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -161,7 +168,7 @@ public class ControladorImportar implements Initializable {
 //		//		this.mail.setearPropiedades();
 //				
 //		try {
-//			this.mail.enviarEncuesta(SendHttp.getLinkEncuesta());
+//			//this.mail.enviarEncuesta(SendHttp.getLinkEncuesta());
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -421,10 +428,15 @@ public class ControladorImportar implements Initializable {
 						clienteParaTabla.setIdCliente(consultarRepetidos(clienteParaTabla).getIdCliente());
 
 					//IdUsuario hardcodeado
-					ReservaCuartoDTO reservaParaTabla = new ReservaCuartoDTO(clienteParaTabla.getIdCliente(), Integer.parseInt(valores[7]), 1, new BigDecimal(valores[8]), new BigDecimal(valores[9]), valores[10],
-							valores[18], valores[16], valores[17], valores[20], valores[19], fechaReservaTime, fechaCheckInTime, fechaOutTime, 
-							fechaIngresoTime, fechaEgresoTime, "Pendiente", valores[21], true);
-					
+					ReservaCuartoDTO reservaParaTabla = new ReservaCuartoDTO(clienteParaTabla.getIdCliente(), Integer.parseInt(valores[7]), 1, new BigDecimal(valores[8]), new BigDecimal(valores[9]), 
+							valores[10], valores[18], FormaPago.valueOf(valores[16]), TipoTarjeta.valueOf(valores[17]), valores[20], valores[19], fechaReservaTime,
+							fechaIngresoTime, fechaEgresoTime, EstadoReserva.PENDIENTE, valores[21], true);
+				
+					/*ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
+							emailFacturacion, numTarjeta, formaDePago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
+							fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);*/
+					 reservaParaTabla.setFechaCheckIn(fechaCheckInTime);
+					 reservaParaTabla.setFechaOut(fechaOutTime);
 					reservaParaTabla.setIdReserva(0);
 					
 					//Validacion IdCuartoExistente

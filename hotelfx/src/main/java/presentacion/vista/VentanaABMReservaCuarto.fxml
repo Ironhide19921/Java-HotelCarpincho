@@ -54,8 +54,9 @@
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnAgregarReserva" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Agregar Reserva" />
-                  <Button fx:id="btnModificarReserva" layoutX="171.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Modificar Reserva" />
-                  <Button fx:id="btnHabDesReserva" layoutX="736.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Habilitar/Deshabilitar" />
+                  <Button fx:id="btnModificarReserva" layoutX="171.0" layoutY="14.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Modificar Reserva" />
+                  <Button fx:id="btnConsultarReserva" layoutX="327.0" layoutY="14.0" mnemonicParsing="false" onAction="#consultarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Consultar Reserva" />
+                  <Button fx:id="btnHabDesReserva" layoutX="736.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarDeshabilitarReserva" prefHeight="30.0" prefWidth="150.0" text="Habilitar/Deshabilitar" />
                </children>
             </Pane>
          </bottom>
