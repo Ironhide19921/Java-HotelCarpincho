@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="259.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMReservaEvento">
+<AnchorPane prefHeight="304.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMReservaEvento">
    <children>
-      <BorderPane fx:id="panelActual" prefHeight="259.0" prefWidth="637.0">
+      <BorderPane fx:id="panelActual" prefHeight="304.0" prefWidth="637.0">
          <top>
             <Pane prefHeight="40.0" prefWidth="479.0" BorderPane.alignment="CENTER">
                <children>
@@ -21,13 +21,14 @@
             </Pane>
          </top>
          <bottom>
-            <Pane prefHeight="57.0" prefWidth="479.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="93.0" prefWidth="637.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnAgregar" layoutX="373.0" layoutY="16.0" mnemonicParsing="false" onAction="#addReservaEvento" text="Agregar Reserva Evento" />
                   <Button fx:id="btnEditar" layoutX="319.0" layoutY="16.0" mnemonicParsing="false" onAction="#editarReservaEvento" text="Editar" />
                   <Button fx:id="btnVolver" layoutX="522.0" layoutY="16.0" mnemonicParsing="false" onAction="#volver" text="Volver a clientes" />
                   <Button fx:id="btnIniciarReserva" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#iniciarReserva" text="Iniciar" visible="false" />
                   <Button fx:id="btnFinalizarReserva" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#finalizarReserva" text="Finalizar" visible="false" />
+                  <Button fx:id="btnTicket" layoutX="533.0" layoutY="54.0" mnemonicParsing="false" onAction="#generarReporteReservaEvento" text="Generar ticket" />
                </children>
             </Pane>
          </bottom>

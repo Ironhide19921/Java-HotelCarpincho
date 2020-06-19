@@ -36,5 +36,8 @@ public interface DAOAbstractFactory {
 	
 	public TicketDAO createTicketDAO();
 
+	public EncuestaDAO createEncuestaDAO();
+
 	public ConexionConfigDAO createConexionConfigDAO();
+
 }

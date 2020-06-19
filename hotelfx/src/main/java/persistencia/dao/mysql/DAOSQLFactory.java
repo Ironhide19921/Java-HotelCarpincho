@@ -10,6 +10,7 @@ import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.ErrorImportarDAO;
 import persistencia.dao.interfaz.OrdenPedidoDAO;
 import persistencia.dao.interfaz.EmailDAO;
+import persistencia.dao.interfaz.EncuestaDAO;
 import persistencia.dao.interfaz.PerfilDAO;
 import persistencia.dao.interfaz.PermisoPerfilDAO;
 import persistencia.dao.interfaz.ReservaEventoDAO;
@@ -85,8 +86,13 @@ public class DAOSQLFactory implements DAOAbstractFactory{
 		return new TicketDAOSQL();
 	}
 
+	public EncuestaDAO createEncuestaDAO() {
+		return new EncuestaDAOSQL();
+	}
+	
 	@Override
 	public ConexionConfigDAO createConexionConfigDAO() {
 		return new ConexionConfigDAOSQL();
+
 	}
 }

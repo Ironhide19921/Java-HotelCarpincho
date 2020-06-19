@@ -232,25 +232,8 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		String NumeroTarjeta = "0";
 		String FechaVencTarjeta = "0";
 		String CodSeguridadTarjeta = "0";	
-		this.formaPago =FormaPago.valueOf(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem());
-		/*
-		if(!(formaPago.equals(FormaPago.EFECTIVO))){
-			tipoTarjeta = TipoTarjeta.valueOf(cmbBoxTiposTarjeta.getValue());
-			
-			if(!Validador.formatoNumerico(numTarjeta.getText())) {
-				Validador.mostrarMensaje("Ingrese un numero de tarjeta valido");
-			}
-			if(!Validador.formatoNumerico(codSeguridad.getText())) {
-				Validador.mostrarMensaje("Ingrese un codigo de seguridad valido");
-			}
-			if(!Validador.formatoNumerico(fechaVecTarjeta.getText())) {
-				Validador.mostrarMensaje("Ingrese una fecha de vencimiento valida");
-			}
-			NumeroTarjeta = numTarjeta.getText();
-			FechaVencTarjeta = fechaVecTarjeta.getText();
-			CodSeguridadTarjeta = codSeguridad.getText();	
-		}
-*/
+		this.formaPago = FormaPago.valueOf(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem());
+
 		LocalDate localInicioReserva =  this.fechaReserva.getValue();
 		LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
 		LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
@@ -272,7 +255,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		if(!this.senia.getText().isEmpty()) {
 		
 		//	BigDecimal.valueOf(this.senia.getText());
-			senia = new BigDecimal(Double.parseDouble(this.senia.getText()));
+			senia = new BigDecimal(this.senia.getText());
 		}
 		BigDecimal montoReservaCuarto =new BigDecimal(0);
 		if(!this.montoSenia.getText().isEmpty()) {
@@ -775,7 +758,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	public void setCmbBoxFormaPago() {
 		// TODO Auto-generated method stub
 		this.cmbBoxFormaPago.getSelectionModel().selectFirst();
-		this.formaPago.valueOf(cmbBoxFormaPago.getSelectionModel().getSelectedItem()); 
+		//this.formaPago=FormaPago.valueOf(cmbBoxFormaPago.getSelectionModel().getSelectedItem()); 
 	}
 
 }

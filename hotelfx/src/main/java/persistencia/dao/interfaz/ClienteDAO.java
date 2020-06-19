@@ -19,4 +19,6 @@ public interface ClienteDAO {
 	public ClienteDTO get(int id);
 	
 	public ClienteDTO traerCliente(Integer id);
+	
+	public List<ClienteDTO> readAllEncuesta();
 }

@@ -156,7 +156,6 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
 				controlador.setCmbBoxEstados(EstadoReserva.PENDIENTE);
 				controlador.setCmbBoxFormaPago();
-		
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				controlador.setFechaReserva(timestamp);
 				controlador.setCmbBoxUsuarioFirst();

@@ -65,6 +65,8 @@ public class ControladorABMCliente implements Initializable{
 	private Button btnVerReservasCliente;
 
 	@FXML 
+	private Button btnVerEncuesta;
+	@FXML 
 	private TextField ingresarCliente;
 	@FXML 
 	private TableView<ClienteDTO> tablaPersonas;
@@ -178,6 +180,7 @@ public class ControladorABMCliente implements Initializable{
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
+
 	 }
 	 
 	 @FXML private void verReservasCuarto() throws Exception {
@@ -206,6 +209,43 @@ public class ControladorABMCliente implements Initializable{
 			return;
 	  	 }	    
 	 }
+
+	    
+	 
+	 @FXML
+	    private void verEncuesta(ActionEvent event) throws Exception 
+	    {
+		 
+		 	 if (tablaPersonas.getSelectionModel().getSelectedItem() == null) {
+				validador.mostrarMensaje("Debes seleccionar un cliente de la lista para editar");
+				return;
+			 }
+		     try { 
+		    	Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/Encuesta.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				//cargo el objeto completo que incluye toda la escena y el controlador
+				Parent root = (Parent) fxmlLoader.load();
+		
+				primaryStage.setScene(new Scene(root)); 
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				//tomo el controlador
+				ControladorVerEncuesta scene2Controller = fxmlLoader.getController();
+				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
+				ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
+				scene2Controller.setearCamposPantalla(clienteSeleccionado);
+//				scene2Controller.setVisibilityBtnAgregarCliente(false);
+//				scene2Controller.setVisibilityBtnModificarCliente(true);	 
+//				primaryStage.setTitle("Modificar Cliente");
+				primaryStage.setTitle("Ver Encuesta");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	    }
+
 	 
 	 @FXML
 	 public void seleccionarCliente() throws IOException

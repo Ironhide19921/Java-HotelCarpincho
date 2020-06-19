@@ -191,12 +191,9 @@ CREATE TABLE `encuesta`
 (
   `idEncuesta` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(11) NOT NULL,
-  `Detalle` varchar(45) NOT NULL,
-  `Estado` varchar(20) NOT NULL,
-  `FechaEnvio` dateTime NOT NULL,
-  `FechaRecepcion` dateTime NOT NULL,
+  `recipiente` varchar(60) NOT NULL,
   PRIMARY KEY (`idEncuesta`),
-  CONSTRAINT FOREIGN KEY fk_IdCli (idCliente) REFERENCES cliente (idCliente)
+  CONSTRAINT FOREIGN KEY fk_cliente_id_encuesta (idCliente) REFERENCES cliente (idCliente)
 );
 -- --------------------------------------------------------
 
