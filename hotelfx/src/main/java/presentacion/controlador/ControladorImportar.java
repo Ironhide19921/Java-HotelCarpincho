@@ -158,14 +158,14 @@ public class ControladorImportar implements Initializable {
 
 	@FXML
 	private void manejoMail() {
-		//		this.mail.setearPropiedades();
-				
-		try {
-			this.mail.enviarEncuesta(SendHttp.getLinkEncuesta());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		//		this.mail.setearPropiedades();
+//				
+//		try {
+//			this.mail.enviarEncuesta(SendHttp.getLinkEncuesta());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 
