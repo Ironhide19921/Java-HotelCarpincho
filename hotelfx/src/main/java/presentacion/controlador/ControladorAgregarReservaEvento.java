@@ -147,7 +147,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 
 	void initData(int id) {
 		this.idCliente = id;
-		
+		System.out.println("Me llega el cliente con id "+ this.idCliente);
 		initialize(null, null);
 		
 	}

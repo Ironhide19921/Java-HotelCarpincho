@@ -225,7 +225,6 @@ public class ControladorABMCliente implements Initializable{
 			    Parent root = (Parent) fxmlLoader.load();
 				ControladorABMReservaEvento controller = fxmlLoader.<ControladorABMReservaEvento>getController();
 				controller.initData(idClienteSeleccionado);
-				
 				panelActual.setCenter(root);
 				panelActual.setTop(null);
 				panelActual.setBottom(null);
