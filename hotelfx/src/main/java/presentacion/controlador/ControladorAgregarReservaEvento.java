@@ -550,9 +550,6 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		}
 		
 		this.comboHoraInicio.setValue(reservaInicio.getHour());
-		
-		
-		
 		this.comboEstados.setValue(String.valueOf(reservaEventoConNombresDTO.getEstado()));
 		this.comboTarjetas.setValue(String.valueOf(reservaEventoConNombresDTO.getTipoTarjeta()));
 		this.codSeguridadTarjeta.setText(reservaEventoConNombresDTO.getCodSeguridadTarjeta());

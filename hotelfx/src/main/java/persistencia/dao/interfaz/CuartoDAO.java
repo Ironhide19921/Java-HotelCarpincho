@@ -1,5 +1,6 @@
 package persistencia.dao.interfaz;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import dto.CuartoDTO;
@@ -19,4 +20,8 @@ public interface CuartoDAO {
 	public void cambiarEstado(CuartoDTO cuarto);
 	
 	public CuartoDTO traerCuarto(Integer id);
+
+	public List<CuartoDTO> obtenerCuartosDisponibles(Timestamp fechaEgreso, Timestamp fechaIngreso);
+
+	public List<CuartoDTO> obtenerCuarto(int parseInt);
 }

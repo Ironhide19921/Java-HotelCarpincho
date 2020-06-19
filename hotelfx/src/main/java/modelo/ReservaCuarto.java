@@ -30,5 +30,7 @@ public class ReservaCuarto{
 		return this.reserva.search(buscar);
 	}
 	
-
+	public List<ReservaCuartoDTO> buscarReservaCuartoCliente(int idCliente){
+		return this.reserva.buscarReservaCuartoCliente(idCliente);
+	};
 }

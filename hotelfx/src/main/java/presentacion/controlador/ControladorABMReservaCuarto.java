@@ -1,7 +1,7 @@
 package presentacion.controlador;
 
 import java.net.URL;
-
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -9,6 +9,8 @@ import dto.ClienteDTO;
 import dto.CuartoDTO;
 import dto.ReservaCuartoDTO;
 import dto.TablaReservaDTO;
+import dto.ReservaCuartoDTO.EstadoReserva;
+import dto.ReservaCuartoDTO.FormaPago;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,7 +28,9 @@ import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.Cuarto;
 import modelo.ReservaCuarto;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.FxmlLoader;
 
 public class ControladorABMReservaCuarto implements Initializable
 {
@@ -34,6 +38,7 @@ public class ControladorABMReservaCuarto implements Initializable
 	@FXML private Button btnAgregarReserva;
 	@FXML private Button btnModificarReserva;
 	@FXML private Button btnHabDesReserva;
+	@FXML private Button btnConsultarReserva;
 	@FXML private Button btnRefresh;
 	@FXML private Button btnBuscar;
 	@FXML private TextField ingresarCliente;
@@ -52,14 +57,19 @@ public class ControladorABMReservaCuarto implements Initializable
 	private Cliente clientes;
 	private ReservaCuarto reserva;
 	private Cuarto cuartos;
+	private FxmlLoader fxml;
+	private Stage primaryStage;
 	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		primaryStage = new Stage(); 
+		fxml = new FxmlLoader();
 		this.reserva = new ReservaCuarto(new DAOSQLFactory());
 		this.clientes = new Cliente(new DAOSQLFactory());
 		this.cuartos =  new Cuarto(new DAOSQLFactory());
-		activeSession = FXCollections.observableArrayList();
+		activeSession = FXCollections.observableArrayList();	
 		cargarColumnas();
 		refrescarTabla();
 	}
@@ -71,7 +81,7 @@ public class ControladorABMReservaCuarto implements Initializable
 		crearTabla(getAllReservasCuartos());
 	}
 
-	private void crearTabla(ObservableList<TablaReservaDTO> allReservasCuartos) 
+	public void crearTabla(ObservableList<TablaReservaDTO> allReservasCuartos) 
 	{
 		tablaReservas.setItems(allReservasCuartos);
 	}
@@ -87,6 +97,19 @@ public class ControladorABMReservaCuarto implements Initializable
 		}
 		 return activeSession;
 	}
+	
+	@FXML
+	public ObservableList<TablaReservaDTO> getAllReservasCuartosPorCliente(List<ReservaCuartoDTO> reservas) {
+		activeSession.clear();
+		for(ReservaCuartoDTO reserva : reservas) {
+			ClienteDTO cliente = devolverCliente(reserva.getIdCliente());
+			CuartoDTO cuarto = devolverCuarto(reserva.getIdCuarto());
+			TablaReservaDTO tabla = new TablaReservaDTO(reserva,cliente,cuarto);
+		activeSession.add(tabla);
+		}
+		 return activeSession;
+	}
+	
 	
 	
 	private CuartoDTO devolverCuarto(Integer id) {
@@ -127,20 +150,88 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 	@FXML
 	public void addReservaCuarto() throws Exception  {
 		 try { 
+		
+			 primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
+				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
+				ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
+				controlador.setCmbBoxEstados(EstadoReserva.PENDIENTE);
+				controlador.setCmbBoxFormaPago();
+				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+				controlador.setFechaReserva(timestamp);
+				controlador.setCmbBoxUsuarioFirst();
+				fxml.mostrarStage(primaryStage,"Agregar reserva de cuarto");
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	}
+	
+	@FXML
+	public void modificarReservaCuarto() {
+		 try { 
+			 if(this.tablaReservas.getSelectionModel().getSelectedItem()!=null) {
+				 Stage primaryStage = new Stage(); 
+			 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+					FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+					Parent root = (Parent) fxmlLoader.load();
+					primaryStage.setScene(new Scene(root));   
+					primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+					ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
+					controlador.pasarIdReserva(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva().getIdReserva());
+					controlador.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
+					
+					primaryStage.setTitle("Modificar reserva de cuarto");
+					primaryStage.sizeToScene();
+					primaryStage.show(); 
+			 }
+			 else {
+				 Validador.mostrarMensaje("Debe seleccionar una reserva.");
+			 }
+		       
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	}
+	
+	public void consultarReservaCuarto() {
+		 try { 
+			 if(this.tablaReservas.getSelectionModel().getSelectedItem()!=null) {
 			    Stage primaryStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
-				primaryStage.setTitle("Agregar reserva de cuarto");
+				ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
+				controlador.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
+				controlador.modificarPantallaConsulta(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
+				
+				primaryStage.setTitle("Consultar reserva de cuarto");
 				primaryStage.sizeToScene();
-				primaryStage.show(); 
-		       
+				primaryStage.show(); }
+				 else {
+					 Validador.mostrarMensaje("Debe seleccionar una reserva.");
+				 }
+			       
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
 	}
 
+	@FXML 
+	public void habilitarDeshabilitarReserva()
+	{
+		 if(this.tablaReservas.getSelectionModel().getSelectedItem()!=null) {
+				ReservaCuartoDTO reserva = this.tablaReservas.getSelectionModel().getSelectedItem().getReserva();
+				if(reserva.getEstado() == true) {
+					reserva.setEstado(false);
+				}else {
+					reserva.setEstado(true);
+				}
+		 }
+		else {
+			 Validador.mostrarMensaje("Debe seleccionar una reserva.");
+		 }
+	}
+	
 }

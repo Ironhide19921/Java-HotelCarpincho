@@ -3,8 +3,9 @@ package dto;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
-
-import dto.ReservaCuartoDTO.estadosReserva;
+import dto.ReservaCuartoDTO.EstadoReserva;
+import dto.ReservaCuartoDTO.FormaPago;
+import dto.ReservaCuartoDTO.TipoTarjeta;
 
 public class TablaReservaDTO {
 	private ReservaCuartoDTO reserva;
@@ -12,9 +13,10 @@ public class TablaReservaDTO {
 	private CuartoDTO cuarto;
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
 	private BigDecimal senia,montoReservaCuarto;
-	private String emailFacturacion, numTarjeta, cantidadDias,fechaVencTarjeta,
-	tipoTarjeta, formaDePago, codSeguridadTarjeta,comentarios;
-	private estadosReserva estadoReserva;
+	private String emailFacturacion, numTarjeta, cantidadDias,fechaVencTarjeta,codSeguridadTarjeta,comentarios;
+	private TipoTarjeta tipoTarjeta;
+	private FormaPago formaDePago;
+	private EstadoReserva estadoReserva;
 	private Timestamp fechaReserva,fechaCheckIn,fechaOut,
 	fechaIngreso,fechaEgreso;
 	private String estado;
@@ -35,8 +37,8 @@ public class TablaReservaDTO {
 		this.emailFacturacion = reserva.getEmailFacturacion();
 		this.numTarjeta = reserva.getNumTarjeta();
 		this.cantidadDias = reserva.getCantidadDias();
-		this.formaDePago = reserva.getFormasDePago();
-		this.tipoTarjeta = reserva.getTiposTarjeta();
+		this.formaDePago = reserva.getFormaPago();
+		this.tipoTarjeta = reserva.getTipoTarjeta();
 		this.codSeguridadTarjeta = reserva.getCodSeguridadTarjeta();
 		this.comentarios = reserva.getComentarios();
 		this.fechaVencTarjeta = reserva.getFechaVencTarjeta();
@@ -49,7 +51,7 @@ public class TablaReservaDTO {
 		this.apellido = cliente.getApellido();
 	
 		this.descripcionCuarto = cuarto.getHabitacion();
-		this.estado = reserva.getEstadoReserva();
+		this.estado = reserva.getEstadoReserva().name();
 	}
 
 	public ClienteDTO getCliente() {
@@ -147,19 +149,19 @@ public class TablaReservaDTO {
 		this.cantidadDias = cantidadDias;
 	}
 
-	public String getTipoTarjeta() {
+	public TipoTarjeta getTipoTarjeta() {
 		return tipoTarjeta;
 	}
 
-	public void setTipoTarjeta(String tipoTarjeta) {
+	public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
 		this.tipoTarjeta = tipoTarjeta;
 	}
 
-	public String getFormaDePago() {
+	public FormaPago getFormaDePago() {
 		return formaDePago;
 	}
 
-	public void setFormaDePago(String formaDePago) {
+	public void setFormaDePago(FormaPago formaDePago) {
 		this.formaDePago = formaDePago;
 	}
 
@@ -179,11 +181,11 @@ public class TablaReservaDTO {
 		this.comentarios = comentarios;
 	}
 
-	public estadosReserva getEstadoReserva() {
+	public EstadoReserva getEstadoReserva() {
 		return estadoReserva;
 	}
 
-	public void setEstadoReserva(estadosReserva estadoReserva) {
+	public void setEstadoReserva(EstadoReserva estadoReserva) {
 		this.estadoReserva = estadoReserva;
 	}
 

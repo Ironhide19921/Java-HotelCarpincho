@@ -1,6 +1,8 @@
 package presentacion.controlador;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -9,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import dto.CategoriaCuartoDTO;
 import dto.ClienteDTO;
 import dto.CuartoDTO;
+import dto.ReservaCuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,7 +37,10 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private Button btnEditar;
 	@FXML private Button btnBorrar;
 	@FXML private Button btnBuscar;
+	@FXML private Button btnAgregarCuartoReserva;
+	@FXML private Button btnEditarReserva;
 	@FXML private Button btnReporte;
+	@FXML private Button btnSeleccionarCuarto;
 	@FXML private TableColumn id;
 	@FXML private TableColumn piso;
 	@FXML private TableColumn habitacion;
@@ -46,14 +52,13 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private TextField txtBuscar;
 	@FXML private Button btnLimpiarFiltro;
 	@FXML private Button btnHabilitarCuarto;
-	@FXML private Button btnDeshabilitarCuarto;
 		  private Cuarto cuarto;
-		  
+		  private ReservaCuartoDTO reserva;
 		  private Validador validador;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
 		tablaCuartos.getItems().clear();
@@ -71,7 +76,7 @@ public class ControladorABMCuarto implements Initializable
 		montoSenia.setCellValueFactory(new PropertyValueFactory("montoSenia"));
 		estado.setCellValueFactory(new PropertyValueFactory("estado"));
 	}
-	
+
 	 @FXML
 	    private void addCuarto(ActionEvent event) throws Exception {
 		     try { 
@@ -81,11 +86,7 @@ public class ControladorABMCuarto implements Initializable
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
 				ControladorAgregarCuarto scene2Controller = fxmlLoader.getController();
-				scene2Controller.setVisibilityBtnAgregarCuarto(true);
-				scene2Controller.setDisableBtnAgregarCuarto(false);
-				scene2Controller.setVisibilityBtnEditarCuarto(false);
-			    scene2Controller.setDisableBtnEditarCuarto(true);		 
-			
+				scene2Controller.modificarVisibilidadBotones(true);
 				primaryStage.setTitle("Agregar cuarto");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 
@@ -112,13 +113,9 @@ public class ControladorABMCuarto implements Initializable
 				primaryStage.setScene(new Scene(root));   
 				ControladorAgregarCuarto scene2Controller = fxmlLoader.getController();
 				CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
-				 scene2Controller.cargarCmbCateCuarto();
-				 scene2Controller.setearCamposPantalla(cuartoSeleccionado);
-			     scene2Controller.setVisibilityBtnAgregarCuarto(false);
-			     scene2Controller.setDisableBtnAgregarCuarto(true);
-			     scene2Controller.setVisibilityBtnEditarCuarto(true);
-			     scene2Controller.setDisableBtnEditarCuarto(false);		 
-			     scene2Controller.setearCamposPantalla(tablaCuartos.getSelectionModel().getSelectedItem());
+				scene2Controller.cargarCmbCateCuarto();
+				scene2Controller.setearCamposPantalla(cuartoSeleccionado);
+				scene2Controller.modificarVisibilidadBotones(false); 
 				primaryStage.setTitle("Modificar cuarto");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 
@@ -153,18 +150,6 @@ public class ControladorABMCuarto implements Initializable
 		 tablaCuartos.setEditable(true);
 	 }
 	
-	
-	 @FXML
-	 private void deshabilitarCuartos(){	
-		 if (tablaCuartos.getSelectionModel().getSelectedItem() == null) {
-			validador.mostrarMensaje("Debes seleccionar un cuarto de la lista para deshabilitar");
-			return;
-		 }
-		 CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
-		 cuartoSeleccionado.setEstado(false);
-		 this.cuarto.modificarCuartos(cuartoSeleccionado);
-		 refrescarTabla();
-	 }
 	 
 	 
 	 @FXML
@@ -174,9 +159,19 @@ public class ControladorABMCuarto implements Initializable
 			return;
 		 }
 		 CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
-		 cuartoSeleccionado.setEstado(true);
-		 this.cuarto.modificarCuartos(cuartoSeleccionado);
-		 refrescarTabla();
+		 if(cuartoSeleccionado.getEstado() == true) {
+			 cuartoSeleccionado.setEstado(false);
+			 this.cuarto.modificarCuartos(cuartoSeleccionado);
+			 refrescarTabla();
+			 return;
+		 }else {
+			 cuartoSeleccionado.setEstado(true);
+			 this.cuarto.modificarCuartos(cuartoSeleccionado);
+			 refrescarTabla();
+			 return;
+		 }
+		
+		
 	 }
 	 
 	 
@@ -189,5 +184,56 @@ public class ControladorABMCuarto implements Initializable
 	 		}
 	 		return activeSession;
 		}	
+	 
+	@FXML
+	public void consultaReservaCuarto(Timestamp fechaEgreso, Timestamp fechaIngreso) {
+		tablaCuartos.getItems().clear();
+		cargarColumnas();
+			List<CuartoDTO> cuartos = this.cuarto.obtenerCuartosDisponibles(fechaEgreso,fechaIngreso);
+			activeSession.clear();
+	 		for(CuartoDTO c : cuartos) {
+	 			activeSession.add(c);
+	 		}
+	 		tablaCuartos.setItems(activeSession);
+	}
+	
+	public void modificarBotones(Boolean esReserva) {
+		if(esReserva) {
+			this.btnAgregarCuarto.setVisible(false);
+			this.btnEditar.setVisible(false);
+			this.btnAgregarCuartoReserva.setVisible(true);
+			this.btnEditarReserva.setVisible(true);
+		}
+		else{
+			this.btnAgregarCuarto.setVisible(true);
+			this.btnEditar.setVisible(true);
+			this.btnAgregarCuartoReserva.setVisible(false);
+			this.btnEditarReserva.setVisible(false);
+		}
+	}
+	
+	 public void datosReserva(ReservaCuartoDTO reserva) {
+		 this.reserva = reserva;
+	 }
+	 
+	 @FXML
+	 public void seleccionarCuarto() throws IOException {
+		 
+	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+			Parent root = (Parent) fxmlLoader.load(); 	
+			ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+			scene2Controller.setearCampos(reserva);
+			scene2Controller.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
+			scene2Controller.verMontoTotalySenia(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
+			Stage stage = (Stage) btnSeleccionarCuarto.getScene().getWindow();
+			stage.close();
+			Stage primaryStage = new Stage(); 
+			primaryStage.setScene(new Scene(root));   
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+			primaryStage.setTitle("Agregar cuartos");
+			primaryStage.sizeToScene();
+			primaryStage.show(); 
+	 }		
 	
 }

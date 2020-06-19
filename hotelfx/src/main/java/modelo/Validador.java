@@ -1,9 +1,12 @@
 package modelo;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import presentacion.controlador.ControladorAgregarCliente;
+import presentacion.controlador.ControladorAgregarReservaCuarto;
 import presentacion.controlador.ControladorAgregarUsuario;
 import presentacion.controlador.ControladorAgregarOrdenPedido;
 
@@ -51,6 +54,7 @@ public class Validador {
 	public static boolean validarTarjeta(String numero, String cod, Date expira) {
 		return ((formatoVisa(numero,cod) || formatoMaster(numero,cod)) && (expira.after(new Date(System.currentTimeMillis()))));
 	}
+
 	
 	public static boolean validarFechaVenc(String fechaVenc) {
 		return fechaVenc.matches("(0[1-9]|1[0-2])\\/[0-9]{2}");
@@ -121,6 +125,40 @@ public class Validador {
 
 	}
 	
+
+
+	public static boolean validarReserva(ControladorAgregarReservaCuarto ventanaReserva){
+		
+		boolean condicionCompleta = true;
+		boolean condicionInput = true;
+		boolean condicionFormato = true;
+		
+		condicionInput = condicionInput
+		&& !ventanaReserva.getEmail().equals("")
+		&& (ventanaReserva.getCmbBoxFormaPago().getSelectionModel().getSelectedItem()!=null)
+		&& !ventanaReserva.getCliente().equals("")
+
+		&& !ventanaReserva.getCuarto().equals("")
+		&& (ventanaReserva.getFechaReserva()!=null)
+		&& (ventanaReserva.getFechaIngreso()!=null)
+		&& (ventanaReserva.getFechaEgreso()!=null)
+		&& (ventanaReserva.getCmbBoxUsuario().getSelectionModel().getSelectedItem()!=null) 
+		;
+		
+		condicionFormato = condicionFormato 
+		&& formatoMail(ventanaReserva.getEmail().getText())			
+		&& formatoNumerico(ventanaReserva.getMontoSenia().getText())	
+		&& formatoNumerico(ventanaReserva.getSenia().getText())	
+		;
+		
+		if (!condicionInput)
+			mostrarMensaje("Campos obligatorios vacios");
+		if (!condicionFormato)
+			mostrarMensaje("Contienen un formato incorrecto\\n");	
+		condicionCompleta = condicionInput && condicionFormato;
+		return condicionCompleta;
+
+	}
 	public static boolean validarPedido(ControladorAgregarOrdenPedido pedido) {
 		
 		boolean condicionCompleta = true;
@@ -155,6 +193,7 @@ public class Validador {
 		boolean condicionFormaPago = true;
 		boolean pagoEfectivo = false;
 		boolean condicionFechaVenc = true;
+		boolean condicionTipoTarjeta = false;
 		
 		condicionLista = condicionLista 
 				&& !pedido.getListaPedidosEnTabla().isEmpty();
@@ -168,35 +207,49 @@ public class Validador {
 		if(condicionFormaPago) {
 			
 			if(pedido.getCmbBoxFormasPago().getSelectionModel().getSelectedItem().equals("Efectivo")) {
-				pagoEfectivo = true; 
+				pagoEfectivo = true;
+				condicionTipoTarjeta = true;
 						 
 			}else {
 				
-				condicionInput = condicionInput
-						&& !pedido.getTipoTarjeta().getText().equals("")
-						&& !pedido.getNumTarjeta().getText().equals("")
-						&& !pedido.getFechaVencTarjeta().getText().equals("")
-						&& !pedido.getCodSegTarjeta().getText().equals("");
-				
-				condicionFormato = condicionFormato
-						&& formatoNumerico(pedido.getNumTarjeta().getText())
-						&& formatoNumerico(pedido.getCodSegTarjeta().getText());
-				
-				condicionFechaVenc = condicionFechaVenc
-						&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
-				
-				if(pedido.getTipoTarjeta().getText().equals("visa")) {
-					condicionVisa = condicionVisa 
-							&& formatoVisa(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
-				}
-				
-				if(pedido.getTipoTarjeta().getText().equals("mastercard")) {
-					condicionMaster = condicionMaster
-							&& formatoMaster(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
-				}
-				
+				if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem() != null) {
+					condicionTipoTarjeta = true;
+					
+					if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem().equals("VISA")) {
+						condicionVisa = condicionVisa 
+								&& formatoVisa(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
+					
+						condicionInput = condicionInput
+								&& !pedido.getNumTarjeta().getText().equals("")
+								&& !pedido.getFechaVencTarjeta().getText().equals("")
+								&& !pedido.getCodSegTarjeta().getText().equals("");
+						
+						condicionFormato = condicionFormato
+								&& formatoNumerico(pedido.getNumTarjeta().getText())
+								&& formatoNumerico(pedido.getCodSegTarjeta().getText());
+						
+						condicionFechaVenc = condicionFechaVenc
+								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
+					}
+					
+					if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem().equals("MASTERCARD")) {
+						condicionMaster = condicionMaster
+								&& formatoMaster(pedido.getNumTarjeta().getText(), pedido.getCodSegTarjeta().getText());
+					
+						condicionInput = condicionInput
+								&& !pedido.getNumTarjeta().getText().equals("")
+								&& !pedido.getFechaVencTarjeta().getText().equals("")
+								&& !pedido.getCodSegTarjeta().getText().equals("");
+						
+						condicionFormato = condicionFormato
+								&& formatoNumerico(pedido.getNumTarjeta().getText())
+								&& formatoNumerico(pedido.getCodSegTarjeta().getText());
+						
+						condicionFechaVenc = condicionFechaVenc
+								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
+					}					
+				}				
 			}			
-			
 		}				
 		
 		if(!condicionLista) {
@@ -225,6 +278,9 @@ public class Validador {
 					+ "Formato correcto: mm/aa. \n "
 					+ "Ejemplo: 07/21, 04/00");
 		}
+		if(!condicionTipoTarjeta) {
+			mostrarMensaje("Elija un tipo de tarjeta");
+		}
 		
 		if(pagoEfectivo) {
 			condicionCompleta = condicionLista && condicionCliente 
@@ -232,10 +288,11 @@ public class Validador {
 		}else {
 			condicionCompleta = condicionLista && condicionCliente && condicionInput 
 					&& condicionFormato && condicionFechaVenc && condicionVisa 
-					&& condicionMaster && condicionFormaPago;	
+					&& condicionMaster && condicionFormaPago && condicionTipoTarjeta;
 		}	
 		
 		return condicionCompleta;
+
 	}
 	
 	public static void mostrarMensaje(String mensaje) {
@@ -245,5 +302,6 @@ public class Validador {
 
 		alert.showAndWait();
 	}
+
 
 }

@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import dto.OrdenPedidoDTO;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -22,9 +23,11 @@ public class ReportePedidoTicket {
 	private JasperViewer reporteViewer;
 	private JasperPrint reporteLleno;
 	private Logger log = Logger.getLogger(ReportePedidoTicket.class);
+	private String path;
 	
-	public ReportePedidoTicket(OrdenPedidoDTO ordenPedido) {
+	public ReportePedidoTicket(OrdenPedidoDTO ordenPedido, String pathPDF) {
 		
+		this.path = pathPDF;
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("idPedidoAbuscar", ordenPedido.getIdOrdenPedido());
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -42,6 +45,14 @@ public class ReportePedidoTicket {
 	public void mostrar() {
 		this.reporteViewer = new JasperViewer(this.reporteLleno, false);
 		this.reporteViewer.setVisible(true);
+	}
+	
+	public void guardarPdf() {
+		try {
+			JasperExportManager.exportReportToPdfFile(this.reporteLleno, this.path);
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -3,11 +3,17 @@ package presentacion.controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.joda.time.DateTime;
 
+import dto.ClienteDTO;
 import dto.EmailDTO;
+import dto.EncuestaDTO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +26,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import modelo.Cliente;
 import modelo.Email;
+import modelo.Encuesta;
+import modelo.SendHttp;
 import modelo.Validador;
+import persistencia.dao.mysql.DAOSQLFactory;
+import persistencia.dao.mysql.EncuestaDAOSQL;
 import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
@@ -43,6 +54,8 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirCategoriaEvento;
 	@FXML private Button btnAbrirVentanaBackup;
 	@FXML private EmailDTO email;
+	@FXML private Encuesta encuesta;
+	@FXML private Cliente cliente;
 
 	@FXML private static Button btnAbrirDivisas;
 	
@@ -55,6 +68,8 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
+	@FXML
+	private ObservableList<ClienteDTO> clientesAencuestar;
 	
 	Date hoy = new Date(System.currentTimeMillis());
 	
@@ -65,6 +80,14 @@ public class ControladorMenuPrincipal implements Initializable{
 		// TODO Auto-generated method stub
 
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
+		this.cliente = new Cliente(new DAOSQLFactory());
+		this.encuesta = new Encuesta(new DAOSQLFactory());
+		clientesAencuestar = FXCollections.observableArrayList();
+		this.clientesAencuestar = getClientesAencuestar();
+		manejoEncuestas();
+		
+//		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
+		
 		//email.start();
 		
 		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
@@ -74,11 +97,57 @@ public class ControladorMenuPrincipal implements Initializable{
 	}
 
 
+	private void manejoEncuestas() {
+		if(clientesAencuestar.size()>0) {
+			try {
+				String collector="";
+				if(SendHttp.traerCantidadCollectores()==0) {
+					collector = SendHttp.crearCollector();					
+				}else {
+					collector = SendHttp.traerIdPrimerCollector();
+				}
+								
+				String mensaje =SendHttp.crearMensaje(collector);
+				ArrayList<EncuestaDTO> recipientes = SendHttp.crearRecipientes(collector, mensaje, clientesAencuestar);
+				for(EncuestaDTO e: recipientes) {
+					encuesta.agregarEncuesta(e);
+				}
+				String envio = SendHttp.enviarEncuestasMail(collector, mensaje);
+				
+//				System.out.println(SendHttp.traerRespuestas("5541016993"));
+//				ArrayList<RespuestaEncuestaDTO> resultado = SendHttp.consultarRespuestaEncuesta("5541016993");
+//				for(RespuestaEncuestaDTO r: resultado) {
+//					System.out.println(r.getIdPregunta());
+//					for(String s: r.getListaRespuestas()) {
+//						 System.out.println(s);
+//					}
+//				}
+				
+			} catch (Exception e) {
+				Validador.mostrarMensaje("Error en encuestas");
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	private ObservableList<ClienteDTO> getClientesAencuestar() {
+		List<ClienteDTO> clientes = this.cliente.obtenerClientesaEncuestar();
+		clientesAencuestar.clear();
+		for(ClienteDTO c : clientes) {
+			clientesAencuestar.add(c);
+		}
+		return clientesAencuestar;
+	}
+
+
 	@FXML
 	public void verABMClientes() {
 		try {
 			FxmlLoader fxmlLoader = new FxmlLoader();
+
 			Pane view	= fxmlLoader.getPage("VentanaABMCliente");
+			
 			mainPane.setCenter(view);
 
 		} catch(Exception e) {
