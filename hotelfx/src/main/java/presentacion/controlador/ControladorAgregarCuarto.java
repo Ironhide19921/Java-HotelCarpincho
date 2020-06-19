@@ -35,6 +35,7 @@ public class ControladorAgregarCuarto implements Initializable {
 	@FXML private Button btnEditarCuarto;
 	@FXML private Button btnIrACateCuarto;
 	@FXML private Button btnCerrar;
+	@FXML private Button btnCerrarReserva;
 	@FXML private ComboBox<String> cmbBoxCatesCuarto;
 	@FXML private ObservableList<String> listaCategoriasCuarto;
 	@FXML private Button btnRefrescarCate;
@@ -148,23 +149,31 @@ public class ControladorAgregarCuarto implements Initializable {
 		this.cmbBoxCatesCuarto.setItems(listaCategoriasCuarto);
 	} 
 
-	public void setVisibilityBtnAgregarCuarto(Boolean value) {
-		this.btnConfirmarCuarto.setVisible(value);
+	public void modificarVisibilidadBotones(Boolean esAgregar) {
+		if(esAgregar) {
+			this.btnConfirmarCuarto.setVisible(true);
+			this.btnConfirmarCuarto.setDisable(false);
+			this.btnEditarCuarto.setVisible(false);
+			this.btnEditarCuarto.setDisable(true);
+		}else {
+			this.btnConfirmarCuarto.setVisible(false);
+			this.btnConfirmarCuarto.setDisable(true);
+			this.btnEditarCuarto.setVisible(true);
+			this.btnEditarCuarto.setDisable(false);
+		}
 	}
-	
-	public void setDisableBtnAgregarCuarto(Boolean value) {
-		this.btnConfirmarCuarto.setDisable(value);
-	}
-	
-	public void setVisibilityBtnEditarCuarto(Boolean value) {
-		this.btnEditarCuarto.setVisible(value);
-	}
-	
-	public void setDisableBtnEditarCuarto(Boolean value) {
-		this.btnEditarCuarto.setDisable(value);
+	/*
+	public void modificarVisibilidadBotonesReserva(Boolean esReserva) {
+		if(esReserva) {
+			this.btnCerrar.setVisible(false);
+			this.btnCerrarReserva.setVisible(true);
+		}else {
+			this.btnCerrar.setVisible(true);
+			this.btnCerrarReserva.setVisible(false);
+		}
 	}
 
-	
+	*/
 	
 	
 	

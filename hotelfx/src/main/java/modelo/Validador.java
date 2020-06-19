@@ -1,9 +1,12 @@
 package modelo;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import presentacion.controlador.ControladorAgregarCliente;
+import presentacion.controlador.ControladorAgregarReservaCuarto;
 import presentacion.controlador.ControladorAgregarUsuario;
 import presentacion.controlador.ControladorAgregarOrdenPedido;
 
@@ -51,6 +54,7 @@ public class Validador {
 	public static boolean validarTarjeta(String numero, String cod, Date expira) {
 		return ((formatoVisa(numero,cod) || formatoMaster(numero,cod)) && (expira.after(new Date(System.currentTimeMillis()))));
 	}
+
 	
 	public static boolean validarFechaVenc(String fechaVenc) {
 		return fechaVenc.matches("(0[1-9]|1[0-2])\\/[0-9]{2}");
@@ -121,6 +125,40 @@ public class Validador {
 
 	}
 	
+
+
+	public static boolean validarReserva(ControladorAgregarReservaCuarto ventanaReserva){
+		
+		boolean condicionCompleta = true;
+		boolean condicionInput = true;
+		boolean condicionFormato = true;
+		
+		condicionInput = condicionInput
+		&& !ventanaReserva.getEmail().equals("")
+		&& (ventanaReserva.getCmbBoxFormaPago().getSelectionModel().getSelectedItem()!=null)
+		&& !ventanaReserva.getCliente().equals("")
+
+		&& !ventanaReserva.getCuarto().equals("")
+		&& (ventanaReserva.getFechaReserva()!=null)
+		&& (ventanaReserva.getFechaIngreso()!=null)
+		&& (ventanaReserva.getFechaEgreso()!=null)
+		&& (ventanaReserva.getCmbBoxUsuario().getSelectionModel().getSelectedItem()!=null) 
+		;
+		
+		condicionFormato = condicionFormato 
+		&& formatoMail(ventanaReserva.getEmail().getText())			
+		&& formatoNumerico(ventanaReserva.getMontoSenia().getText())	
+		&& formatoNumerico(ventanaReserva.getSenia().getText())	
+		;
+		
+		if (!condicionInput)
+			mostrarMensaje("Campos obligatorios vacios");
+		if (!condicionFormato)
+			mostrarMensaje("Contienen un formato incorrecto\\n");	
+		condicionCompleta = condicionInput && condicionFormato;
+		return condicionCompleta;
+
+	}
 	public static boolean validarPedido(ControladorAgregarOrdenPedido pedido) {
 		
 		boolean condicionCompleta = true;
@@ -254,6 +292,7 @@ public class Validador {
 		}	
 		
 		return condicionCompleta;
+
 	}
 	
 	public static void mostrarMensaje(String mensaje) {
@@ -263,5 +302,6 @@ public class Validador {
 
 		alert.showAndWait();
 	}
+
 
 }

@@ -38,4 +38,9 @@ public class OrdenPedido {
 		return this.ordenPedido.obtenerPedido(idPedido);
 	}
 
+	public List<OrdenPedidoDTO> buscarOrdenesPedidosPorReserva(int idCliente) {
+		return this.ordenPedido.buscarOrdenesPedidosPorReserva(idCliente);
+		
+	}
+
 }

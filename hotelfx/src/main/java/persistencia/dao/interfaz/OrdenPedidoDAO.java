@@ -18,5 +18,7 @@ public interface OrdenPedidoDAO {
 	
 	public OrdenPedidoDTO obtenerPedido(int idPedido);
 
+	public List<OrdenPedidoDTO> buscarOrdenesPedidosPorReserva(int idCliente);
+
 }
 

@@ -119,11 +119,6 @@ public class ControladorABMReservaEvento2 implements Initializable{
 	}
 	
 	
-	
-	
-	
-	
-	
 
 	 @FXML
 	    private void addReservaEvento(ActionEvent event) throws Exception 

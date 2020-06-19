@@ -145,7 +145,9 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void verABMClientes() {
 		try {
 			FxmlLoader fxmlLoader = new FxmlLoader();
+
 			Pane view	= fxmlLoader.getPage("VentanaABMCliente");
+			
 			mainPane.setCenter(view);
 
 		} catch(Exception e) {
