@@ -151,11 +151,11 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 	public void addReservaCuarto() throws Exception  {
 		 try { 
 		
-			 primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
+			 	primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
 				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
 				ControladorAgregarReservaCuarto controlador = fxmlLoader.getController();
 				controlador.setCmbBoxEstados(EstadoReserva.PENDIENTE);
-				controlador.setCmbBoxFormaPago();
+				//controlador.setCmbBoxFormaPago();
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				controlador.setFechaReserva(timestamp);
 				controlador.setCmbBoxUsuarioFirst();

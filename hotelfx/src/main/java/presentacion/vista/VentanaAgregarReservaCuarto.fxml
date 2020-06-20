@@ -57,7 +57,7 @@
                         </Pane>
                         <Label layoutX="45.0" layoutY="56.0" prefHeight="17.0" prefWidth="100.0" text="Fecha de egreso" />
                         <Label layoutX="43.0" layoutY="21.0" prefHeight="17.0" prefWidth="109.0" text="Fecha de Ingreso" />
-                        <DatePicker fx:id="fechaIngreso" layoutX="174.0" layoutY="17.0" onAction="#verificarFechas" onInputMethodTextChanged="#verificarFechas" styleClass="input-fecha" />
+                        <DatePicker fx:id="fechaIngreso" layoutX="174.0" layoutY="17.0" styleClass="input-fecha" />
                         <Label layoutX="251.0" layoutY="271.0" prefHeight="17.0" prefWidth="66.0" text="Monto seña" />
                         <ComboBox fx:id="cmbBoxFormaPago" layoutX="174.0" layoutY="345.0" onAction="#mostrarDatosTarjeta" prefHeight="25.0" prefWidth="150.0">
                            <opaqueInsets>
@@ -68,9 +68,9 @@
                         <Label layoutX="46.0" layoutY="271.0" prefHeight="17.0" prefWidth="66.0" text="Seña (%)" />
                         <TextField fx:id="email" layoutX="173.0" layoutY="230.0" prefHeight="25.0" prefWidth="175.0" />
                         <Label layoutX="45.0" layoutY="234.0" prefHeight="17.0" prefWidth="44.0" text="Email" />
-                        <DatePicker fx:id="fechaEgreso" layoutX="174.0" layoutY="52.0" onAction="#verificarFechas" onInputMethodTextChanged="#verificarFechas" styleClass="input-fecha" />
-                        <ComboBox fx:id="cmbBoxHoraIngreso" layoutX="380.0" layoutY="17.0" onAction="#verificarHoras" prefHeight="25.0" prefWidth="59.0" />
-                        <ComboBox fx:id="cmbBoxHoraEgreso" layoutX="380.0" layoutY="52.0" onAction="#verificarHoras" prefHeight="25.0" prefWidth="59.0" />
+                        <DatePicker fx:id="fechaEgreso" layoutX="174.0" layoutY="52.0"  styleClass="input-fecha" />
+                        <ComboBox fx:id="cmbBoxHoraIngreso" layoutX="380.0" layoutY="17.0" prefHeight="25.0" prefWidth="59.0" />
+                        <ComboBox fx:id="cmbBoxHoraEgreso" layoutX="380.0" layoutY="52.0"  prefHeight="25.0" prefWidth="59.0" />
                         <Pane fx:id="fechasCheck" layoutX="45.0" layoutY="94.0" prefHeight="63.0" prefWidth="412.0">
                            <children>
                               <DatePicker fx:id="fechaCheckOut" layoutX="130.0" layoutY="37.0" styleClass="input-fecha" />
@@ -91,7 +91,7 @@
                         <Button fx:id="btnAgregar" layoutX="24.0" layoutY="264.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
                         <Button fx:id="btnCerrar" layoutX="237.0" layoutY="264.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Cancelar" />
                         <Button fx:id="btnConsultarPendientes" layoutX="25.0" layoutY="219.0" mnemonicParsing="false" onAction="#consultarPendientes" prefHeight="30.0" prefWidth="150.0" text="Consultar" />
-                        <TextField fx:id="cuarto" layoutX="99.0" layoutY="50.0" onInputMethodTextChanged="#verMontoTotalySenia" prefHeight="25.0" prefWidth="180.0" />
+                        <TextField fx:id="cuarto" layoutX="99.0" layoutY="50.0" " prefHeight="25.0" prefWidth="180.0" />
                         <TextField fx:id="cliente" layoutX="99.0" layoutY="13.0" prefHeight="25.0" prefWidth="181.0" />
                         <Button fx:id="btnAgregarCliente" layoutX="293.0" layoutY="13.0" mnemonicParsing="false" onAction="#consultarCliente" text="Agregar" />
                         <Button fx:id="btnAgregarCuarto" layoutX="293.0" layoutY="50.0" mnemonicParsing="false" onAction="#consultarCuarto" text="Agregar" />

@@ -4,17 +4,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.time.Duration;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import dto.CuartoDTO;
-import dto.ProductoDTO;
 import dto.ReservaCuartoDTO;
-import dto.SalonDTO;
 import dto.ReservaCuartoDTO.EstadoReserva;
 import dto.ReservaCuartoDTO.FormaPago;
 import dto.ReservaCuartoDTO.TipoTarjeta;
@@ -24,8 +20,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -55,7 +49,6 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML private TextField cuarto;
 	@FXML private TextField cliente;
 	@FXML private TextField email;
-
 	@FXML private TextField numTarjeta;
 	@FXML private TextField fechaVecTarjeta;
 	@FXML private TextField codSeguridad;
@@ -152,16 +145,9 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	private void inicializarModelo() {
 		this.reservaCuarto = new ReservaCuarto(new DAOSQLFactory());
 		this.usuarios = new Usuario(new DAOSQLFactory());
+		this.cuartos = new Cuarto(new DAOSQLFactory());
 	}
 
-	private void visualizarBotones() {
-		this.btnAgregar.setVisible(true);
-		this.btnModificar.setVisible(true);
-		this.btnCerrar.setVisible(true);
-		this.btnAgregarCliente.setVisible(true);
-		this.btnAgregarCuarto.setVisible(true);
-		
-	}
 
 	private List<UsuarioDTO> cargarCmbBoxUsuario() {
 		List<UsuarioDTO> lista = this.usuarios.obtenerUsuarios();	
@@ -207,17 +193,17 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	{
 
 		ReservaCuartoDTO reserva = obtenerDatosReserva();
-		if(validador.validarReserva(this)) 
+		if(Validador.validarReserva(this)) 
 		{	
 			this.reservaCuarto.agregarReservaCuarto(reserva);	
-			validador.mostrarMensaje("Su reserva ha sido agregada con exito");
+			Validador.mostrarMensaje("Su reserva ha sido agregada con exito");
 			
 		}
 		
 	}
 
 	@FXML private void mostrarDatosTarjeta() {
-		if(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem().equals(FormaPago.EFECTIVO.name())){
+		if(this.cmbBoxFormaPago.getValue().equals(FormaPago.EFECTIVO.name())){
 			this.infoTarjeta.setVisible(false);
 		}
 		else {
@@ -225,14 +211,15 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		}
 	}
 
-
+@FXML
 	private ReservaCuartoDTO obtenerDatosReserva() {
 		
 		TipoTarjeta tipoTarjeta = TipoTarjeta.NO;
 		String NumeroTarjeta = "0";
 		String FechaVencTarjeta = "0";
 		String CodSeguridadTarjeta = "0";	
-		this.formaPago = FormaPago.valueOf(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem());
+		FormaPago formaPago = FormaPago.valueOf(this.cmbBoxFormaPago.getValue());
+
 
 		LocalDate localInicioReserva =  this.fechaReserva.getValue();
 		LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
@@ -252,15 +239,14 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 			idUsuario = this.cmbBoxUsuario.getValue().getIdPerfil();
 		}
 		BigDecimal senia = new BigDecimal(0);
-		if(!this.senia.getText().isEmpty()) {
-		
-		//	BigDecimal.valueOf(this.senia.getText());
-			senia = new BigDecimal(this.senia.getText());
-		}
+		//if(!this.senia.getText().isEmpty()) {
+			//senia = new BigDecimal(this.senia.getText());
+	//	}
 		BigDecimal montoReservaCuarto =new BigDecimal(0);
-		if(!this.montoSenia.getText().isEmpty()) {
-			montoReservaCuarto = new BigDecimal(this.montoSenia.getText());
-		}
+		//if(!this.montoSenia.getText().isEmpty()) {
+			//montoReservaCuarto = new BigDecimal(this.montoSenia.getText());
+		//}
+		
 		String emailFacturacion = "";
 		if(Validador.formatoMail(this.email.getText())) {
 			emailFacturacion = this.email.getText();
@@ -325,7 +311,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		if(fechaCheckIn!=null) 
 		{
 			reserva.setFechaCheckIn(fechaCheckIn);
-			if(validador.validarReserva(this)) 
+			if(Validador.validarReserva(this)) 
 			{
 				this.reservaCuarto.modificarReservaCuarto(reserva);
 			}
@@ -334,7 +320,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		{
 			reserva.setFechaCheckIn(fechaCheckIn);
 			reserva.setFechaOut(fechaOut);
-			if(validador.validarReserva(this)) 
+			if(Validador.validarReserva(this)) 
 			{
 				this.reservaCuarto.modificarReservaCuarto(reserva);				
 			}
@@ -344,7 +330,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML 
 	public void consultarCuarto() {
 		 try { 
-				if(ingresoFechas() && !this.cliente.getText().isEmpty()) {
+				if(ingresoFechas()) {
 				primaryStage.setScene(fxml.getScene("VentanaABMCuarto"));   
 				FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 				ControladorABMCuarto scene2Controller = fxmlLoader.getController();
@@ -359,7 +345,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 					stage.close();
 				}
 				else {
-					validador.mostrarMensaje("El ingreso de fechas y el cliente son obligatorias para esta consulta");
+					Validador.mostrarMensaje("El ingreso de fechas y el cliente son obligatorias para esta consulta");
 				}
 		       			
 		     } catch(Exception e) { 
@@ -370,6 +356,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	@FXML 
 	public void consultarCliente() {
 		 try { 
+			 
 					if(ingresoFechas()) {
 						primaryStage.setScene(fxml.getScene("VentanaABMCliente"));   
 						FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
@@ -381,10 +368,8 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 						stage.close();
 					}
 					else {
-						validador.mostrarMensaje("El ingreso de fechas son obligatorias para esta consulta");
+						Validador.mostrarMensaje("El ingreso de fechas son obligatorias para esta consulta");
 					}
-			  
-		       
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
@@ -429,7 +414,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.cuarto.setText(idCuarto+"");
 	}
 		
-	@FXML
+	
 	public void modificarPantallaConsulta(ReservaCuartoDTO reserva) {
 		
 		ocultarBotonesConsulta();
@@ -438,7 +423,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 		this.reserva =  reserva;
 	
 	}
-	@FXML
+	
 	public void pasarIdReserva(int id) {
 		this.idReserva = id;
 	}
@@ -554,7 +539,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 				this.fechaEgreso.setValue(null);
 			
 				//this.senia.setText(null);
-				this.cantidadHoras = BigDecimal.valueOf(0);
+				this.setCantidadHoras(BigDecimal.valueOf(0));
 				this.cmbBoxHoraEgreso.setItems(null);
 				this.listaCmbBoxHorasEgreso = FXCollections.observableList(cargarCombosHorasFin());
 				this.cmbBoxHoraEgreso.setItems(listaCmbBoxHorasEgreso);
@@ -567,7 +552,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 				this.cmbBoxHoraEgreso.setItems(listaCmbBoxHorasEgreso);
 		
 				//this.senia.setText(null);
-				this.cantidadHoras = BigDecimal.valueOf(0);
+				this.setCantidadHoras(BigDecimal.valueOf(0));
 				verificarHoras();
 			}
 			
@@ -590,7 +575,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 				this.cmbBoxHoraEgreso.setItems(listaCmbBoxHorasEgreso);
 	
 				//this.senia.setText(null);
-				this.cantidadHoras = BigDecimal.valueOf(0);
+				this.setCantidadHoras(BigDecimal.valueOf(0));
 			}
 			
 		}
@@ -600,13 +585,15 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 			this.listaCmbBoxHorasEgreso = FXCollections.observableList(cargarCombosHoras());
 			this.cmbBoxHoraEgreso.setItems(listaCmbBoxHorasEgreso);
 			//this.senia.setText(null);
-			this.cantidadHoras = BigDecimal.valueOf(0);
+			this.setCantidadHoras(BigDecimal.valueOf(0));
 		}
 		/*else {
 			verMontoTotalySenia();
 		}*/
 		
 	}
+	
+	/*
 	@FXML
 	public void verMontoTotalySenia(int i) {
 		Integer horaInicioCombo = cmbBoxHoraIngreso.getValue();
@@ -653,7 +640,7 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 			this.cantidadHoras =  BigDecimal.valueOf(0);
 		}
 		
-	}
+	}*/
 
 	public TextField getCuarto() {
 		return cuarto;
@@ -740,25 +727,36 @@ public class ControladorAgregarReservaCuarto implements Initializable{
 	}
 
 	public void setCmbBoxEstados(EstadoReserva pendiente) {
-		// TODO Auto-generated method stub
+
 		this.cmbBoxEstados.setValue(pendiente.name());
 	}
 
 	public void setFechaReserva(Timestamp timestamp) {
-		// TODO Auto-generated method stub
+
 		this.fechaReserva.setValue(timestamp.toLocalDateTime().toLocalDate());
 		this.cmbBoxHoraReserva.setValue(timestamp.toLocalDateTime().getHour());
 	}
 
 	public void setCmbBoxUsuarioFirst() {
-		// TODO Auto-generated method stub
+	
 		this.cmbBoxUsuario.getSelectionModel().selectFirst(); 
 	}
 
-	public void setCmbBoxFormaPago() {
-		// TODO Auto-generated method stub
-		this.cmbBoxFormaPago.getSelectionModel().selectFirst();
-		//this.formaPago=FormaPago.valueOf(cmbBoxFormaPago.getSelectionModel().getSelectedItem()); 
+	public BigDecimal getMontoTotal() {
+		return montoTotal;
 	}
+
+	public void setMontoTotal(BigDecimal montoTotal) {
+		this.montoTotal = montoTotal;
+	}
+
+	public BigDecimal getCantidadHoras() {
+		return cantidadHoras;
+	}
+
+	public void setCantidadHoras(BigDecimal cantidadHoras) {
+		this.cantidadHoras = cantidadHoras;
+	}
+
 
 }

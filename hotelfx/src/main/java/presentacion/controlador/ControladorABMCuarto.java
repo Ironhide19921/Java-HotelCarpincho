@@ -225,7 +225,7 @@ public class ControladorABMCuarto implements Initializable
 			ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
 			scene2Controller.setearCampos(reserva);
 			scene2Controller.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
-			scene2Controller.verMontoTotalySenia(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
+		//	scene2Controller.verMontoTotalySenia(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
 			Stage stage = (Stage) btnSeleccionarCuarto.getScene().getWindow();
 			stage.close();
 			Stage primaryStage = new Stage(); 

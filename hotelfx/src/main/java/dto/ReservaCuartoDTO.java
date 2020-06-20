@@ -210,7 +210,6 @@ public class ReservaCuartoDTO {
 	}
 
 	public void setFormaPago(FormaPago formaPago) {
-		this.formaPago = formaPago;
 	}
 
 	public TipoTarjeta getTipoTarjeta() {
