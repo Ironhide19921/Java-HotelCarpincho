@@ -69,10 +69,7 @@ public class ControladorBackup implements Initializable{
 		config = ControladorConexionConfig.leerFicheroConexion();
 
 		try {
-			Process p = Runtime.getRuntime().exec(
-			//Este path hay que cambiarlo con el absoluto de la instalación!!!
-					//"C:\\Users\\marcos\\Documents\\Facultad\\Especificacion\\TP talleres\\Base\\mysql-5.7.19-winx64\\bin\\mysqldump -u labo -p1234 hotel");
-					".\\sql\\bin\\mysqldump -u "+config.getUser()+" -p"+config.getPass()+" hotel");
+			Process p = Runtime.getRuntime().exec(".\\sql\\bin\\mysqldump -u "+config.getUser()+" -p"+config.getPass()+" hotel");
 			
 			Date hoy = new Date(System.currentTimeMillis());
 			
@@ -105,10 +102,7 @@ public class ControladorBackup implements Initializable{
 
 			Conexion.getConexion().cerrarConexion();
 
-			Process p = Runtime.getRuntime().exec(
-					// Este path hay que cambiarlo con el absoluto de la instalación!!!
-					//"C:\\Users\\marcos\\Documents\\Facultad\\Especificacion\\TP talleres\\Base\\mysql-5.7.19-winx64\\bin\\mysql -u labo -p1234 hotel");
-					".\\sql\\bin\\mysql -u "+config.getUser()+" -p"+config.getPass()+" hotel");
+			Process p = Runtime.getRuntime().exec(".\\sql\\bin\\mysql -u "+config.getUser()+" -p"+config.getPass()+" hotel");
 
 			OutputStream os = p.getOutputStream();
 			FileInputStream fis = new FileInputStream(archivoSeleccionado);
@@ -134,7 +128,6 @@ public class ControladorBackup implements Initializable{
 	
 	public Date fechaUltimoBackup() {
 		
-			//File file = new File("C:\\Users\\marcos\\Desktop\\carpinchofx\\hotelfx\\Backups"); 
 			File file = new File(".\\backups");
 			Date fecha = new Date(file.getAbsoluteFile().lastModified());
 			

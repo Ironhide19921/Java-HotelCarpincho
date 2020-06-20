@@ -15,41 +15,52 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <center>
-            <Pane prefHeight="400.0" prefWidth="526.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="450.0" prefWidth="559.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField id="txtNombre" fx:id="txtNombre" layoutX="151.0" layoutY="35.0" prefHeight="30.0" prefWidth="200.0" />
-                  <Text layoutX="31.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo perfil:" />
+                  <TextField id="txtNombre" fx:id="txtNombre" layoutX="209.0" layoutY="36.0" prefHeight="30.0" prefWidth="200.0" />
+                  <Text layoutX="31.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo perfil:" />
                   <Text layoutX="31.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar perfil:" />
-                  <ComboBox fx:id="comboPerfiles" layoutX="151.0" layoutY="113.0" onAction="#refrescarPermisos" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="30.0" prefWidth="200.0" promptText="Selecciona perfil" />
-                  <CheckBox fx:id="checkABMUsuarios" layoutX="45.0" layoutY="227.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="ABM Usuarios" />
-                  <CheckBox fx:id="checkABMClientes" layoutX="45.0" layoutY="257.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="ABM Clientes" />
-                  <CheckBox fx:id="checkABMCuartos" layoutX="45.0" layoutY="283.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="ABM Cuartos" />
-                  <Button fx:id="btnAgregarTodos" layoutX="221.0" layoutY="170.0" mnemonicParsing="false" onAction="#agregarTodos" prefHeight="30.0" prefWidth="120.0" text="Agregar todos" />
-                  <Button fx:id="btnQuitarTodos" layoutX="357.0" layoutY="170.0" mnemonicParsing="false" onAction="#quitarTodos" prefHeight="30.0" prefWidth="120.0" text="Quitar todos" />
-                  <Line endX="343.0" layoutX="137.0" layoutY="94.0" startX="-100.0" />
+                  <ComboBox fx:id="comboPerfiles" layoutX="209.0" layoutY="114.0" onAction="#refrescarPermisos" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="30.0" prefWidth="200.0" promptText="Selecciona perfil" />
+                  <CheckBox fx:id="checkABMUsuarios" layoutX="31.0" layoutY="227.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Usuarios" />
+                  <CheckBox fx:id="checkABMClientes" layoutX="31.0" layoutY="257.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Clientes" />
+                  <CheckBox fx:id="checkABMCuartos" layoutX="31.0" layoutY="287.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Cuartos" />
+                  <Button fx:id="btnAgregarTodos" layoutX="126.0" layoutY="170.0" mnemonicParsing="false" onAction="#agregarTodos" prefHeight="30.0" prefWidth="120.0" text="Agregar todos" />
+                  <Button fx:id="btnQuitarTodos" layoutX="289.0" layoutY="170.0" mnemonicParsing="false" onAction="#quitarTodos" prefHeight="30.0" prefWidth="120.0" text="Quitar todos" />
+                  <Line endX="446.0" layoutX="137.0" layoutY="94.0" startX="-107.0" />
                   <Label layoutX="31.0" layoutY="176.0" prefHeight="17.0" prefWidth="75.0" text="Permisos" />
-                  <Button fx:id="btnCrearPerfil" layoutX="377.0" layoutY="35.0" mnemonicParsing="false" onAction="#crearPerfil" prefHeight="30.0" prefWidth="100.0" text="Crear" />
-                  <Button fx:id="btnEliminarPerfil" layoutX="377.0" layoutY="113.0" mnemonicParsing="false" onAction="#eliminarPerfil" prefHeight="30.0" prefWidth="100.0" text="Eliminar" />
+                  <Button fx:id="btnCrearPerfil" layoutX="481.0" layoutY="36.0" mnemonicParsing="false" onAction="#crearPerfil" prefHeight="30.0" prefWidth="100.0" text="Crear" />
+                  <Button fx:id="btnEliminarPerfil" layoutX="481.0" layoutY="114.0" mnemonicParsing="false" onAction="#eliminarPerfil" prefHeight="30.0" prefWidth="100.0" text="Eliminar" />
+                  <CheckBox fx:id="checkABMProductos" layoutX="31.0" layoutY="317.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Productos" />
+                  <CheckBox fx:id="checkABMReservaCuarto" layoutX="31.0" layoutY="347.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Reserva - Cuarto" />
+                  <CheckBox fx:id="checkABMReservaEvento" layoutX="31.0" layoutY="377.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Reserva - Evento" />
+                  <CheckBox fx:id="checkImportarReservas" layoutX="209.0" layoutY="227.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Importación de reservas" />
+                  <CheckBox fx:id="checkABMCategoriaEvento" layoutX="209.0" layoutY="257.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Categoría - Evento" />
+                  <CheckBox fx:id="checkABMPerfiles" layoutX="209.0" layoutY="287.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Perfiles" />
+                  <CheckBox fx:id="checkABMCategoriaCuarto" layoutX="209.0" layoutY="317.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Categoría - Cuarto" />
+                  <CheckBox fx:id="checkABMSalones" layoutX="209.0" layoutY="347.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Salones" />
+                  <CheckBox fx:id="checkConfiguracionEmail" layoutX="209.0" layoutY="377.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Configuración de email" />
+                  <CheckBox fx:id="checkABMOrdenPedidos" layoutX="409.0" layoutY="227.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Orden de pedidos" />
+                  <CheckBox fx:id="checkGestionBackups" layoutX="409.0" layoutY="257.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Gestion de backups" />
                </children>
             </Pane>
          </center>
          <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="450.0" prefWidth="164.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="450.0" prefWidth="61.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnConfirmarPermisos" layoutX="207.0" layoutY="14.0" mnemonicParsing="false" onAction="#confirmarPermisos" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
+                  <Button fx:id="btnConfirmarPermisos" layoutX="375.0" layoutY="14.0" mnemonicParsing="false" onAction="#confirmarPermisos" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
                </children>
             </Pane>
          </bottom>
          <top>
             <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="223.0" layoutY="28.0" prefHeight="18.0" prefWidth="274.0" text="Perfiles" />
+                  <Label layoutX="193.0" layoutY="27.0" prefHeight="18.0" prefWidth="274.0" text="Perfiles" />
                </children>
             </Pane>
          </top>

@@ -1,20 +1,28 @@
 package main;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import persistencia.conexion.Conexion;
+import presentacion.controlador.ControladorMenuPrincipal;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
 public class Main extends Application {
 	
-	private Stage stage;
+	public static Stage stage;
 	
 	@Override
 	public void start(Stage primaryStage) {
-		try {
+		Conexion.getConexion();
 		
+		if(Conexion.ejecucion.equals("Cancelar")) {
+			System.exit(1);
+		}
+		
+		try {
 			Parent root = (Parent) FXMLLoader.load(getClass().getResource("/presentacion/vista/MenuPrincipal.fxml")); 
 	
 			primaryStage.setTitle("Menu Principal");

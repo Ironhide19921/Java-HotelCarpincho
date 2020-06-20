@@ -5,9 +5,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import org.apache.log4j.Logger;
 
 import dto.ConexionConfigDTO;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,10 +29,14 @@ public class Conexion {
 	public static Conexion instancia;
 	private Connection connection;
 	private Logger log = Logger.getLogger(Conexion.class);
-
 	
+	public static String ejecucion = "Aceptar";
+	
+	ControladorMenuPrincipal menuPrincipal = new ControladorMenuPrincipal();
+
 	private Conexion() {
 		int estado=0;
+		
 		
 		while(estado==0) {
 
@@ -43,32 +50,18 @@ public class Conexion {
 			log.info("ConexiÃ³n exitosa");
 			estado=1;
 		}
-		catch(Exception e){
-			Validador.mostrarMensaje("Error de conexión con la base de datos, favor de verificar que los datos de inicio sean correctos");
-			
-			try { 
-			    Stage primaryStage = new Stage(); 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaConexionConfig.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				Parent root = (Parent) fxmlLoader.load();
-		
-				primaryStage.setScene(new Scene(root));
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				//ControladorConexionConfig scene2Controller = fxmlLoader.getController();
-				
-				primaryStage.setTitle("Configuracion de conexion");
-				primaryStage.sizeToScene();
-				
-				primaryStage.showAndWait();
-		       
-		     } catch(Exception f) { 
-		      e.printStackTrace(); 
-		     } 
+		catch (Exception e) {
+			ejecucion = Validador.mostrarMensajeOpcion();
+			if(ejecucion.equals("Aceptar")) {
+				menuPrincipal.verVentanaConexion();
+			}
+			if(ejecucion.equals("Cancelar")) {
+				break;
+			}
 		}
-		}
+	}
 		
 	}
-	
 	
 	public static Conexion getConexion()   
 	{								
