@@ -40,6 +40,7 @@ import modelo.CategoriaEvento;
 import modelo.Cliente;
 import modelo.ReservaEvento;
 import modelo.Ticket;
+import modelo.Validador;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.reportes.ReporteReservaEvento;
@@ -295,6 +296,7 @@ public class ControladorABMReservaEvento implements Initializable{
 		else {
 			crearTabla(getNuevasReservas());	
 		}
+		this.btnIniciarReserva.setVisible(false);
 	}
 	
 	
@@ -303,7 +305,7 @@ public class ControladorABMReservaEvento implements Initializable{
 	public void finalizarReserva() {
 		int idReserva = tablaReservasCliente.getSelectionModel().getSelectedItem().getIdReservaEvento();
 		Timestamp ingreso = tablaReservasCliente.getSelectionModel().getSelectedItem().getFechaIngreso();
-		Timestamp egreso = new Timestamp(System.currentTimeMillis());;
+		Timestamp egreso = new Timestamp(System.currentTimeMillis());
 		checkincheckoutReserva(ingreso, egreso, idReserva);
 		this.reservaEvento.cambiarEstadoReserva(idReserva, String.valueOf(dto.ReservaEventoConNombresDTO.EstadoReserva.FINALIZADO));
 		if(clienteActual == 0) {
@@ -312,12 +314,13 @@ public class ControladorABMReservaEvento implements Initializable{
 		else {
 			crearTabla(getNuevasReservas());	
 		}
+		this.btnFinalizarReserva.setVisible(false);
 	}
 	
 	@FXML
 	public void generarReporteReservaEvento() {
 		if(tablaReservasCliente.getSelectionModel().getSelectedItem().getEstado() != ReservaEventoConNombresDTO.EstadoReserva.FINALIZADO) {
-			mostrarMensaje("Para generar el ticket de una reserva primero debe estar FINALIZADA.");
+			Validador.mostrarMensaje("Para generar el ticket de una reserva primero debe estar FINALIZADA.");
 		}else {
 			List<ReservaEventoDTO> reservas = this.reservaEvento.obtenerReservasEvento();
 			
@@ -362,14 +365,6 @@ public class ControladorABMReservaEvento implements Initializable{
 			reporte.mostrar();
 		}
 		
-	}
-	
-	private void mostrarMensaje(String mensaje) {
-		alert.setTitle("Información");
-		alert.setHeaderText(null);
-		alert.setContentText(mensaje);
-
-		alert.showAndWait();
 	}
 	
 	private void checkincheckoutReserva(Timestamp ingreso, Timestamp egreso, int idReserva2) {

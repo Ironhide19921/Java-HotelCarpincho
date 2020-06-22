@@ -62,8 +62,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirABMSalones;
 	@FXML
 	private Button btnAbrirABMCategoriaEvento;
-	@FXML
-	private Button btnMenuReservaEvento;
+
 	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
