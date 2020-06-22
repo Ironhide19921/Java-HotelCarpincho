@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import dto.CategoriaCuartoDTO;
 import dto.CategoriaEventoDTO;
 import dto.CuartoDTO;
+import dto.ReservaEventoDTO;
 import dto.SalonDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +28,8 @@ import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
 import modelo.CategoriaEvento;
 import modelo.Cuarto;
+import modelo.ReservaEvento;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorABMCategoriaEvento implements Initializable{
@@ -34,7 +37,7 @@ public class ControladorABMCategoriaEvento implements Initializable{
 	@FXML private Button btnAgregar;
 	@FXML private Button btnEditar;
 	@FXML private Button btnRefrescar;
-	@FXML private Button btnEliminarCategoriaEvento;
+	@FXML private Button btnEliminar;
 	@FXML private TableColumn id;
 	@FXML private TableColumn nombre;
 	@FXML private TableColumn detalle;
@@ -42,12 +45,14 @@ public class ControladorABMCategoriaEvento implements Initializable{
 	private CategoriaEvento categoriaEvento;
 	private ArrayList<Integer> listaIdCategoriaEventos;
 	private Alert alert;
+	private ReservaEvento reservaEvento;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		this.categoriaEvento = new CategoriaEvento(new DAOSQLFactory());
 		this.alert = new Alert(AlertType.INFORMATION);
+		this.reservaEvento = new ReservaEvento(new DAOSQLFactory());
 		
 		activeSession = FXCollections.observableArrayList();
 		tablaCategoriasEvento.getItems().clear();
@@ -117,38 +122,25 @@ public class ControladorABMCategoriaEvento implements Initializable{
     }
 	 
 	@FXML
-    private void eliminarCategoria(ActionEvent event) throws Exception 
+    private void eliminarCategoriaEvento(ActionEvent event) throws Exception 
     {
-//	     try {
-//	    	refrescarListaIdCategoriaEvento();
-//	    	 
-//	    	if(this.listaIdCategoriaEventos.contains(tablaCategoriasEvento.getSelectionModel().getSelectedItem().getId())){
-//	    		mostrarMensaje("Categoria utilizada por un cuarto, no se puede borrar");
-//	    		return;
-//	    	}
-//	    	CategoriaEventoDTO categoriaEvento =  tablaCategoriasEvento.getSelectionModel().getSelectedItem();
-//	    	this.categoriaEvento.borrarCategoriaEvento(categoriaEvento);
-//		    refrescarTabla();
-//	    	
-//	     } catch(Exception e) { 
-//	      e.printStackTrace(); 
-//	     } 
+	     try {	    	 
+	    	List<ReservaEventoDTO> reservas = this.reservaEvento.obtenerReservasEvento();
+	    	 for(ReservaEventoDTO r : reservas) {
+	    		if(tablaCategoriasEvento.getSelectionModel().getSelectedItem().getId() == r.getIdCategoriaEvento()){
+	    			Validador.mostrarMensaje("Categoria utilizada en una reserva, no se puede borrar");
+	 	    		return;
+	 	    	}
+	    	 }
+	    	 CategoriaEventoDTO categoriaEvento =  tablaCategoriasEvento.getSelectionModel().getSelectedItem();
+    		 this.categoriaEvento.borrarCategoriaEvento(categoriaEvento);
+ 	    	 refrescarTabla();
+	    	 
+	    	
+	     } catch(Exception e) { 
+	      e.printStackTrace(); 
+	     } 
     }
- 
-//	private void refrescarListaIdCategoriaEvento() {
-//		for(ReservaEventoDTO reserva: reserva.obtenerReservas()) {
-//			this.listaIdCategoriaEventos.add(reserva.getId());
-//		}
-//	}	
-	
-//	private void mostrarMensaje(String mensaje) {
-//		alert.setTitle("Información");
-//		alert.setHeaderText(null);
-//		alert.setContentText(mensaje);
-//
-//		alert.showAndWait();
-//	}
-
 	
 	private void crearTabla(ObservableList<CategoriaEventoDTO> lista) {
 		tablaCategoriasEvento.setItems(lista);

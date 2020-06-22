@@ -38,11 +38,8 @@ public class Conexion {
 		config = ControladorConexionConfig.leerFicheroConexion();
 		
 		try{
-			/*
-<<<<<<< HEAD
-			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","pass");
-=======*/
+		
+
 			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","labo","1234");
 			/*Class.forName("com.mysql.jdbc.Driver");
