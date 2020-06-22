@@ -26,15 +26,7 @@ public class ReservaEventoDAOSQL implements ReservaEventoDAO {
 	private static final String readAllCliente = "SELECT * FROM reservaevento WHERE idCliente = ?";
 	private static final String setCheckinCheckout = "UPDATE reservaevento SET FechaIngreso = ?, FechaEgreso = ? WHERE idReservaEvento = ?";
 	private static final String updateEstado = "UPDATE reservaevento SET EstadoReserva = ? WHERE idReservaEvento = ?";
-	//fechainicio -> primer y segundo parametro //fechafin tercer y cuarto-> parametro
-	//FechaInicioReserva
-	//FechaFinReserva
-	//idReservaEvento
-	private static final String idReservasEntreFechas = "SELECT * FROM reservaevento WHERE ((FechaInicioReserva BETWEEN ? AND ?) AND (FechaInicioReserva <> ?)) OR ((FechaFinReserva BETWEEN ? AND ?) AND (FechaFinReserva <> ?)) OR ((? BETWEEN FechaInicioReserva AND FechaFinReserva) AND (FechaFinReserva <> ?)) OR ((? BETWEEN FechaInicioReserva AND FechaFinReserva) AND (? <> FechaInicioReserva)) AND EstadoReserva <> 'CANCELADO'";
-	
-	//necesito la lista de reservas entre dos fechas
-	//devuelve un array de objetos
-	
+	private static final String idReservasEntreFechas = "SELECT * FROM reservaevento WHERE (EstadoReserva <> 'CANCELADO' AND EstadoReserva <> 'FINALIZADO') AND (((FechaInicioReserva BETWEEN ? AND ?) AND (FechaInicioReserva <> ?)) OR ((FechaFinReserva BETWEEN ? AND ?) AND (FechaFinReserva <> ?)) OR ((? BETWEEN FechaInicioReserva AND FechaFinReserva) AND (FechaFinReserva <> ?)) OR ((? BETWEEN FechaInicioReserva AND FechaFinReserva) AND (? <> FechaInicioReserva)))";	
 	
 	
 	@Override

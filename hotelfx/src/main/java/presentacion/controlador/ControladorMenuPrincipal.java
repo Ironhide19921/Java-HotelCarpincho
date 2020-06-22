@@ -62,8 +62,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirABMSalones;
 	@FXML
 	private Button btnAbrirABMCategoriaEvento;
-	@FXML
-	private Button btnMenuReservaEvento;
+
 	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
@@ -268,7 +267,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void verMenuReservaEvento() {
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
-			 Pane view	= fxmlLoader.getPage("VentanaABMReservaEvento2");
+			 Pane view	= fxmlLoader.getPage("VentanaABMReservaEvento");
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {
