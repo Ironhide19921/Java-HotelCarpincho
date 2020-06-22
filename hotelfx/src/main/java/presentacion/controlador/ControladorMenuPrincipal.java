@@ -69,6 +69,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Pane pane;
 	@FXML
 	private ObservableList<ClienteDTO> clientesAencuestar;
+	private List<EncuestaDTO> encuestasTodos;
 	
 	Date hoy = new Date(System.currentTimeMillis());
 	
@@ -83,6 +84,8 @@ public class ControladorMenuPrincipal implements Initializable{
 		this.encuesta = new Encuesta(new DAOSQLFactory());
 		clientesAencuestar = FXCollections.observableArrayList();
 		this.clientesAencuestar = getClientesAencuestar();
+		encuestasTodos = FXCollections.observableArrayList();
+		this.encuestasTodos = encuesta.obtenerEncuestas();
 		manejoEncuestas();
 		
 //		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
@@ -97,6 +100,18 @@ public class ControladorMenuPrincipal implements Initializable{
 
 
 	private void manejoEncuestas() {
+		for(EncuestaDTO e: encuestasTodos) {
+			try {
+				if(SendHttp.actualizarEncuestaRespondida(e.getRecipiente()).equals("si")) {
+					encuesta.modificarEncuesta(e.getIdEncuesta());
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		
 		if(clientesAencuestar.size()>0) {
 			try {
 				String collector="";
@@ -132,6 +147,9 @@ public class ControladorMenuPrincipal implements Initializable{
 
 	private ObservableList<ClienteDTO> getClientesAencuestar() {
 		List<ClienteDTO> clientes = this.cliente.obtenerClientesaEncuestar();
+		if(clientes.size()==0) {
+			Validador.mostrarMensaje("Sin clientes en condiciones para enviar encuestas");
+		}
 		clientesAencuestar.clear();
 		for(ClienteDTO c : clientes) {
 			clientesAencuestar.add(c);

@@ -7,16 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.CuartoDTO;
 import dto.EncuestaDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.EncuestaDAO;
 
 public class EncuestaDAOSQL implements EncuestaDAO{
 	
-	private static final String insert = "INSERT INTO encuesta(idEncuesta, idCliente, recipiente) "
-			+ "VALUES(?, ?, ?)";
+	private static final String insert = "INSERT INTO encuesta(idEncuesta, idCliente, recipiente, encuestado) "
+			+ "VALUES(?, ?, ?, ?)";
 	private static final String readall = "SELECT * FROM encuesta";
 	private static final String search1 = "SELECT * FROM encuesta WHERE idCliente = ?";
+	private static final String update = "UPDATE encuesta SET encuestado = true WHERE idEncuesta = ?";
 	
 	@Override
 	public boolean insert(EncuestaDTO encuesta) {
@@ -29,6 +31,7 @@ public class EncuestaDAOSQL implements EncuestaDAO{
 			statement.setInt(1, encuesta.getIdEncuesta());
 			statement.setInt(2, encuesta.getIdCliente());
 			statement.setString(3, encuesta.getRecipiente());
+			statement.setBoolean(4, encuesta.isEncuestado());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isInsertExitoso = true;
@@ -71,8 +74,9 @@ public class EncuestaDAOSQL implements EncuestaDAO{
 		int idEncuesta = resultSet.getInt("idEncuesta");
 		int idCliente = resultSet.getInt("idCliente");
 		String recipiente = resultSet.getString("recipiente");
+		boolean encuestado = resultSet.getBoolean("encuestado");
 		
-		return new EncuestaDTO(idEncuesta, idCliente, recipiente);
+		return new EncuestaDTO(idEncuesta, idCliente, recipiente, encuestado);
 	}
 	
 	
@@ -101,6 +105,27 @@ public class EncuestaDAOSQL implements EncuestaDAO{
 			}
 		}
 		return encuesta;
+	}
+	
+	@Override
+	public void update(int idEncuesta) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		try{
+			statement = conexion.prepareStatement(update);
+			statement.setInt(1, idEncuesta);			
+			
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 
 }
