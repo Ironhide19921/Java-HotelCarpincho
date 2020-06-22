@@ -219,10 +219,10 @@ public class ControladorABMCuarto implements Initializable
 	 @FXML
 	 public void seleccionarCuarto() throws IOException {
 		 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto1.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load(); 	
-			ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+			ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();
 			scene2Controller.setearCampos(reserva);
 			scene2Controller.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
 		//	scene2Controller.verMontoTotalySenia(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
