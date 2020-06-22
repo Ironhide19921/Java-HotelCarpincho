@@ -6,7 +6,8 @@ import java.text.SimpleDateFormat;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import presentacion.controlador.ControladorAgregarCliente;
-import presentacion.controlador.ControladorAgregarReservaCuarto;
+
+import presentacion.controlador.ControladorAgregarReservaCuarto1;
 import presentacion.controlador.ControladorAgregarUsuario;
 import presentacion.controlador.ControladorAgregarOrdenPedido;
 
@@ -127,28 +128,28 @@ public class Validador {
 	
 
 
-	public static boolean validarReserva(ControladorAgregarReservaCuarto ventanaReserva){
+	public static boolean validarReserva(ControladorAgregarReservaCuarto1 controladorAgregarReservaCuarto1){
 		
 		boolean condicionCompleta = true;
 		boolean condicionInput = true;
 		boolean condicionFormato = true;
 		
 		condicionInput = condicionInput
-		&& !ventanaReserva.getEmail().equals("")
-		&& (ventanaReserva.getCmbBoxFormaPago().getSelectionModel().getSelectedItem()!=null)
-		&& !ventanaReserva.getCliente().equals("")
+		&& !controladorAgregarReservaCuarto1.getEmail().equals("")
+		&& (controladorAgregarReservaCuarto1.getCmbBoxFormaPago().getSelectionModel().getSelectedItem()!=null)
+		&& !controladorAgregarReservaCuarto1.getCliente().equals("")
 
-		&& !ventanaReserva.getCuarto().equals("")
-		&& (ventanaReserva.getFechaReserva()!=null)
-		&& (ventanaReserva.getFechaIngreso()!=null)
-		&& (ventanaReserva.getFechaEgreso()!=null)
-		&& (ventanaReserva.getCmbBoxUsuario().getSelectionModel().getSelectedItem()!=null) 
+		&& !controladorAgregarReservaCuarto1.getCuarto().equals("")
+		&& (controladorAgregarReservaCuarto1.getFechaReserva()!=null)
+		&& (controladorAgregarReservaCuarto1.getFechaIngreso()!=null)
+		&& (controladorAgregarReservaCuarto1.getFechaEgreso()!=null)
+		&& (controladorAgregarReservaCuarto1.getCmbBoxUsuario().getSelectionModel().getSelectedItem()!=null) 
 		;
 		
 		condicionFormato = condicionFormato 
-		&& formatoMail(ventanaReserva.getEmail().getText())			
-		&& formatoNumerico(ventanaReserva.getMontoSenia().getText())	
-		&& formatoNumerico(ventanaReserva.getSenia().getText())	
+		&& formatoMail(controladorAgregarReservaCuarto1.getEmail().getText())			
+		&& formatoNumerico(controladorAgregarReservaCuarto1.getMontoSenia().getText())	
+		&& formatoNumerico(controladorAgregarReservaCuarto1.getSenia().getText())	
 		;
 		
 		if (!condicionInput)
@@ -159,6 +160,7 @@ public class Validador {
 		return condicionCompleta;
 
 	}
+	
 	public static boolean validarPedido(ControladorAgregarOrdenPedido pedido) {
 		
 		boolean condicionCompleta = true;
