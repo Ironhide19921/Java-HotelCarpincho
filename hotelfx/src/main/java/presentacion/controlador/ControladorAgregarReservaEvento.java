@@ -165,7 +165,11 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			if(!(formaPago.equals(FormaPago.EFECTIVO))){
 				tipoTarjeta = TipoTarjeta.valueOf(comboTarjetas.getValue());
 				
-				if(!(Validador.formatoVisa(numeroTarjeta.getText(), codSeguridadTarjeta.getText())) || !(Validador.formatoMaster(numeroTarjeta.getText(), codSeguridadTarjeta.getText())) ) {
+				if(tipoTarjeta.toString() == "VISA" && !(Validador.formatoVisa(numeroTarjeta.getText(), codSeguridadTarjeta.getText())) ) {
+					Validador.mostrarMensaje("Error en datos de la tarjeta");
+					return;
+				}
+				if(tipoTarjeta.toString() == "MASTERCARD" && !(Validador.formatoMaster(numeroTarjeta.getText(), codSeguridadTarjeta.getText()))) {
 					Validador.mostrarMensaje("Error en datos de la tarjeta");
 					return;
 				}
@@ -675,7 +679,9 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		List<String> lista = new ArrayList<>();
 		TipoTarjeta[] tiposTarjeta = TipoTarjeta.values();
 		for(TipoTarjeta t : tiposTarjeta) {
-			lista.add(t.name());
+			if(t.name() != "NO") {
+				lista.add(t.name());	
+			}
 		}
 		return lista;
 	}
