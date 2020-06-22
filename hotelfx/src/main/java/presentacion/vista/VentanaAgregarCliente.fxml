@@ -31,7 +31,7 @@
                         <TextField fx:id="txtEmail" layoutX="150.0" layoutY="123.0" prefHeight="25.0" prefWidth="300.0" />
                         <TextField fx:id="txtTelefono" layoutX="150.0" layoutY="307.0" prefHeight="25.0" prefWidth="300.0" />
                         <TextField fx:id="txtNumDocumento" layoutX="150.0" layoutY="262.0" prefHeight="25.0" prefWidth="300.0" />
-                        <Label layoutY="175.0" prefHeight="17.0" prefWidth="115.0" text="Fecha" />
+                        <Label layoutY="175.0" prefHeight="17.0" prefWidth="115.0" text="Fecha nac." />
                         <DatePicker fx:id="txtFecha" layoutX="150.0" layoutY="171.0" prefHeight="25.0" prefWidth="300.0" />
                         <ComboBox fx:id="comboTipoDoc" layoutX="150.0" layoutY="216.0" prefHeight="25.0" prefWidth="300.0" />
                      </children>
