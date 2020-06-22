@@ -14,18 +14,18 @@
          <top>
             <Pane prefHeight="40.0" prefWidth="479.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text layoutX="14.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente :" />
+                  <Text fx:id="textoCliente" layoutX="14.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente :" />
                   <Button fx:id="btnRefrescar" layoutX="558.0" layoutY="8.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
-                  <Text fx:id="texto" layoutX="65.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="212.5390625" />
+                  <Text fx:id="nombreCliente" layoutX="65.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="212.5390625" />
                </children>
             </Pane>
          </top>
          <bottom>
             <Pane prefHeight="93.0" prefWidth="637.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregar" layoutX="373.0" layoutY="16.0" mnemonicParsing="false" onAction="#addReservaEvento" text="Agregar Reserva Evento" />
-                  <Button fx:id="btnEditar" layoutX="319.0" layoutY="16.0" mnemonicParsing="false" onAction="#editarReservaEvento" text="Editar" />
-                  <Button fx:id="btnVolver" layoutX="522.0" layoutY="16.0" mnemonicParsing="false" onAction="#volver" text="Volver a clientes" />
+                  <Button fx:id="btnAgregar" layoutX="481.0" layoutY="16.0" mnemonicParsing="false" onAction="#addReservaEvento" text="Agregar Reserva Evento" />
+                  <Button fx:id="btnEditar" layoutX="427.0" layoutY="16.0" mnemonicParsing="false" onAction="#editarReservaEvento" text="Editar" />
+                  <Button fx:id="btnVolver" layoutX="319.0" layoutY="16.0" mnemonicParsing="false" onAction="#volver" text="Volver a clientes" />
                   <Button fx:id="btnIniciarReserva" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#iniciarReserva" text="Iniciar" visible="false" />
                   <Button fx:id="btnFinalizarReserva" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#finalizarReserva" text="Finalizar" visible="false" />
                   <Button fx:id="btnTicket" layoutX="533.0" layoutY="54.0" mnemonicParsing="false" onAction="#generarReporteReservaEvento" text="Generar ticket" />
@@ -36,6 +36,7 @@
             <TableView fx:id="tablaReservasCliente" onMouseClicked="#pruebaReserva" prefHeight="162.0" prefWidth="611.0" BorderPane.alignment="CENTER">
               <columns>
                   <TableColumn fx:id="idreserva" prefWidth="75.0" text="idReserva" visible="false" />
+                  <TableColumn fx:id="idCliente" prefWidth="75.0" text="idCliente" visible="false" />
                   <TableColumn fx:id="observacion" prefWidth="75.0" text="Evento" />
                   <TableColumn fx:id="categoria" prefWidth="75.0" text="Categoria" />
                 <TableColumn fx:id="senia" prefWidth="75.0" text="Seña" />

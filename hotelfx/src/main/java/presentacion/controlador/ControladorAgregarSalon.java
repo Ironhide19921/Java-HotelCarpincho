@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import modelo.Salon;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarSalon implements Initializable{
@@ -50,7 +51,7 @@ public class ControladorAgregarSalon implements Initializable{
 	
 		}
 		else {
-			mostrarMensaje("La seña debe ser un porcentaje de 0 a 100.");
+			Validador.mostrarMensaje("La seña debe ser un porcentaje de 0 a 100.");
 		}
 	}
 	
@@ -83,14 +84,6 @@ public class ControladorAgregarSalon implements Initializable{
 		txtMonto.setText(String.valueOf(salon.getMonto()));
 		id = salon.getId();
 		    
-	}
-	
-	private void mostrarMensaje(String mensaje) {
-		alert.setTitle("Información");
-		alert.setHeaderText(null);
-		alert.setContentText(mensaje);
-
-		alert.showAndWait();
 	}
 	
 	public Button getBtnAgregarSalon() {
