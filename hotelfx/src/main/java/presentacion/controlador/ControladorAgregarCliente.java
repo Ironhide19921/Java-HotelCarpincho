@@ -133,7 +133,7 @@ public class ControladorAgregarCliente implements Initializable {
 		
 			     try { 
 			    	Stage primaryStage = new Stage(); 
-			 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+			 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto1.fxml");
 					FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 					//cargo el objeto completo que incluye toda la escena y el controlador
 					Parent root = (Parent) fxmlLoader.load();
@@ -141,7 +141,7 @@ public class ControladorAgregarCliente implements Initializable {
 					primaryStage.setScene(new Scene(root)); 
 					primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 					//tomo el controlador
-					ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+					ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();
 					//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
 		
 					primaryStage.setTitle("Modificar Cliente");
