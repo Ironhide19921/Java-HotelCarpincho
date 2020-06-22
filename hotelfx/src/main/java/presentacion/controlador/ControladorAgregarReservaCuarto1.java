@@ -219,7 +219,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		int idUsuario = 0;
 		BigDecimal senia = new BigDecimal(0);
 		BigDecimal montoReservaCuarto =new BigDecimal(0);
-		String emailFacturacion = "";
+		String emailFacturacion = this.email.getText();
 		Timestamp fechaReserva =Timestamp.valueOf(localInicioReserva.atTime(LocalTime.of(cmbBoxHoraReserva.getSelectionModel().getSelectedItem(),0,0)));
 		Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(cmbBoxHoraIngreso.getSelectionModel().getSelectedItem(),0,0)));
 		Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(cmbBoxHoraEgreso.getSelectionModel().getSelectedItem()+1,0,0)));
@@ -231,7 +231,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		idCuarto = Integer.parseInt(cuarto.getText());
 		idUsuario = Integer.parseInt(usuario.getText());
 		
-	/*	if(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem()!=null) {
+		/*if(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem()!=null) {
 			
 		}
 		if(this.cliente!=null && !this.cliente.getText().isEmpty()) {
@@ -255,7 +255,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		if(this.cmbBoxEstados.getSelectionModel().getSelectedItem()!=null) {
 			estadoReserva = EstadoReserva.valueOf(this.cmbBoxEstados.getSelectionModel().getSelectedItem());
 		}
-	*/	
+		*/
 		ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
 				emailFacturacion, NumeroTarjeta, formaPago, tipoTarjeta, CodSeguridadTarjeta, FechaVencTarjeta,
 				fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
@@ -274,6 +274,7 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 	this.cliente.setText(reserva.getIdCliente().toString());
 	this.email.setText(reserva.getEmailFacturacion());
 	this.senia.setText(reserva.getSenia().toString());
+	this.usuario.setText(reserva.getIdUsuario().toString());
 	this.montoSenia.setText(reserva.getMontoReservaCuarto().toString());
 	this.cmbBoxTiposTarjeta.setValue(reserva.getTipoTarjeta().name());
 	this.numTarjeta.setText(reserva.getNumTarjeta());
