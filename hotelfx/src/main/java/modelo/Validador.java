@@ -27,7 +27,7 @@ public class Validador {
 	}
 	
 	public static boolean formatoApellido(String texto) {
-		return (formatoLetraEspacio(texto)  );
+		return (formatoLetraEspacio(texto));
 	}
 	
 	public static boolean formatoLetraEspacio(String texto) {
