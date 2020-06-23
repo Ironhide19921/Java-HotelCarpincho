@@ -219,6 +219,7 @@ CREATE TABLE `encuesta`
   `idEncuesta` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(11) NOT NULL,
   `recipiente` varchar(60) NOT NULL,
+  `encuestado` boolean NOT NULL,
   PRIMARY KEY (`idEncuesta`),
   CONSTRAINT FOREIGN KEY fk_cliente_id_encuesta (idCliente) REFERENCES cliente (idCliente)
 );

@@ -46,7 +46,7 @@
                <children>
                   <Button fx:id="btnAgregar" layoutX="712.0" layoutY="21.0" mnemonicParsing="false" onAction="#addCategoria" text="Agregar Categoria de Evento" />
                   <Button fx:id="btnEditar" layoutX="632.0" layoutY="22.0" mnemonicParsing="false" onAction="#editCategoria" text="Modificar" />
-                  <Button layoutX="21.0" layoutY="21.0" mnemonicParsing="false" text="Eliminar" />
+                  <Button fx:id="btnEliminar" layoutX="21.0" layoutY="21.0" mnemonicParsing="false" onAction="#eliminarCategoriaEvento" text="Eliminar" />
                </children>
             </Pane>
          </bottom></BorderPane>

@@ -80,13 +80,13 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirABMSalones;
 	@FXML
 	private Button btnAbrirABMCategoriaEvento;
-	
 	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
 	@FXML
 	private ObservableList<ClienteDTO> clientesAencuestar;
+	private List<EncuestaDTO> encuestasTodos;
 	
 	@FXML private MenuItem btnDeslogear;
 	
@@ -131,6 +131,8 @@ public class ControladorMenuPrincipal implements Initializable{
 		this.encuesta = new Encuesta(new DAOSQLFactory());
 		clientesAencuestar = FXCollections.observableArrayList();
 		this.clientesAencuestar = getClientesAencuestar();
+		encuestasTodos = FXCollections.observableArrayList();
+		this.encuestasTodos = encuesta.obtenerEncuestas();
 		manejoEncuestas();
 		
 //		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
@@ -144,6 +146,18 @@ public class ControladorMenuPrincipal implements Initializable{
 	}
 
 	private void manejoEncuestas() {
+		for(EncuestaDTO e: encuestasTodos) {
+			try {
+				if(SendHttp.actualizarEncuestaRespondida(e.getRecipiente()).equals("si")) {
+					encuesta.modificarEncuesta(e.getIdEncuesta());
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		
 		if(clientesAencuestar.size()>0) {
 			try {
 				String collector="";
@@ -179,6 +193,9 @@ public class ControladorMenuPrincipal implements Initializable{
 
 	private ObservableList<ClienteDTO> getClientesAencuestar() {
 		List<ClienteDTO> clientes = this.cliente.obtenerClientesaEncuestar();
+		if(clientes.size()==0) {
+			Validador.mostrarMensaje("Sin clientes en condiciones para enviar encuestas");
+		}
 		clientesAencuestar.clear();
 		for(ClienteDTO c : clientes) {
 			clientesAencuestar.add(c);
@@ -313,7 +330,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void verMenuReservaEvento() {
 		try {
 			 FxmlLoader fxmlLoader = new FxmlLoader();
-			 Pane view	= fxmlLoader.getPage("VentanaABMReservaEvento2");
+			 Pane view	= fxmlLoader.getPage("VentanaABMReservaEvento");
 			 mainPane.setCenter(view);
 			
 		} catch(Exception e) {

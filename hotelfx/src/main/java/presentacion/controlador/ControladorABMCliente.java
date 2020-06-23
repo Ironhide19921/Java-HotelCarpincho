@@ -170,9 +170,9 @@ public class ControladorABMCliente implements Initializable{
 				return;
 			 }
 		     try { 
-				primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
+				primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto1"));   
 				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
-				ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+				ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();
 				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
 				ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 				scene2Controller.modificarCliente(clienteSeleccionado.getIdCliente());
@@ -234,9 +234,6 @@ public class ControladorABMCliente implements Initializable{
 				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
 				ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 				scene2Controller.setearCamposPantalla(clienteSeleccionado);
-//				scene2Controller.setVisibilityBtnAgregarCliente(false);
-//				scene2Controller.setVisibilityBtnModificarCliente(true);	 
-//				primaryStage.setTitle("Modificar Cliente");
 				primaryStage.setTitle("Ver Encuesta");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 
@@ -250,9 +247,9 @@ public class ControladorABMCliente implements Initializable{
 	 @FXML
 	 public void seleccionarCliente() throws IOException
 	 {	 
-			primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto"));   
+			primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto1"));   
 			FXMLLoader fxmlLoader = fxml.getFXMLLoader();
-			ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+			ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();
 			scene2Controller.setearCampos(reserva);
 			scene2Controller.modificarCliente(this.tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
 			Stage stage = (Stage) btnSeleccionarCliente.getScene().getWindow();
@@ -319,7 +316,6 @@ public class ControladorABMCliente implements Initializable{
 			    Parent root = (Parent) fxmlLoader.load();
 				ControladorABMReservaEvento controller = fxmlLoader.<ControladorABMReservaEvento>getController();
 				controller.initData(idClienteSeleccionado);
-				
 				panelActual.setCenter(root);
 				panelActual.setTop(null);
 				panelActual.setBottom(null);

@@ -6,14 +6,11 @@ public class RespuestaEncuestaDTO {
 	
 	private String idPregunta;
 	private ArrayList<String> listaRespuestas;
-	private String detallePregunta;
-
 	
 	public RespuestaEncuestaDTO(String idPregunta,ArrayList<String> listaRespuestas) {
 		
 		this.setIdPregunta(idPregunta);
 		this.setListaRespuestas(listaRespuestas);
-		this.detallePregunta="";
 		
 	}
 
@@ -36,15 +33,6 @@ public class RespuestaEncuestaDTO {
 	public void setListaRespuestas(ArrayList<String> listaRespuestas) {
 		this.listaRespuestas = listaRespuestas;
 	}
-
-
-	public String getDetallePregunta() {
-		return detallePregunta;
-	}
-
-
-	public void setDetallePregunta(String detallePregunta) {
-		this.detallePregunta = detallePregunta;
-	}		
+		
 
 }

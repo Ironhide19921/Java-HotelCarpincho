@@ -99,12 +99,10 @@ public class ControladorABMCuarto implements Initializable
 	 @FXML
 	    private void editCuarto(ActionEvent event) throws Exception 
 	    {
-		 
 		 	if(tablaCuartos.getSelectionModel().getSelectedItem()==null) {
 		 		validador.mostrarMensaje("Debes seleccionar un cuarto de la lista antes de editar");
 		 		return;
 		 	}	
-		 
 		     try { 
 			    Stage primaryStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCuarto.fxml");
@@ -149,7 +147,6 @@ public class ControladorABMCuarto implements Initializable
 		 tablaCuartos.setItems(lista);
 		 tablaCuartos.setEditable(true);
 	 }
-	
 	 
 	 
 	 @FXML
@@ -170,8 +167,6 @@ public class ControladorABMCuarto implements Initializable
 			 refrescarTabla();
 			 return;
 		 }
-		
-		
 	 }
 	 
 	 
@@ -219,13 +214,13 @@ public class ControladorABMCuarto implements Initializable
 	 @FXML
 	 public void seleccionarCuarto() throws IOException {
 		 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto.fxml");
+	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto1.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load(); 	
-			ControladorAgregarReservaCuarto scene2Controller = fxmlLoader.getController();
+			ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();
 			scene2Controller.setearCampos(reserva);
 			scene2Controller.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
-			scene2Controller.verMontoTotalySenia(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
+			scene2Controller.verMontoTotalySenia();
 			Stage stage = (Stage) btnSeleccionarCuarto.getScene().getWindow();
 			stage.close();
 			Stage primaryStage = new Stage(); 
