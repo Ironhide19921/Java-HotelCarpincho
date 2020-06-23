@@ -17,13 +17,16 @@ public class Validador {
 	
 	private static Alert alert = new Alert(AlertType.INFORMATION);
 	
+    public static boolean formatoDocumento(String texto) {
+		return texto.matches("^[A-Za-z0-9]+$");
+	}
 	
 	public static boolean formatoNumeroLetraEspacio(String texto) {
 		return texto.matches("[a-zA-Z0-9\\s]+");
 	}
 	
 	public static boolean formatoMail(String texto) {
-		return texto.matches("[a-zA-Z0-9]+@[a-zA-Z0-9]+[.][a-zA-Z0-9]+[.]?[a-zA-Z0-9]+") ;
+		return texto.matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$") ;
 	}
 	
 	public static boolean formatoApellido(String texto) {
@@ -35,7 +38,7 @@ public class Validador {
 	}
 	
 	public static boolean formatoTelefono(String texto) {
-		return (formatoNumerico(texto) );
+		return texto.matches("[0-9]{7,}");
 	}
 
 	public static boolean formatoNumero(String texto) {
@@ -81,7 +84,7 @@ public class Validador {
 		
 		condicionFormato = condicionFormato && formatoApellido(ventanaUsuario.getTxtNombre().getText())
 		&& formatoApellido(ventanaUsuario.getTxtApellido().getText())
-		&& formatoNumerico(ventanaUsuario.getTxtNumDocumento().getText())
+		&& formatoDocumento(ventanaUsuario.getTxtNumDocumento().getText())
 		&& formatoMail(ventanaUsuario.getTxtEmail().getText());
 		;
 
@@ -113,8 +116,8 @@ public class Validador {
 		
 		condicionFormato = condicionFormato && formatoApellido(ventanaCliente.getTxtNombre().getText())
 		&& formatoApellido(ventanaCliente.getTxtApellido().getText())
-		&& formatoNumerico(ventanaCliente.getTxtNumDocumento().getText())
-		&& formatoNumerico(ventanaCliente.getTxtTelefono().getText())
+		&& formatoDocumento(ventanaCliente.getTxtNumDocumento().getText())
+		&& formatoTelefono(ventanaCliente.getTxtTelefono().getText())
 		&& formatoMail(ventanaCliente.getTxtEmail().getText());
 		;
 

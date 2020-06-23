@@ -65,7 +65,6 @@ public class ControladorLogin implements Initializable {
 			
 			usuarioLogeado = usuarios.get(0);
 			permisos = this.permisoPerfil.buscarPermisos(usuarioLogeado.getIdPerfil());
-			System.out.println(usuarioLogeado.getIdUsuario());
 			
 			for(PermisoPerfilDTO permiso : permisos) {
 				permisosPorId.add(permiso.getIdPermiso());
