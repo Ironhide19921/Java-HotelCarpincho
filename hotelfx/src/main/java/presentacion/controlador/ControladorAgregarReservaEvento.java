@@ -79,7 +79,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	@FXML private Text txtCabeza;
 	@FXML private Text textoDatosTarjeta;
 	@FXML private Text textoFechaVencimientoTarjeta;
-	
+	@FXML private Pane paneTarjeta;
 	@FXML private TextField tipoTarjeta;
 	@FXML private TextField codSeguridadTarjeta;
 	@FXML private TextField fechaVencTarjeta;
@@ -99,7 +99,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	private CategoriaEvento categoriaEvento;
 	private ClienteDTO clienteActual;
 	private int idCliente;
-	private int idUsuario = 1;
+	private int idUsuario = ControladorLogin.usuarioLogeado.getIdUsuario();
 	private Alert alert;
 	private Integer idReservaEvento;
 	private Timestamp FechaIngreso = null;
@@ -163,14 +163,23 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			FormaPago formaPago = FormaPago.valueOf(comboFormasPago.getValue());
 			
 			if(!(formaPago.equals(FormaPago.EFECTIVO))){
-				tipoTarjeta = TipoTarjeta.valueOf(comboTarjetas.getValue());
 				
+				if(comboTarjetas.getValue() == null || numeroTarjeta.getText() == null || fechaVencTarjeta.getText() == null || codSeguridadTarjeta.getText() == null) {
+					Validador.mostrarMensaje("Por favor complete todos los campos de la tarjeta.");
+					return;
+				}
+				
+				tipoTarjeta = TipoTarjeta.valueOf(comboTarjetas.getValue());
 				if(tipoTarjeta.toString() == "VISA" && !(Validador.formatoVisa(numeroTarjeta.getText(), codSeguridadTarjeta.getText())) ) {
-					Validador.mostrarMensaje("Error en datos de la tarjeta");
+					Validador.mostrarMensaje("Error en datos para la tarjeta VISA");
 					return;
 				}
 				if(tipoTarjeta.toString() == "MASTERCARD" && !(Validador.formatoMaster(numeroTarjeta.getText(), codSeguridadTarjeta.getText()))) {
-					Validador.mostrarMensaje("Error en datos de la tarjeta");
+					Validador.mostrarMensaje("Error en datos para la tarjeta MASTERCARD");
+					return;
+				}
+				if(!Validador.validarFechaVenc(fechaVencTarjeta.getText())) {
+					Validador.mostrarMensaje("Fecha de vencimiento de tarjeta inválida.");
 					return;
 				}
 				
@@ -260,18 +269,22 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			FormaPago formaPago = FormaPago.valueOf(comboFormasPago.getValue());
 			
 			if(!(formaPago.equals(FormaPago.EFECTIVO))){
-				tipoTarjeta = TipoTarjeta.valueOf(comboTarjetas.getValue());
-				if(tipoTarjeta.name() == "VISA") {
-					if(!Validador.formatoVisa(numeroTarjeta.getText(),codSeguridadTarjeta.getText())) {
-						Validador.mostrarMensaje("Datos de tarjeta invalidos. Por favor verifique que estén bien colocados.");
-						return;
-					}
+				if(comboTarjetas.getValue() == null || numeroTarjeta.getText() == null || fechaVencTarjeta.getText() == null || codSeguridadTarjeta.getText() == null) {
+					Validador.mostrarMensaje("Por favor complete todos los campos de la tarjeta.");
+					return;
 				}
-				else if(tipoTarjeta.name() == "MASTERCARD") {
-					if(!Validador.formatoMaster(numeroTarjeta.getText(), codSeguridadTarjeta.getText())) {
-						Validador.mostrarMensaje("Datos de tarjeta invalidos. Por favor verifique que estén bien colocados.");
-						return;
-					}				
+				tipoTarjeta = TipoTarjeta.valueOf(comboTarjetas.getValue());
+				if(tipoTarjeta.toString() == "VISA" && !(Validador.formatoVisa(numeroTarjeta.getText(), codSeguridadTarjeta.getText())) ) {
+					Validador.mostrarMensaje("Error en datos para la tarjeta VISA");
+					return;
+				}
+				if(tipoTarjeta.toString() == "MASTERCARD" && !(Validador.formatoMaster(numeroTarjeta.getText(), codSeguridadTarjeta.getText()))) {
+					Validador.mostrarMensaje("Error en datos para la tarjeta MASTERCARD");
+					return;
+				}
+				if(!Validador.validarFechaVenc(fechaVencTarjeta.getText())) {
+					Validador.mostrarMensaje("Fecha de vencimiento de tarjeta inválida.");
+					return;
 				}
 				
 				NumeroTarjeta = numeroTarjeta.getText();
@@ -359,20 +372,14 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	public void verificarFormaPago() throws Exception {
 		
 		if(!(this.comboFormasPago.getSelectionModel().getSelectedItem().equals(FormaPago.EFECTIVO.name()))) {
-			this.comboTarjetas.setVisible(true);
-			this.codSeguridadTarjeta.setVisible(true);
-			this.fechaVencTarjeta.setVisible(true);
-			this.numeroTarjeta.setVisible(true);
+			this.paneTarjeta.setVisible(true);
 			this.textoDatosTarjeta.setVisible(true);
+			this.textoDatosTarjeta.setDisable(false);
 			this.textoFechaVencimientoTarjeta.setVisible(true);
+			this.textoFechaVencimientoTarjeta.setDisable(false);
 		}
 		else{	
-			this.comboTarjetas.setVisible(false);
-			this.codSeguridadTarjeta.setVisible(false);
-			this.fechaVencTarjeta.setVisible(false);
-			this.numeroTarjeta.setVisible(false);
-			this.textoDatosTarjeta.setVisible(false);
-			this.textoFechaVencimientoTarjeta.setVisible(false);
+			this.paneTarjeta.setVisible(false);
 		}	
 		
 	}	
@@ -477,8 +484,6 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		this.codSeguridadTarjeta.setText(null);
 		this.fechaVencTarjeta.setText(null);
 		this.numeroTarjeta.setText(null);
-		this.textoDatosTarjeta.setText(null);
-		this.textoFechaVencimientoTarjeta.setText(null);
 	}
 
 	@FXML
