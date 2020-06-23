@@ -29,6 +29,7 @@ public class ControladorAgregarProducto implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.producto = new Producto(new DAOSQLFactory());
+		System.out.println(ControladorLogin.nombre);
 	}
 	
 	@FXML

@@ -29,5 +29,13 @@ private UsuarioDAO usuario;
 	public List<UsuarioDTO> buscarUsuarios(String buscar) 	{
 		return this.usuario.search(buscar);
 	}
+	
+	public List<UsuarioDTO> buscarUsuarios2(String nombre, String pass) 	{
+		return this.usuario.search2(nombre, pass);
+	}
+
+	public List<UsuarioDTO> buscarUsuarios3(String email) 	{
+		return this.usuario.search3(email);
+	}
 
 }

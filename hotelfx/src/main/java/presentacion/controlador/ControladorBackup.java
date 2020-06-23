@@ -46,7 +46,7 @@ public class ControladorBackup implements Initializable{
 	
 	@FXML
 	public void seleccionar() {
-		File file = new File(".\\backups");
+		File file = new File(".//backups");
 		FileChooser fc = new FileChooser();
 		fc.setInitialDirectory(file);
 		fc.getExtensionFilters().addAll(new ExtensionFilter("Archivos SQL", "*.sql"));
@@ -69,15 +69,12 @@ public class ControladorBackup implements Initializable{
 		config = ControladorConexionConfig.leerFicheroConexion();
 
 		try {
-			Process p = Runtime.getRuntime().exec(
-			//Este path hay que cambiarlo con el absoluto de la instalación!!!
-					//"C:\\Users\\marcos\\Documents\\Facultad\\Especificacion\\TP talleres\\Base\\mysql-5.7.19-winx64\\bin\\mysqldump -u labo -p1234 hotel");
-					".\\sql\\bin\\mysqldump -u "+config.getUser()+" -p"+config.getPass()+" hotel");
+			Process p = Runtime.getRuntime().exec(".//sql//bin//mysqldump -u "+config.getUser()+" -p"+config.getPass()+" hotel");
 			
 			Date hoy = new Date(System.currentTimeMillis());
 			
 			InputStream is = p.getInputStream();
-			FileOutputStream fos = new FileOutputStream("backups\\Backup "+hoy.toString()+".sql");
+			FileOutputStream fos = new FileOutputStream("backups//Backup "+hoy.toString()+".sql");
 			byte[] buffer = new byte[1000];
 
 			int leido = is.read(buffer);
@@ -105,10 +102,7 @@ public class ControladorBackup implements Initializable{
 
 			Conexion.getConexion().cerrarConexion();
 
-			Process p = Runtime.getRuntime().exec(
-					// Este path hay que cambiarlo con el absoluto de la instalación!!!
-					//"C:\\Users\\marcos\\Documents\\Facultad\\Especificacion\\TP talleres\\Base\\mysql-5.7.19-winx64\\bin\\mysql -u labo -p1234 hotel");
-					".\\sql\\bin\\mysql -u "+config.getUser()+" -p"+config.getPass()+" hotel");
+			Process p = Runtime.getRuntime().exec(".//sql//bin//mysql -u "+config.getUser()+" -p"+config.getPass()+" hotel");
 
 			OutputStream os = p.getOutputStream();
 			FileInputStream fis = new FileInputStream(archivoSeleccionado);
@@ -134,8 +128,7 @@ public class ControladorBackup implements Initializable{
 	
 	public Date fechaUltimoBackup() {
 		
-			//File file = new File("C:\\Users\\marcos\\Desktop\\carpinchofx\\hotelfx\\Backups"); 
-			File file = new File(".\\backups");
+			File file = new File(".//backups");
 			Date fecha = new Date(file.getAbsoluteFile().lastModified());
 			
 			return fecha;

@@ -3,7 +3,6 @@ USE hotel;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
-
 CREATE TABLE `cliente`
 (
   `idCliente` int(11) NOT NULL AUTO_INCREMENT,
@@ -58,6 +57,17 @@ CREATE TABLE `permiso`
 INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Usuarios');
 INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Clientes');
 INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Cuartos');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Productos');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Reserva cuarto');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Reserva evento ');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Importar reservas');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Categoria evento');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Perfiles');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Categoria cuarto');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Salones');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Configuracion email');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Orden pedidos');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Gestion backup');
 
 CREATE TABLE `permisoPerfil`
 (
@@ -83,6 +93,23 @@ CREATE TABLE `usuario`
   PRIMARY KEY (`idUsuario`),
   CONSTRAINT FOREIGN KEY fk_id_Perfil (idPerfil) REFERENCES perfil (idPerfil)
 );
+
+INSERT INTO `perfil` (nombrePerfil) VALUES ('full');
+INSERT INTO `usuario` (idPerfil,Nombre,Apellido,TipoDocumento,Documento,Email,Password,Estado) VALUES (1,'Administrador','Administrador','DNI','38784589','carpinchocorp@gmail.com','123',1);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,1);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,2);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,3);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,4);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,5);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,6);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,7);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,8);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,9);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,10);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,11);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,12);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,13);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,14);
 
 CREATE TABLE `ordenPedido`
 (

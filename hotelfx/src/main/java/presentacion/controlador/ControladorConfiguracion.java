@@ -46,8 +46,8 @@ public class ControladorConfiguracion implements Initializable{
 		txtUsername.focusedProperty().addListener((obs, oldText, newText) -> {
 			validarCorreo(newText);
 		});
+		
 	}
-
 
 	private void validarCorreo(Boolean newText) {
 		if(newText==false) {

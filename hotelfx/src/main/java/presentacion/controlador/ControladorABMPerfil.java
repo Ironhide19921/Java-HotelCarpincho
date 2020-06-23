@@ -27,41 +27,38 @@ import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorABMPerfil implements Initializable {
 	
-	@FXML
-	private Button btnCrearPerfil;
-	@FXML
-	private Button btnEliminarPerfil;
-	@FXML
-	private TextField txtNombre;
+	@FXML private Button btnCrearPerfil;
+	@FXML private Button btnEliminarPerfil;
+	@FXML private TextField txtNombre;
 	
-	@FXML
-	private CheckBox checkABMUsuarios;
-	@FXML
-	private CheckBox checkABMClientes;
-	@FXML
-	private CheckBox checkABMCuartos;
+	@FXML private CheckBox checkABMUsuarios;
+	@FXML private CheckBox checkABMClientes;
+	@FXML private CheckBox checkABMCuartos;
+	@FXML private CheckBox checkABMProductos;
+	@FXML private CheckBox checkABMReservaCuarto;
+	@FXML private CheckBox checkABMReservaEvento;
+	@FXML private CheckBox checkImportarReservas;
+	@FXML private CheckBox checkABMCategoriaEvento;
+	@FXML private CheckBox checkABMPerfiles;
+	@FXML private CheckBox checkABMCategoriaCuarto;
+	@FXML private CheckBox checkABMSalones;
+	@FXML private CheckBox checkConfiguracionEmail;
+	@FXML private CheckBox checkABMOrdenPedidos;
+	@FXML private CheckBox checkGestionBackups;
 	
-	@FXML
-	private Button btnAgregarTodos;
+	@FXML private Button btnAgregarTodos;
+	@FXML private Button btnQuitarTodos;
 	
-	@FXML
-	private Button btnQuitarTodos;
-	
-	@FXML
-	private ComboBox<PerfilDTO> comboPerfiles;
+	@FXML private ComboBox<PerfilDTO> comboPerfiles;
 	
 	private Perfil perfil;
 	private PermisoPerfil permisoPerfil;
 	private Usuario usuario;
 	private Alert alert;
-	@FXML
-	private ObservableList<PerfilDTO> observableList;
-
 	private ArrayList<CheckBox> listaChecks;
 	private ArrayList<Integer> listaIdPerfilesUsuarios;
 	
-
-	
+	@FXML private ObservableList<PerfilDTO> observableList;
 	@FXML private ControladorMenuPrincipal menuPrincipal;
 	
 	@Override
@@ -78,10 +75,21 @@ public class ControladorABMPerfil implements Initializable {
 	
 		this.listaChecks = new ArrayList<CheckBox>();
 		
-		this.listaChecks.add(checkABMUsuarios);
-		this.listaChecks.add(checkABMClientes);
-		this.listaChecks.add(checkABMCuartos);
-		
+		this.listaChecks.add(0,checkABMUsuarios);
+		this.listaChecks.add(1,checkABMClientes);
+		this.listaChecks.add(2,checkABMCuartos);
+		this.listaChecks.add(3,checkABMProductos);
+		this.listaChecks.add(4,checkABMReservaCuarto);
+		this.listaChecks.add(5,checkABMReservaEvento);
+		this.listaChecks.add(6,checkImportarReservas);
+		this.listaChecks.add(7,checkABMCategoriaEvento);
+		this.listaChecks.add(8,checkABMPerfiles);
+		this.listaChecks.add(9,checkABMCategoriaCuarto);
+		this.listaChecks.add(10,checkABMSalones);
+		this.listaChecks.add(11,checkConfiguracionEmail);
+		this.listaChecks.add(12,checkABMOrdenPedidos);
+		this.listaChecks.add(13,checkGestionBackups);
+
 	}
 	
 	@FXML

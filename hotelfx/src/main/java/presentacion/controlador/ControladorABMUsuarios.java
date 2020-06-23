@@ -50,7 +50,8 @@ public class ControladorABMUsuarios implements Initializable{
 		cargarColumnas();
 		activeSession = FXCollections.observableArrayList();
 		tablaPersonas.getItems().clear();
-		refrescarTabla(); 
+		refrescarTabla();
+		
 	}
 	
 	private void cargarColumnas()  {
