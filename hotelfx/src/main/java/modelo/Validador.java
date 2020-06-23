@@ -1,10 +1,12 @@
 package modelo;
 import java.sql.Date;
+import java.util.Optional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import presentacion.controlador.ControladorAgregarCliente;
 
 import presentacion.controlador.ControladorAgregarReservaCuarto1;
@@ -304,6 +306,28 @@ public class Validador {
 
 		alert.showAndWait();
 	}
+	
+	public static String mostrarMensajeOpcion() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Ups, parece que hay un error de conexión");
+		alert.setHeaderText("¿Le gustaría reconfigurar las credenciales de conexión ahora?");
+		alert.setContentText("Pulse aceptar para configurar o cancelar para terminar la ejecución del programa");
 
+		Optional<ButtonType> result = alert.showAndWait();
+		return result.get().getText();
+	}
+	
+	public static String mostrarMensajeCampo() {
+		TextInputDialog dialog = new TextInputDialog("mi_email@hotmail.com");
+		dialog.setTitle("Error de login");
+		dialog.setHeaderText("Parece que esas no son las credenciales correctas, ¿quieres que te las recordemos mediante un email?");
+		dialog.setContentText("Por favor ingrese su email: ");
+		
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+		    return result.get();
+		}
+		return "Cancelar";
+	}
 
 }

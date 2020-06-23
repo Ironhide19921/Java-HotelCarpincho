@@ -15,4 +15,8 @@ public interface UsuarioDAO {
 	public void update(UsuarioDTO usuario);
 
 	public List<UsuarioDTO> search(String buscar);
+
+	public List<UsuarioDTO> search2(String nombre, String pass);
+
+	List<UsuarioDTO> search3(String email);
 }

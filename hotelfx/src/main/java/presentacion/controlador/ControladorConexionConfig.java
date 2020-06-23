@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import dto.ConexionConfigDTO;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Validador;
@@ -22,20 +24,21 @@ import persistencia.conexion.Conexion;
 public class ControladorConexionConfig {
 	
 	@FXML TextField txtUser;
-	@FXML TextField txtPass;
+	@FXML PasswordField txtPass;
 	@FXML TextField txtHost;
 	@FXML Button btnConfirmar;
 	
 	public void initialize(URL arg0, ResourceBundle arg1)  {
-		
+		ControladorMenuPrincipal.ConexionStage.setOnCloseRequest(e->onClose());
 	}
-	
+
 	@FXML
 	public void escribirFicheroConexion() {
 		FileWriter flwriter = null;
 		try {
 			//crea el flujo para escribir en el archivo
-			flwriter = new FileWriter(".////src////main////java////persistencia////conexion////config.txt");
+			flwriter = new FileWriter(".//sql//conexion.cfg");
+
 			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
 			BufferedWriter bfwriter = new BufferedWriter(flwriter);
 			
@@ -70,9 +73,7 @@ public class ControladorConexionConfig {
 	      BufferedReader br = null;
 
 	      try {
-	         // Apertura del fichero y creacion de BufferedReader para poder
-	         // hacer una lectura comoda (disponer del metodo readLine()).	         
-	         archivo = new File (".//src//main//java//persistencia//conexion//config.txt"); //Cambiar para el instalador
+	         archivo = new File (".//sql//conexion.cfg"); //Cambiar para el instalador
 	         fr = new FileReader (archivo);
 	         br = new BufferedReader(fr);
 
@@ -109,6 +110,10 @@ public class ControladorConexionConfig {
 	private void cerrarVentanaConfig() {
 		Stage stage = (Stage) btnConfirmar.getScene().getWindow();
 		stage.close();
+	}
+	
+	private void onClose() {
+		Platform.exit();
 	}
 	
 }

@@ -4,16 +4,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
+
 import java.util.List;
+
 import java.util.ResourceBundle;
 
 import org.joda.time.DateTime;
 
 import dto.ClienteDTO;
 import dto.EmailDTO;
+
+import dto.PermisoPerfilDTO;
+import javafx.application.Application;
+import javafx.application.Platform;
+
 import dto.EncuestaDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,17 +30,27 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import main.Main;
+
 import modelo.Cliente;
+
 import modelo.Email;
 import modelo.Encuesta;
 import modelo.SendHttp;
 import modelo.Validador;
+
+import persistencia.conexion.Conexion;
+
 import persistencia.dao.mysql.DAOSQLFactory;
 import persistencia.dao.mysql.EncuestaDAOSQL;
+
 import presentacion.vista.FxmlLoader;
 
 public class ControladorMenuPrincipal implements Initializable{
@@ -62,27 +80,59 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirABMSalones;
 	@FXML
 	private Button btnAbrirABMCategoriaEvento;
-
 	@FXML private Button btnAbrirOrdenPedidos;
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
 	@FXML
 	private ObservableList<ClienteDTO> clientesAencuestar;
+	private List<EncuestaDTO> encuestasTodos;
+	
+	@FXML private MenuItem btnDeslogear;
+	
+	private ArrayList<Button> listaButtons;
 	
 	Date hoy = new Date(System.currentTimeMillis());
 	
 	ControladorBackup gestionBackup = new ControladorBackup();
+	
+	public static Stage loginStage = new Stage();
+	public static Stage ConexionStage = new Stage();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		//Llamo al login
+		verLogin();
+		
+//		//Preparo los botones para recorrer en un orden espeficico
+		listaButtons = new ArrayList<Button>();
+		listaButtons.add(0,btnAbrirABMUsuarios);
+		listaButtons.add(1,btnAbrirABMCliente);
+		listaButtons.add(2,btnAbrirABMCuartos);
+		listaButtons.add(3,btnAbrirABMProductos);
+		listaButtons.add(4,btnAbrirABMReservas);
+		listaButtons.add(5,btnAbrirReservaEvento);
+		listaButtons.add(6,btnAbrirImportar);
+		listaButtons.add(7,btnAbrirCategoriaEvento);
+		listaButtons.add(8,btnAbrirABMPerfiles);
+		listaButtons.add(9,btnAbrirABMCategoriasCuartos);
+		listaButtons.add(10,btnAbrirABMSalones);
+		listaButtons.add(11,btnAbrirConfig);
+		listaButtons.add(12,btnAbrirOrdenPedidos);
+		listaButtons.add(13,btnAbrirVentanaBackup);
+		
+		//Habilito cada boton para el cual exista un permiso
+		for(Integer permisoId : ControladorLogin.permisosPorId) {
+			this.listaButtons.get(permisoId-1).setDisable(false);
+		}
 
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
 		this.cliente = new Cliente(new DAOSQLFactory());
 		this.encuesta = new Encuesta(new DAOSQLFactory());
 		clientesAencuestar = FXCollections.observableArrayList();
 		this.clientesAencuestar = getClientesAencuestar();
+		encuestasTodos = FXCollections.observableArrayList();
+		this.encuestasTodos = encuesta.obtenerEncuestas();
 		manejoEncuestas();
 		
 //		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
@@ -95,8 +145,19 @@ public class ControladorMenuPrincipal implements Initializable{
 
 	}
 
-
 	private void manejoEncuestas() {
+		for(EncuestaDTO e: encuestasTodos) {
+			try {
+				if(SendHttp.actualizarEncuestaRespondida(e.getRecipiente()).equals("si")) {
+					encuesta.modificarEncuesta(e.getIdEncuesta());
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		
 		if(clientesAencuestar.size()>0) {
 			try {
 				String collector="";
@@ -132,13 +193,15 @@ public class ControladorMenuPrincipal implements Initializable{
 
 	private ObservableList<ClienteDTO> getClientesAencuestar() {
 		List<ClienteDTO> clientes = this.cliente.obtenerClientesaEncuestar();
+		if(clientes.size()==0) {
+			Validador.mostrarMensaje("Sin clientes en condiciones para enviar encuestas");
+		}
 		clientesAencuestar.clear();
 		for(ClienteDTO c : clientes) {
 			clientesAencuestar.add(c);
 		}
 		return clientesAencuestar;
 	}
-
 
 	@FXML
 	public void verABMClientes() {
@@ -319,7 +382,7 @@ public class ControladorMenuPrincipal implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 		
-				primaryStage.setScene(new Scene(root));   
+				primaryStage.setScene(new Scene(root));
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				primaryStage.setTitle("Conversión de divisas");
 				primaryStage.sizeToScene();
@@ -329,6 +392,60 @@ public class ControladorMenuPrincipal implements Initializable{
 		      e.printStackTrace(); 
 		     } 
 	    }
+	}
+	
+	@FXML
+	public void verLogin() {
+		
+		try {
+			URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaLogin.fxml");
+			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+			Parent root = (Parent) fxmlLoader.load();
+
+			loginStage.setScene(new Scene(root));
+			loginStage.getScene().getStylesheets().add("/CSS/mycss.css");
+			loginStage.setTitle("Pantalla de Login");
+			loginStage.sizeToScene();
+			loginStage.showAndWait();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	    
+	}
+	
+	public void verVentanaConexion() {
+		try {
+			//Stage primaryStage = new Stage();
+			URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaConexionConfig.fxml");
+			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+			Parent root = (Parent) fxmlLoader.load();
+
+			ConexionStage.setScene(new Scene(root));
+			ConexionStage.getScene().getStylesheets().add("/CSS/mycss.css");
+
+			ConexionStage.setTitle("Configuracion de conexion");
+			ConexionStage.sizeToScene();
+
+			ConexionStage.showAndWait();
+
+		} catch (Exception f) {
+			f.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void deslogear() throws IOException {
+		Main.stage.close();
+		
+		//Desactivo todos los botones para preparar el reinicio
+		for(Button boton : listaButtons) {
+			boton.setDisable(true);
+		}
+		
+		initialize(null,null);
+		mainPane.setCenter(center);
+		Main.stage.show();
 	}
 	
 }

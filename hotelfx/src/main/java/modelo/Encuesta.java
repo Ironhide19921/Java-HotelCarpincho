@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.List;
 
+import dto.CuartoDTO;
 import dto.EncuestaDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.EncuestaDAO;
@@ -24,6 +25,10 @@ private EncuestaDAO encuesta;
 	
 	public EncuestaDTO traerEncuestaPorCliente(Integer id) {
 		return this.encuesta.traerEncuestaPorCliente(id);
+	}
+	
+	public void modificarEncuesta(int encuesta) {
+		this.encuesta.update(encuesta);
 	}
 
 }

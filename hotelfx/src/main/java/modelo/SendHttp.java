@@ -177,14 +177,14 @@ public class SendHttp {
 
 		JSONArray ja = new JSONArray();
 
-//		for(ClienteDTO c: lista) {
-//			JSONObject jo = new JSONObject();
-//			jo.put("email", c.getEmail());
-//			jo.put("first_name", c.getTipoDocumento());
-//			jo.put("last_name", c.getNumeroDocumento());
-//
-//			ja.put(jo);
-//		}
+		for(ClienteDTO c: lista) {
+			JSONObject jo = new JSONObject();
+			jo.put("email", c.getEmail());
+			jo.put("first_name", c.getTipoDocumento());
+			jo.put("last_name", c.getNumeroDocumento());
+
+			ja.put(jo);
+		}
 
 
 		JSONObject mainObj = new JSONObject();
@@ -218,7 +218,7 @@ public class SendHttp {
 			for(int i=0; i<respuesta.length();i++) {
 				for(int j=0;j<lista.size(); j++){
 					if(respuesta.getJSONObject(i).get("email").toString().equals(lista.get(j).getEmail())) {
-						EncuestaDTO e = new EncuestaDTO(0, lista.get(j).getIdCliente(), respuesta.getJSONObject(i).get("id").toString());
+						EncuestaDTO e = new EncuestaDTO(0, lista.get(j).getIdCliente(), respuesta.getJSONObject(i).get("id").toString(), false);
 						encuestasConRecipiente.add(e);
 						break;
 					}
@@ -268,7 +268,7 @@ public class SendHttp {
 			respuesta = response.toString();
 
 		}
-
+		System.out.println("envio encuesta exitoso");
 		return respuesta;
 
 	}
@@ -494,6 +494,49 @@ public class SendHttp {
 
 						resultado.add(respEncuesta);
 					}
+				}
+			}
+
+		}
+		return resultado;
+
+	}
+	
+	public static String actualizarEncuestaRespondida(String idRecipiente) throws Exception {
+
+
+		String url = "https://api.surveymonkey.net/v3/surveys/286034049/responses/bulk?per_page=40";
+
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		// optional default is GET
+		con.setDoOutput(true);
+		con.setRequestMethod("GET");
+		String basicAuth = "Bearer IsDKHHgBqYrQWHP2UNbiIpb3EChcPcg6DtuGkuA2izwrUv.D85L0J4EY0KdmmJOy3dAyqY9QrX7Jq4gmzWUqiuwCdw4vSKi1ls2V.fc-1BbWjsOPF9p6V6VOG-UZxppO";
+		con.setRequestProperty ("Authorization", basicAuth);	
+		con.setRequestProperty("Content-Type", "application/json");
+		con.setRequestProperty("Accept", "application/json");
+
+		String resultado ="";
+
+		try(BufferedReader br = new BufferedReader(
+				new InputStreamReader(con.getInputStream(), "utf-8"))) {
+			StringBuilder response = new StringBuilder();
+			String responseLine = null;
+			while ((responseLine = br.readLine()) != null) {
+				response.append(responseLine.trim());
+			}
+			System.out.println(response.toString());
+			JSONObject myResponse = new JSONObject(response.toString());
+			System.out.println(myResponse.get("data"));
+			
+			JSONArray data = new JSONArray(myResponse.get("data").toString());
+
+			for(int i=0; i<data.length(); i++) {
+				JSONObject respuesta = new JSONObject(data.get(i).toString());
+				if(respuesta.get("recipient_id").toString().equals(idRecipiente)) {
+				resultado="si";
+				break;
 				}
 			}
 
