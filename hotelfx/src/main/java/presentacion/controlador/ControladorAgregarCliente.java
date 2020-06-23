@@ -65,8 +65,9 @@ public class ControladorAgregarCliente implements Initializable {
 
 	private void agregarListaTiposDoc() {
 		this.listaTipoDocExistentes.add("DNI");
-		 this.listaTipoDocExistentes.add("Segundo tipo");
-		 this.listaTipoDocExistentes.add("Tercer tipo");
+		this.listaTipoDocExistentes.add("LIBRETA CIVICA");
+		this.listaTipoDocExistentes.add("PASAPORTE");
+		this.listaTipoDocExistentes.add("DOCUMENTO EXTRANJERO");
 	}
 	
 	 @FXML

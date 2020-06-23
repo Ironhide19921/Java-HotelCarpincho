@@ -30,8 +30,7 @@ import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorLogin implements Initializable {
 	
-	public static String nombre;
-	public static String pass;
+	public static UsuarioDTO usuarioLogeado;
 	public static List<PermisoPerfilDTO> permisos;
 	public static Set<Integer> permisosPorId;
 	
@@ -63,10 +62,9 @@ public class ControladorLogin implements Initializable {
 			List<UsuarioDTO> usuarios = this.usuario.buscarUsuarios2(txtUsuario.getText(), txtPass.getText());
 			
 			try {
-				
-			nombre = usuarios.get(0).getNombre();
-			pass = usuarios.get(0).getPassword();
-			permisos = this.permisoPerfil.buscarPermisos(usuarios.get(0).getIdPerfil());
+			
+			usuarioLogeado = usuarios.get(0);
+			permisos = this.permisoPerfil.buscarPermisos(usuarioLogeado.getIdPerfil());
 			
 			for(PermisoPerfilDTO permiso : permisos) {
 				permisosPorId.add(permiso.getIdPermiso());
@@ -76,7 +74,6 @@ public class ControladorLogin implements Initializable {
 			
 			}catch(Exception e) {
 				String eleccion = Validador.mostrarMensajeCampo();
-				//System.out.println(Validador.mostrarMensajeCampo());
 				if(!(eleccion.equals("")) && !(eleccion.equals("Cancelar")) && !(verificarEmail(eleccion)==(null))) {
 					List<ConfiguracionDTO> config = emailConfig.obtenerConfiguraciones();
 					UsuarioDTO emailUsuario = verificarEmail(eleccion);
