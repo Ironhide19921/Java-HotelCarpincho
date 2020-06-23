@@ -72,7 +72,7 @@ public class Mail {
 
 	}
 
-	public void enviarMsj(String msj) {
+	public void enviarEncuesta(String msj) {
 		//Start our mail message
 		MimeMessage msg = new MimeMessage(session);
 		try {
@@ -98,29 +98,39 @@ public class Mail {
 					"</html>", "text/html");
 //			msg.setText(msj);
 			System.out.println("Mensaje enviado");
-
-//			//Adjunto
-//			Multipart emailContent = new MimeMultipart();
-//
-//			MimeBodyPart textBodyPart = new MimeBodyPart();
-//			textBodyPart.setText("Mensaje multiparte");
-//
-//			MimeBodyPart csvAttachment = new MimeBodyPart();
-//			try {
-//				csvAttachment.attachFile("C:/Users/marcos/Desktop/carpinchofx/cliente.csv/");
-//				System.out.println("Se pudo acceder al archivo");
-//			} catch (IOException e) {
-//				System.out.println("No se pudo acceder al archivo");
-//				e.printStackTrace();
-//			}
-
-			//Attach body parts
-//			emailContent.addBodyPart(textBodyPart);
-//			emailContent.addBodyPart(csvAttachment);
-//			//Attach multipart to message
-//			msg.setContent(emailContent);
-			
-			
+						
+			//String mensaje = "Mensaje enviado";
+			//Transport.send(msg -> System.out.println("Mensaje enviado"));
+			Transport.send(msg);
+			Validador.mostrarMensaje("Testing exitoso!");
+		} catch (AddressException e) {
+			e.printStackTrace();
+			Validador.mostrarMensaje("Error con cuenta de mail");
+			System.out.println(username);
+			System.out.println(password);
+			System.out.println(puerto);
+			System.out.println(prov);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Validador.mostrarMensaje("Error con mensaje");
+			System.out.println(username);
+			System.out.println(password);
+			System.out.println(puerto);
+			System.out.println(prov);
+		}
+	}
+	
+	public void enviarMsj(String msj) {
+		//Start our mail message
+		MimeMessage msg = new MimeMessage(session);
+		try {
+			msg.setFrom(new InternetAddress(fromEmail));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+			msg.setSubject("Mensaje de prueba");
+			msg.setText(msj);
+			System.out.println("Mensaje enviado");
+						
 			//String mensaje = "Mensaje enviado";
 			//Transport.send(msg -> System.out.println("Mensaje enviado"));
 			Transport.send(msg);

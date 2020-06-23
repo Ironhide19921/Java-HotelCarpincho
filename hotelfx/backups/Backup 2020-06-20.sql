@@ -51,7 +51,7 @@ CREATE TABLE `categoriaevento` (
   `Nombre` varchar(45) NOT NULL,
   `Detalle` varchar(100) NOT NULL,
   PRIMARY KEY (`idCategoriaEvento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,6 +60,7 @@ CREATE TABLE `categoriaevento` (
 
 LOCK TABLES `categoriaevento` WRITE;
 /*!40000 ALTER TABLE `categoriaevento` DISABLE KEYS */;
+INSERT INTO `categoriaevento` VALUES (1,'Cumplea├▒os','Un cumple con papitas y pancho'),(2,'Casamiento','Con torta y musica'),(3,'Infantil','Algo infantil con lo basico');
 /*!40000 ALTER TABLE `categoriaevento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +82,7 @@ CREATE TABLE `cliente` (
   `Estado` tinyint(1) NOT NULL,
   `FechaNacimiento` date NOT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,33 +91,8 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,'Marcos','Sol','DNI','38820147','marcossol@hotmail.com','1241353426',1,'2020-06-05');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `conexionconfig`
---
-
-DROP TABLE IF EXISTS `conexionconfig`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `conexionconfig` (
-  `idconexionConfig` int NOT NULL AUTO_INCREMENT,
-  `host` varchar(45) NOT NULL,
-  `user` varchar(45) NOT NULL,
-  `pass` varchar(45) NOT NULL,
-  PRIMARY KEY (`idconexionConfig`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `conexionconfig`
---
-
-LOCK TABLES `conexionconfig` WRITE;
-/*!40000 ALTER TABLE `conexionconfig` DISABLE KEYS */;
-INSERT INTO `conexionconfig` VALUES (0,'localhost','labo','1234');
-/*!40000 ALTER TABLE `conexionconfig` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -215,12 +191,9 @@ DROP TABLE IF EXISTS `encuesta`;
 CREATE TABLE `encuesta` (
   `idEncuesta` int NOT NULL AUTO_INCREMENT,
   `idCliente` int NOT NULL,
-  `Detalle` varchar(45) NOT NULL,
-  `Estado` varchar(20) NOT NULL,
-  `FechaEnvio` datetime NOT NULL,
-  `FechaRecepcion` datetime NOT NULL,
+  `recipiente` varchar(60) NOT NULL,
   PRIMARY KEY (`idEncuesta`),
-  KEY `fk_IdCli` (`idCliente`),
+  KEY `fk_cliente_id_encuesta` (`idCliente`),
   CONSTRAINT `encuesta_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -301,6 +274,12 @@ CREATE TABLE `ordenpedido` (
   `idUsuario` int NOT NULL,
   `Cantidad` int NOT NULL,
   `PrecioTotal` decimal(10,3) NOT NULL,
+  `FormaPago` varchar(20) DEFAULT NULL,
+  `TipoTarjeta` varchar(25) DEFAULT NULL,
+  `NumeroTarjeta` varchar(25) DEFAULT NULL,
+  `FechaVencTarjeta` varchar(15) DEFAULT NULL,
+  `CodSeguridadTarjeta` varchar(10) DEFAULT NULL,
+  `esRestoran` tinyint(1) NOT NULL,
   PRIMARY KEY (`idOrdenPedido`,`idProducto`),
   KEY `fk_idProducto` (`idProducto`),
   KEY `fk_id_Cliente` (`idCliente`),
@@ -308,7 +287,7 @@ CREATE TABLE `ordenpedido` (
   CONSTRAINT `ordenpedido_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`),
   CONSTRAINT `ordenpedido_ibfk_2` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
   CONSTRAINT `ordenpedido_ibfk_3` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,6 +296,7 @@ CREATE TABLE `ordenpedido` (
 
 LOCK TABLES `ordenpedido` WRITE;
 /*!40000 ALTER TABLE `ordenpedido` DISABLE KEYS */;
+INSERT INTO `ordenpedido` VALUES (2,1,1,1,3,135.000,'Efectivo','','','','',1),(3,1,1,1,3,135.000,'Efectivo','','','','',1),(4,1,1,1,1,45.000,'Efectivo','','','','',1),(5,1,1,1,1,45.000,'Efectivo','','','','',1),(6,1,1,1,1,45.000,'Efectivo','','','','',1);
 /*!40000 ALTER TABLE `ordenpedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,7 +311,7 @@ CREATE TABLE `perfil` (
   `idPerfil` int NOT NULL AUTO_INCREMENT,
   `NombrePerfil` varchar(45) NOT NULL,
   PRIMARY KEY (`idPerfil`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,6 +320,7 @@ CREATE TABLE `perfil` (
 
 LOCK TABLES `perfil` WRITE;
 /*!40000 ALTER TABLE `perfil` DISABLE KEYS */;
+INSERT INTO `perfil` VALUES (1,'Full'),(2,'Limitado');
 /*!40000 ALTER TABLE `perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +335,7 @@ CREATE TABLE `permiso` (
   `idPermiso` int NOT NULL AUTO_INCREMENT,
   `NombrePermiso` varchar(45) NOT NULL,
   PRIMARY KEY (`idPermiso`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,7 +344,7 @@ CREATE TABLE `permiso` (
 
 LOCK TABLES `permiso` WRITE;
 /*!40000 ALTER TABLE `permiso` DISABLE KEYS */;
-INSERT INTO `permiso` VALUES (1,'ABM Usuarios'),(2,'ABM Clientes'),(3,'ABM Cuartos');
+INSERT INTO `permiso` VALUES (1,'ABM Usuarios'),(2,'ABM Clientes'),(3,'ABM Cuartos'),(4,'ABM Productos'),(5,'ABM Reserva cuarto'),(6,'ABM Reserva evento'),(7,'Importar reservas'),(8,'ABM Categoria evento'),(9,'ABM Perfiles'),(10,'ABM Categoria cuarto'),(11,'ABM Salones'),(12,'Configuraci├│n email'),(13,'ABM Orden Pedidos'),(14,'Gesti├│n backups');
 /*!40000 ALTER TABLE `permiso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,7 +364,7 @@ CREATE TABLE `permisoperfil` (
   KEY `fk_idPermiso` (`idPermiso`),
   CONSTRAINT `permisoperfil_ibfk_1` FOREIGN KEY (`idPerfil`) REFERENCES `perfil` (`idPerfil`),
   CONSTRAINT `permisoperfil_ibfk_2` FOREIGN KEY (`idPermiso`) REFERENCES `permiso` (`idPermiso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,6 +373,7 @@ CREATE TABLE `permisoperfil` (
 
 LOCK TABLES `permisoperfil` WRITE;
 /*!40000 ALTER TABLE `permisoperfil` DISABLE KEYS */;
+INSERT INTO `permisoperfil` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,9),(10,1,10),(11,1,11),(12,1,12),(13,1,13),(14,1,14),(15,2,1),(16,2,9);
 /*!40000 ALTER TABLE `permisoperfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -419,7 +401,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,450.000,'Milanesa','ultra milanesa','proveedor','tipo');
+INSERT INTO `producto` VALUES (1,45.000,'Milanesa','una milanesa caballo','china','carne');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,12 +419,12 @@ CREATE TABLE `reservacuarto` (
   `idCuarto` int NOT NULL,
   `Senia` decimal(10,3) NOT NULL,
   `MontoReservaCuarto` decimal(10,3) NOT NULL,
-  `EmailFacturacion` varchar(60) NOT NULL,
-  `FechaReserva` timestamp NOT NULL,
-  `FechaCheckIn` timestamp NOT NULL,
-  `FechaIngreso` timestamp NOT NULL,
-  `FechaOut` timestamp NOT NULL,
-  `FechaEgreso` timestamp NOT NULL,
+  `EmailFacturacion` varchar(50) NOT NULL,
+  `FechaReserva` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `FechaCheckIn` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FechaIngreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FechaOut` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FechaEgreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `FormaPago` varchar(20) NOT NULL,
   `TipoTarjeta` varchar(25) DEFAULT NULL,
   `NumeroTarjeta` varchar(25) DEFAULT NULL,
@@ -455,9 +437,9 @@ CREATE TABLE `reservacuarto` (
   KEY `fk_clienteId` (`idCliente`),
   KEY `fk_id_Usuario` (`idUsuario`),
   KEY `fk_idCuarto` (`idCuarto`),
-  CONSTRAINT `reservacuarto_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
-  CONSTRAINT `reservacuarto_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
-  CONSTRAINT `reservacuarto_ibfk_3` FOREIGN KEY (`idCuarto`) REFERENCES `cuarto` (`idCuarto`)
+  CONSTRAINT `fk_clienteId` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
+  CONSTRAINT `fk_id_Usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
+  CONSTRAINT `fk_idCuarto` FOREIGN KEY (`idCuarto`) REFERENCES `cuarto` (`idCuarto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -483,20 +465,20 @@ CREATE TABLE `reservaevento` (
   `idUsuario` int NOT NULL,
   `idSalon` int NOT NULL,
   `idCategoriaEvento` int NOT NULL,
-  `TipoTarjeta` varchar(25) NOT NULL,
+  `TipoTarjeta` enum('VISA','MASTERCARD','NO') NOT NULL,
   `CodSeguridadTarjeta` varchar(10) NOT NULL,
   `FechaVencTarjeta` varchar(15) NOT NULL,
   `NumeroTarjeta` varchar(25) NOT NULL,
-  `FormaPago` varchar(20) NOT NULL,
+  `FormaPago` enum('EFECTIVO','DEBITO','CREDITO') NOT NULL,
   `MontoTotal` decimal(20,3) NOT NULL,
   `MontoReservaEvento` decimal(20,3) NOT NULL,
   `Senia` decimal(20,3) NOT NULL,
-  `FechaGeneracionReserva` datetime NOT NULL,
-  `FechaInicioReserva` datetime NOT NULL,
-  `FechaFinReserva` datetime NOT NULL,
-  `FechaIngreso` datetime NOT NULL,
-  `FechaEgreso` datetime NOT NULL,
-  `EstadoReserva` varchar(20) NOT NULL,
+  `FechaGeneracionReserva` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `FechaInicioReserva` timestamp NULL DEFAULT NULL,
+  `FechaFinReserva` timestamp NULL DEFAULT NULL,
+  `FechaIngreso` timestamp NULL DEFAULT NULL,
+  `FechaEgreso` timestamp NULL DEFAULT NULL,
+  `EstadoReserva` enum('PENDIENTE','CANCELADO','EN_CURSO','FINALIZADO') NOT NULL,
   `Observaciones` varchar(200) NOT NULL,
   PRIMARY KEY (`idReservaEvento`),
   KEY `idCliente` (`idCliente`),
@@ -529,12 +511,12 @@ DROP TABLE IF EXISTS `salon`;
 CREATE TABLE `salon` (
   `idSalon` int NOT NULL AUTO_INCREMENT,
   `Capacidad` int NOT NULL,
-  `Senia` decimal(20,3) NOT NULL,
+  `Senia` int NOT NULL,
   `Estilo` varchar(150) NOT NULL,
   `Monto` decimal(20,3) NOT NULL,
   `Estado` tinyint(1) NOT NULL,
   PRIMARY KEY (`idSalon`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -543,6 +525,7 @@ CREATE TABLE `salon` (
 
 LOCK TABLES `salon` WRITE;
 /*!40000 ALTER TABLE `salon` DISABLE KEYS */;
+INSERT INTO `salon` VALUES (19,150,23,'Amplio salon 150 personas',1300.000,1),(20,50,40,'Salon peque├▒o ',349.990,1),(21,300,35,'Salon grande',2300.990,1);
 /*!40000 ALTER TABLE `salon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -563,7 +546,7 @@ CREATE TABLE `ticket` (
   PRIMARY KEY (`idTicket`),
   KEY `fk_idCliente` (`idCliente`),
   CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -572,6 +555,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+INSERT INTO `ticket` VALUES (1,1,135.000,'descripcion','/tickets/ordenPedido/ticketPedido_2_1.pdf','2020-06-20 18:39:14'),(2,1,135.000,'descripcion','/tickets/ordenPedido/ticketPedido_3_2.pdf','2020-06-20 18:40:24'),(3,1,45.000,'descripcion','/tickets/ordenPedido/ticketPedido_4_3.pdf','2020-06-20 18:44:35'),(4,1,45.000,'descripcion','/tickets/ordenPedido/ticketPedido_5_4.pdf','2020-06-20 18:54:39'),(5,1,45.000,'descripcion','/tickets/ordenPedido/ticketPedido_6_5.pdf','2020-06-20 18:58:27');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -595,7 +579,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`idUsuario`),
   KEY `fk_id_Perfil` (`idPerfil`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idPerfil`) REFERENCES `perfil` (`idPerfil`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -604,6 +588,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,1,'Administrador','Administrador','DNI','38784589','carpinchocorp@gmail.com','123',1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -616,4 +601,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-14 19:49:12
+-- Dump completed on 2020-06-20 17:20:22

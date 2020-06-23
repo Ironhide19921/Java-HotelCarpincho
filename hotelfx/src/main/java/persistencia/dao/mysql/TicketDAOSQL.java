@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import dto.CategoriaEventoDTO;
 import dto.TicketDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.TicketDAO;
@@ -21,7 +21,9 @@ public class TicketDAOSQL implements TicketDAO{
 	private static final String readall = "SELECT * FROM ticket";
 	//private static final String update = "UPDATE cliente SET nombre = ?, apellido = ?, tipoDocumento = ?, documento = ?, email = ?, telefono = ?, estado = ?, fechaNacimiento = ? WHERE idCliente = ?";
 	private static final String search = "SELECT * FROM ticket WHERE idTicket LIKE ? OR idCliente LIKE ? ";
-	//private static final String search1 = "SELECT * FROM cliente WHERE idCliente = ?";
+	private static final String search1 = "SELECT * FROM ticket WHERE idTicket = ?";
+	private static final String getRecienInsertado = "SELECT MAX(idTicket) FROM ticket WHERE idCliente = ?";
+	private static final String modif = "UPDATE ticket SET path = ? WHERE idTicket = ?";
 	
 	@Override
 	public boolean insert(TicketDTO ticket) {
@@ -141,6 +143,89 @@ public class TicketDAOSQL implements TicketDAO{
 			e.printStackTrace();
 		}
 		return tickets;
+	}
+
+
+
+	@Override
+	public int getIdTicketRecienInsertado(int idCliente) {
+		// TODO Auto-generated method stub
+		int ticket = 0;
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(getRecienInsertado);
+			statement.setInt(1, idCliente);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				ticket = resultSet.getInt(1);
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ticket;
+	}
+	
+	
+	@Override
+	public TicketDTO get(int id) {
+		TicketDTO ticket = null;
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(search1);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				ticket = getTicketDTOO(resultSet);
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ticket;
+	}
+	
+	
+	private TicketDTO getTicketDTOO(ResultSet resultSet) throws SQLException {
+		int id = resultSet.getInt("idTicket");
+		int idCliente = resultSet.getInt("idCliente");
+		BigDecimal precioTotal = resultSet.getBigDecimal("precioTotal");
+		String descripcion = resultSet.getString("descripcion");
+		String path = resultSet.getString("path");
+		Timestamp fecha = resultSet.getTimestamp("FechaReserva");
+		return new TicketDTO(id, idCliente, precioTotal, descripcion, path, fecha);
+	}
+
+
+	@Override
+	public void modif(int idTicket, String path) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		try{
+			statement = conexion.prepareStatement(modif);
+			statement.setString(1, path);
+			statement.setInt(2, idTicket);
+
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 
 }

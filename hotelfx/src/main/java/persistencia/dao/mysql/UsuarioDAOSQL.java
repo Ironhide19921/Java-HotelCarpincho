@@ -20,8 +20,8 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 	private static final String readall = "SELECT * FROM usuario";
 	private static final String update = "UPDATE usuario SET nombre = ?, apellido = ?, tipoDocumento = ?, documento = ?, email = ?, password = ?, estado = ?, idPerfil = ? WHERE idUsuario = ?";
 	private static final String search = "SELECT * FROM usuario WHERE email LIKE ? OR documento LIKE ? OR idUsuario LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
-	private static final String search2 = "SELECT * FROM usuario WHERE nombre = ? AND password = ?";
-	private static final String search3 = "SELECT * FROM usuario WHERE email = ?";
+	private static final String search2 = "SELECT * FROM usuario WHERE nombre = ? AND password = ? AND estado = 1";
+	private static final String search3 = "SELECT * FROM usuario WHERE email = ? AND estado = 1";
 
 	@Override
 	public boolean insert(UsuarioDTO usuario) {

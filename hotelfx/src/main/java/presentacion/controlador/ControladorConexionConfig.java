@@ -37,7 +37,8 @@ public class ControladorConexionConfig {
 		FileWriter flwriter = null;
 		try {
 			//crea el flujo para escribir en el archivo
-			flwriter = new FileWriter(".//src//main//java//persistencia//conexion//config.txt");
+			flwriter = new FileWriter(".//sql//conexion.cfg");
+
 			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
 			BufferedWriter bfwriter = new BufferedWriter(flwriter);
 			
@@ -72,9 +73,7 @@ public class ControladorConexionConfig {
 	      BufferedReader br = null;
 
 	      try {
-	         // Apertura del fichero y creacion de BufferedReader para poder
-	         // hacer una lectura comoda (disponer del metodo readLine()).
-	         archivo = new File (".//src//main//java//persistencia//conexion//config.txt"); //Cambiar para el instalador
+	         archivo = new File (".//sql//conexion.cfg"); //Cambiar para el instalador
 	         fr = new FileReader (archivo);
 	         br = new BufferedReader(fr);
 

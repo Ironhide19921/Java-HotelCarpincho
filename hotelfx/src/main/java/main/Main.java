@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import modelo.Validador;
 import persistencia.conexion.Conexion;
 import presentacion.controlador.ControladorMenuPrincipal;
 import javafx.scene.Parent;
@@ -17,8 +18,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Conexion.getConexion();
+		//ControladorMenuPrincipal.loginStage.setFullScreen(true);
 		
-		if(Conexion.ejecucion.equals("Cancelar")) {
+		if(Conexion.ejecucion.equals("Cancelar") || Conexion.ejecucion.equals("Cancel")) {
 			System.exit(1);
 		}
 		
@@ -31,7 +33,7 @@ public class Main extends Application {
 		    Application.setUserAgentStylesheet(STYLESHEET_CASPIAN);
 		    primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 		    primaryStage.sizeToScene();
-		    primaryStage.show(); 
+		    primaryStage.show();
 		    this.stage = primaryStage;
 
 		} catch(Exception e) {

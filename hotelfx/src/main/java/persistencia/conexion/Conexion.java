@@ -26,6 +26,7 @@ import presentacion.controlador.ControladorMenuPrincipal;
 
 public class Conexion {
 	
+	private Alert alert;
 	public static Conexion instancia;
 	private Connection connection;
 	private Logger log = Logger.getLogger(Conexion.class);
@@ -35,33 +36,37 @@ public class Conexion {
 	ControladorMenuPrincipal menuPrincipal = new ControladorMenuPrincipal();
 
 	private Conexion() {
-		int estado=0;
-		
-		
-		while(estado==0) {
+		int estado = 0;
 
-		ConexionConfigDTO config = new ConexionConfigDTO(0, null, null, null);
-		config = ControladorConexionConfig.leerFicheroConexion();
-		
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = DriverManager.getConnection("jdbc:mysql://"+config.getHost()+"/hotel",""+config.getUser()+"",""+config.getPass()+"");
-			this.connection.setAutoCommit(false);
-			log.info("ConexiÃ³n exitosa");
-			estado=1;
-		}
-		catch (Exception e) {
-			ejecucion = Validador.mostrarMensajeOpcion();
-			if(ejecucion.equals("Aceptar")) {
-				menuPrincipal.verVentanaConexion();
+		while (estado == 0) {
+
+			ConexionConfigDTO config = new ConexionConfigDTO(0, null, null, null);
+			config = ControladorConexionConfig.leerFicheroConexion();
+
+			try {
+
+				Class.forName("com.mysql.jdbc.Driver");
+				this.connection = DriverManager.getConnection("jdbc:mysql://" + config.getHost() + "/hotel",
+						"" + config.getUser() + "", "" + config.getPass() + "");
+				this.connection.setAutoCommit(false);
+				log.info("ConexiÃ³n exitosa");
+				estado = 1;
 			}
-			if(ejecucion.equals("Cancelar")) {
-				break;
+
+			catch (Exception e) {
+				ejecucion = Validador.mostrarMensajeOpcion();
+				if (ejecucion.equals("Aceptar") || ejecucion.equals("OK")) {
+					menuPrincipal.verVentanaConexion();
+				}
+				if (ejecucion.equals("Cancelar") || ejecucion.equals("Cancel")) {
+					break;
+				}
 			}
+
 		}
+
 	}
-		
-	}
+
 	
 	public static Conexion getConexion()   
 	{								
@@ -89,6 +94,14 @@ public class Conexion {
 			log.error("Error al cerrar la conexiÃ³n!", e);
 		}
 		instancia = null;
+	}
+	
+	private void mostrarMensaje(String mensaje) {
+		alert.setTitle("Información");
+		alert.setHeaderText(null);
+		alert.setContentText(mensaje);
+
+		alert.showAndWait();
 	}
 
 }
