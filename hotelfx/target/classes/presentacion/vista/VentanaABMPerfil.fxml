@@ -18,8 +18,8 @@
             <Pane prefHeight="450.0" prefWidth="559.0" BorderPane.alignment="CENTER">
                <children>
                   <TextField id="txtNombre" fx:id="txtNombre" layoutX="209.0" layoutY="36.0" prefHeight="30.0" prefWidth="200.0" />
-                  <Text layoutX="31.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo perfil:" />
-                  <Text layoutX="31.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar perfil:" />
+                  <Text layoutX="31.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo perfil(*)" />
+                  <Text layoutX="31.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar perfil(*)" />
                   <ComboBox fx:id="comboPerfiles" layoutX="209.0" layoutY="114.0" onAction="#refrescarPermisos" onMousePressed="#refrescarComboVistaPerfiles" prefHeight="30.0" prefWidth="200.0" promptText="Selecciona perfil" />
                   <CheckBox fx:id="checkABMUsuarios" layoutX="31.0" layoutY="227.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Usuarios" />
                   <CheckBox fx:id="checkABMClientes" layoutX="31.0" layoutY="257.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Clientes" />

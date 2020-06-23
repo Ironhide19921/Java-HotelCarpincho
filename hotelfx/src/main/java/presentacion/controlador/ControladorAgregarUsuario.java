@@ -49,8 +49,9 @@ public class ControladorAgregarUsuario implements Initializable {
 			this.usuarios = new Usuario(new DAOSQLFactory());
 			this.listaTipoDocExistentes = FXCollections.observableArrayList();
 			this.listaTipoDocExistentes.add("DNI");
-			this.listaTipoDocExistentes.add("Segundo tipo");
-			this.listaTipoDocExistentes.add("Tercer tipo");
+			this.listaTipoDocExistentes.add("LIBRETA CIVICA");
+			this.listaTipoDocExistentes.add("PASAPORTE");
+			this.listaTipoDocExistentes.add("DOCUMENTO EXTRANJERO");
 			this.listaPerfiles = FXCollections.observableList(perfil.obtenerPerfil());
 			
 			this.comboTipoDoc.setItems(listaTipoDocExistentes);
