@@ -590,8 +590,6 @@ public void verMontoTotalySenia() {
 		
 	}		
 	else {
-		//this.montoSenia.setText(null);
-	//	this.senia.setText(null);
 		this.cantidadHoras =  BigDecimal.valueOf(0);
 	}
 	
