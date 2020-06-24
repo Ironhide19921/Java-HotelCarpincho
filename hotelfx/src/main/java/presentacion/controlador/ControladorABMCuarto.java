@@ -55,6 +55,7 @@ public class ControladorABMCuarto implements Initializable
 		  private Cuarto cuarto;
 		  private ReservaCuartoDTO reserva;
 		  private Validador validador;
+		  private ControladorAgregarReservaCuarto1 controlador;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -214,21 +215,15 @@ public class ControladorABMCuarto implements Initializable
 	 @FXML
 	 public void seleccionarCuarto() throws IOException {
 		 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto1.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-			Parent root = (Parent) fxmlLoader.load(); 	
-			ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();
-			scene2Controller.setearCampos(reserva);
-			scene2Controller.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
-			scene2Controller.verMontoTotalySenia();
+			controlador.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
+			controlador.verMontoTotalySenia();
 			Stage stage = (Stage) btnSeleccionarCuarto.getScene().getWindow();
 			stage.close();
-			Stage primaryStage = new Stage(); 
-			primaryStage.setScene(new Scene(root));   
-			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-			primaryStage.setTitle("Agregar cuartos");
-			primaryStage.sizeToScene();
-			primaryStage.show(); 
-	 }		
+	 }
+
+	public void enviarControlador(ControladorAgregarReservaCuarto1 controladorAgregarReservaCuarto1) {
+		// TODO Auto-generated method stub
+		this.controlador = controladorAgregarReservaCuarto1;
+	}		
 	
 }

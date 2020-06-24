@@ -95,8 +95,8 @@ public class ControladorABMCliente implements Initializable{
 	private ReservaCuartoDTO reserva;
 	private ReservaCuarto reservas;
 	private FxmlLoader fxml;
-	private Stage primaryStage;
-	
+	private Stage primaryStage, stageReserva;
+	private ControladorAgregarReservaCuarto1 controlador;
 	
 	private Alert alert;
 	
@@ -246,15 +246,9 @@ public class ControladorABMCliente implements Initializable{
 	 
 	 @FXML
 	 public void seleccionarCliente() throws IOException
-	 {	 
-			primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto1"));   
-			FXMLLoader fxmlLoader = fxml.getFXMLLoader();
-			ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();
-			scene2Controller.setearCampos(reserva);
-			scene2Controller.modificarCliente(this.tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
-			Stage stage = (Stage) btnSeleccionarCliente.getScene().getWindow();
-			stage.close();
-			fxml.mostrarStage(primaryStage, "Agregar reserva de cuarto");	
+	 {	 	
+			controlador.modificarCliente(this.tablaPersonas.getSelectionModel().getSelectedItem().getIdCliente());
+			cerrarVentana();
 	 }
 	 
 	 @FXML
@@ -360,7 +354,7 @@ public class ControladorABMCliente implements Initializable{
 		 
 		 @FXML
 		 private void cerrarVentana() {
-			 Stage stage = (Stage) btnCerrar.getScene().getWindow();
+			 Stage stage = (Stage) btnSeleccionarCliente.getScene().getWindow();
 				stage.close();
 		}
 		 
@@ -372,6 +366,12 @@ public class ControladorABMCliente implements Initializable{
 		 public void datosReserva(ReservaCuartoDTO reserva) {
 			 this.reserva = reserva;
 		 }
+
+		public void getStage(Stage primaryStage2,ControladorAgregarReservaCuarto1 controlador) {
+			// TODO Auto-generated method stub
+			this.stageReserva = primaryStage2;
+			this.controlador = controlador;
+		}
 		 
 
 }
