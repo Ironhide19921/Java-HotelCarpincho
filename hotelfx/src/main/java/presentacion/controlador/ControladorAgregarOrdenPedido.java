@@ -242,6 +242,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		
 		if(cmbBoxProductos.getSelectionModel().getSelectedItem() == null) {
 			Validador.mostrarMensaje("Seleccione un producto para agregar");
+			return;
 		}else {
 			prodSeleccionado = cmbBoxProductos.getValue();
 			prod = prodSeleccionado.split("-");
@@ -258,6 +259,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		int cantidadSelec = 0;
 		if(cmbBoxCantidad.getSelectionModel().getSelectedItem() == null) {
 			Validador.mostrarMensaje("Elija la cantidad");
+			return;
 		}else {
 			cantidadSelec = cmbBoxCantidad.getSelectionModel().getSelectedItem();
 		}
@@ -282,6 +284,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 				txtSubtotal.setText(String.valueOf(subtotalPedido));
 			}else {
 				Validador.mostrarMensaje("Este producto " + prodSeleccionado + " esta repetido en la lista");
+				return;
 			}			
 		}			
 		
@@ -293,9 +296,11 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	public void eliminarProducto() throws Exception {
 		if(listaPedidosEnTabla.isEmpty()){
 			Validador.mostrarMensaje("La lista esta vacia");
+			return;
 		}else {
 			if(productosEnTabla.getSelectionModel().getSelectedItem() == null) {
 				Validador.mostrarMensaje("Seleccione un producto a eliminar");
+				return;
 			}else {
 				ProductoPedidoDTO prodSeleccionado = productosEnTabla.getSelectionModel().getSelectedItem();		
 				listaPedidosEnTabla.remove(prodSeleccionado);
@@ -480,8 +485,6 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		if(!verificarPath(path)) {
 			this.ticket.modificarTicket(ticket, path);
 			reporte.guardarPdf();
-		}else {
-			Validador.mostrarMensaje("El path del ticket visualizado ya existe.");
 		}
 		
 		cerrarVentanaAgregarY_GenerarTicket();

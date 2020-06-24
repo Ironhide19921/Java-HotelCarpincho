@@ -166,12 +166,12 @@ CREATE TABLE `reservacuarto` (
   `FechaIngreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `FechaOut` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `FechaEgreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `FormaPago` varchar(20) NOT NULL,
-  `TipoTarjeta` varchar(25) DEFAULT NULL,
+  `FormaPago` enum('EFECTIVO','DEBITO','CREDITO') NOT NULL,
+  `TipoTarjeta` enum('VISA','MASTERCARD','NO') NOT NULL,
   `NumeroTarjeta` varchar(25) DEFAULT NULL,
   `FechaVencTarjeta` varchar(15) DEFAULT NULL,
   `CodSeguridadTarjeta` varchar(10) DEFAULT NULL,
-  `EstadoReserva` varchar(20) NOT NULL,
+  `EstadoReserva` enum('PENDIENTE','CANCELADO','EN_CURSO','FINALIZADO') NOT NULL,
   `Comentarios` varchar(200) DEFAULT NULL,
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
