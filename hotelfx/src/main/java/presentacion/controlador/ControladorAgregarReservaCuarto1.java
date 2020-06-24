@@ -118,7 +118,13 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		this.btnConsultarPendientes.setVisible(false);
 		this.infoTarjeta.setVisible(false);
 		this.fechasCheck.setVisible(false);
-	
+		this.fechaReserva.setDisable(true);
+		this.cmbBoxHoraReserva.setDisable(true);
+		this.usuario.setEditable(false);
+		this.cmbBoxEstados.setDisable(true);
+		this.montoSenia.setEditable(false);
+		this.senia.setEditable(false);
+		this.montoCompleto.setEditable(false);
 	}
 	
 	private void inicializarObservableList() {
@@ -236,10 +242,10 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 				emailFacturacion, NumeroTarjeta, formaPago, tipoTarjeta, CodSeguridadTarjeta, FechaVencTarjeta,
 				fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
 		
-		if(this.cantidadHoras!= BigDecimal.valueOf(0)) {
+		/*if(this.cantidadHoras!= BigDecimal.valueOf(0)) {
 			reserva.setCantidadDias(cantidadHoras.toString());
 			//reserva.setCantidadDias(cantidadHoras.divide(BigDecimal.valueOf(24))+"");
-		}
+		}*/
 		
 		return reserva;
 	}
@@ -308,15 +314,16 @@ public void consultarCuarto() {
 			primaryStage.setScene(fxml.getScene("VentanaABMCuarto"));   
 			FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 			ControladorABMCuarto scene2Controller = fxmlLoader.getController();
-			scene2Controller.datosReserva(obtenerDatosReserva());
+			//scene2Controller.datosReserva(obtenerDatosReserva());
 			LocalDate localInicioIngreso = this.fechaIngreso.getValue();
 			LocalDate localInicioEgreso = this.fechaEgreso.getValue();
 			Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
 			Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
 			scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
+			scene2Controller.enviarControlador(this);
+			scene2Controller.modificarBotones(true);
 			fxml.mostrarStage(primaryStage, "Consulta de cuartos disponible");
-			Stage stage = (Stage) btnAgregarCuarto.getScene().getWindow();
-				stage.close();
+			
 			}
 			else {
 				Validador.mostrarMensaje("El ingreso de fechas y el cliente son obligatorias para esta consulta");
@@ -329,21 +336,12 @@ public void consultarCuarto() {
 	@FXML 
 	public void consultarCliente() {
 	 try { 
-			if(ingresoFechas()) {
-			
 			primaryStage.setScene(fxml.getScene("VentanaABMCliente"));   
 			FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 			ControladorABMCliente scene2Controller = fxmlLoader.getController();
-			scene2Controller.datosReserva(obtenerDatosReserva());
 			scene2Controller.modificarBotonesReserva();
-		//	scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
-		fxml.mostrarStage(primaryStage, "Consulta de clientes disponible");
-			Stage stage = (Stage) btnAgregarCuarto.getScene().getWindow();
-			stage.close();
-			}
-			else {
-				Validador.mostrarMensaje("El ingreso de fechas son obligatorias para esta consulta");
-			}
+	 		scene2Controller.getStage(primaryStage,this);
+	 		fxml.mostrarStage(primaryStage, "Consulta de clientes disponible");
 	       			
 	     } catch(Exception e) { 
 	      e.printStackTrace(); 
@@ -685,6 +683,10 @@ public void setCmbBoxEstados(EstadoReserva pendiente) {
 	this.cmbBoxEstados.setValue(pendiente.name());
 }
 
+public void habilitarComboEstados() {
+	this.cmbBoxEstados.setDisable(false);
+}
+
 public void setFechaReserva(Timestamp timestamp) {
 
 	this.fechaReserva.setValue(timestamp.toLocalDateTime().toLocalDate());
@@ -713,11 +715,19 @@ public void setCantidadHoras(BigDecimal cantidadHoras) {
 }
 
 public void setearCamposAgregar() {
-	this.montoSenia.setText(""+0);
-	this.senia.setText(""+0);
+	this.montoSenia.setText("0");
+	this.senia.setText("0");
+	this.montoCompleto.setText("0");
 	this.email.setText("-");
 	this.cliente.setText("0");
 	this.cuarto.setText("0");
+	this.cmbBoxFormaPago.setValue(FormaPago.EFECTIVO.name());
+	
+}
+
+public void setUsuario(UsuarioDTO usuarioLogeado) {
+	// TODO Auto-generated method stub
+	this.usuario.setText(usuarioLogeado.getIdUsuario() + "");
 }
 
 

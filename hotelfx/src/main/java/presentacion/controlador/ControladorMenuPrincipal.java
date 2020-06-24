@@ -85,8 +85,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
-	@FXML
-	private ObservableList<ClienteDTO> clientesAencuestar;
+	@FXML private ObservableList<ClienteDTO> clientesAencuestar;
 	private List<EncuestaDTO> encuestasTodos;
 	
 	@FXML private MenuItem btnDeslogear;

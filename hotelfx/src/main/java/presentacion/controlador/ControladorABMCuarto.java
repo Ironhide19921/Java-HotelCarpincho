@@ -55,12 +55,14 @@ public class ControladorABMCuarto implements Initializable
 		  private Cuarto cuarto;
 		  private ReservaCuartoDTO reserva;
 		  private Validador validador;
+		  private ControladorAgregarReservaCuarto1 controlador;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
+		this.btnSeleccionarCuarto.setVisible(false);
 		tablaCuartos.getItems().clear();
 		cargarColumnas();
 		refrescarTabla();
@@ -194,16 +196,12 @@ public class ControladorABMCuarto implements Initializable
 	
 	public void modificarBotones(Boolean esReserva) {
 		if(esReserva) {
-			this.btnAgregarCuarto.setVisible(false);
-			this.btnEditar.setVisible(false);
-			this.btnAgregarCuartoReserva.setVisible(true);
-			this.btnEditarReserva.setVisible(true);
+			this.btnSeleccionarCuarto.setVisible(true);
+		
 		}
 		else{
-			this.btnAgregarCuarto.setVisible(true);
-			this.btnEditar.setVisible(true);
-			this.btnAgregarCuartoReserva.setVisible(false);
-			this.btnEditarReserva.setVisible(false);
+			this.btnSeleccionarCuarto.setVisible(false);
+		
 		}
 	}
 	
@@ -214,21 +212,15 @@ public class ControladorABMCuarto implements Initializable
 	 @FXML
 	 public void seleccionarCuarto() throws IOException {
 		 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaCuarto1.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-			Parent root = (Parent) fxmlLoader.load(); 	
-			ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();
-			scene2Controller.setearCampos(reserva);
-			scene2Controller.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
-			scene2Controller.verMontoTotalySenia();
+			controlador.modificarCuarto(this.tablaCuartos.getSelectionModel().getSelectedItem().getId());
+			controlador.verMontoTotalySenia();
 			Stage stage = (Stage) btnSeleccionarCuarto.getScene().getWindow();
 			stage.close();
-			Stage primaryStage = new Stage(); 
-			primaryStage.setScene(new Scene(root));   
-			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-			primaryStage.setTitle("Agregar cuartos");
-			primaryStage.sizeToScene();
-			primaryStage.show(); 
-	 }		
+	 }
+
+	public void enviarControlador(ControladorAgregarReservaCuarto1 controladorAgregarReservaCuarto1) {
+		// TODO Auto-generated method stub
+		this.controlador = controladorAgregarReservaCuarto1;
+	}		
 	
 }
