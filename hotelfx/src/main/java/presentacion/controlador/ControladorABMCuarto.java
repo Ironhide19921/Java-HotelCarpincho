@@ -62,6 +62,7 @@ public class ControladorABMCuarto implements Initializable
 		
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		activeSession = FXCollections.observableArrayList();
+		this.btnSeleccionarCuarto.setVisible(false);
 		tablaCuartos.getItems().clear();
 		cargarColumnas();
 		refrescarTabla();
@@ -195,16 +196,12 @@ public class ControladorABMCuarto implements Initializable
 	
 	public void modificarBotones(Boolean esReserva) {
 		if(esReserva) {
-			this.btnAgregarCuarto.setVisible(false);
-			this.btnEditar.setVisible(false);
-			this.btnAgregarCuartoReserva.setVisible(true);
-			this.btnEditarReserva.setVisible(true);
+			this.btnSeleccionarCuarto.setVisible(true);
+		
 		}
 		else{
-			this.btnAgregarCuarto.setVisible(true);
-			this.btnEditar.setVisible(true);
-			this.btnAgregarCuartoReserva.setVisible(false);
-			this.btnEditarReserva.setVisible(false);
+			this.btnSeleccionarCuarto.setVisible(false);
+		
 		}
 	}
 	

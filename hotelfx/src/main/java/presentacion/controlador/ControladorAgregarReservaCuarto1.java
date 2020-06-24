@@ -321,6 +321,7 @@ public void consultarCuarto() {
 			Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
 			scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
 			scene2Controller.enviarControlador(this);
+			scene2Controller.modificarBotones(true);
 			fxml.mostrarStage(primaryStage, "Consulta de cuartos disponible");
 			
 			}

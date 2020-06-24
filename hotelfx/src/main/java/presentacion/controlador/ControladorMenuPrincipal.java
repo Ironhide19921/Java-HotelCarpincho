@@ -71,6 +71,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirReservaEvento;
 	@FXML private Button btnAbrirCategoriaEvento;
 	@FXML private Button btnAbrirVentanaBackup;
+	@FXML private Button btnAbrirVentanaReportes;
 	@FXML private EmailDTO email;
 	@FXML private Encuesta encuesta;
 	@FXML private Cliente cliente;
@@ -135,8 +136,8 @@ public class ControladorMenuPrincipal implements Initializable{
 		manejoEncuestas();
 		
 //		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
-		
-		//email.start();
+		email.enviarEmailsEncolados();
+//		email.start();
 		
 		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
 			gestionBackup.backup();
@@ -445,6 +446,18 @@ public class ControladorMenuPrincipal implements Initializable{
 		initialize(null,null);
 		mainPane.setCenter(center);
 		Main.stage.show();
+	}
+	
+	@FXML
+	public void verReportes() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaReportes");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

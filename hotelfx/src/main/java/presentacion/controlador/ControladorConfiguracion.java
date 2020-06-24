@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import dto.ConfiguracionDTO;
+import dto.EmailDTO;
 
 import java.io.IOException;
 import javafx.collections.FXCollections;
@@ -16,7 +17,6 @@ import javafx.scene.control.TextField;
 import modelo.Configuracion;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.controlador.Mail;
 
 public class ControladorConfiguracion implements Initializable{
 	@FXML private TextField txtUsername;
@@ -27,7 +27,7 @@ public class ControladorConfiguracion implements Initializable{
 	private ObservableList<String> listaProvs;
 	private Configuracion configuracion;
 	private ObservableList<ConfiguracionDTO> listaConfig;
-	@FXML private Mail mail;
+	@FXML private EmailDTO mail;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -39,8 +39,8 @@ public class ControladorConfiguracion implements Initializable{
 		this.listaConfig = FXCollections.observableArrayList();
 		this.configuracion = new Configuracion(new DAOSQLFactory());
 		this.listaConfig = getAllConfigs();
-		mail = new Mail();
-		System.out.println(mail.getUsername());
+		mail = new EmailDTO();
+		System.out.println(mail.getEmisor());
 		setearCampos(listaConfig);
 		// Validar mail
 		txtUsername.focusedProperty().addListener((obs, oldText, newText) -> {
@@ -120,8 +120,8 @@ public class ControladorConfiguracion implements Initializable{
 	
 	@FXML
 	private void testMail() {
-		this.mail = new Mail();
-		mail.enviarMsj("Test mail");
+		this.mail = new EmailDTO();
+		mail.enviarMsjTest();
 		
 	}
 
