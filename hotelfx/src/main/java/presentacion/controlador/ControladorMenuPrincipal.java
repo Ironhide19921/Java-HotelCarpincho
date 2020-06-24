@@ -98,6 +98,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	
 	public static Stage loginStage = new Stage();
 	public static Stage ConexionStage = new Stage();
+	public static Stage DivisasStage = new Stage();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -377,16 +378,16 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void verDivisas() {
 		{
 		     try { 
-			    Stage primaryStage = new Stage(); 
+			    //Stage divisasStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/Divisas.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 		
-				primaryStage.setScene(new Scene(root));
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				primaryStage.setTitle("Conversión de divisas");
-				primaryStage.sizeToScene();
-				primaryStage.show();
+				DivisasStage.setScene(new Scene(root));
+				DivisasStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				DivisasStage.setTitle("Conversión de divisas");
+				DivisasStage.sizeToScene();
+				DivisasStage.show();
 
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
