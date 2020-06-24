@@ -136,8 +136,8 @@ public class ControladorMenuPrincipal implements Initializable{
 		manejoEncuestas();
 		
 //		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
-		
-		//email.start();
+		email.enviarEmailsEncolados();
+//		email.start();
 		
 		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
 			gestionBackup.backup();
