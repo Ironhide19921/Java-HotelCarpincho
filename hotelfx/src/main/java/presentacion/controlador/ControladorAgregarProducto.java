@@ -19,7 +19,6 @@ public class ControladorAgregarProducto implements Initializable{
 	@FXML private TextField txtNombre;
 	@FXML private TextField txtPrecio;
 	@FXML private TextField txtDescripcion;
-	@FXML private TextField txtTipo;
 	@FXML private TextField txtProveedor;
 	@FXML private Button btnConfirmarProducto;
 	@FXML private Button btnEditarProducto;	
@@ -37,9 +36,8 @@ public class ControladorAgregarProducto implements Initializable{
 		String nombre = txtNombre.getText();
 		BigDecimal precio = new BigDecimal(txtPrecio.getText());
 		String descripcion = txtDescripcion.getText();
-		String tipo = txtTipo.getText();
 		String proveedor = txtProveedor.getText();
-		ProductoDTO nuevoProd= new ProductoDTO(0, nombre, precio, descripcion, proveedor, tipo);
+		ProductoDTO nuevoProd= new ProductoDTO(0, nombre, precio, descripcion, proveedor, "Comida");
 		this.producto.agregarProducto(nuevoProd);
 		cerrarVentanaAgregar();
 	}
@@ -55,9 +53,8 @@ public class ControladorAgregarProducto implements Initializable{
 		String nombre = txtNombre.getText();
 		BigDecimal precio = new BigDecimal(txtPrecio.getText());
 		String descripcion = txtDescripcion.getText();
-		String tipo = txtTipo.getText();
 		String proveedor = txtProveedor.getText();
-		ProductoDTO nuevoProd= new ProductoDTO(id, nombre, precio, descripcion, proveedor, tipo);
+		ProductoDTO nuevoProd= new ProductoDTO(id, nombre, precio, descripcion, proveedor, "Comida");
 		this.producto.modificarProducto(nuevoProd);
 		cerrarVentanaEditar();
 	}
@@ -67,11 +64,7 @@ public class ControladorAgregarProducto implements Initializable{
 		txtNombre.setText(prodSeleccionado.getNombre());
 		txtPrecio.setText(String.valueOf(prodSeleccionado.getPrecio()));
 		txtDescripcion.setText(prodSeleccionado.getDescripcion());
-		System.out.println("Descripcion "+prodSeleccionado.getDescripcion());
-		txtTipo.setText(prodSeleccionado.getTipo());
-		System.out.println("tipo "+prodSeleccionado.getTipo());
 		txtProveedor.setText(prodSeleccionado.getProveedor());
-		System.out.println("proveedor "+prodSeleccionado.getProveedor());
 	}
 	
 	@FXML
