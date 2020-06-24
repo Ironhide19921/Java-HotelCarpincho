@@ -79,6 +79,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	@FXML private TextField codSegTarjeta;
 	
 	private Ticket ticket;
+	private int idUsuarioLog = ControladorLogin.usuarioLogeado.getIdUsuario();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -340,7 +341,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					cantidad = listaPedidosEnTabla.get(i).getCantidad();
 					
 					BigDecimal total = new BigDecimal(txtSubtotal.getText());
-					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, 1, cantidad, total);
+					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, this.idUsuarioLog, cantidad, total);
 					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
 					
 				}
@@ -358,7 +359,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					cantidad = listaPedidosEnTabla.get(i).getCantidad();
 					
 					BigDecimal total = new BigDecimal(txtSubtotal.getText());
-					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, 1, cantidad, total);
+					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, this.idUsuarioLog, cantidad, total);
 					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
 					
 					idPedido = this.ordenPedido.obtenerIdMaximo();
@@ -427,7 +428,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					String numTarj = numTarjeta.getText();
 					String fecVenc = fechaVencTarjeta.getText();
 					String codSeg = codSegTarjeta.getText();
-					nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarjSelec, numTarj, fecVenc, codSeg, true);
+					nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, this.idUsuarioLog, cantidad, total, pagoSelec, tipoTarjSelec, numTarj, fecVenc, codSeg, true);
 					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
 					
 				}
@@ -450,7 +451,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					String pagoSelec = cmbBoxFormasPago.getValue();
 					
 					if(pagoSelec.equals("Efectivo")) {
-						nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, 1, cantidad, total, pagoSelec, "", "", "", "", true);
+						nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, this.idUsuarioLog, cantidad, total, pagoSelec, "", "", "", "", true);
 						this.ordenPedido.agregarOrdenPedido(nuevoPedido);				
 						idPedido = this.ordenPedido.obtenerIdMaximo();
 						
@@ -459,7 +460,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 						String numTarj = numTarjeta.getText();
 						String fecVenc = fechaVencTarjeta.getText();
 						String codSeg = codSegTarjeta.getText();
-						nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, 1, cantidad, total, pagoSelec, tipoTarjSelec, numTarj, fecVenc, codSeg, true);
+						nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, this.idUsuarioLog, cantidad, total, pagoSelec, tipoTarjSelec, numTarj, fecVenc, codSeg, true);
 						this.ordenPedido.agregarOrdenPedido(nuevoPedido);				
 						idPedido = this.ordenPedido.obtenerIdMaximo();
 						
