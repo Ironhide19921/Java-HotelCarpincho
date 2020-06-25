@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -11,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import dto.ConfiguracionDTO;
 import dto.CuartoDTO;
+import dto.EmailDTO;
 import dto.ReservaCuartoDTO;
 import dto.UsuarioDTO;
 import dto.ReservaCuartoDTO.EstadoReserva;
@@ -30,7 +33,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import modelo.Configuracion;
 import modelo.Cuarto;
+import modelo.Email;
 import modelo.ReservaCuarto;
 import modelo.Usuario;
 import modelo.Validador;
@@ -105,6 +110,11 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 	private Stage primaryStage;
 	@FXML private BigDecimal montoTotal, cantHoras;
 	private ReservaCuartoDTO reserva;
+	
+	private Email ModeloEmail;
+	private ObservableList<ConfiguracionDTO> listaConfig;
+	private Configuracion configuracion;
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -113,7 +123,8 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		inicializarElementos();
 		inicializarModelo();
 		inicializarObservableList();
-		
+		this.configuracion = new Configuracion(new DAOSQLFactory());
+		this.ModeloEmail = new Email(new DAOSQLFactory());
 		
 	}
 
@@ -379,7 +390,7 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 				reserva.setFechaOut(fechaOut);
 				this.reservaCuarto.modificarReservaCuarto(reserva);
 				Validador.mostrarMensaje("Su reserva se ha modificado con exito");
-				cerrarVentana();	
+				cerrarVentana();
 			}
 			else {
 				Validador.mostrarMensaje("Ingrese la hora de check in y check out.");
@@ -446,6 +457,11 @@ public void consultarCuarto() {
 			ReservaCuartoDTO reserva = obtenerDatosReservaValidados();	
 			this.reservaCuarto.agregarReservaCuarto(reserva);
 			Validador.mostrarMensaje("Su reserva ha sido agregada con exito");
+			List<ConfiguracionDTO> config = configuracion.obtenerConfiguraciones();
+			java.sql.Date date = java.sql.Date.valueOf(fechaIngreso.getValue());
+			//public EmailDTO(int idEmail, Date fechaCreacion, String texto, String asunto, String emisor, String receptor, Boolean estado, String pass)
+			EmailDTO recordatorio = new EmailDTO(0, date, "Acordate que tenes una reserva", "Recordatorio", config.get(0).getUsername(), this.email.getText(), false, config.get(0).getPassword());
+			ModeloEmail.agregarEmail(recordatorio);
 			cerrarVentana();
 		}
 		else{
