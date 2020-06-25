@@ -69,6 +69,7 @@ public class ControladorLogin implements Initializable {
 			for(PermisoPerfilDTO permiso : permisos) {
 				permisosPorId.add(permiso.getIdPermiso());
 			}
+			System.out.println(permisosPorId);
 		
 			cerrarVentana();
 			

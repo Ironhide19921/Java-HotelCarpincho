@@ -45,6 +45,12 @@ public class ControladorABMPerfil implements Initializable {
 	@FXML private CheckBox checkConfiguracionEmail;
 	@FXML private CheckBox checkABMOrdenPedidos;
 	@FXML private CheckBox checkGestionBackups;
+	@FXML private CheckBox checkReportes;
+	@FXML private CheckBox checkReportesOcupacion;
+	@FXML private CheckBox checkReportesContables;
+	@FXML private CheckBox checkReportesReservas;
+	@FXML private CheckBox checkReportesErrores;
+	@FXML private CheckBox checkReportesEncuestas;
 	
 	@FXML private Button btnAgregarTodos;
 	@FXML private Button btnQuitarTodos;
@@ -89,6 +95,12 @@ public class ControladorABMPerfil implements Initializable {
 		this.listaChecks.add(11,checkConfiguracionEmail);
 		this.listaChecks.add(12,checkABMOrdenPedidos);
 		this.listaChecks.add(13,checkGestionBackups);
+		this.listaChecks.add(14,checkReportes);
+		this.listaChecks.add(15,checkReportesOcupacion);
+		this.listaChecks.add(16,checkReportesContables);
+		this.listaChecks.add(17,checkReportesReservas);
+		this.listaChecks.add(18,checkReportesErrores);
+		this.listaChecks.add(19,checkReportesEncuestas);
 
 	}
 	

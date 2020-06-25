@@ -98,13 +98,14 @@ public class ControladorMenuPrincipal implements Initializable{
 	
 	public static Stage loginStage = new Stage();
 	public static Stage ConexionStage = new Stage();
+	public static Stage DivisasStage = new Stage();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Llamo al login
 		verLogin();
 		
-//		//Preparo los botones para recorrer en un orden espeficico
+		//Preparo los botones para recorrer en un orden espeficico
 		listaButtons = new ArrayList<Button>();
 		listaButtons.add(0,btnAbrirABMUsuarios);
 		listaButtons.add(1,btnAbrirABMCliente);
@@ -120,9 +121,13 @@ public class ControladorMenuPrincipal implements Initializable{
 		listaButtons.add(11,btnAbrirConfig);
 		listaButtons.add(12,btnAbrirOrdenPedidos);
 		listaButtons.add(13,btnAbrirVentanaBackup);
+		listaButtons.add(14,btnAbrirVentanaReportes);
 		
 		//Habilito cada boton para el cual exista un permiso
 		for(Integer permisoId : ControladorLogin.permisosPorId) {
+			if(permisoId.equals(16)) {
+				break;
+			}
 			this.listaButtons.get(permisoId-1).setDisable(false);
 		}
 
@@ -136,8 +141,7 @@ public class ControladorMenuPrincipal implements Initializable{
 		manejoEncuestas();
 		
 //		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
-		email.enviarEmailsEncolados();
-//		email.start();
+		email.start();
 		
 		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
 			gestionBackup.backup();
@@ -377,16 +381,16 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void verDivisas() {
 		{
 		     try { 
-			    Stage primaryStage = new Stage(); 
+			    //Stage divisasStage = new Stage(); 
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/Divisas.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 		
-				primaryStage.setScene(new Scene(root));
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
-				primaryStage.setTitle("Conversión de divisas");
-				primaryStage.sizeToScene();
-				primaryStage.show();
+				DivisasStage.setScene(new Scene(root));
+				DivisasStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				DivisasStage.setTitle("Conversión de divisas");
+				DivisasStage.sizeToScene();
+				DivisasStage.show();
 
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
@@ -437,6 +441,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML
 	public void deslogear() throws IOException {
 		Main.stage.close();
+		ControladorABMProducto.AgregarProductoStage.close();
 		
 		//Desactivo todos los botones para preparar el reinicio
 		for(Button boton : listaButtons) {
