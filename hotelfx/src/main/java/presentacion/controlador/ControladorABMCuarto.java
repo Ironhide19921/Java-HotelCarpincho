@@ -197,7 +197,6 @@ public class ControladorABMCuarto implements Initializable
 	public void modificarBotones(Boolean esReserva) {
 		if(esReserva) {
 			this.btnSeleccionarCuarto.setVisible(true);
-		
 		}
 		else{
 			this.btnSeleccionarCuarto.setVisible(false);

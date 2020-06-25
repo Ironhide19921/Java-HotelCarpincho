@@ -37,8 +37,8 @@
                      <children>
                         <Pane fx:id="fechasCheck" layoutY="100.0" prefHeight="117.0" prefWidth="350.0">
                            <children>
-                              <DatePicker fx:id="fechaCheckIn" layoutX="120.0" layoutY="38.0" onAction="#verificarFechasCheck" prefWidth="150.0" />
-                              <DatePicker fx:id="fechaCheckOut" layoutX="120.0" layoutY="74.0" onAction="#verificarFechasCheck" prefWidth="150.0" />
+                              <DatePicker fx:id="fechaCheckIn" layoutX="120.0" layoutY="38.0" onAction="#verificarFechasCheck" prefHeight="25.0" prefWidth="150.0" />
+                              <DatePicker fx:id="fechaCheckOut" layoutX="120.0" layoutY="74.0" onAction="#verificarFechasCheck" prefHeight="25.0" prefWidth="150.0" />
                               <ComboBox fx:id="cmbBoxHoraCheckIn" layoutX="286.0" layoutY="38.0" onAction="#verificarHorasCheck" prefHeight="25.0" prefWidth="46.0" />
                               <ComboBox fx:id="cmbBoxHoraCheckOut" layoutX="286.0" layoutY="74.0" onAction="#verificarHorasCheck" prefHeight="25.0" prefWidth="46.0" />
                               <Label layoutX="14.0" layoutY="42.0" prefWidth="100.0" text="Check In" />
@@ -59,8 +59,8 @@
                               <Label layoutX="14.0" layoutY="107.0" prefWidth="100.0" text="Cod. de seguridad" />
                            </children>
                         </Pane>
-                        <DatePicker fx:id="fechaIngreso" accessibleHelp="Fecha de ingreso" accessibleText="Fecha de ingreso" layoutX="120.0" layoutY="19.0" onAction="#verificarFechas" prefWidth="150.0" />
-                        <DatePicker fx:id="fechaEgreso" layoutX="120.0" layoutY="52.0" onAction="#verificarFechas" prefWidth="150.0" />
+                        <DatePicker fx:id="fechaIngreso" accessibleHelp="Fecha de ingreso" accessibleText="Fecha de ingreso" layoutX="120.0" layoutY="19.0" onAction="#verificarFechas" prefHeight="25.0" prefWidth="150.0" />
+                        <DatePicker fx:id="fechaEgreso" layoutX="120.0" layoutY="52.0" onAction="#verificarFechas" prefHeight="25.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbBoxHoraIngreso" layoutX="286.0" layoutY="19.0" onAction="#verificarHoras" prefHeight="25.0" prefWidth="46.0" />
                         <ComboBox fx:id="cmbBoxHoraEgreso" layoutX="286.0" layoutY="52.0" onAction="#verificarHoras" prefHeight="25.0" prefWidth="46.0" />
                         <TextField fx:id="email" layoutX="120.0" layoutY="270.0" prefWidth="220.0" />
@@ -83,10 +83,9 @@
                         <TextArea fx:id="observaciones" layoutX="120.0" layoutY="242.0" prefHeight="100.0" prefWidth="170.0" />
                         <Button fx:id="btnAgregarCuarto" layoutX="298.0" layoutY="24.0" mnemonicParsing="false" onAction="#consultarCuarto" text="+" />
                         <Button fx:id="btnAgregarCliente" layoutX="298.0" layoutY="57.0" mnemonicParsing="false" onAction="#consultarCliente" text="+" />
-                        <Button fx:id="btnConsultarPendientes" layoutX="190.0" layoutY="366.0" mnemonicParsing="false" onAction="#consultarPendientes" prefWidth="100.0" text="Consultar" />
-                        <Button fx:id="btnAgregar" layoutX="190.0" layoutY="399.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefWidth="100.0" text="Agregar" />
-                        <Button fx:id="btnModificar" layoutX="75.0" layoutY="399.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefWidth="100.0" text="Modificar" />
-                        <Button fx:id="btnCerrar" layoutX="190.0" layoutY="434.0" mnemonicParsing="false" prefWidth="100.0" text="Cancelar" />
+                        <Button fx:id="btnAgregar" layoutX="190.0" layoutY="356.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefWidth="100.0" text="Agregar" />
+                        <Button fx:id="btnModificar" layoutX="190.0" layoutY="356.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefWidth="100.0" text="Modificar" />
+                        <Button fx:id="btnCerrar" layoutX="190.0" layoutY="391.0" mnemonicParsing="false" prefWidth="100.0" text="Cancelar" />
                         <Label layoutX="14.0" layoutY="28.0" prefWidth="100.0" text="Nº Cuarto  (*)" />
                         <Label layoutX="14.0" layoutY="61.0" prefWidth="100.0" text="Nº Cliente  (*)" />
                         <Label layoutX="14.0" layoutY="134.0" prefWidth="100.0" text="Seña (%)" />

@@ -217,7 +217,7 @@ public class Validador {
 				return false;
 			}
 			if(controladorAgregarReservaCuarto1.getTipoTarjeta().equals(TipoTarjeta.MASTERCARD) && !(Validador.formatoMaster(numeroTarjeta, codSeguridadTarjeta))) {
-				Validador.mostrarMensaje("Error en datos para la tarjeta MASTERCARD");
+				Validador.mostrarMensaje("Error en datosz para la tarjeta MASTERCARD");
 				return false;
 			}
 			if(!Validador.validarFechaVenc(fechaVencTarjeta)) {

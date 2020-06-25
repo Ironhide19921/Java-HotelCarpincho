@@ -44,7 +44,6 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 	@FXML private Button btnCerrar;
 	@FXML private Button btnAgregarCliente;
 	@FXML private Button btnAgregarCuarto;
-	@FXML private Button btnConsultarPendientes;
 	//campos
 	@FXML private TextField usuario;
 	@FXML private TextField cuarto;
@@ -118,9 +117,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		
 	}
 
-	private void inicializarElementos() {
-		this.btnConsultarPendientes.setVisible(false);
-		
+	private void inicializarElementos() {		
 		this.fechasCheck.setVisible(false);
 		this.fechaReserva.setDisable(true);
 		this.cmbBoxHoraReserva.setDisable(true);
@@ -209,7 +206,26 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		}
 		return lista;
 	}
-
+	
+	private List<Integer> cargarCombosHorasFinReserva() {
+		List<Integer> lista = new ArrayList<>();
+		int horaMinima = Integer.valueOf(this.cmbBoxHoraReserva.getSelectionModel().getSelectedItem().toString()) + 1;
+		for(int h = horaMinima; h <= 23; h++) {
+			lista.add(h);
+		}
+		return lista;
+	}
+	
+	private List<Integer> cargarCombosHorasFinCheck() {
+		List<Integer> lista = new ArrayList<>();
+		int horaMinima = Integer.valueOf(this.cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem().toString()) + 1;
+		for(int h = horaMinima; h <= 23; h++) {
+			lista.add(h);
+		}
+		return lista;
+	}
+	
+	
 	private List<Integer> cargarCombosHoras() {
 		List<Integer> lista = new ArrayList<Integer>();
 		for(int h = 0; h <= 23; h++) {
@@ -338,22 +354,45 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 		LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
 		LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();
 		
-		Timestamp fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
-		Timestamp fechaOut = Timestamp.valueOf(localInicioCheckOut.atTime(LocalTime.of(cmbBoxHoraCheckOut.getSelectionModel().getSelectedItem()+1,0,0)));
+		Timestamp fechaCheckIn;
+		Timestamp fechaOut;
 	
-		if(fechaCheckIn!=null) 
+		if(localInicioCheckIn!=null) 
 		{
-			reserva.setFechaCheckIn(fechaCheckIn);
-			this.reservaCuarto.modificarReservaCuarto(reserva);
+			if(cmbBoxHoraCheckIn.getValue()!=null) {
+				fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
+				reserva.setFechaCheckIn(fechaCheckIn);
+				this.reservaCuarto.modificarReservaCuarto(reserva);
+				Validador.mostrarMensaje("Su reserva se ha modificado con exito");
+				cerrarVentana();	
+			}
+			else {
+				Validador.mostrarMensaje("Ingrese la hora de check in.");
+			}
 		}	
-		if(fechaCheckIn != null && fechaOut != null)
+		if(localInicioCheckIn != null && localInicioCheckOut != null)
 		{
-			reserva.setFechaCheckIn(fechaCheckIn);
-			reserva.setFechaOut(fechaOut);
-			this.reservaCuarto.modificarReservaCuarto(reserva);				
+			if(cmbBoxHoraCheckIn.getValue()!=null && cmbBoxHoraCheckOut.getValue()!=null) {
+				fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
+				fechaOut = Timestamp.valueOf(localInicioCheckOut.atTime(LocalTime.of(cmbBoxHoraCheckOut.getSelectionModel().getSelectedItem()+1,0,0)));
+				reserva.setFechaCheckIn(fechaCheckIn);
+				reserva.setFechaOut(fechaOut);
+				this.reservaCuarto.modificarReservaCuarto(reserva);
+				Validador.mostrarMensaje("Su reserva se ha modificado con exito");
+				cerrarVentana();	
+			}
+			else {
+				Validador.mostrarMensaje("Ingrese la hora de check in y check out.");
+			}
+					
 		}	
 	}
 	
+public void cerrarVentana() {
+		primaryStage = (Stage) this.btnModificar.getScene().getWindow();
+		primaryStage.close();
+}
+
 @FXML 
 public void consultarCuarto() {
 	 try { 
@@ -407,6 +446,7 @@ public void consultarCuarto() {
 			ReservaCuartoDTO reserva = obtenerDatosReservaValidados();	
 			this.reservaCuarto.agregarReservaCuarto(reserva);
 			Validador.mostrarMensaje("Su reserva ha sido agregada con exito");
+			cerrarVentana();
 		}
 		else{
 			Validador.mostrarMensaje("Complete todos los campos obligatorios (*).");
@@ -417,6 +457,14 @@ public void consultarCuarto() {
 	private void mostrarDatosTarjeta() {
 		if(this.cmbBoxFormaPago.getValue().equals(FormaPago.EFECTIVO.name())){
 			this.infoTarjeta.setVisible(false);
+			TipoTarjeta tipoTarjeta = TipoTarjeta.NO;
+			String numeroTarjeta = "0";
+			String fechaVencTarjeta = "0";
+			String codSeguridadTarjeta = "0";
+			this.cmbBoxTiposTarjeta.setValue(tipoTarjeta.name());
+			this.numTarjeta.setText(numeroTarjeta);
+			this.fechaVecTarjeta.setText(fechaVencTarjeta);
+			this.codSeguridad.setText(codSeguridadTarjeta);
 		}
 		else {
 			this.infoTarjeta.setVisible(true);
@@ -424,20 +472,8 @@ public void consultarCuarto() {
 	}
 
 	@FXML
-	public void consultarPendientes() throws IOException {
-		primaryStage.setScene(fxml.getScene("VentanaABMOrdenPedido"));   
-		FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
-		ControladorABMOrdenPedido controlador = fxmlLoader.getController();
-		//controlador.enviarIdReserva(idReserva, this);
-		//controlador.modificarBotones();
-		fxml.mostrarStage(primaryStage, "Consulta de orden de pedido del cliente");
-	}
-
-	@FXML
 	public boolean ingresoFechas() {
 		LocalDate localInicioReserva =  this.fechaReserva.getValue();
-	//	LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
-	//	LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();
 		LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
 		LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
 		boolean ingresoFechas = localInicioReserva!=null 
@@ -461,46 +497,16 @@ public void modificarCuarto(int idCuarto)
 {
 	this.cuarto.setText(idCuarto+"");
 }
-	
 
-public void modificarPantallaConsulta(ReservaCuartoDTO reserva) {
-	
-	ocultarBotonesConsulta();
-	camposSoloLectura();
-	this.btnConsultarPendientes.setVisible(true);
-	this.reserva =  reserva;
-
-}
 
 public void pasarIdReserva(int id) {
 	this.idReserva = id;
 	System.out.print(idReserva);
 }
 
-private void camposSoloLectura() {
-	this.cuarto.setDisable(true);
-	this.cliente.setDisable(true);
-	this.email.setDisable(true);
-	//this.senia.setDisable(true);
-	//this.montoSenia.setDisable(true);
-	this.cmbBoxTiposTarjeta.setDisable(true);
-	this.numTarjeta.setDisable(true);
-	this.fechaVecTarjeta.setDisable(true);
-	this.codSeguridad.setDisable(true);
-	this.observaciones.setDisable(true);
-	this.cmbBoxEstados.setDisable(true);
-	this.cmbBoxFormaPago.setDisable(true);
-	this.cmbBoxUsuario.setDisable(true);
-	this.fechaIngreso.setDisable(true);
-	this.fechaEgreso.setDisable(true);
-	this.fechaCheckIn.setDisable(true);
-	this.fechaCheckOut.setDisable(true);
-	this.fechaReserva.setDisable(true);
-}
-
 private void ocultarBotonesConsulta() {
 	this.btnAgregar.setVisible(false);
-//	this.btnModificar.setVisible(false);
+
 	this.btnCerrar.setVisible(false);
 	this.btnAgregarCliente.setVisible(false);
 	this.btnAgregarCuarto.setVisible(false);
@@ -511,27 +517,48 @@ private void ocultarBotonesConsulta() {
 public void verificarFechasCheck() throws Exception {
 	LocalDate localFinReserva = fechaCheckOut.getValue();
 	LocalDate localInicioReserva = fechaCheckIn.getValue();
-	LocalDate localReserva = fechaReserva.getValue();
+	LocalDate localReserva = fechaIngreso.getValue();
 	
-	if(!(localInicioReserva==null) && !localReserva.isBefore(localInicioReserva)) {
+	if(!(localInicioReserva==null) && !this.fechaCheckIn.getValue().isEqual(this.fechaIngreso.getValue()) 
+	&& !localReserva.isBefore(localInicioReserva)) {
 		fechaCheckIn.setValue(null);
-		Validador.mostrarMensaje("Fecha de ingreso inválida");
+		Validador.mostrarMensaje("Fecha de checkIn inválida");
 		return;
 	}
+	if(this.fechaCheckOut.getValue()!=null && !this.fechaCheckOut.getValue().isEqual(this.fechaEgreso.getValue()) 
+			&& this.fechaEgreso.getValue().isBefore(this.fechaCheckOut.getValue())) {
+
+		this.fechaCheckOut.setValue(null);
+		this.cmbBoxHoraCheckOut.setValue(null);
+		Validador.mostrarMensaje("La fecha de checkOut debe estar entre el rango de fechas"
+				+ " desde el "+ fechaIngreso.getValue() + " hasta el " + fechaEgreso.getValue() + ".");
+		return;
+	}
+	
+	
 	if(!(localFinReserva == null) && !(localInicioReserva == null)) {
-		if((localFinReserva.isBefore(localInicioReserva))) {
+		if((!this.fechaCheckIn.getValue().isEqual(this.fechaCheckOut.getValue()) 
+				&& localFinReserva.isBefore(localInicioReserva))) {
 			this.fechaCheckOut.setValue(null);	
 			this.cmbBoxHoraCheckOut.setItems(null);
 			Validador.mostrarMensaje("Error fecha de finalización de reserva anterior al inicio del mismo.");
 			return;
 		}
 		else {
-			this.cmbBoxHoraCheckOut.setItems(null);
-			this.listaHorasFin = FXCollections.observableList(cargarCombosHoras());
-			this.cmbBoxHoraCheckOut.setItems(listaHorasFin);
-			verificarHoras();
+			if(!(localInicioReserva==null) && this.fechaIngreso.getValue().equals(localInicioReserva) ){
+				this.cmbBoxHoraCheckIn.setItems(null);
+				this.listaHorasFin = FXCollections.observableList(cargarCombosHorasFin());
+				this.cmbBoxHoraCheckIn.setItems(listaHorasFin);
+		
+			}else {
+				this.cmbBoxHoraCheckIn.setItems(null);
+				this.listaHorasFin = FXCollections.observableList(cargarCombosHoras());
+				this.cmbBoxHoraCheckIn.setItems(listaHorasFin);
+				verificarHorasCheck();
+			}
 		}
 	}
+	
 }
 
 @FXML
@@ -539,13 +566,17 @@ public void verificarFechas() throws Exception {
 	LocalDate localFinReserva = fechaEgreso.getValue();
 	LocalDate localInicioReserva = fechaIngreso.getValue();
 	LocalDate localReserva = fechaReserva.getValue();
-	if(!(localInicioReserva==null) && !localReserva.isBefore(localInicioReserva)) {
+	if(!(localInicioReserva==null) && !this.fechaIngreso.getValue().isEqual(this.fechaReserva.getValue()) && !localReserva.isBefore(localInicioReserva)) {
 		fechaIngreso.setValue(null);
 		Validador.mostrarMensaje("Fecha de ingreso inválida");
 		return;
 	}
+	if(!(localInicioReserva==null) && this.fechaIngreso.getValue().isEqual(this.fechaReserva.getValue()) ) {
+		this.listaCmbBoxHorasIngreso = FXCollections.observableList(cargarCombosHorasFinReserva());
+		this.cmbBoxHoraIngreso.setItems(listaCmbBoxHorasIngreso);
+	}
 	if(!(localFinReserva == null) && !(localInicioReserva == null)) {
-		if((localFinReserva.isBefore(localInicioReserva))) {
+		if((!this.fechaEgreso.getValue().isEqual(this.fechaIngreso.getValue()) && localFinReserva.isBefore(localInicioReserva))) {
 			
 			this.fechaEgreso.setValue(null);	
 			this.cmbBoxHoraEgreso.setItems(null);
@@ -596,20 +627,21 @@ public void verificarHorasCheck() throws Exception {
 	LocalDate localFinReserva = fechaCheckOut.getValue();
 	LocalDate localInicioReserva = fechaCheckIn.getValue();
 	
-	if(localInicioReserva.equals(localFinReserva)) {
+	if(localInicioReserva.equals(localFinReserva) && horaInicioCombo!=null) {
 		//si son iguales entonces condiciono las horas
+
 		if(horaInicioCombo != null && horaFinCombo == null || (horaInicioCombo != null && horaFinCombo != null && horaInicioCombo >= horaFinCombo)) {
 			this.cmbBoxHoraCheckOut.setItems(null);
-			this.listaCmbBoxHorasEgreso = FXCollections.observableList(cargarCombosHorasFin());
-			this.cmbBoxHoraCheckOut.setItems(listaCmbBoxHorasEgreso);
+			this.listaCmbBoxHorasCheckOut = FXCollections.observableList(cargarCombosHorasFinCheck());
+			this.cmbBoxHoraCheckOut.setItems(listaCmbBoxHorasCheckOut);
 		}
 	}
 	
 	else if(this.cmbBoxHoraCheckOut == null){
 		//si no son iguales entonces las horas están s/n
 		this.cmbBoxHoraCheckOut.setItems(null);
-		this.listaCmbBoxHorasEgreso = FXCollections.observableList(cargarCombosHoras());
-		this.cmbBoxHoraCheckOut.setItems(listaCmbBoxHorasEgreso);
+		this.listaCmbBoxHorasCheckOut = FXCollections.observableList(cargarCombosHoras());
+		this.cmbBoxHoraCheckOut.setItems(listaCmbBoxHorasCheckOut);
 	}
 }
 
@@ -662,9 +694,9 @@ public void verMontoTotalySenia() {
 	
 }
 
-
 public void setearCamposAgregar() {
-	this.montoSenia.setText("0");
+	this.montoSenia.setText("0");this.infoTarjeta.setVisible(true);
+	this.infoTarjeta.setVisible(false);
 	this.senia.setText("0");
 	this.montoCompleto.setText("0");
 	this.cantHoras = BigDecimal.valueOf(0);
@@ -673,18 +705,41 @@ public void setearCamposAgregar() {
 	this.cliente.setText("0");
 	this.cuarto.setText("0");
 	this.cmbBoxFormaPago.setValue(FormaPago.EFECTIVO.name());
+	this.btnModificar.setVisible(false);
 }
 
-public void setearCamposModificar() {
+public void setearCamposModificar() throws Exception {
+	this.btnAgregar.setVisible(false);
+	this.btnModificar.setVisible(true);
 	this.fechasCheck.setVisible(true);
-	if(this.cmbBoxFormaPago.getValue().equals(FormaPago.EFECTIVO.name())){
-		this.infoTarjeta.setVisible(false);
-	}
-	else {
+	if(!this.cmbBoxFormaPago.getValue().equals(FormaPago.EFECTIVO.name())){
 		this.infoTarjeta.setVisible(true);
 	}
 	
+	if(this.fechaCheckIn.getValue()!=null && !this.fechaCheckIn.getValue().isEqual(this.fechaIngreso.getValue()) && this.fechaCheckIn.getValue().isBefore(this.fechaIngreso.getValue())) {
+		this.fechaCheckIn.setValue(null);
+		this.fechaCheckOut.setValue(null);
+		this.cmbBoxHoraCheckIn.setValue(null);
+		this.cmbBoxHoraCheckOut.setValue(null);
+		Validador.mostrarMensaje("La fecha de checkIn debe estar entre el rango de fechas"
+				+ " desde el "+ fechaIngreso.getValue() + " hasta el " + fechaEgreso.getValue() + ".");
+	}
+
 	
+	if(this.fechaCheckOut.getValue()!=null && !this.fechaCheckOut.getValue().isEqual(this.fechaEgreso.getValue()) && this.fechaEgreso.getValue().isBefore(this.fechaCheckOut.getValue())) {
+
+		this.fechaCheckOut.setValue(null);
+		this.cmbBoxHoraCheckOut.setValue(null);
+		Validador.mostrarMensaje("La fecha de checkOut debe estar entre el rango de fechas"
+				+ " desde el "+ fechaIngreso.getValue() + " hasta el " + fechaEgreso.getValue() + ".");
+	}
+	
+	if(this.fechaCheckIn.getValue()!=null && this.fechaCheckIn.getValue().equals(this.fechaIngreso.getValue())) {
+		this.cmbBoxHoraCheckIn.setItems(null);
+		this.cmbBoxHoraCheckOut.setItems(null);
+		this.listaCmbBoxHorasCheckIn = FXCollections.observableList(cargarCombosHorasFin());
+		this.cmbBoxHoraCheckIn.setItems(listaCmbBoxHorasCheckIn);
+	}
 }
 
 

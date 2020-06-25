@@ -38,12 +38,12 @@
          <center>
             <Pane prefHeight="377.0" prefWidth="640.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="75.0" layoutY="30.0" prefHeight="25.0" prefWidth="74.0" text="Capacidad" />
-                  <Label layoutX="75.0" layoutY="85.0" prefHeight="17.0" prefWidth="71.0" text="Monto" />
-                  <Label layoutX="75.0" layoutY="134.0" text="Monto senia" />
+                  <Label layoutX="75.0" layoutY="30.0" prefHeight="25.0" prefWidth="99.0" text="Capacidad (*)" />
+                  <Label layoutX="75.0" layoutY="85.0" prefHeight="17.0" prefWidth="71.0" text="Monto  (*)" />
+                  <Label layoutX="75.0" layoutY="134.0" prefHeight="17.0" prefWidth="156.0" text="Seña (%) *" />
                   <Label layoutX="75.0" layoutY="183.0" text="Piso" />
                   <Label layoutX="78.0" layoutY="232.0" text="Habitacion" />
-                  <Label layoutX="75.0" layoutY="285.0" text="Categorias de cuarto" />
+                  <Label layoutX="75.0" layoutY="285.0" prefHeight="17.0" prefWidth="165.0" text="Categorias de cuarto  (*)" />
                   <TextField fx:id="txtCapacidad" layoutX="403.0" layoutY="29.0" />
                   <TextField fx:id="txtMonto" layoutX="403.0" layoutY="80.0" />
                   <TextField fx:id="txtMontoSenia" layoutX="403.0" layoutY="129.0" />

@@ -155,12 +155,9 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
 				ControladorAgregarReservaCuarto1 controlador = fxmlLoader.getController();
 				controlador.setCmbBoxEstados(EstadoReserva.PENDIENTE);
-				//controlador.setCmbBoxFormaPago();
 				controlador.setUsuario(controladorLogin.usuarioLogeado);
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				controlador.setFechaReserva(timestamp);
-			
-				//controlador.setCmbBoxUsuarioFirst();
 				controlador.setearCamposAgregar();
 				fxml.mostrarStage(primaryStage,"Agregar reserva de cuarto");
 		       
@@ -173,16 +170,14 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 	public void modificarReservaCuarto() {
 		 try { 
 			 if(this.tablaReservas.getSelectionModel().getSelectedItem()!=null) {
-				 	primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto1"));   
-					FXMLLoader fxmlLoader = fxml.getFXMLLoader();
+				 primaryStage.setScene(fxml.getScene("VentanaAgregarReservaCuarto1"));   
+					FXMLLoader fxmlLoader = fxml.getFXMLLoader();		
 					ControladorAgregarReservaCuarto1 controlador = fxmlLoader.getController();
 					controlador.pasarIdReserva(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva().getIdReserva());
 					controlador.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
 					controlador.setearCamposModificar();
 					controlador.habilitarComboEstados();
-					primaryStage.setTitle("Modificar reserva de cuarto");
-					primaryStage.sizeToScene();
-					primaryStage.show(); 
+					fxml.mostrarStage(primaryStage, "Modificar reserva de cuarto");
 			 }
 			 else {
 				 Validador.mostrarMensaje("Debe seleccionar una reserva para modificarla.");
