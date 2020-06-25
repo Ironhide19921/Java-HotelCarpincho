@@ -44,7 +44,7 @@ public class EmailDTO extends Thread{
 	private Properties properties;
 	private ObservableList<ConfiguracionDTO> listaConfig;
 	private Configuracion configuracion;
-	private static Email email;
+	private static Email ModeloEmail;
 
 	public EmailDTO(int idEmail, Date fechaCreacion, String texto, String asunto, String emisor, String receptor, Boolean estado, String pass) {
 		this.idEmail = idEmail;
@@ -116,6 +116,10 @@ public class EmailDTO extends Thread{
 		});
 	}
 	
+	public void run() { 		
+		enviarEmailsEncolados();	
+	}
+	
 	private ObservableList<ConfiguracionDTO> getAllConfigs() {
 		List<ConfiguracionDTO> configs = this.configuracion.obtenerConfiguraciones();
 		//		listaConfig.clear();
@@ -183,18 +187,20 @@ public class EmailDTO extends Thread{
 	}
 	
 	public static void enviarEmailsEncolados() {
-		email = new Email(new DAOSQLFactory());
+		ModeloEmail = new Email(new DAOSQLFactory());
 		int cant = 0;
 		Date hoy = new Date(System.currentTimeMillis());
-		for(EmailDTO email : email.obtenerEmails()) {
+		for(EmailDTO email : ModeloEmail.obtenerEmails()) {
 //			EmailDTO emailEnviar = new EmailDTO(email.getIdEmail(), email.getFechaCreacion(), email.getTexto(), email.getAsunto(), email.getEmisor(), email.getReceptor(), email.getEstado(), email.getPass());
-			if(compararFechas(hoy, email.getFechaCreacion())<=7 && compararFechas(hoy, email.getFechaCreacion())>0) {
+			if(compararFechas(hoy, email.getFechaCreacion())<=7 && compararFechas(hoy, email.getFechaCreacion())>0 && email.getEstado()==false) {
 				enviarMsj(email,"Mail encolado");
+				email.setEstado(true);
+				ModeloEmail.modificarEmail(email);
 				cant++;
 			}
 		}
 		
-		Validador.mostrarMensaje("Se enviaron "+cant+" mensajes");
+		//Validador.mostrarMensaje("Se enviaron "+cant+" mensajes");
 	}
 	
 	public static int compararFechas(Date fechaInicial, Date fechaFinal) {
@@ -275,11 +281,6 @@ public class EmailDTO extends Thread{
 			System.out.println(prov);
 		}
 	}
-	
-	public void run() { 		
-		enviarEmailsEncolados();	
-	}
-	
 	
 	
 	

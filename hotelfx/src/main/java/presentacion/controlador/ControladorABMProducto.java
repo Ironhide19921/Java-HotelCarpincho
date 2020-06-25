@@ -40,6 +40,8 @@ public class ControladorABMProducto implements Initializable{
 	@FXML private TableColumn proveedor;
 	@FXML private TextField txtBuscarProd;
 		  private Producto producto;
+		  
+		  public static Stage AgregarProductoStage = new Stage();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -83,18 +85,18 @@ public class ControladorABMProducto implements Initializable{
 	@FXML
 	private void agregarProducto() throws Exception {
 		try {
-			Stage primaryStage = new Stage(); 
+			//Stage primaryStage = new Stage(); 
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarProducto.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));   
+			AgregarProductoStage.setScene(new Scene(root));   
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnAgregarProd(true);
 			scene2Controller.setVisibilityBtnEditarProd(false);
 		
-			primaryStage.setTitle("Agregar Producto");
-			primaryStage.sizeToScene();
-			primaryStage.show();
+			AgregarProductoStage.setTitle("Agregar Producto");
+			AgregarProductoStage.sizeToScene();
+			AgregarProductoStage.show();
 	       
 	    } catch(Exception e) {
 	    	e.printStackTrace(); 
@@ -104,19 +106,19 @@ public class ControladorABMProducto implements Initializable{
 	@FXML
     private void editarProducto(ActionEvent event) throws Exception {
 		try {
-			Stage primaryStage = new Stage(); 
+			//Stage primaryStage = new Stage(); 
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarProducto.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));   
+			AgregarProductoStage.setScene(new Scene(root));   
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			ProductoDTO productoSeleccionado = tablaProductos.getSelectionModel().getSelectedItem();
 			scene2Controller.setearCamposPantalla(productoSeleccionado);
 		    scene2Controller.setVisibilityBtnAgregarProd(false);
 		    scene2Controller.setVisibilityBtnEditarProd(true);
-			primaryStage.setTitle("Modificar producto");
-			primaryStage.sizeToScene();
-			primaryStage.show(); 
+		    AgregarProductoStage.setTitle("Modificar producto");
+		    AgregarProductoStage.sizeToScene();
+		    AgregarProductoStage.show(); 
 	       
 	    } catch(Exception e) {
 	    	e.printStackTrace(); 
