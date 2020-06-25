@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
 import modelo.Cuarto;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarCuarto implements Initializable {
@@ -61,9 +62,22 @@ public class ControladorAgregarCuarto implements Initializable {
 	
 	@FXML
 	public void agregarCuarto() throws IOException {
+		if(!Validador.validarCuarto(this)) {
+			return;
+		}
+		
 		String capacidad = txtCapacidad.getText();
+		int capacidadNum = Integer.parseInt(txtCapacidad.getText());
+		if(capacidadNum < 1 || capacidadNum > 10) {
+			Validador.mostrarMensaje("Capacidad no valida. \n Ingrese un numero del 1 al 10");
+			return;
+		}		
 		double monto = Double.parseDouble(txtMonto.getText());
 		int montoSenia = Integer.parseInt(txtMontoSenia.getText());
+		if(montoSenia < 1 || montoSenia > 100) {
+			Validador.mostrarMensaje("Senia no valida. \n Ingrese un numero del 1 al 100");
+			return;
+		}		
 		String piso =txtPiso.getText();
 		String habitacion = txtHabitacion.getText();
 		String categoria = cmbBoxCatesCuarto.getValue();
@@ -91,10 +105,23 @@ public class ControladorAgregarCuarto implements Initializable {
 	}
 
 	@FXML
-	public void editarCuarto() throws IOException {	
+	public void editarCuarto() throws IOException {
+		if(!Validador.validarCuarto(this)) {
+			return;
+		}
+		
 		String capacidad = txtCapacidad.getText();
+		int capacidadNum = Integer.parseInt(txtCapacidad.getText());
+		if(capacidadNum < 1 || capacidadNum > 10) {
+			Validador.mostrarMensaje("Capacidad no valida. \n Ingrese un numero del 1 al 10");
+			return;
+		}
 		double monto = Double.parseDouble(txtMonto.getText());
 		int montoSenia = Integer.parseInt(txtMontoSenia.getText());
+		if(montoSenia < 1 || montoSenia > 100) {
+			Validador.mostrarMensaje("Senia no valida. \n Ingrese un numero del 1 al 100");
+			return;
+		}
 		String piso =txtPiso.getText();
 		String habitacion = txtHabitacion.getText();
 		String categoria = cmbBoxCatesCuarto.getValue();
@@ -175,7 +202,29 @@ public class ControladorAgregarCuarto implements Initializable {
 
 	*/
 	
-	
+	public TextField getTxtCapacidad() {
+		return txtCapacidad;
+	}
+
+	public TextField getTxtMonto() {
+		return txtMonto;
+	}
+
+	public TextField getTxtMontoSenia() {
+		return txtMontoSenia;
+	}
+
+	public TextField getTxtPiso() {
+		return txtPiso;
+	}
+
+	public TextField getTxtHabitacion() {
+		return txtHabitacion;
+	}
+
+	public ComboBox<String> getCmbBoxCatesCuarto() {
+		return cmbBoxCatesCuarto;
+	}
 	
 	
 }

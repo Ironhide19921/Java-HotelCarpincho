@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Producto;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarProducto implements Initializable{
@@ -33,6 +34,10 @@ public class ControladorAgregarProducto implements Initializable{
 	
 	@FXML
 	public void agregarProducto() throws IOException {
+		if(!Validador.validarProducto(this)) {
+			return;
+		}
+		
 		String nombre = txtNombre.getText();
 		BigDecimal precio = new BigDecimal(txtPrecio.getText());
 		String descripcion = txtDescripcion.getText();
@@ -50,6 +55,10 @@ public class ControladorAgregarProducto implements Initializable{
 	
 	@FXML
 	public void editarProducto() throws IOException {
+		if(!Validador.validarProducto(this)) {
+			return;
+		}
+		
 		String nombre = txtNombre.getText();
 		BigDecimal precio = new BigDecimal(txtPrecio.getText());
 		String descripcion = txtDescripcion.getText();
@@ -79,6 +88,22 @@ public class ControladorAgregarProducto implements Initializable{
 	
 	public void setVisibilityBtnEditarProd(Boolean value) {
 		this.btnEditarProducto.setVisible(value);
+	}
+	
+	public TextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public TextField getTxtPrecio() {
+		return txtPrecio;
+	}
+
+	public TextField getTxtDescripcion() {
+		return txtDescripcion;
+	}
+
+	public TextField getTxtProveedor() {
+		return txtProveedor;
 	}
 
 }
