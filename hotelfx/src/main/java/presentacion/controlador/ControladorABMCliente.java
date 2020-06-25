@@ -110,6 +110,7 @@ public class ControladorABMCliente implements Initializable{
 		this.alert = new Alert(AlertType.INFORMATION);
 		cargarColumnas();
 		refrescarTabla();
+		
 	}
 
 	private void cargarColumnas() {
