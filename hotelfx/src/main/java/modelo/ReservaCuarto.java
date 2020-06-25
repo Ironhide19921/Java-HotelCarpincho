@@ -32,5 +32,10 @@ public class ReservaCuarto{
 	
 	public List<ReservaCuartoDTO> buscarReservaCuartoCliente(int idCliente){
 		return this.reserva.buscarReservaCuartoCliente(idCliente);
+	}
+
+	public ReservaCuartoDTO obtenerReservaCuartoPorId(int selectedItem) {
+		// TODO Auto-generated method stub
+		return this.reserva.obtenerReservaCuartoPorId(selectedItem);
 	};
 }

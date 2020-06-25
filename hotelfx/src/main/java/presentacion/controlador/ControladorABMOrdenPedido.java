@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
+import dto.CuartoDTO;
 import dto.OrdenPedidoDTO;
 import dto.ReservaCuartoDTO;
+import dto.TablaReservaDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -125,27 +127,6 @@ public class ControladorABMOrdenPedido implements Initializable{
 		}
 	}
 
-	public void enviarIdReserva(ReservaCuartoDTO reserva) {
-		List<OrdenPedidoDTO> pedidosDelCliente = this.ordenPedido.buscarOrdenesPedidosPorReserva(reserva.getIdCliente());
-		ClienteDTO cliente = devolverCliente(reserva.getIdCliente());
-		BigDecimal monto = BigDecimal.valueOf(0);
-		listaOrdenPedidos.clear();
-		listaOrdenPedidos.addAll(pedidosDelCliente);
-		this.tablaOrdenPedidos.setItems(listaOrdenPedidos);
-		this.idCliente.setText(cliente.getIdCliente()+"");
-		//consultar datos del cliente
-		this.labelClienteNombre.setText(cliente.getNombre() + " " + cliente.getApellido());
-		this.idReserva.setText(reserva.getIdReserva()+"");
-		this.montoReserva.setText(reserva.getMontoReservaCuarto()+ "");
-		
-		for(OrdenPedidoDTO o : pedidosDelCliente) {
-			
-			monto = monto.add(o.getPrecioTotal());
-		}
-		monto = monto.add(reserva.getMontoReservaCuarto());
-		resultadoTotal.setText(monto+"");
-	}
-
 	public void modificarBotones() {
  
 		this.btnAgregarPedido.setVisible(false);
@@ -165,6 +146,32 @@ public class ControladorABMOrdenPedido implements Initializable{
 			}
 		}
 		return null;
+	}
+
+	public void enviarIdReserva(int selectedItem, CuartoDTO cuartoDTO, ClienteDTO clienteDTO) {
+		// TODO Auto-generated method stub
+		ReservaCuartoDTO reserva = this.reservas.obtenerReservaCuartoPorId(selectedItem);
+		BigDecimal montoTotalReserva = reserva.getMontoReservaCuarto();
+		BigDecimal montoSeñaCalculo = montoTotalReserva.multiply(reserva.getSenia().divide(BigDecimal.valueOf(100)));
+		BigDecimal montoSeña = montoSeñaCalculo;
+		montoTotalReserva.add(montoSeña.negate());
+		List<OrdenPedidoDTO> pedidosDelCliente = this.ordenPedido.buscarOrdenesPedidosPorReserva(clienteDTO.getIdCliente());
+		BigDecimal monto = BigDecimal.valueOf(0);
+		listaOrdenPedidos.clear();
+		listaOrdenPedidos.addAll(pedidosDelCliente);
+		this.tablaOrdenPedidos.setItems(listaOrdenPedidos);
+		this.idCliente.setText(clienteDTO.getIdCliente()+"");
+		//consultar datos del cliente
+		this.labelClienteNombre.setText(clienteDTO.getNombre() + " " + clienteDTO.getApellido());
+		this.idReserva.setText(selectedItem+"");
+		this.montoReserva.setText(montoTotalReserva+ "");
+		
+		for(OrdenPedidoDTO o : pedidosDelCliente) {
+			
+			monto = monto.add(o.getPrecioTotal());
+		}
+		monto = monto.add(montoTotalReserva);
+		resultadoTotal.setText(monto+"");
 	}
 	
 
