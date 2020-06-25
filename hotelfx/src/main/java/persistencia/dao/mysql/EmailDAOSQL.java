@@ -104,7 +104,8 @@ public class EmailDAOSQL implements EmailDAO{
 			statement.setString(4, email.getEmisor());
 			statement.setString(5, email.getReceptor());
 			statement.setBoolean(6, email.getEstado());
-			statement.setInt(7, email.getIdEmail());
+			statement.setString(7, email.getPass());
+			statement.setInt(8, email.getIdEmail());
 			
 			System.out.println(statement.executeUpdate() );		
 			if(statement.executeUpdate() > 0)

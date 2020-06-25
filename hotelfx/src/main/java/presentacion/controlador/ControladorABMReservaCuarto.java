@@ -60,6 +60,8 @@ public class ControladorABMReservaCuarto implements Initializable
 	private FxmlLoader fxml;
 	private Stage primaryStage;
 	private ControladorLogin controladorLogin;
+	
+	//public static Stage AgregarReservaStage = new Stage();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
