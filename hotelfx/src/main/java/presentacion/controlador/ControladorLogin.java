@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import main.Main;
 import modelo.Configuracion;
+import modelo.Email;
 import modelo.PermisoPerfil;
 import modelo.Usuario;
 import modelo.Validador;
@@ -40,6 +41,8 @@ public class ControladorLogin implements Initializable {
 	
 	private EmailDTO email;
 	private Configuracion emailConfig;
+	private Email ModeloEmail;
+
 	
 	@FXML private PermisoPerfil permisoPerfil;
 	@FXML private Usuario usuario;

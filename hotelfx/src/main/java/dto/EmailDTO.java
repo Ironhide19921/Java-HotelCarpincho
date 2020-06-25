@@ -193,7 +193,7 @@ public class EmailDTO extends Thread{
 		for(EmailDTO email : ModeloEmail.obtenerEmails()) {
 //			EmailDTO emailEnviar = new EmailDTO(email.getIdEmail(), email.getFechaCreacion(), email.getTexto(), email.getAsunto(), email.getEmisor(), email.getReceptor(), email.getEstado(), email.getPass());
 			if(compararFechas(hoy, email.getFechaCreacion())<=7 && compararFechas(hoy, email.getFechaCreacion())>0 && email.getEstado()==false) {
-				enviarMsj(email,"Mail encolado");
+				enviarMsj(email,email.getTexto());
 				email.setEstado(true);
 				ModeloEmail.modificarEmail(email);
 				cant++;
