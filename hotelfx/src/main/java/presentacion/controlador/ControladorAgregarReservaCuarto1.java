@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import dto.ClienteDTO;
 import dto.CuartoDTO;
 import dto.ReservaCuartoDTO;
 import dto.UsuarioDTO;
@@ -30,6 +31,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import modelo.Cliente;
 import modelo.Cuarto;
 import modelo.ReservaCuarto;
 import modelo.Usuario;
@@ -44,6 +46,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 	@FXML private Button btnCerrar;
 	@FXML private Button btnAgregarCliente;
 	@FXML private Button btnAgregarCuarto;
+	@FXML private Button btnGenerarTicket;
 	//campos
 	@FXML private TextField usuario;
 	@FXML private TextField cuarto;
@@ -96,6 +99,8 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 	private ReservaCuarto reservaCuarto;
 	private Usuario usuarios;
 	private Cuarto cuartos;
+	private Cliente clientes;
+	
 	private EstadoReserva estados;
 	private TipoTarjeta tipoTarjeta;
 	private FormaPago formaPago;
@@ -103,7 +108,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 	private int idReserva;
 	private FxmlLoader fxml;
 	private Stage primaryStage;
-	@FXML private BigDecimal montoTotal, cantHoras;
+	private BigDecimal montoTotal, cantHoras;
 	private ReservaCuartoDTO reserva;
 
 	@Override
@@ -128,6 +133,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		this.senia.setEditable(false);
 		this.montoCompleto.setEditable(false);
 		this.infoTarjeta.setVisible(false);
+		this.btnGenerarTicket.setVisible(false);
 		
 		
 	}
@@ -155,6 +161,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 		this.reservaCuarto = new ReservaCuarto(new DAOSQLFactory());
 		this.usuarios = new Usuario(new DAOSQLFactory());
 		this.cuartos = new Cuarto(new DAOSQLFactory());
+		this.clientes = new Cliente(new DAOSQLFactory());
 	}
 
 
@@ -359,7 +366,7 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 	
 		if(localInicioCheckIn!=null) 
 		{
-			if(cmbBoxHoraCheckIn.getValue()!=null) {
+			if(this.cmbBoxHoraCheckIn.getValue()!=null) {
 				fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
 				reserva.setFechaCheckIn(fechaCheckIn);
 				this.reservaCuarto.modificarReservaCuarto(reserva);
@@ -401,7 +408,6 @@ public void consultarCuarto() {
 			primaryStage.setScene(fxml.getScene("VentanaABMCuarto"));   
 			FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 			ControladorABMCuarto scene2Controller = fxmlLoader.getController();
-			//scene2Controller.datosReserva(obtenerDatosReserva());
 			LocalDate localInicioIngreso = this.fechaIngreso.getValue();
 			LocalDate localInicioEgreso = this.fechaEgreso.getValue();
 			Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
@@ -435,7 +441,62 @@ public void consultarCuarto() {
 	     } 
 	}
 	
-	
+	@FXML 
+	public void consultarPendientes() {
+		 try { 
+				if(Validador.validarReserva(this)) {
+					ReservaCuartoDTO reserva = obtenerDatosReservaValidados();	
+					reserva.setIdReserva(idReserva);
+					LocalDate localInicioCheckIn =  this.fechaCheckIn.getValue();
+					LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();	
+					Timestamp fechaCheckIn;
+					Timestamp fechaOut;
+					if(localInicioCheckIn!=null) 
+					{
+						if(cmbBoxHoraCheckIn.getValue()!=null) {
+							fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
+							reserva.setFechaCheckIn(fechaCheckIn);
+							this.reservaCuarto.modificarReservaCuarto(reserva);
+							primaryStage.setScene(fxml.getScene("VentanaABMOrdenPedido"));   
+							FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
+							ControladorABMOrdenPedido controlador = fxmlLoader.getController();
+							controlador.enviarIdReserva(idReserva,devolverCuarto(reserva.getIdCuarto()),devolverCliente(reserva.getIdCliente()) );
+							controlador.modificarBotones();
+							fxml.mostrarStage(primaryStage, "Consulta de pendientes de pago del cliente");
+				
+						}
+						else {
+							Validador.mostrarMensaje("Ingrese la hora de check in.");
+						}
+					}	
+					if(localInicioCheckIn != null && localInicioCheckOut != null)
+					{
+						if(cmbBoxHoraCheckIn.getValue()!=null && cmbBoxHoraCheckOut.getValue()!=null) {
+							fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
+							fechaOut = Timestamp.valueOf(localInicioCheckOut.atTime(LocalTime.of(cmbBoxHoraCheckOut.getSelectionModel().getSelectedItem()+1,0,0)));
+							reserva.setFechaCheckIn(fechaCheckIn);
+							reserva.setFechaOut(fechaOut);
+							this.reservaCuarto.modificarReservaCuarto(reserva);
+							primaryStage.setScene(fxml.getScene("VentanaABMOrdenPedido"));   
+							FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
+							ControladorABMOrdenPedido controlador = fxmlLoader.getController();
+							controlador.enviarIdReserva(idReserva,devolverCuarto(reserva.getIdCuarto()),devolverCliente(reserva.getIdCliente()) );
+							controlador.modificarBotones();
+							fxml.mostrarStage(primaryStage, "Consulta de pendientes de pago del cliente");
+						}
+						else {
+							Validador.mostrarMensaje("Ingrese la hora de check in y check out.");
+						}
+								
+					}
+				}
+				else {
+					Validador.mostrarMensaje("Complete todos los campos obligatorios (*).");
+				}		
+		     } catch(Exception e) { 
+		      e.printStackTrace(); 
+		     } 
+	}
 	
 	@FXML 
 	public void agregarReservaCuarto() throws Exception 
@@ -519,12 +580,21 @@ public void verificarFechasCheck() throws Exception {
 	LocalDate localInicioReserva = fechaCheckIn.getValue();
 	LocalDate localReserva = fechaIngreso.getValue();
 	
+	//this.cmbBoxHoraCheckIn.setItems(null);
+	this.cmbBoxHoraCheckOut.setItems(null);
+	
+	if(localFinReserva!=null) {
+		cambiarEstados();
+	}
+	//fecha de check in anterior a la fecha de ingreso
 	if(!(localInicioReserva==null) && !this.fechaCheckIn.getValue().isEqual(this.fechaIngreso.getValue()) 
 	&& !localReserva.isBefore(localInicioReserva)) {
 		fechaCheckIn.setValue(null);
 		Validador.mostrarMensaje("Fecha de checkIn inválida");
 		return;
 	}
+	
+	//caso en que la fecha de check out y esta despues del egreso
 	if(this.fechaCheckOut.getValue()!=null && !this.fechaCheckOut.getValue().isEqual(this.fechaEgreso.getValue()) 
 			&& this.fechaEgreso.getValue().isBefore(this.fechaCheckOut.getValue())) {
 
@@ -537,18 +607,12 @@ public void verificarFechasCheck() throws Exception {
 	
 	
 	if(!(localFinReserva == null) && !(localInicioReserva == null)) {
-		if((!this.fechaCheckIn.getValue().isEqual(this.fechaCheckOut.getValue()) 
-				&& localFinReserva.isBefore(localInicioReserva))) {
-			this.fechaCheckOut.setValue(null);	
-			this.cmbBoxHoraCheckOut.setItems(null);
-			Validador.mostrarMensaje("Error fecha de finalización de reserva anterior al inicio del mismo.");
-			return;
-		}
-		else {
-			if(!(localInicioReserva==null) && this.fechaIngreso.getValue().equals(localInicioReserva) ){
+		//caso de que l fecha de check in sea igual a la de ingreso carga las horas filtradas por la hora de ingreso
+			if(this.fechaIngreso.getValue().equals(localInicioReserva) ){
 				this.cmbBoxHoraCheckIn.setItems(null);
 				this.listaHorasFin = FXCollections.observableList(cargarCombosHorasFin());
 				this.cmbBoxHoraCheckIn.setItems(listaHorasFin);
+				verificarHorasCheck();
 		
 			}else {
 				this.cmbBoxHoraCheckIn.setItems(null);
@@ -556,7 +620,6 @@ public void verificarFechasCheck() throws Exception {
 				this.cmbBoxHoraCheckIn.setItems(listaHorasFin);
 				verificarHorasCheck();
 			}
-		}
 	}
 	
 }
@@ -611,7 +674,7 @@ public void verificarHoras() throws Exception {
 		}
 	}
 	
-	else if(this.cmbBoxHoraEgreso == null){
+	else if(this.cmbBoxHoraEgreso == null || horaInicioCombo == null){
 		//si no son iguales entonces las horas están s/n
 		this.cmbBoxHoraEgreso.setItems(null);
 		this.listaCmbBoxHorasEgreso = FXCollections.observableList(cargarCombosHoras());
@@ -629,15 +692,23 @@ public void verificarHorasCheck() throws Exception {
 	
 	if(localInicioReserva.equals(localFinReserva) && horaInicioCombo!=null) {
 		//si son iguales entonces condiciono las horas
-
-		if(horaInicioCombo != null && horaFinCombo == null || (horaInicioCombo != null && horaFinCombo != null && horaInicioCombo >= horaFinCombo)) {
+		if((horaInicioCombo != null && horaFinCombo == null) || (horaInicioCombo != null && horaFinCombo != null && horaInicioCombo >= horaFinCombo)) {
 			this.cmbBoxHoraCheckOut.setItems(null);
 			this.listaCmbBoxHorasCheckOut = FXCollections.observableList(cargarCombosHorasFinCheck());
 			this.cmbBoxHoraCheckOut.setItems(listaCmbBoxHorasCheckOut);
 		}
 	}
-	
-	else if(this.cmbBoxHoraCheckOut == null){
+	if(horaInicioCombo!=null && horaInicioCombo<this.cmbBoxHoraIngreso.getValue() && localInicioReserva.equals(fechaIngreso.getValue())) {
+		this.cmbBoxHoraCheckIn.setItems(null);
+		this.listaCmbBoxHorasCheckIn = FXCollections.observableList(cargarCombosHorasFin());
+		this.cmbBoxHoraCheckIn.setItems(listaCmbBoxHorasCheckIn);
+		this.cmbBoxHoraCheckOut.setItems(null);
+		this.listaCmbBoxHorasCheckOut = FXCollections.observableList(cargarCombosHoras());
+		this.cmbBoxHoraCheckOut.setItems(listaCmbBoxHorasCheckOut);
+		Validador.mostrarMensaje("La hora de checkIn no puede ser menor a la hora de ingreso pactada.");
+	}
+	else if(horaFinCombo == null){
+	//else{
 		//si no son iguales entonces las horas están s/n
 		this.cmbBoxHoraCheckOut.setItems(null);
 		this.listaCmbBoxHorasCheckOut = FXCollections.observableList(cargarCombosHoras());
@@ -712,6 +783,8 @@ public void setearCamposModificar() throws Exception {
 	this.btnAgregar.setVisible(false);
 	this.btnModificar.setVisible(true);
 	this.fechasCheck.setVisible(true);
+	this.cmbBoxHoraCheckOut.setValue(null);
+	this.fechaCheckOut.setValue(null);
 	if(!this.cmbBoxFormaPago.getValue().equals(FormaPago.EFECTIVO.name())){
 		this.infoTarjeta.setVisible(true);
 	}
@@ -726,15 +799,16 @@ public void setearCamposModificar() throws Exception {
 	}
 
 	
-	if(this.fechaCheckOut.getValue()!=null && !this.fechaCheckOut.getValue().isEqual(this.fechaEgreso.getValue()) && this.fechaEgreso.getValue().isBefore(this.fechaCheckOut.getValue())) {
+	/*if(this.fechaCheckOut.getValue()!=null && !this.fechaCheckOut.getValue().isEqual(this.fechaEgreso.getValue()) && this.fechaEgreso.getValue().isBefore(this.fechaCheckOut.getValue())) {
 
 		this.fechaCheckOut.setValue(null);
 		this.cmbBoxHoraCheckOut.setValue(null);
 		Validador.mostrarMensaje("La fecha de checkOut debe estar entre el rango de fechas"
 				+ " desde el "+ fechaIngreso.getValue() + " hasta el " + fechaEgreso.getValue() + ".");
-	}
+	}*/
 	
-	if(this.fechaCheckIn.getValue()!=null && this.fechaCheckIn.getValue().equals(this.fechaIngreso.getValue())) {
+	if(this.fechaCheckIn.getValue()!=null && this.fechaCheckIn.getValue().equals(this.fechaIngreso.getValue()) 
+			&& this.cmbBoxHoraCheckIn.getValue()<this.cmbBoxHoraIngreso.getValue()) {
 		this.cmbBoxHoraCheckIn.setItems(null);
 		this.cmbBoxHoraCheckOut.setItems(null);
 		this.listaCmbBoxHorasCheckIn = FXCollections.observableList(cargarCombosHorasFin());
@@ -742,6 +816,74 @@ public void setearCamposModificar() throws Exception {
 	}
 }
 
+//verifica los cambios de estado y de fechas en la reserva cuando estoy por modificar o generar el ticket
+public void verificarFinalizacionReservaCuarto(ReservaCuartoDTO reserva) {
+	LocalDate localFinReserva = fechaCheckOut.getValue();
+	LocalDate localIngresoReserva = fechaIngreso.getValue();
+	LocalDate localEgresoReserva= fechaEgreso.getValue();
+	EstadoReserva estadoReserva =EstadoReserva.valueOf(this.cmbBoxEstados.getValue());
+	//caso de no haber ingresado el check out pone la fecha actual y evalua los cambios de estado
+	if(localFinReserva==null) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		this.fechaCheckOut.setValue(timestamp.toLocalDateTime().toLocalDate());
+		this.cmbBoxHoraCheckOut.setValue(timestamp.toLocalDateTime().getHour());
+		localFinReserva = fechaCheckOut.getValue();
+		reserva.setFechaOut(timestamp);
+		if(!estadoReserva.equals(EstadoReserva.CANCELADO) && (localFinReserva.isBefore(localIngresoReserva))) {
+			//este caso esta cancelando la reserva antes de ingresar
+			estadoReserva = EstadoReserva.CANCELADO;
+			reserva.setEstado(estadoReserva);//cambia a cancelado
+			reserva.setEstado(false);//da de baja la reserva
+			//le deberia cobrar solo la orden de pedido		
+			return;
+		}
+		if(!estadoReserva.equals(EstadoReserva.FINALIZADO) && (localFinReserva.isBefore(localEgresoReserva)|| localFinReserva.isEqual(localEgresoReserva))){
+			estadoReserva = EstadoReserva.FINALIZADO;
+			reserva.setEstado(estadoReserva);//cambia a cancelado
+			reserva.setEstado(false);//da de baja la reserva
+			return;
+		}	
+	}
+	else {
+		if(!estadoReserva.equals(EstadoReserva.CANCELADO) && (localFinReserva.isBefore(localIngresoReserva))) {
+			//este caso esta cancelando la reserva antes de ingresar
+			estadoReserva = EstadoReserva.CANCELADO;
+			reserva.setEstado(estadoReserva);//cambia a cancelado
+			reserva.setEstado(false);//da de baja la reserva
+			//le deberia cobrar solo la orden de pedido		
+			return;
+		}
+		if(!estadoReserva.equals(EstadoReserva.FINALIZADO) && (localFinReserva.isBefore(localEgresoReserva)|| localFinReserva.isEqual(localEgresoReserva))){
+			estadoReserva = EstadoReserva.FINALIZADO;
+			reserva.setEstado(estadoReserva);//cambia a cancelado
+			reserva.setEstado(false);//da de baja la reserva
+			return;
+		}	
+	}
+}
+
+public void cambiarEstados() {
+	LocalDate localFinReserva = fechaCheckOut.getValue();
+	LocalDate localIngresoReserva = fechaIngreso.getValue();
+	LocalDate localEgresoReserva= fechaEgreso.getValue();
+	EstadoReserva estadoReserva =EstadoReserva.valueOf(this.cmbBoxEstados.getValue());
+	//caso de no haber ingresado el check out pone la fecha actual y evalua los cambios de estado
+	if(!estadoReserva.equals(EstadoReserva.CANCELADO) && (localFinReserva.isBefore(localIngresoReserva))) {
+			//este caso esta cancelando la reserva antes de ingresar
+			estadoReserva = EstadoReserva.CANCELADO;	
+			this.cmbBoxEstados.setValue(estadoReserva.name());
+			this.btnModificar.setDisable(true);
+			this.btnGenerarTicket.setVisible(true);
+			
+	}
+	if(!estadoReserva.equals(EstadoReserva.FINALIZADO) && (localFinReserva.isBefore(localEgresoReserva)|| localFinReserva.isEqual(localEgresoReserva))){
+			estadoReserva = EstadoReserva.FINALIZADO;
+			this.cmbBoxEstados.setValue(estadoReserva.name());
+			this.btnModificar.setDisable(true);
+			this.btnGenerarTicket.setVisible(true);
+	
+	}	
+}
 
 public TextField getCuarto() {
 	return cuarto;
@@ -904,6 +1046,29 @@ public FormaPago getFormaPago() {
 	// TODO Auto-generated method stub
 	return FormaPago.valueOf(this.cmbBoxFormaPago.getSelectionModel().getSelectedItem());
 }
+
+private CuartoDTO devolverCuarto(Integer id) {
+	List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
+			
+			for(CuartoDTO c : cuartos) {
+				if(c.getId() == id) {
+					return c;
+				}
+			}
+			return null;
+	}
+
+
+	private ClienteDTO devolverCliente(Integer id) {
+		List<ClienteDTO> clientes = this.clientes.obtenerClientes();
+		
+		for(ClienteDTO c : clientes) {
+			if(c.getIdCliente() == id) {
+				return c;
+			}
+		}
+		return null;
+	}
 
 
 
