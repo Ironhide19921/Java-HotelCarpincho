@@ -1,8 +1,18 @@
 package modelo;
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Optional;
+
+import dto.ReservaCuartoDTO.EstadoReserva;
+import dto.ReservaCuartoDTO.FormaPago;
+import dto.ReservaCuartoDTO.TipoTarjeta;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -11,6 +21,8 @@ import presentacion.controlador.ControladorAgregarCliente;
 
 import presentacion.controlador.ControladorAgregarReservaCuarto1;
 import presentacion.controlador.ControladorAgregarUsuario;
+import presentacion.controlador.ControladorAgregarProducto;
+import presentacion.controlador.ControladorAgregarCuarto;
 import presentacion.controlador.ControladorAgregarOrdenPedido;
 
 public class Validador {
@@ -135,36 +147,93 @@ public class Validador {
 
 	public static boolean validarReserva(ControladorAgregarReservaCuarto1 controladorAgregarReservaCuarto1){
 		
-		boolean condicionCompleta = true;
-		boolean condicionInput = true;
-		boolean condicionFormato = true;
+		if(!controladorAgregarReservaCuarto1.ingresoFechas()) {
+			mostrarMensaje("Las fechas de ingreso y egreso son obligatorias.");
+			return false;
+		}
 		
-		condicionInput = condicionInput
-		&& !controladorAgregarReservaCuarto1.getEmail().equals("")
-		&& (controladorAgregarReservaCuarto1.getCmbBoxFormaPago().getSelectionModel().getSelectedItem()!=null)
-		&& !controladorAgregarReservaCuarto1.getCliente().equals("")
-
-		&& !controladorAgregarReservaCuarto1.getCuarto().equals("")
-		&& (controladorAgregarReservaCuarto1.getFechaReserva()!=null)
-		&& (controladorAgregarReservaCuarto1.getFechaIngreso()!=null)
-		&& (controladorAgregarReservaCuarto1.getFechaEgreso()!=null)
-		&& (controladorAgregarReservaCuarto1.getCmbBoxUsuario().getSelectionModel().getSelectedItem()!=null) 
-		;
+		LocalDate localInicioReserva =  controladorAgregarReservaCuarto1.getFechaReserva().getValue();
+		LocalDate localInicioIngreso = controladorAgregarReservaCuarto1.getFechaIngreso().getValue();
+		LocalDate localInicioEgreso =  controladorAgregarReservaCuarto1.getFechaEgreso().getValue();
+		Timestamp fechaReserva =Timestamp.valueOf(localInicioReserva.atTime(LocalTime.of(controladorAgregarReservaCuarto1.getCmbBoxHoraReserva().getSelectionModel().getSelectedItem(),0,0)));
+		Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(controladorAgregarReservaCuarto1.getCmbBoxHoraIngreso().getSelectionModel().getSelectedItem(),0,0)));
+		Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(controladorAgregarReservaCuarto1.getCmbBoxHoraEgreso().getSelectionModel().getSelectedItem()+1,0,0)));
+		BigDecimal senia = new BigDecimal(controladorAgregarReservaCuarto1.getSenia().getText());
+		BigDecimal montoReservaCuarto =new BigDecimal(controladorAgregarReservaCuarto1.getMontoCompleto().getText());
+		BigDecimal montoSenia = new BigDecimal(controladorAgregarReservaCuarto1.getMontoSenia().getText());
+		//TipoTarjeta tipoTarjeta = controladorAgregarReservaCuarto1.getTipoTarjeta();
+		//EstadoReserva estadoReserva =controladorAgregarReservaCuarto1.getEstados();
+		//FormaPago formaPago = controladorAgregarReservaCuarto1.getFormaPago();
+		int idCliente = Integer.parseInt(controladorAgregarReservaCuarto1.getCliente().getText());
+		int idCuarto = Integer.parseInt(controladorAgregarReservaCuarto1.getCuarto().getText());
+		int idUsuario = Integer.parseInt(controladorAgregarReservaCuarto1.getUsuario());
+		String emailFacturacion = controladorAgregarReservaCuarto1.getEmail().getText();
+		String numeroTarjeta = controladorAgregarReservaCuarto1.getNumTarjeta().getText();
+		String fechaVencTarjeta = controladorAgregarReservaCuarto1.getFechaVecTarjeta().getText();
+		String codSeguridadTarjeta = controladorAgregarReservaCuarto1.getCodSeguridad().getText();	
+		BigDecimal cantidadHoras = controladorAgregarReservaCuarto1.getCantidadHoras();
+		if(idCliente == 0 || idUsuario == 0 || idCuarto == 0) {
+			mostrarMensaje("El ingreso del cliente y del cuarto son obligatorios.");
+			return false;
+		}
 		
-		condicionFormato = condicionFormato 
-		&& formatoMail(controladorAgregarReservaCuarto1.getEmail().getText())			
-		&& formatoNumerico(controladorAgregarReservaCuarto1.getMontoSenia().getText())	
-		&& formatoNumerico(controladorAgregarReservaCuarto1.getSenia().getText())	
-		;
+		if(controladorAgregarReservaCuarto1.getEstados() == null) {
+			mostrarMensaje("Debe ingresar un estado a su reserva.");
+			return false;
+		}	
+		if(montoReservaCuarto.equals(BigDecimal.valueOf(0) )|| senia.equals(BigDecimal.valueOf(0))) {
+			mostrarMensaje("Los valores referentes monto de reserva, seña, etc. No pueden ser 0. Verifique los datos del cuarto seleccionado.");
+			return false;
+		}
+		if(emailFacturacion.equals("") ) {
+			mostrarMensaje("El campo Email es obligatorio (*)");
+			return false;
+		}
+		if(!formatoMail(emailFacturacion)) {
+			mostrarMensaje("El campo Email tiene un formato incorrecto");
+			return false;
+		}
+		if(controladorAgregarReservaCuarto1.getFormaPago()==null) {
+			mostrarMensaje("Ingrese la forma de pago.");
+			return false;
+		}
+		if(fechaReserva == null) {
+			mostrarMensaje("La fecha de reserva es obligatoria (*).");
+			return false;
+		}
 		
-		if (!condicionInput)
-			mostrarMensaje("Campos obligatorios vacios");
-		if (!condicionFormato)
-			mostrarMensaje("Contienen un formato incorrecto\\n");	
-		condicionCompleta = condicionInput && condicionFormato;
-		return condicionCompleta;
-
-	}
+		if(cantidadHoras.equals(BigDecimal.valueOf(0)) || montoSenia.equals(BigDecimal.valueOf(0))) {
+			Validador.mostrarMensaje("Monto de la seña o cantidad de horas inválido.");
+			return false;
+		}
+		
+		if(!controladorAgregarReservaCuarto1.getFormaPago().equals(FormaPago.EFECTIVO)) {
+			if(controladorAgregarReservaCuarto1.getTipoTarjeta() == null || numeroTarjeta == null || fechaVencTarjeta == null || codSeguridadTarjeta == null)
+			{
+				Validador.mostrarMensaje("Por favor complete todos los campos de la tarjeta.");
+				return false;
+			}
+			
+			if(controladorAgregarReservaCuarto1.getTipoTarjeta().equals(TipoTarjeta.VISA) && !(Validador.formatoVisa(numeroTarjeta, codSeguridadTarjeta)) ) {
+				Validador.mostrarMensaje("Error en datos para la tarjeta VISA");
+				return false;
+			}
+			if(controladorAgregarReservaCuarto1.getTipoTarjeta().equals(TipoTarjeta.MASTERCARD) && !(Validador.formatoMaster(numeroTarjeta, codSeguridadTarjeta))) {
+				Validador.mostrarMensaje("Error en datosz para la tarjeta MASTERCARD");
+				return false;
+			}
+			if(!Validador.validarFechaVenc(fechaVencTarjeta)) {
+				Validador.mostrarMensaje("Fecha de vencimiento de tarjeta inválida.");
+				return false;
+			}
+		}
+			return true;
+		
+		}
+	
+	
+	
+	
 	
 	public static boolean validarPedido(ControladorAgregarOrdenPedido pedido) {
 		
@@ -331,6 +400,79 @@ public class Validador {
 		    return result.get();
 		}
 		return "Cancelar";
+	}
+	
+	//Validaciones para cuarto
+	public static boolean validarCuarto(ControladorAgregarCuarto cuarto) {
+		boolean condicionCompleta = true;
+		boolean condicionInput = true;
+		boolean condicionFormato = true;
+		
+		condicionInput = condicionInput
+				&& !cuarto.getTxtCapacidad().getText().equals("")
+				&& !cuarto.getTxtMonto().getText().equals("")
+				&& !cuarto.getTxtMontoSenia().getText().equals("")
+				&& !cuarto.getTxtPiso().getText().equals("")
+				&& !cuarto.getTxtHabitacion().getText().equals("")
+				&& cuarto.getCmbBoxCatesCuarto().getSelectionModel().getSelectedItem() != null;
+		
+		condicionFormato = condicionFormato
+				&& formatoNumero(cuarto.getTxtCapacidad().getText())
+				&& formatoNumeroConPunto(cuarto.getTxtMonto().getText())
+				&& formatoNumero(cuarto.getTxtMontoSenia().getText())
+				&& formatoNumero(cuarto.getTxtPiso().getText())
+				&& formatoLetraEspacio(cuarto.getTxtHabitacion().getText());
+		
+		if(!condicionInput) {
+			mostrarMensaje("Hay campos sin completar o no eligio una categoria para el cuarto");
+		}
+		
+		if(!condicionFormato) {
+			mostrarMensaje("Formato no valido");
+		}
+		
+		condicionCompleta = condicionInput && condicionFormato;
+		
+		return condicionCompleta;
+	}
+	
+	//Validaciones para producto
+	public static boolean validarProducto(ControladorAgregarProducto producto) {
+		boolean condicionCompleta = true;
+		boolean condicionInput = true;
+		boolean condicionFormato = true;
+		
+		condicionInput = condicionInput
+				&& !producto.getTxtNombre().getText().equals("")
+				&& !producto.getTxtPrecio().getText().equals("")
+				&& !producto.getTxtDescripcion().getText().equals("")
+				&& !producto.getTxtProveedor().getText().equals("");
+		
+		condicionFormato = condicionFormato
+				&& formatoLetrasNumerosEspacios(producto.getTxtNombre().getText())
+				&& formatoNumeroConPunto(producto.getTxtPrecio().getText())
+				&& formatoLetrasNumerosEspacios(producto.getTxtDescripcion().getText())
+				&& formatoLetrasNumerosEspacios(producto.getTxtProveedor().getText());
+		
+		if(!condicionInput) {
+			mostrarMensaje("Hay campos sin completar");
+		}
+		
+		if(!condicionFormato) {
+			mostrarMensaje("Formato no valido");
+		}
+		
+		condicionCompleta = condicionInput && condicionFormato;
+		
+		return condicionCompleta;
+	}
+	
+	public static boolean formatoNumeroConPunto(String numero) {
+		return numero.matches("[0-9]+(\\.[0-9]+)?");
+	}
+	
+	public static boolean formatoLetrasNumerosEspacios(String texto) {
+		return texto.matches("[a-zA-Z0-9\\s]+");
 	}
 
 }

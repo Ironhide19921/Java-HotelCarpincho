@@ -56,11 +56,8 @@ public class ControladorABMCliente implements Initializable{
 	@FXML 
 	private Button btnSeleccionarCliente;
 	@FXML private Button btnVerReservaCuarto;
-	@FXML 
-	private Button btnCerrar;
-
-	@FXML private Button btnReservaCuarto;
-
+	@FXML private Button btnCerrar;
+	@FXML private Button btnVerReservasEvento;
 	@FXML
 	private Button btnVerReservasCliente;
 
@@ -361,6 +358,8 @@ public class ControladorABMCliente implements Initializable{
 		 @FXML 
 		 public void modificarBotonesReserva() {
 			 this.btnSeleccionarCliente.setVisible(true);
+			 this.btnVerEncuesta.setDisable(true);
+			 this.btnVerReservasEvento.setDisable(true);
 		 }
 		 
 		 public void datosReserva(ReservaCuartoDTO reserva) {

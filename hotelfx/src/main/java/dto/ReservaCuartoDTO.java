@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public class ReservaCuartoDTO {
 
 	private Integer idReserva,idCliente,idCuarto,idUsuario;
-	private BigDecimal senia,montoReservaCuarto;
+	private BigDecimal senia,montoReservaCuarto, montoSenia;
 	private String emailFacturacion, numTarjeta, cantidadDias, codSeguridadTarjeta,comentarios,fechaVencTarjeta;
 	public enum TipoTarjeta{VISA, MASTERCARD, NO};
 	public enum FormaPago{EFECTIVO, DEBITO, CREDITO};
@@ -224,4 +224,14 @@ public class ReservaCuartoDTO {
 		this.montoTotal = montoTotal;
 	}
 */
+
+	public BigDecimal getMontoSenia() {
+		return montoSenia;
+	}
+
+	public void setMontoSenia(BigDecimal montoSenia) {
+		this.montoSenia = montoSenia;
+	}
+
+
 }

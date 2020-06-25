@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarReservaCuarto1">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
@@ -20,9 +19,9 @@
                <children>
                   <TextField fx:id="usuario" layoutX="113.0" layoutY="13.0" />
                   <ComboBox fx:id="cmbBoxHoraReserva" layoutX="540.0" layoutY="13.0" prefHeight="25.0" prefWidth="46.0" />
-                  <Label layoutX="37.0" layoutY="17.0" text="Usuario" />
-                  <Label layoutX="281.0" layoutY="17.0" text="Fecha de reserva" />
-                  <Label layoutX="624.0" layoutY="17.0" prefHeight="17.0" prefWidth="59.0" text="Estado" />
+                  <Label layoutX="37.0" layoutY="17.0" prefHeight="17.0" prefWidth="66.0" text="Usuario  (*)" />
+                  <Label layoutX="265.0" layoutY="17.0" prefHeight="17.0" prefWidth="112.0" text="Fecha de reserva  (*)" />
+                  <Label layoutX="610.0" layoutY="17.0" prefHeight="17.0" prefWidth="59.0" text="Estado  (*)" />
                   <ComboBox fx:id="cmbBoxEstados" layoutX="672.0" layoutY="13.0" prefWidth="150.0" />
                   <DatePicker fx:id="fechaReserva" layoutX="381.0" layoutY="13.0" prefHeight="25.0" prefWidth="156.0" />
                </children>
@@ -38,10 +37,10 @@
                      <children>
                         <Pane fx:id="fechasCheck" layoutY="100.0" prefHeight="117.0" prefWidth="350.0">
                            <children>
-                              <DatePicker fx:id="fechaCheckIn" layoutX="120.0" layoutY="38.0" prefWidth="150.0" />
-                              <DatePicker fx:id="fechaCheckOut" layoutX="120.0" layoutY="74.0" prefWidth="150.0" />
-                              <ComboBox fx:id="cmbBoxHoraCheckIn" layoutX="286.0" layoutY="38.0" prefHeight="25.0" prefWidth="46.0" />
-                              <ComboBox fx:id="cmbBoxHoraCheckOut" layoutX="286.0" layoutY="74.0" prefHeight="25.0" prefWidth="46.0" />
+                              <DatePicker fx:id="fechaCheckIn" layoutX="120.0" layoutY="38.0" onAction="#verificarFechasCheck" prefHeight="25.0" prefWidth="150.0" />
+                              <DatePicker fx:id="fechaCheckOut" layoutX="120.0" layoutY="74.0" onAction="#verificarFechasCheck" prefHeight="25.0" prefWidth="150.0" />
+                              <ComboBox fx:id="cmbBoxHoraCheckIn" layoutX="286.0" layoutY="38.0" onAction="#verificarHorasCheck" prefHeight="25.0" prefWidth="46.0" />
+                              <ComboBox fx:id="cmbBoxHoraCheckOut" layoutX="286.0" layoutY="74.0" onAction="#verificarHorasCheck" prefHeight="25.0" prefWidth="46.0" />
                               <Label layoutX="14.0" layoutY="42.0" prefWidth="100.0" text="Check In" />
                               <Label layoutX="14.0" layoutY="78.0" prefWidth="100.0" text="Check Out" />
                               <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="176.0" text="Fecha y hora de check" />
@@ -60,16 +59,16 @@
                               <Label layoutX="14.0" layoutY="107.0" prefWidth="100.0" text="Cod. de seguridad" />
                            </children>
                         </Pane>
-                        <DatePicker fx:id="fechaIngreso" accessibleHelp="Fecha de ingreso" accessibleText="Fecha de ingreso" layoutX="120.0" layoutY="19.0" onAction="#verificarFechas" prefWidth="150.0" />
-                        <DatePicker fx:id="fechaEgreso" layoutX="120.0" layoutY="52.0" onAction="#verificarFechas" prefWidth="150.0" />
+                        <DatePicker fx:id="fechaIngreso" accessibleHelp="Fecha de ingreso" accessibleText="Fecha de ingreso" layoutX="120.0" layoutY="19.0" onAction="#verificarFechas" prefHeight="25.0" prefWidth="150.0" />
+                        <DatePicker fx:id="fechaEgreso" layoutX="120.0" layoutY="52.0" onAction="#verificarFechas" prefHeight="25.0" prefWidth="150.0" />
                         <ComboBox fx:id="cmbBoxHoraIngreso" layoutX="286.0" layoutY="19.0" onAction="#verificarHoras" prefHeight="25.0" prefWidth="46.0" />
                         <ComboBox fx:id="cmbBoxHoraEgreso" layoutX="286.0" layoutY="52.0" onAction="#verificarHoras" prefHeight="25.0" prefWidth="46.0" />
                         <TextField fx:id="email" layoutX="120.0" layoutY="270.0" prefWidth="220.0" />
                         <ComboBox fx:id="cmbBoxFormaPago" layoutX="170.0" layoutY="302.0" onAction="#mostrarDatosTarjeta" prefHeight="25.0" prefWidth="170.0" />
-                        <Label layoutX="14.0" layoutY="23.0" prefWidth="100.0" text="Ingreso" />
-                        <Label layoutX="14.0" layoutY="56.0" prefWidth="100.0" text="Egreso" />
-                        <Label layoutX="14.0" layoutY="274.0" prefWidth="100.0" text="Email" />
-                        <Label layoutX="14.0" layoutY="306.0" prefWidth="100.0" text="Forma de pago" />
+                        <Label layoutX="14.0" layoutY="23.0" prefWidth="100.0" text="Ingreso (*)" />
+                        <Label layoutX="14.0" layoutY="56.0" prefWidth="100.0" text="Egreso (*)" />
+                        <Label layoutX="14.0" layoutY="274.0" prefWidth="100.0" text="Email  (*)" />
+                        <Label layoutX="14.0" layoutY="306.0" prefWidth="100.0" text="Forma de pago  (*)" />
                         <Label layoutX="14.0" layoutY="233.0" prefWidth="100.0" text="Datos de pago" />
                         <Line endX="100.0" layoutX="100.0" layoutY="251.0" startX="-100.0" />
                      </children>
@@ -84,17 +83,16 @@
                         <TextArea fx:id="observaciones" layoutX="120.0" layoutY="242.0" prefHeight="100.0" prefWidth="170.0" />
                         <Button fx:id="btnAgregarCuarto" layoutX="298.0" layoutY="24.0" mnemonicParsing="false" onAction="#consultarCuarto" text="+" />
                         <Button fx:id="btnAgregarCliente" layoutX="298.0" layoutY="57.0" mnemonicParsing="false" onAction="#consultarCliente" text="+" />
-                        <Button fx:id="btnConsultarPendientes" layoutX="190.0" layoutY="366.0" mnemonicParsing="false" prefWidth="100.0" text="Consultar" />
-                        <Button fx:id="btnAgregar" layoutX="190.0" layoutY="399.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefWidth="100.0" text="Agregar" />
-                        <Button fx:id="btnModificar" layoutX="75.0" layoutY="399.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefWidth="100.0" text="Modificar" />
-                        <Button fx:id="btnCerrar" layoutX="190.0" layoutY="434.0" mnemonicParsing="false" prefWidth="100.0" text="Cancelar" />
-                        <Label layoutX="14.0" layoutY="28.0" prefWidth="100.0" text="Nº Cuarto" />
-                        <Label layoutX="14.0" layoutY="61.0" prefWidth="100.0" text="Nº Cliente" />
+                        <Button fx:id="btnAgregar" layoutX="190.0" layoutY="356.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefWidth="100.0" text="Agregar" />
+                        <Button fx:id="btnModificar" layoutX="190.0" layoutY="356.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefWidth="100.0" text="Modificar" />
+                        <Button fx:id="btnCerrar" layoutX="190.0" layoutY="391.0" mnemonicParsing="false" prefWidth="100.0" text="Cancelar" />
+                        <Label layoutX="14.0" layoutY="28.0" prefWidth="100.0" text="Nº Cuarto  (*)" />
+                        <Label layoutX="14.0" layoutY="61.0" prefWidth="100.0" text="Nº Cliente  (*)" />
                         <Label layoutX="14.0" layoutY="134.0" prefWidth="100.0" text="Seña (%)" />
                         <Label layoutX="14.0" layoutY="167.0" prefWidth="100.0" text="Monto de seña" />
                         <Label layoutX="14.0" layoutY="200.0" prefWidth="100.0" text="Monto total" />
                         <Label layoutX="14.0" layoutY="242.0" prefWidth="100.0" text="Observaciones" />
-                        <TextField layoutX="120.0" layoutY="99.0" prefHeight="25.0" prefWidth="170.0" />
+                        <TextField fx:id="cantidadHoras" layoutX="120.0" layoutY="99.0" prefHeight="25.0" prefWidth="170.0" />
                         <Label layoutX="14.0" layoutY="103.0" prefWidth="100.0" text="Cantidad de dias" />
                      </children>
                   </Pane>

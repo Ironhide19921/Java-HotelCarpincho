@@ -29,16 +29,17 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 	private static final String readall = "SELECT * FROM reservacuarto";
 	private static final String update = "UPDATE reservacuarto SET idCliente = ?, idUsuario = ?, "
 			+ "idCuarto = ?, Senia = ?, MontoReservaCuarto = ?, EmailFacturacion = ?, "
-			+ "NumTarjeta = ? ,FormaDePago = ?, TipoTarjeta = ?, CodSeguridadTarjeta = ?, "
+			+ "NumeroTarjeta = ? ,FormaPago = ?, TipoTarjeta = ?, CodSeguridadTarjeta = ?, "
 			+ "FechaVencTarjeta = ?, "
 			+ "FechaReserva = ?, FechaCheckIn = ?, FechaIngreso = ?, "
-			+ " FechaOut = ?,  FechaEgreso = ?,  FormaPago = ?, FechaVencTarjeta = ?"
+			+ " FechaOut = ?,  FechaEgreso = ?"
 			+ ",EstadoReserva = ? , Comentarios = ? , Estado = ? WHERE idReservaCuarto = ?";
 	private static final String search = "SELECT * FROM reservacuarto "
 			+ "WHERE idUsuario LIKE ? OR idCuarto LIKE ? OR idCliente LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
 
 	private static final String search1 = "SELECT * FROM reservacuarto where idCliente = ?";
 	
+	private static final String reservaPorId = "SELECT * FROM reservacuarto where idReservaCuarto = ?";
 	
 	@Override
 	public boolean insert(ReservaCuartoDTO reserva) {
@@ -149,8 +150,8 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 		try {
 			statement = conexion.prepareStatement(update);
 			statement.setInt(1, reserva.getIdCliente());
-			statement.setInt(3, reserva.getIdCuarto());
 			statement.setInt(2, reserva.getIdUsuario());
+			statement.setInt(3, reserva.getIdCuarto());
 			statement.setBigDecimal(4, reserva.getSenia());
 			statement.setBigDecimal(5, reserva.getMontoReservaCuarto());
 			statement.setString(6, reserva.getEmailFacturacion());
@@ -166,11 +167,9 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			statement.setTimestamp(16, reserva.getFechaEgreso());
 			statement.setString(17, reserva.getEstadoReserva().name());
 			statement.setString(18, reserva.getComentarios());
-			statement.setBoolean(18, reserva.getEstado());
-			
+			statement.setBoolean(19, reserva.getEstado());
 			statement.setInt(20, reserva.getIdReserva());
 
-			System.out.println(statement.executeUpdate());
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
 			}
@@ -215,17 +214,40 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 	public List<ReservaCuartoDTO> buscarReservaCuartoCliente(int idCliente) {
 
 		PreparedStatement statement;
-
 		ResultSet resultSet; // Guarda el resultado de la query
 		ArrayList<ReservaCuartoDTO> reservas = new ArrayList<ReservaCuartoDTO>();
 		Conexion conexion = Conexion.getConexion();
-		try {
-			statement = conexion.getSQLConexion().prepareStatement(search1);
+		try {	
+		statement = conexion.getSQLConexion().prepareStatement(search1);
 			statement.setInt(1,idCliente);
 			resultSet = statement.executeQuery();
 			
 			while (resultSet.next()) {
 				reservas.add(getReservaDTO(resultSet));
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return reservas;
+		
+	}
+	
+	@Override
+	public ReservaCuartoDTO obtenerReservaCuartoPorId(int idReserva) {
+
+		PreparedStatement statement;
+
+		ResultSet resultSet; // Guarda el resultado de la query
+		ReservaCuartoDTO reservas = null;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(reservaPorId);
+			statement.setInt(1,idReserva);
+			resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				reservas = getReservaDTO(resultSet);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
