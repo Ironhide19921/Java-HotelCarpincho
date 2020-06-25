@@ -21,6 +21,8 @@ import presentacion.controlador.ControladorAgregarCliente;
 
 import presentacion.controlador.ControladorAgregarReservaCuarto1;
 import presentacion.controlador.ControladorAgregarUsuario;
+import presentacion.controlador.ControladorAgregarProducto;
+import presentacion.controlador.ControladorAgregarCuarto;
 import presentacion.controlador.ControladorAgregarOrdenPedido;
 
 public class Validador {
@@ -398,6 +400,79 @@ public class Validador {
 		    return result.get();
 		}
 		return "Cancelar";
+	}
+	
+	//Validaciones para cuarto
+	public static boolean validarCuarto(ControladorAgregarCuarto cuarto) {
+		boolean condicionCompleta = true;
+		boolean condicionInput = true;
+		boolean condicionFormato = true;
+		
+		condicionInput = condicionInput
+				&& !cuarto.getTxtCapacidad().getText().equals("")
+				&& !cuarto.getTxtMonto().getText().equals("")
+				&& !cuarto.getTxtMontoSenia().getText().equals("")
+				&& !cuarto.getTxtPiso().getText().equals("")
+				&& !cuarto.getTxtHabitacion().getText().equals("")
+				&& cuarto.getCmbBoxCatesCuarto().getSelectionModel().getSelectedItem() != null;
+		
+		condicionFormato = condicionFormato
+				&& formatoNumero(cuarto.getTxtCapacidad().getText())
+				&& formatoNumeroConPunto(cuarto.getTxtMonto().getText())
+				&& formatoNumero(cuarto.getTxtMontoSenia().getText())
+				&& formatoNumero(cuarto.getTxtPiso().getText())
+				&& formatoLetraEspacio(cuarto.getTxtHabitacion().getText());
+		
+		if(!condicionInput) {
+			mostrarMensaje("Hay campos sin completar o no eligio una categoria para el cuarto");
+		}
+		
+		if(!condicionFormato) {
+			mostrarMensaje("Formato no valido");
+		}
+		
+		condicionCompleta = condicionInput && condicionFormato;
+		
+		return condicionCompleta;
+	}
+	
+	//Validaciones para producto
+	public static boolean validarProducto(ControladorAgregarProducto producto) {
+		boolean condicionCompleta = true;
+		boolean condicionInput = true;
+		boolean condicionFormato = true;
+		
+		condicionInput = condicionInput
+				&& !producto.getTxtNombre().getText().equals("")
+				&& !producto.getTxtPrecio().getText().equals("")
+				&& !producto.getTxtDescripcion().getText().equals("")
+				&& !producto.getTxtProveedor().getText().equals("");
+		
+		condicionFormato = condicionFormato
+				&& formatoLetrasNumerosEspacios(producto.getTxtNombre().getText())
+				&& formatoNumeroConPunto(producto.getTxtPrecio().getText())
+				&& formatoLetrasNumerosEspacios(producto.getTxtDescripcion().getText())
+				&& formatoLetrasNumerosEspacios(producto.getTxtProveedor().getText());
+		
+		if(!condicionInput) {
+			mostrarMensaje("Hay campos sin completar");
+		}
+		
+		if(!condicionFormato) {
+			mostrarMensaje("Formato no valido");
+		}
+		
+		condicionCompleta = condicionInput && condicionFormato;
+		
+		return condicionCompleta;
+	}
+	
+	public static boolean formatoNumeroConPunto(String numero) {
+		return numero.matches("[0-9]+(\\.[0-9]+)?");
+	}
+	
+	public static boolean formatoLetrasNumerosEspacios(String texto) {
+		return texto.matches("[a-zA-Z0-9\\s]+");
 	}
 
 }
