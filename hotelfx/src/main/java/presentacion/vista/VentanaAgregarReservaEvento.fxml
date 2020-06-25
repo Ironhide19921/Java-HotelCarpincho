@@ -52,7 +52,7 @@
                   <DatePicker fx:id="fechaInicioReserva" layoutX="266.0" layoutY="177.0" onAction="#verificarFechas" prefHeight="25.0" prefWidth="151.0" promptText="Fecha Inicio" />
                   <DatePicker fx:id="fechaFinReserva" layoutX="266.0" layoutY="232.0" onAction="#verificarFechas" prefHeight="25.0" prefWidth="152.0" promptText="Fecha Fin" />
                   <TextArea fx:id="observaciones" layoutX="553.0" layoutY="97.0" prefHeight="66.0" prefWidth="150.0" />
-                  <Text layoutX="266.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seña que deberá abonar" y="100.0">
+                  <Text fx:id="txtSeniaAbonar" layoutX="266.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seña que debe abonar" y="100.0">
                      <font>
                         <Font size="18.0" />
                      </font>

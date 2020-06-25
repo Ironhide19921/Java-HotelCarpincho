@@ -46,9 +46,14 @@ public class ControladorAgregarSalon implements Initializable{
 			Boolean estado = true;
 			
 			SalonDTO salon = new SalonDTO(0, capacidad, senia, estilo, monto, estado);
-			this.salon.agregarSalon(salon);
-			cerrarVentana();	
-	
+			if(!Validador.consultarRepetidos(salon, this.salon.obtenerSalones())) {
+				this.salon.agregarSalon(salon);
+				Validador.mostrarMensaje("Salon agregado.");
+				cerrarVentana();	
+			}
+			else {
+				Validador.mostrarMensaje("El salon ya existe.");
+			}
 		}
 		else {
 			Validador.mostrarMensaje("La seña debe ser un porcentaje de 0 a 100.");

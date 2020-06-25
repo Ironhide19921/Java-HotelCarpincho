@@ -79,6 +79,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	@FXML private Text txtCabeza;
 	@FXML private Text textoDatosTarjeta;
 	@FXML private Text textoFechaVencimientoTarjeta;
+	@FXML private Text txtSeniaAbonar;
 	@FXML private Pane paneTarjeta;
 	@FXML private TextField tipoTarjeta;
 	@FXML private TextField codSeguridadTarjeta;
@@ -390,13 +391,15 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		BigDecimal monto = new BigDecimal(0);
 		String[] datos = salonCombo.split("-");
 		int idSalonSeleccionado = Integer.valueOf(datos[0]);
+		SalonDTO salon = null;
 		
 		for(SalonDTO c : this.salon.obtenerSalones()) {
 			if(c.getId() == idSalonSeleccionado) {
-				monto = c.getMonto();
+				salon = c;
 			}
 		}
-		this.montoReserva.setText(String.valueOf(monto));
+		this.txtSeniaAbonar.setText("Seña que debe abonar (%" + salon.getSenia() + ")");
+		this.montoReserva.setText(String.valueOf(salon.getMonto()));
 		verificarFechas();
 	}
 	
@@ -594,6 +597,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		for(SalonDTO c : this.salon.obtenerSalones()) {
 			if(c.getId() == reservaEventoConNombresDTO.getIdSalon()) {
 				this.comboSalones.setValue(String.valueOf(c.getId() + "-" + c.getEstilo()));	
+				this.txtSeniaAbonar.setText("Seña que debe abonar (%" + c.getSenia() + ")");
 			}
 		}
 		

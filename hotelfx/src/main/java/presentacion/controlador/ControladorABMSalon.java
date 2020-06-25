@@ -21,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
 import modelo.Salon;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorABMSalon implements Initializable{
@@ -67,20 +68,21 @@ public class ControladorABMSalon implements Initializable{
     private void addSalon(ActionEvent event) throws Exception 
     {
 	     try { 
-		    Stage primaryStage = new Stage(); 
-	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarSalon.fxml");
-			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));   
-			ControladorAgregarSalon scene2Controller = fxmlLoader.getController();
-			scene2Controller.setVisibilityBtnAgregarSalon(true);
-			scene2Controller.setDisableBtnAgregarSalon(false);
-			scene2Controller.setVisibilityBtnModificarSalon(false);
-			scene2Controller.setDisableBtnModificarSalon(true);		 
-		
-			primaryStage.setTitle("Agregar un salon");
-			primaryStage.sizeToScene();
-			primaryStage.show(); 
+	    	
+			    Stage primaryStage = new Stage(); 
+		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarSalon.fxml");
+				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				Parent root = (Parent) fxmlLoader.load();
+				primaryStage.setScene(new Scene(root));   
+				ControladorAgregarSalon scene2Controller = fxmlLoader.getController();
+				scene2Controller.setVisibilityBtnAgregarSalon(true);
+				scene2Controller.setDisableBtnAgregarSalon(false);
+				scene2Controller.setVisibilityBtnModificarSalon(false);
+				scene2Controller.setDisableBtnModificarSalon(true);		 
+			
+				primaryStage.setTitle("Agregar un salon");
+				primaryStage.sizeToScene();
+				primaryStage.show(); 
 	     } catch(Exception e) { 
 	      e.printStackTrace(); 
 	     } 

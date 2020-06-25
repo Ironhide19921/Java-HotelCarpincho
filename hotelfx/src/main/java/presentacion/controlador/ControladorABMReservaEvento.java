@@ -224,6 +224,7 @@ public class ControladorABMReservaEvento implements Initializable{
 		     } 
 	    }
 	 
+	
 	 @FXML
 	    private void editarReservaEvento(ActionEvent event) throws Exception 
 	    {
