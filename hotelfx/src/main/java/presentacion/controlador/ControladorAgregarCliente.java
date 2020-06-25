@@ -2,7 +2,8 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
@@ -49,7 +50,6 @@ public class ControladorAgregarCliente implements Initializable {
 	
 	private Integer id;
 	private Cliente hotel;
-	private Validador validador;
 	
 
 	
@@ -75,7 +75,7 @@ public class ControladorAgregarCliente implements Initializable {
 		 
 		 	if(!Validador.validarCliente(this)) {
 		 		return;
-		 	}
+		 	}		 	
 		 
 			String nombre = txtNombre.getText();
 			String apellido = txtApellido.getText();
@@ -85,6 +85,10 @@ public class ControladorAgregarCliente implements Initializable {
 			String tel = txtTelefono.getText();
 			java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(txtFecha.getValue());
 			ClienteDTO nuevoCliente = new ClienteDTO(0, nombre, apellido, tipoDoc, documento, email, tel, true,gettedDatePickerDate);
+			
+				
+			
+			
 			this.hotel.agregarCliente(nuevoCliente);
 
 			cerrarVentanaAgregar();	
