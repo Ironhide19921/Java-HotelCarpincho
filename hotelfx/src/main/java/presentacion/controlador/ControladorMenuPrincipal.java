@@ -71,6 +71,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private Button btnAbrirReservaEvento;
 	@FXML private Button btnAbrirCategoriaEvento;
 	@FXML private Button btnAbrirVentanaBackup;
+	@FXML private Button btnAbrirVentanaReportes;
 	@FXML private EmailDTO email;
 	@FXML private Encuesta encuesta;
 	@FXML private Cliente cliente;
@@ -84,8 +85,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML private BorderPane mainPane;
 	@FXML private Pane center;
 	@FXML private Pane pane;
-	@FXML
-	private ObservableList<ClienteDTO> clientesAencuestar;
+	@FXML private ObservableList<ClienteDTO> clientesAencuestar;
 	private List<EncuestaDTO> encuestasTodos;
 	
 	@FXML private MenuItem btnDeslogear;
@@ -105,7 +105,7 @@ public class ControladorMenuPrincipal implements Initializable{
 		//Llamo al login
 		verLogin();
 		
-//		//Preparo los botones para recorrer en un orden espeficico
+		//Preparo los botones para recorrer en un orden espeficico
 		listaButtons = new ArrayList<Button>();
 		listaButtons.add(0,btnAbrirABMUsuarios);
 		listaButtons.add(1,btnAbrirABMCliente);
@@ -121,9 +121,13 @@ public class ControladorMenuPrincipal implements Initializable{
 		listaButtons.add(11,btnAbrirConfig);
 		listaButtons.add(12,btnAbrirOrdenPedidos);
 		listaButtons.add(13,btnAbrirVentanaBackup);
+		listaButtons.add(14,btnAbrirVentanaReportes);
 		
 		//Habilito cada boton para el cual exista un permiso
 		for(Integer permisoId : ControladorLogin.permisosPorId) {
+			if(permisoId.equals(16)) {
+				break;
+			}
 			this.listaButtons.get(permisoId-1).setDisable(false);
 		}
 
@@ -137,8 +141,7 @@ public class ControladorMenuPrincipal implements Initializable{
 		manejoEncuestas();
 		
 //		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
-		
-		//email.start();
+		email.start();
 		
 		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
 			gestionBackup.backup();
@@ -438,6 +441,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	@FXML
 	public void deslogear() throws IOException {
 		Main.stage.close();
+		ControladorABMProducto.AgregarProductoStage.close();
 		
 		//Desactivo todos los botones para preparar el reinicio
 		for(Button boton : listaButtons) {
@@ -447,6 +451,18 @@ public class ControladorMenuPrincipal implements Initializable{
 		initialize(null,null);
 		mainPane.setCenter(center);
 		Main.stage.show();
+	}
+	
+	@FXML
+	public void verReportes() {
+		try {
+			 FxmlLoader fxmlLoader = new FxmlLoader();
+			 Pane view	= fxmlLoader.getPage("VentanaReportes");
+			 mainPane.setCenter(view);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

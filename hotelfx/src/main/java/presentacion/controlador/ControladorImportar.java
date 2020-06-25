@@ -89,7 +89,6 @@ public class ControladorImportar implements Initializable {
 	private int cantidadNuevosReservas;
 	private ArrayList<String> columnas,columnas2;
 	
-	@FXML private Mail mail;
 	@FXML private ErrorImportar errorImportar;
 	@FXML private ObservableList<ClienteDTO> activeSession;
 	@FXML private ObservableList<ClienteDTO> clientesAcargar;
@@ -109,9 +108,7 @@ public class ControladorImportar implements Initializable {
 		reservasAcargar = FXCollections.observableArrayList();
 		cantidadNuevosClientes = 0;
 		cantidadNuevosReservas = 0;
-		mail = new Mail();
 		errorImportar = new ErrorImportar(new DAOSQLFactory());
-		//		manejoMail();
 		cargarColumnas();
 		columnas = new ArrayList<String>();
 		//		columnas.add("idCliente");
@@ -142,37 +139,6 @@ public class ControladorImportar implements Initializable {
 		columnas2.add("CodSeguridadTarjeta");
 		columnas2.add("Comentarios");
 
-		try {
-//			String collector = SendHttp.crearCollector();
-//			String mensaje =SendHttp.crearMensaje(collector);
-//			String recipientes = SendHttp.crearRecipientes(collector, mensaje);
-//			String envio = SendHttp.enviarEncuestasMail(collector, mensaje);
-			
-			System.out.println(SendHttp.traerRespuestas("5541016993"));
-//			ArrayList<RespuestaEncuestaDTO> resultado = SendHttp.consultarRespuestaEncuesta("5541016993");
-//			for(RespuestaEncuestaDTO r: resultado) {
-//				System.out.println(r.getIdPregunta());
-//				for(String s: r.getListaRespuestas()) {
-//					 System.out.println(s);
-//				}
-//			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	private void manejoMail() {
-//		//		this.mail.setearPropiedades();
-//				
-//		try {
-//			//this.mail.enviarEncuesta(SendHttp.getLinkEncuesta());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 

@@ -41,6 +41,12 @@
                   <CheckBox fx:id="checkConfiguracionEmail" layoutX="209.0" layoutY="377.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Configuración de email" />
                   <CheckBox fx:id="checkABMOrdenPedidos" layoutX="409.0" layoutY="227.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="ABM Orden de pedidos" />
                   <CheckBox fx:id="checkGestionBackups" layoutX="409.0" layoutY="257.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Gestion de backups" />
+                  <CheckBox fx:id="checkReportes" layoutX="409.0" layoutY="287.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes" />
+                  <CheckBox fx:id="checkReportesOcupacion" layoutX="409.0" layoutY="317.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes - Ocupación" />
+                  <CheckBox fx:id="checkReportesContables" layoutX="409.0" layoutY="347.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes - Contable" />
+                  <CheckBox fx:id="checkReportesReservas" layoutX="409.0" layoutY="377.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes - Reservas" />
+                  <CheckBox fx:id="checkReportesErrores" layoutX="31.0" layoutY="407.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes - Errores" />
+                  <CheckBox fx:id="checkReportesEncuestas" layoutX="209.0" layoutY="407.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes - Encuestas" />
                </children>
             </Pane>
          </center>

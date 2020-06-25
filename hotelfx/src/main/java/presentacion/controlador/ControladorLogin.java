@@ -69,6 +69,7 @@ public class ControladorLogin implements Initializable {
 			for(PermisoPerfilDTO permiso : permisos) {
 				permisosPorId.add(permiso.getIdPermiso());
 			}
+			System.out.println(permisosPorId);
 		
 			cerrarVentana();
 			
@@ -77,8 +78,12 @@ public class ControladorLogin implements Initializable {
 				if(!(eleccion.equals("")) && !(eleccion.equals("Cancelar")) && !(verificarEmail(eleccion)==(null))) {
 					List<ConfiguracionDTO> config = emailConfig.obtenerConfiguraciones();
 					UsuarioDTO emailUsuario = verificarEmail(eleccion);
-					this.email = new EmailDTO(0, null, "Usuario: "+emailUsuario.getNombre()+"\nContraseña: "+emailUsuario.getPassword(), "Credenciales", config.get(0).getUsername(), emailUsuario.getEmail(), true, config.get(0).getPassword());
-					email.enviarMsj(this.email);
+					EmailDTO mail = new EmailDTO();	
+					mail.setReceptor(emailUsuario.getEmail());
+					mail.setEstado(true);
+					
+//					mail = new EmailDTO(0, null, "Usuario: "+emailUsuario.getNombre()+"\nContraseña: "+emailUsuario.getPassword(), "Credenciales", config.get(0).getUsername(), emailUsuario.getEmail(), true, config.get(0).getPassword());
+					mail.enviarMsj(mail,"Contraseña: "+emailUsuario.getPassword());
 					Validador.mostrarMensaje("Credenciales enviadas!");
 					return;
 				}

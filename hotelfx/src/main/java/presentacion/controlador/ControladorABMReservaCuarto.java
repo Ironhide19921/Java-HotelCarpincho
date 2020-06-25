@@ -59,7 +59,9 @@ public class ControladorABMReservaCuarto implements Initializable
 	private Cuarto cuartos;
 	private FxmlLoader fxml;
 	private Stage primaryStage;
+	private ControladorLogin controladorLogin;
 	
+	//public static Stage AgregarReservaStage = new Stage();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
@@ -156,8 +158,10 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				ControladorAgregarReservaCuarto1 controlador = fxmlLoader.getController();
 				controlador.setCmbBoxEstados(EstadoReserva.PENDIENTE);
 				//controlador.setCmbBoxFormaPago();
+				controlador.setUsuario(controladorLogin.usuarioLogeado);
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				controlador.setFechaReserva(timestamp);
+			
 				//controlador.setCmbBoxUsuarioFirst();
 				controlador.setearCamposAgregar();
 				fxml.mostrarStage(primaryStage,"Agregar reserva de cuarto");
@@ -180,7 +184,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 					ControladorAgregarReservaCuarto1 controlador = fxmlLoader.getController();
 					controlador.pasarIdReserva(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva().getIdReserva());
 					controlador.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
-					
+					controlador.habilitarComboEstados();
 					primaryStage.setTitle("Modificar reserva de cuarto");
 					primaryStage.sizeToScene();
 					primaryStage.show(); 
