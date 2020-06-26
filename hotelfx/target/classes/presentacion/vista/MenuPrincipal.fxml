@@ -104,7 +104,7 @@
                <children>
                   <MenuBar layoutX="-14.0" prefHeight="25.0" prefWidth="1180.0">
                     <menus>
-                      <Menu mnemonicParsing="false" text="Usuario">
+                      <Menu disable="true" mnemonicParsing="false" text="Usuario">
                         <items>
                           <MenuItem fx:id="btnDeslogear" mnemonicParsing="false" onAction="#deslogear" text="Desloguear" />
                         </items>
