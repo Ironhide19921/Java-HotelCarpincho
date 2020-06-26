@@ -19,6 +19,8 @@ import org.joda.time.DateTime;
 
 import dto.CategoriaEventoDTO;
 import dto.ClienteDTO;
+import dto.ConfiguracionDTO;
+import dto.EmailDTO;
 import dto.ProductoDTO;
 import dto.ReservaEventoConNombresDTO;
 import dto.ReservaEventoDTO;
@@ -46,6 +48,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import modelo.CategoriaEvento;
 import modelo.Cliente;
+import modelo.Configuracion;
+import modelo.Email;
 import modelo.ReservaEvento;
 import modelo.Salon;
 import modelo.Validador;
@@ -105,8 +109,8 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	private Integer idReservaEvento;
 	private Timestamp FechaIngreso = null;
 	private Timestamp FechaEgreso = null;
-	
-	
+	private Email ModeloEmail;
+	private Configuracion configuracion;
 	
 	
 	@Override
@@ -117,6 +121,8 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			this.reserva = new ReservaEvento(new DAOSQLFactory());
 			this.salon = new Salon(new DAOSQLFactory());
 			this.categoriaEvento = new CategoriaEvento(new DAOSQLFactory());
+			this.ModeloEmail = new Email(new DAOSQLFactory());
+			this.configuracion = new Configuracion(new DAOSQLFactory());
 			this.listaSalones = FXCollections.observableList(cargarComboSalones());
 			this.comboSalones.setItems(listaSalones);	
 			this.listaCategoriasEvento = FXCollections.observableList(cargarComboCategoriasEvento());
@@ -242,6 +248,10 @@ public class ControladorAgregarReservaEvento implements Initializable{
 					ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(0, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, this.FechaIngreso, this.FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
 					
 					this.reserva.agregarReservaEvento(nuevaReserva);
+					List<ConfiguracionDTO> config = configuracion.obtenerConfiguraciones();
+					Date date = java.sql.Date.valueOf(fechaInicioReserva.getValue());
+					EmailDTO recordatorio = new EmailDTO(0, date, "Acordate que tenes una reserva", "Recordatorio reserva evento", config.get(0).getUsername(), this.clienteActual.getEmail(), false, config.get(0).getPassword());
+					ModeloEmail.agregarEmail(recordatorio);
 					Validador.mostrarMensaje("Reserva dada de alta correctamente");
 					cerrarVentana();
 				}
@@ -252,6 +262,10 @@ public class ControladorAgregarReservaEvento implements Initializable{
 				System.out.println(this.idCliente);
 				
 				this.reserva.agregarReservaEvento(nuevaReserva);
+				List<ConfiguracionDTO> config = configuracion.obtenerConfiguraciones();
+				Date date = java.sql.Date.valueOf(fechaInicioReserva.getValue());
+				EmailDTO recordatorio = new EmailDTO(0, date, "Acordate que tenes una reserva", "Recordatorio reserva evento", config.get(0).getUsername(), this.clienteActual.getEmail(), false, config.get(0).getPassword());
+				ModeloEmail.agregarEmail(recordatorio);
 				Validador.mostrarMensaje("Reserva dada de alta correctamente");
 				//cuando se agrega hay que enviar un mail al cliente
 				cerrarVentana();
@@ -342,15 +356,44 @@ public class ControladorAgregarReservaEvento implements Initializable{
 					Validador.mostrarMensaje(mensaje);
 				}
 				else {
+					
 					Validador.mostrarMensaje("Reserva modificada correctamente");
 					ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(this.idReservaEvento, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, FechaIngreso, FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
+					ReservaEventoDTO reservaActual = null;
+					for(ReservaEventoDTO r : reserva.obtenerReservasEvento()) {
+						if(r.getIdReservaEvento() == this.idReservaEvento) {
+							reservaActual = r;
+						}
+					}
+					if(!nuevaReserva.getFechaInicioReserva().equals(reservaActual.getFechaInicioReserva())) {
+						//si cambio la fecha de inicio le mandamos otro recordatorio
+						List<ConfiguracionDTO> config = configuracion.obtenerConfiguraciones();
+						Date date = java.sql.Date.valueOf(fechaInicioReserva.getValue());
+						EmailDTO recordatorio = new EmailDTO(0, date, "Modificó el inicio de su reserva", "Recordatorio reserva evento", config.get(0).getUsername(), this.clienteActual.getEmail(), false, config.get(0).getPassword());
+						ModeloEmail.agregarEmail(recordatorio);	
+					}
+					
 					this.reserva.modificarReservaEvento(nuevaReserva);
 					cerrarVentana();
 				}
 			}
 			else {
-				
+				ReservaEventoDTO reservaActual = null;
+				for(ReservaEventoDTO r : reserva.obtenerReservasEvento()) {
+					if(r.getIdReservaEvento() == this.idReservaEvento) {
+						reservaActual = r;
+					}
+				}
 				ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(this.idReservaEvento, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, FechaIngreso, FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
+				
+				if(!nuevaReserva.getFechaInicioReserva().equals(reservaActual.getFechaInicioReserva())) {
+					//si cambio la fecha de inicio le mandamos otro recordatorio
+					List<ConfiguracionDTO> config = configuracion.obtenerConfiguraciones();
+					Date date = java.sql.Date.valueOf(fechaInicioReserva.getValue());
+					EmailDTO recordatorio = new EmailDTO(0, date, "Modificó el inicio de su reserva", "Recordatorio reserva evento", config.get(0).getUsername(), this.clienteActual.getEmail(), false, config.get(0).getPassword());
+					ModeloEmail.agregarEmail(recordatorio);	
+				}
+				
 				this.reserva.modificarReservaEvento(nuevaReserva);
 				Validador.mostrarMensaje("Reserva modificada correctamente");
 				cerrarVentana();
