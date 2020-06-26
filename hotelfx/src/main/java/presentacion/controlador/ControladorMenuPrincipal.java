@@ -53,7 +53,7 @@ import persistencia.dao.mysql.EncuestaDAOSQL;
 
 import presentacion.vista.FxmlLoader;
 
-public class ControladorMenuPrincipal implements Initializable{
+public class ControladorMenuPrincipal extends Thread implements Initializable  {
 
 	@FXML
 	private Button btnAbrirABMProductos;
@@ -105,6 +105,8 @@ public class ControladorMenuPrincipal implements Initializable{
 		//Llamo al login
 		verLogin();
 		
+		//start();
+		
 		//Preparo los botones para recorrer en un orden espeficico
 		listaButtons = new ArrayList<Button>();
 		listaButtons.add(0,btnAbrirABMUsuarios);
@@ -138,15 +140,21 @@ public class ControladorMenuPrincipal implements Initializable{
 		this.clientesAencuestar = getClientesAencuestar();
 		encuestasTodos = FXCollections.observableArrayList();
 		this.encuestasTodos = encuesta.obtenerEncuestas();
+		
+		
 		manejoEncuestas();
 		
-//		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
+		//this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
 		email.start();
 		
 		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
 			gestionBackup.backup();
 		}
 
+	}
+	
+	public void run() { 		
+		manejoEncuestas();
 	}
 
 	private void manejoEncuestas() {
@@ -188,7 +196,7 @@ public class ControladorMenuPrincipal implements Initializable{
 //				}
 				
 			} catch (Exception e) {
-				Validador.mostrarMensaje("Error en encuestas");
+				//Validador.mostrarMensaje("Error en encuestas");
 				e.printStackTrace();
 			}
 		}
@@ -442,7 +450,14 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void deslogear() throws IOException {
 		Main.stage.close();
 		ControladorABMProducto.AgregarProductoStage.close();
-		ControladorABMReservaCuarto.primaryStage.close();
+		
+		try{
+			ControladorABMReservaCuarto.primaryStage.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 		//Desactivo todos los botones para preparar el reinicio
 		for(Button boton : listaButtons) {
