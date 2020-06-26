@@ -2,6 +2,7 @@ package presentacion.controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.EmailDTO;
@@ -30,6 +31,7 @@ public class ControladorAgregarUsuario implements Initializable {
 	@FXML private ComboBox<PerfilDTO> comboPerfil;
 	@FXML private ComboBox<String> comboTipoDoc;
 		  private ObservableList<String> listaTipoDocExistentes;
+		  private List<UsuarioDTO> usuariosRegistrados;
 
 	@FXML private Button btnAgregarUsuario;
 	@FXML private Button btnModificarUsuario;
@@ -47,6 +49,8 @@ public class ControladorAgregarUsuario implements Initializable {
 		public void initialize(URL arg0, ResourceBundle arg1) {
 			this.perfil = new Perfil(new DAOSQLFactory());
 			this.usuarios = new Usuario(new DAOSQLFactory());
+//			this.usuariosRegistrados = new ArrayList<UsuarioDTO>();
+			this.usuariosRegistrados = usuarios.obtenerUsuarios();
 			this.listaTipoDocExistentes = FXCollections.observableArrayList();
 			this.listaTipoDocExistentes.add("DNI");
 			this.listaTipoDocExistentes.add("LIBRETA CIVICA");
@@ -75,9 +79,18 @@ public class ControladorAgregarUsuario implements Initializable {
 					
 				idUsuario = 0;
 				idPerfil = this.comboPerfil.getValue().getIdPerfil();
+				
 				UsuarioDTO nuevoUsuario = new UsuarioDTO(idUsuario, idPerfil,nombre, apellido, tipoDoc, documento,email, password, true);
-				this.usuarios.agregarUsuario(nuevoUsuario);
-				cerrarVentanaAgregar();	
+				
+				if(!(Validador.consultarRepetidos(nuevoUsuario, (this.usuariosRegistrados)))) {
+					this.usuarios.agregarUsuario(nuevoUsuario);
+					cerrarVentanaAgregar();
+				}else {
+					Validador.mostrarMensaje("Email ya registrado");
+				}
+				
+				
+				
 
 		 }
 		 

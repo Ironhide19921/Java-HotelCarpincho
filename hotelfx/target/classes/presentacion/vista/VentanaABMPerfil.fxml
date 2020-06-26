@@ -47,6 +47,7 @@
                   <CheckBox fx:id="checkReportesReservas" layoutX="409.0" layoutY="377.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes - Reservas" />
                   <CheckBox fx:id="checkReportesErrores" layoutX="31.0" layoutY="407.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes - Errores" />
                   <CheckBox fx:id="checkReportesEncuestas" layoutX="209.0" layoutY="407.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Reportes - Encuestas" />
+                  <CheckBox fx:id="checkRestore" layoutX="409.0" layoutY="407.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="BD - Restore" />
                </children>
             </Pane>
          </center>
