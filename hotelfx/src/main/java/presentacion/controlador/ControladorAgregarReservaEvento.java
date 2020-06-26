@@ -238,10 +238,11 @@ public class ControladorAgregarReservaEvento implements Initializable{
 					Validador.mostrarMensaje(mensaje);
 				}
 				else {
-					Validador.mostrarMensaje("Reserva dada de alta correctamente");
 					//cuando se agrega hay que enviar un mail al cliente
 					ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(0, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, this.FechaIngreso, this.FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
+					
 					this.reserva.agregarReservaEvento(nuevaReserva);
+					Validador.mostrarMensaje("Reserva dada de alta correctamente");
 					cerrarVentana();
 				}
 			}

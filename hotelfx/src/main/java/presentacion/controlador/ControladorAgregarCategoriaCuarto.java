@@ -2,15 +2,18 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.CategoriaCuartoDTO;
+import dto.SalonDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarCategoriaCuarto implements Initializable{
@@ -27,37 +30,55 @@ public class ControladorAgregarCategoriaCuarto implements Initializable{
 		this.categoriaCuarto = new CategoriaCuarto(new DAOSQLFactory());
 	}
 	
-	 @FXML
-		public void guardarCliente() throws IOException {
-		 
-			String nombre = txtNombre.getText();
-			String detalle = txtDetalle.getText();
-			CategoriaCuartoDTO categoriaCuarto = new CategoriaCuartoDTO(0, nombre, detalle);
+ 	@FXML
+	public void guardarCliente() throws IOException {
+	 
+		String nombre = txtNombre.getText();
+		String detalle = txtDetalle.getText();
+		CategoriaCuartoDTO categoriaCuarto = new CategoriaCuartoDTO(0, nombre, detalle);
+		if(!Validador.consultarRepetidos(categoriaCuarto, this.categoriaCuarto.obtenerCategoriasCuartos())) {
 			this.categoriaCuarto.agregarCategoriaCuarto(categoriaCuarto);
+			Validador.mostrarMensaje("Categoría agregada.");
 			cerrarVentanaAgregar();	
-
-	}
+		}
+		else {
+			Validador.mostrarMensaje("La categoría ya existe.");
+		}
+ 	}
 	 
 
-		public void setearCamposPantalla(CategoriaCuartoDTO categoriaCuarto) throws IOException {
-	
-			   //ClienteDTO clienteSeleccionado = controlador.getTablaPersonas().getSelectionModel().getSelectedItem();
-			   txtNombre.setText(categoriaCuarto.getNombre());
-			   txtDetalle.setText(categoriaCuarto.getDetalle());
-			   id = categoriaCuarto.getIdCategoriaCuarto();
-			    
-		 }
+	public void setearCamposPantalla(CategoriaCuartoDTO categoriaCuarto) throws IOException {
 
-		@FXML
-			public void modificarCliente() throws IOException {
-			
-			String nombre = txtNombre.getText();
-			String detalle = txtDetalle.getText();
-		
-			CategoriaCuartoDTO categoriaCuarto = new CategoriaCuartoDTO(id, nombre, detalle);
-				this.categoriaCuarto.modificarCategoriaCuarto(categoriaCuarto);
-				cerrarVentanaModificar();	
+		   //ClienteDTO clienteSeleccionado = controlador.getTablaPersonas().getSelectionModel().getSelectedItem();
+		   txtNombre.setText(categoriaCuarto.getNombre());
+		   txtDetalle.setText(categoriaCuarto.getDetalle());
+		   id = categoriaCuarto.getIdCategoriaCuarto();
+		    
+	 }
+
+	@FXML
+	public void modificarCliente() throws IOException {
+	
+		String nombre = txtNombre.getText();
+		String detalle = txtDetalle.getText();
+		CategoriaCuartoDTO categoriaActual = null;
+		CategoriaCuartoDTO categoriaCuarto = new CategoriaCuartoDTO(id, nombre, detalle);
+		List<CategoriaCuartoDTO> categoriasSinActual = this.categoriaCuarto.obtenerCategoriasCuartos();
+		for(CategoriaCuartoDTO c : categoriasSinActual) {
+			if(c.getIdCategoriaCuarto() == id) {
+				categoriaActual = c;
+			}
 		}
+		categoriasSinActual.remove(categoriaActual);
+		if(!Validador.consultarRepetidos(categoriaCuarto, categoriasSinActual)) {
+			this.categoriaCuarto.modificarCategoriaCuarto(categoriaCuarto);
+			cerrarVentanaModificar();	
+			Validador.mostrarMensaje("Categoría modificada.");
+		}	
+		else {
+			Validador.mostrarMensaje("Nombre de categoría de cuarto ya existe.");
+		}
+	}
 	 
 	 
 	 @FXML

@@ -2,6 +2,7 @@ package presentacion.controlador;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.CategoriaCuartoDTO;
@@ -69,10 +70,26 @@ public class ControladorAgregarSalon implements Initializable{
 		String estilo = txtEstilo.getText();
 		BigDecimal monto = new BigDecimal(txtMonto.getText());
 		Boolean estado = true;
-	
+		SalonDTO salonActual = null;
 		SalonDTO salon = new SalonDTO(id , capacidad, senia, estilo, monto, estado);
-		this.salon.modificarSalon(salon);
-		cerrarVentana();	
+		List<SalonDTO> salonesSinActual = this.salon.obtenerSalones();
+		for(SalonDTO s : salonesSinActual) {
+			if(s.getId() == id) {
+				salonActual = s;
+			}
+		}
+		salonesSinActual.remove(salonActual);
+		
+		if(!Validador.consultarRepetidos(salon, salonesSinActual)) {
+			this.salon.modificarSalon(salon);
+			cerrarVentana();
+			Validador.mostrarMensaje("Salon modificado.");
+		}
+		else {
+			Validador.mostrarMensaje("Nombre del salon ya existe.");
+		}
+		
+		
 	}
 	
 	@FXML
