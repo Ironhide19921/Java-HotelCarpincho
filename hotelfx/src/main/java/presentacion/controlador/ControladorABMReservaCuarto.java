@@ -217,8 +217,10 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				ReservaCuartoDTO reserva = this.tablaReservas.getSelectionModel().getSelectedItem().getReserva();
 				if(reserva.getEstado() == true) {
 					reserva.setEstado(false);
+					this.reserva.modificarReservaCuarto(reserva);
 				}else {
 					reserva.setEstado(true);
+					this.reserva.modificarReservaCuarto(reserva);
 				}
 		 }
 		else {

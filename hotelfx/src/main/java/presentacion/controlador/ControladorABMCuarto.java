@@ -197,9 +197,16 @@ public class ControladorABMCuarto implements Initializable
 	public void modificarBotones(Boolean esReserva) {
 		if(esReserva) {
 			this.btnSeleccionarCuarto.setVisible(true);
+			this.btnAgregarCuarto.setVisible(false);
+			this.btnEditar.setVisible(false);
+			this.btnHabilitarCuarto.setVisible(false);
+			
 		}
 		else{
 			this.btnSeleccionarCuarto.setVisible(false);
+			this.btnAgregarCuarto.setVisible(true);
+			this.btnEditar.setVisible(true);
+			this.btnHabilitarCuarto.setVisible(true);
 		
 		}
 	}
