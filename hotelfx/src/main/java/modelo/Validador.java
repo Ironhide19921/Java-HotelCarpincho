@@ -3,6 +3,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import dto.CategoriaCuartoDTO;
@@ -507,79 +508,80 @@ public class Validador {
 		return texto.matches("[a-zA-Z0-9\\s]+");
 	}
 
-	public static <T> boolean consultarRepetidos(T objeto, ArrayList<T> listaDeObjetos) {
+	public static <T> boolean consultarRepetidos(T objeto, List<T> listaDeObjetos) {
+		if(listaDeObjetos.size()>0) {
 
-		if(objeto instanceof CategoriaCuartoDTO && listaDeObjetos.get(0) instanceof CategoriaCuartoDTO) {
-			for(T cate: listaDeObjetos) {			
-				if(((CategoriaCuartoDTO) cate).getNombre().equals(((CategoriaCuartoDTO)objeto).getNombre())) {				
-					return true;
+			if(objeto instanceof CategoriaCuartoDTO && listaDeObjetos.get(0) instanceof CategoriaCuartoDTO) {
+				for(T cate: listaDeObjetos) {			
+					if(((CategoriaCuartoDTO) cate).getNombre().equals(((CategoriaCuartoDTO)objeto).getNombre())) {				
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
-		}
-		else if(objeto instanceof ClienteDTO && listaDeObjetos.get(0) instanceof ClienteDTO) {
-			for(T cli: listaDeObjetos) {						
-				if(((ClienteDTO) cli).getEmail().equals(((ClienteDTO)objeto).getEmail())){				
-					return true;
+			else if(objeto instanceof ClienteDTO && listaDeObjetos.get(0) instanceof ClienteDTO) {
+				for(T cli: listaDeObjetos) {						
+					if(((ClienteDTO) cli).getEmail().equals(((ClienteDTO)objeto).getEmail())){				
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
-		}
-		else if(objeto instanceof CuartoDTO && listaDeObjetos.get(0) instanceof CuartoDTO) {
-			for(T cuarto: listaDeObjetos) {			
-				if(((CuartoDTO) cuarto).getPiso().equals(((CuartoDTO)objeto).getPiso()) && 
-						((CuartoDTO) cuarto).getHabitacion().equals(((CuartoDTO)objeto).getHabitacion())){				
-					return true;
+			else if(objeto instanceof CuartoDTO && listaDeObjetos.get(0) instanceof CuartoDTO) {
+				for(T cuarto: listaDeObjetos) {			
+					if(((CuartoDTO) cuarto).getPiso().equals(((CuartoDTO)objeto).getPiso()) && 
+							((CuartoDTO) cuarto).getHabitacion().equals(((CuartoDTO)objeto).getHabitacion())){				
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
-		}
-		else if(objeto instanceof UsuarioDTO && listaDeObjetos.get(0) instanceof UsuarioDTO) {
-			for(T usuario: listaDeObjetos) {			
-				if(((ClienteDTO) usuario).getEmail().equals(((UsuarioDTO)objeto).getEmail())){				
-					return true;
+			else if(objeto instanceof UsuarioDTO && listaDeObjetos.get(0) instanceof UsuarioDTO) {
+				for(T usuario: listaDeObjetos) {			
+					if(((ClienteDTO) usuario).getEmail().equals(((UsuarioDTO)objeto).getEmail())){				
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
-		}
-		else if(objeto instanceof CategoriaEventoDTO && listaDeObjetos.get(0) instanceof CategoriaEventoDTO) {
-			for(T cateEvento: listaDeObjetos) {			
-				if(((CategoriaEventoDTO) cateEvento).getNombre().equals(((CategoriaEventoDTO)objeto).getNombre())
-						&& ((CategoriaEventoDTO) cateEvento).getDetalle().equals(((CategoriaEventoDTO)objeto).getDetalle())){				
-					return true;
+			else if(objeto instanceof CategoriaEventoDTO && listaDeObjetos.get(0) instanceof CategoriaEventoDTO) {
+				for(T cateEvento: listaDeObjetos) {			
+					if(((CategoriaEventoDTO) cateEvento).getNombre().equals(((CategoriaEventoDTO)objeto).getNombre())
+							&& ((CategoriaEventoDTO) cateEvento).getDetalle().equals(((CategoriaEventoDTO)objeto).getDetalle())){				
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
-		}
-		else if(objeto instanceof SalonDTO && listaDeObjetos.get(0) instanceof SalonDTO) {
-			for(T salon: listaDeObjetos) {			
-				if(((SalonDTO) salon).getEstilo().equals(((SalonDTO)objeto).getEstilo())){				
-					return true;
+			else if(objeto instanceof SalonDTO && listaDeObjetos.get(0) instanceof SalonDTO) {
+				for(T salon: listaDeObjetos) {			
+					if(((SalonDTO) salon).getEstilo().equals(((SalonDTO)objeto).getEstilo())){				
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
-		}
-		else if(objeto instanceof ProductoDTO && listaDeObjetos.get(0) instanceof ProductoDTO) {
-			for(T producto: listaDeObjetos) {			
-				if(((ProductoDTO) producto).getNombre().equals(((ProductoDTO)objeto).getNombre())){				
-					return true;
+			else if(objeto instanceof ProductoDTO && listaDeObjetos.get(0) instanceof ProductoDTO) {
+				for(T producto: listaDeObjetos) {			
+					if(((ProductoDTO) producto).getNombre().equals(((ProductoDTO)objeto).getNombre())){				
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
-		}
-		
-	else if(objeto instanceof PermisoPerfilDTO && listaDeObjetos.get(0) instanceof PermisoPerfilDTO) {
-		for(T permisoPefil: listaDeObjetos) {	
-			int pId=(int)((PermisoPerfilDTO) permisoPefil).getIdPerfil();
 			
-			if((int)((PermisoPerfilDTO) permisoPefil).getIdPerfil() == (int)((PermisoPerfilDTO) objeto).getIdPerfil() 
-					&& (int)((PermisoPerfilDTO) permisoPefil).getIdPermiso() == (int)((PermisoPerfilDTO) objeto).getIdPermiso()){				
-				return true;
+			else if(objeto instanceof PermisoPerfilDTO && listaDeObjetos.get(0) instanceof PermisoPerfilDTO) {
+				for(T permisoPefil: listaDeObjetos) {	
+					int pId=(int)((PermisoPerfilDTO) permisoPefil).getIdPerfil();
+					
+					if((int)((PermisoPerfilDTO) permisoPefil).getIdPerfil() == (int)((PermisoPerfilDTO) objeto).getIdPerfil() 
+							&& (int)((PermisoPerfilDTO) permisoPefil).getIdPermiso() == (int)((PermisoPerfilDTO) objeto).getIdPermiso()){				
+						return true;
+					}
+				}
+				return false;
 			}
 		}
-		return false;
-	}
-
 		return false;
 	}
 

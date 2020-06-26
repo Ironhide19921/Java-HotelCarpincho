@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 
 
 import dto.ClienteDTO;
+import dto.PerfilDTO;
+import dto.PermisoPerfilDTO;
 import dto.ReservaCuartoDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -108,6 +110,14 @@ public class ControladorABMCliente implements Initializable{
 		activeSession = FXCollections.observableArrayList();
 		tablaPersonas.getItems().clear();
 		this.alert = new Alert(AlertType.INFORMATION);
+		btnVerReservasEvento.setVisible(false);
+		List<PermisoPerfilDTO> listaPermisosPerfil = ControladorLogin.permisos;
+		
+		for(PermisoPerfilDTO p : listaPermisosPerfil) {
+			if(p.getIdPermiso() == 6){
+				btnVerReservasEvento.setVisible(true);
+			}
+		}
 		cargarColumnas();
 		refrescarTabla();
 		

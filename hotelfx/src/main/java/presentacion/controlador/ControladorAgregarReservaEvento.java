@@ -79,6 +79,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	@FXML private Text txtCabeza;
 	@FXML private Text textoDatosTarjeta;
 	@FXML private Text textoFechaVencimientoTarjeta;
+	@FXML private Text txtSeniaAbonar;
 	@FXML private Pane paneTarjeta;
 	@FXML private TextField tipoTarjeta;
 	@FXML private TextField codSeguridadTarjeta;
@@ -237,10 +238,11 @@ public class ControladorAgregarReservaEvento implements Initializable{
 					Validador.mostrarMensaje(mensaje);
 				}
 				else {
-					Validador.mostrarMensaje("Reserva dada de alta correctamente");
 					//cuando se agrega hay que enviar un mail al cliente
 					ReservaEventoDTO nuevaReserva = new ReservaEventoDTO(0, this.idCliente, this.idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, this.fechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, this.FechaIngreso, this.FechaEgreso, formaPago, tipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
+					
 					this.reserva.agregarReservaEvento(nuevaReserva);
+					Validador.mostrarMensaje("Reserva dada de alta correctamente");
 					cerrarVentana();
 				}
 			}
@@ -390,13 +392,15 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		BigDecimal monto = new BigDecimal(0);
 		String[] datos = salonCombo.split("-");
 		int idSalonSeleccionado = Integer.valueOf(datos[0]);
+		SalonDTO salon = null;
 		
 		for(SalonDTO c : this.salon.obtenerSalones()) {
 			if(c.getId() == idSalonSeleccionado) {
-				monto = c.getMonto();
+				salon = c;
 			}
 		}
-		this.montoReserva.setText(String.valueOf(monto));
+		this.txtSeniaAbonar.setText("Seña que debe abonar (%" + salon.getSenia() + ")");
+		this.montoReserva.setText(String.valueOf(salon.getMonto()));
 		verificarFechas();
 	}
 	
@@ -594,6 +598,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		for(SalonDTO c : this.salon.obtenerSalones()) {
 			if(c.getId() == reservaEventoConNombresDTO.getIdSalon()) {
 				this.comboSalones.setValue(String.valueOf(c.getId() + "-" + c.getEstilo()));	
+				this.txtSeniaAbonar.setText("Seña que debe abonar (%" + c.getSenia() + ")");
 			}
 		}
 		
