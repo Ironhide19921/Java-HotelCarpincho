@@ -3,6 +3,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import dto.CategoriaCuartoDTO;
@@ -507,7 +508,7 @@ public class Validador {
 		return texto.matches("[a-zA-Z0-9\\s]+");
 	}
 
-	public static <T> boolean consultarRepetidos(T objeto, ArrayList<T> listaDeObjetos) {
+	public static <T> boolean consultarRepetidos(T objeto, List<T> listaDeObjetos) {
 
 		if(objeto instanceof CategoriaCuartoDTO && listaDeObjetos.get(0) instanceof CategoriaCuartoDTO) {
 			for(T cate: listaDeObjetos) {			
@@ -536,7 +537,7 @@ public class Validador {
 		}
 		else if(objeto instanceof UsuarioDTO && listaDeObjetos.get(0) instanceof UsuarioDTO) {
 			for(T usuario: listaDeObjetos) {			
-				if(((ClienteDTO) usuario).getEmail().equals(((UsuarioDTO)objeto).getEmail())){				
+				if(((UsuarioDTO) usuario).getEmail().equals(((UsuarioDTO)objeto).getEmail())){				
 					return true;
 				}
 			}

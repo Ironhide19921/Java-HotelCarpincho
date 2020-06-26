@@ -74,6 +74,7 @@ INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Contable');
 INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Reservas');
 INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Errores');
 INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Encuestas');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Restore');
 
 CREATE TABLE `permisoPerfil`
 (

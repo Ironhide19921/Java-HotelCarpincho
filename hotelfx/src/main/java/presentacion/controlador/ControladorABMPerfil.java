@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import modelo.Perfil;
 import modelo.PermisoPerfil;
 import modelo.Usuario;
+import modelo.Validador;
 import dto.PerfilDTO;
 import dto.PermisoPerfilDTO;
 import dto.UsuarioDTO;
@@ -51,6 +52,7 @@ public class ControladorABMPerfil implements Initializable {
 	@FXML private CheckBox checkReportesReservas;
 	@FXML private CheckBox checkReportesErrores;
 	@FXML private CheckBox checkReportesEncuestas;
+	@FXML private CheckBox checkRestore;
 	
 	@FXML private Button btnAgregarTodos;
 	@FXML private Button btnQuitarTodos;
@@ -101,6 +103,7 @@ public class ControladorABMPerfil implements Initializable {
 		this.listaChecks.add(17,checkReportesReservas);
 		this.listaChecks.add(18,checkReportesErrores);
 		this.listaChecks.add(19,checkReportesEncuestas);
+		this.listaChecks.add(20,checkRestore);
 
 	}
 	
@@ -173,7 +176,10 @@ public class ControladorABMPerfil implements Initializable {
 			for(CheckBox checkPermiso : this.listaChecks) {
 				if(checkPermiso.isSelected()) {
 					permisoPerfilNuevo.setIdPermiso(i);
-					this.permisoPerfil.agregarPermiso(permisoPerfilNuevo);
+					if(!(Validador.consultarRepetidos(permisoPerfilNuevo, permisoPerfil.obtenerpermisos()))) {
+						this.permisoPerfil.agregarPermiso(permisoPerfilNuevo);
+					}
+					
 				}
 				else {
 					permisoPerfilNuevo.setIdPermiso(i);

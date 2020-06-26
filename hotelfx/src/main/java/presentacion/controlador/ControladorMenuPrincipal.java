@@ -105,9 +105,7 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 		//Llamo al login
 		verLogin();
 		
-		//start();
-		
-		//Preparo los botones para recorrer en un orden espeficico
+		//Preparo los botones para recorrer en un orden especifico
 		listaButtons = new ArrayList<Button>();
 		listaButtons.add(0,btnAbrirABMUsuarios);
 		listaButtons.add(1,btnAbrirABMCliente);
@@ -125,12 +123,10 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 		listaButtons.add(13,btnAbrirVentanaBackup);
 		listaButtons.add(14,btnAbrirVentanaReportes);
 		
-		//Habilito cada boton para el cual exista un permiso
-		for(Integer permisoId : ControladorLogin.permisosPorId) {
-			if(permisoId.equals(16)) {
-				break;
+		for(int i=0; i<15; i++) {
+			if(ControladorLogin.permisosPorId.contains(i+1)) {
+				this.listaButtons.get(i).setDisable(false);
 			}
-			this.listaButtons.get(permisoId-1).setDisable(false);
 		}
 
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
