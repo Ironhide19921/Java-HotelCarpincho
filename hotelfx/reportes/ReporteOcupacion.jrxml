@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteOcupacion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fbe0705c-2862-4d90-a9d4-a3bf2df7666b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="hotelDB"/>
+	<subDataset name="Dataset2" uuid="8f813050-6b41-4e6c-a40e-727de364fc83">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="hotelDB"/>
+		<parameter name="lista" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+		<queryString language="SQL">
+			<![CDATA[select idCuarto, Piso, Habitacion, Estado
+from cuarto]]>
+		</queryString>
+		<field name="idCuarto" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="idCuarto"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cuarto"/>
+		</field>
+		<field name="Piso" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="Piso"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cuarto"/>
+		</field>
+		<field name="Habitacion" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="Habitacion"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cuarto"/>
+		</field>
+		<field name="Estado" class="java.lang.Boolean">
+			<property name="com.jaspersoft.studio.field.label" value="Estado"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cuarto"/>
+		</field>
+	</subDataset>
+	<parameter name="ListaCuarto" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<queryString language="SQL">
+		<![CDATA[Select c.Estado, COUNT(c.idCuarto) AS cantidadPorEstado,
+( SELECT COUNT(c.Estado) *100 / COUNT(Reporte.idCuarto)
+FROM hotel.cuarto AS Reporte
+) AS porcentaje
+from cuarto c
+group by c.estado]]>
+	</queryString>
+	<field name="Estado" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="Estado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cuarto"/>
+	</field>
+	<field name="cantidadPorEstado" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cantidadPorEstado"/>
+	</field>
+	<field name="porcentaje" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="porcentaje"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<frame>
+				<reportElement x="20" y="10" width="539" height="50" uuid="d4ae6588-8129-4fee-a9b7-a66c3b467aa2"/>
+				<staticText>
+					<reportElement x="160" y="10" width="200" height="30" uuid="31cd5744-2512-4ab2-ae46-4c672d3a1a3b"/>
+					<textElement textAlignment="Center">
+						<font size="16"/>
+					</textElement>
+					<text><![CDATA[Reporte de ocupacion]]></text>
+				</staticText>
+				<image>
+					<reportElement x="419" y="7" width="100" height="37" uuid="669fa803-d215-4762-a377-73188784eee9"/>
+					<imageExpression><![CDATA["https://i.imgur.com/aDOl5Qj.png"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="87" splitType="Stretch">
+			<frame>
+				<reportElement x="21" y="2" width="519" height="68" uuid="0c0078a0-6477-49cd-8b4e-6611d262811f"/>
+				<componentElement>
+					<reportElement x="59" y="31" width="400" height="20" uuid="aee8eff3-831c-4960-9044-efea22a8ea9f">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+					</reportElement>
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+						<datasetRun subDataset="Dataset2" uuid="57366977-7045-4fb7-8ef0-2cea56fde9a6">
+							<datasetParameter name="lista">
+								<datasetParameterExpression><![CDATA[$P{ListaCuarto}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:listContents height="20" width="400">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="20" uuid="77b769e8-6533-4f41-8c6d-2e61dd192c78"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{idCuarto}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="100" y="0" width="100" height="20" uuid="52858ba1-b2ab-4cac-bdae-533aab16fc3a"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{Piso}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="200" y="0" width="100" height="20" uuid="7d9446ec-63e7-416a-ac97-39151087df21"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{Habitacion}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="300" y="0" width="100" height="20" uuid="b30a85c9-21f5-416a-84e8-f9557e56e6ba"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
+							</textField>
+						</jr:listContents>
+					</jr:list>
+				</componentElement>
+				<staticText>
+					<reportElement x="60" y="10" width="99" height="21" uuid="d8e56572-f116-49c9-bc94-5bfe23aceee6"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Id Cuarto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="160" y="10" width="100" height="21" uuid="4a27506f-5720-4202-b3fa-f2d540d9246c"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Piso]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="260" y="10" width="99" height="21" uuid="9b6a852d-1eb2-4ae5-8a17-d8682c52afa4"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Habitacion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="360" y="10" width="99" height="21" uuid="4c5ee163-e139-49cd-98cb-457b7d132994"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="261" splitType="Stretch">
+			<frame>
+				<reportElement x="11" y="13" width="539" height="230" uuid="df117062-b741-4e70-97a2-e4789080540c"/>
+				<pieChart>
+					<chart evaluationTime="Report">
+						<reportElement x="170" y="13" width="232" height="200" uuid="a51df0e1-6f9d-4e2d-9b2b-ba29e83131d4"/>
+						<chartTitle/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<pieDataset>
+						<dataset resetType="Report"/>
+						<keyExpression><![CDATA[$F{Estado}]]></keyExpression>
+						<valueExpression><![CDATA[$F{porcentaje}]]></valueExpression>
+						<labelExpression><![CDATA[$F{porcentaje}.toPlainString() + " %"]]></labelExpression>
+					</pieDataset>
+					<piePlot>
+						<plot/>
+						<itemLabel/>
+					</piePlot>
+				</pieChart>
+			</frame>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="9" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="12" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -17,6 +17,7 @@ import dto.ReservaCuartoDTO.TipoTarjeta;
 import dto.SalonDTO;
 import dto.UsuarioDTO;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -85,6 +86,26 @@ public class Validador {
 
 	public static boolean validarFechaVenc(String fechaVenc) {
 		return fechaVenc.matches("(0[1-9]|1[0-2])\\/[0-9]{2}");
+	}
+	
+	public static boolean validarMesAnio(String fechaVenc) {
+		Date hoy = new Date(System.currentTimeMillis());
+		DateFormat formato = new SimpleDateFormat("MM/yy");
+		
+		String mesAnioActual = formato.format(hoy);
+		String[] mesAnioEspliteado = mesAnioActual.split("/");
+		String mesActual = mesAnioEspliteado[0];
+		int mesAct = Integer.valueOf(mesActual);
+		String anioActual = mesAnioEspliteado[1];
+		int anioAct = Integer.valueOf(anioActual);
+		
+		String[] fechaEspliteada = fechaVenc.split("/");
+		String mesIngresado = fechaEspliteada[0];
+		int mesIng = Integer.valueOf(mesIngresado);
+		String anioIngresado = fechaEspliteada[1];
+		int anioIng = Integer.valueOf(anioIngresado);
+				
+		return (mesIng == mesAct || mesIng > mesAct) && anioIng == anioAct;
 	}
 
 	public static boolean validarUsuario(ControladorAgregarUsuario ventanaUsuario){
@@ -314,7 +335,8 @@ public class Validador {
 								&& formatoNumerico(pedido.getCodSegTarjeta().getText());
 
 						condicionFechaVenc = condicionFechaVenc
-								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
+								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText())
+								&& validarMesAnio(pedido.getFechaVencTarjeta().getText());
 					}
 
 					if(pedido.getCmbBoxTiposTarjeta().getSelectionModel().getSelectedItem().equals("MASTERCARD")) {
@@ -331,7 +353,8 @@ public class Validador {
 								&& formatoNumerico(pedido.getCodSegTarjeta().getText());
 
 						condicionFechaVenc = condicionFechaVenc
-								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText());
+								&& validarFechaVenc(pedido.getFechaVencTarjeta().getText())
+								&& validarMesAnio(pedido.getFechaVencTarjeta().getText());
 					}					
 				}				
 			}			
@@ -360,8 +383,8 @@ public class Validador {
 		}
 		if(!condicionFechaVenc) {
 			mostrarMensaje("La fecha de vencimiento no es correcta. \n "
-					+ "Formato correcto: mm/aa. \n "
-					+ "Ejemplo: 07/21, 04/00");
+					+ "Formato correcto: mm/aa.(Ej: 07/20, 10/20) \n"
+					+ "Solo se permiten tarjetas del mes actual o en adelante y del año actual");
 		}
 		if(!condicionTipoTarjeta) {
 			mostrarMensaje("Elija un tipo de tarjeta");
