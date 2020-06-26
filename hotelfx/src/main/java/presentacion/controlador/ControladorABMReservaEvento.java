@@ -2,6 +2,8 @@ package presentacion.controlador;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.nio.file.Paths;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,9 @@ import java.util.ResourceBundle;
 import dto.CategoriaCuartoDTO;
 import dto.CategoriaEventoDTO;
 import dto.ClienteDTO;
+import dto.ConfiguracionDTO;
 import dto.CuartoDTO;
+import dto.EmailDTO;
 import dto.ReservaEventoConNombresDTO;
 import dto.ReservaEventoDTO;
 import dto.ReservaEventoDTO.EstadoReserva;
@@ -224,26 +228,32 @@ public class ControladorABMReservaEvento implements Initializable{
 		     } 
 	    }
 	 
+	
 	 @FXML
 	    private void editarReservaEvento(ActionEvent event) throws Exception 
 	    {
 		   try { 
-			   Stage primaryStage = new Stage(); 
-		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaEvento.fxml");
-				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
-				Parent root = (Parent) fxmlLoader.load();
-				ControladorAgregarReservaEvento scene2Controller = fxmlLoader.<ControladorAgregarReservaEvento>getController();
-
-				scene2Controller.setearCamposPantalla(tablaReservasCliente.getSelectionModel().getSelectedItem());
-				scene2Controller.setVisibilityBtnAgregarReservaEvento(false);
-				scene2Controller.setDisableBtnAgregarReservaEvento(true);
-				scene2Controller.setVisibilityBtnModificarReservaEvento(true);
-				scene2Controller.setDisableBtnModificarReservaEvento(false);		
-				primaryStage.setScene(new Scene(root));
-				primaryStage.setTitle("Modificar una reserva de evento");
-				primaryStage.sizeToScene();
-				primaryStage.show();
-		       
+			   if(this.tablaReservasCliente.getSelectionModel().getSelectedItem() != null) {
+				   Stage primaryStage = new Stage(); 
+			 	   URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaEvento.fxml");
+				
+			 	   FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+				   Parent root = (Parent) fxmlLoader.load();
+				   ControladorAgregarReservaEvento scene2Controller = fxmlLoader.<ControladorAgregarReservaEvento>getController();
+		
+				   scene2Controller.setearCamposPantalla(tablaReservasCliente.getSelectionModel().getSelectedItem());
+				   scene2Controller.setVisibilityBtnAgregarReservaEvento(false);
+				   scene2Controller.setDisableBtnAgregarReservaEvento(true);
+				   scene2Controller.setVisibilityBtnModificarReservaEvento(true);
+				   scene2Controller.setDisableBtnModificarReservaEvento(false);		
+				   primaryStage.setScene(new Scene(root));
+				   primaryStage.setTitle("Modificar una reserva de evento");
+				   primaryStage.sizeToScene();
+				   primaryStage.show();
+			   }
+			   else {
+				   Validador.mostrarMensaje("Debe seleccionar una reserva para poder editarla.");
+			   }
 		     } catch(Exception e) { 
 		      e.printStackTrace(); 
 		     } 
@@ -308,6 +318,9 @@ public class ControladorABMReservaEvento implements Initializable{
 		Timestamp egreso = new Timestamp(System.currentTimeMillis());
 		checkincheckoutReserva(ingreso, egreso, idReserva);
 		this.reservaEvento.cambiarEstadoReserva(idReserva, String.valueOf(dto.ReservaEventoConNombresDTO.EstadoReserva.FINALIZADO));
+		
+		
+		
 		if(clienteActual == 0) {
 			crearTabla(getAllReservas());
 		}
@@ -319,51 +332,64 @@ public class ControladorABMReservaEvento implements Initializable{
 	
 	@FXML
 	public void generarReporteReservaEvento() {
-		if(tablaReservasCliente.getSelectionModel().getSelectedItem().getEstado() != ReservaEventoConNombresDTO.EstadoReserva.FINALIZADO) {
-			Validador.mostrarMensaje("Para generar el ticket de una reserva primero debe estar FINALIZADA.");
-		}else {
-			List<ReservaEventoDTO> reservas = this.reservaEvento.obtenerReservasEvento();
-			
-			int idReserva = tablaReservasCliente.getSelectionModel().getSelectedItem().getIdReservaEvento();
-			
-			ReservaEventoDTO reservaSeleccionada = null;
-			for(ReservaEventoDTO r : reservas) {
-				if(r.getIdReservaEvento() == idReserva) {
-					reservaSeleccionada = r;
-				}
-			}
-			
-			List<TicketDTO> tickets = this.ticket.obtenerClientes();
-			TicketDTO ticketActual = null;
-			for(TicketDTO t : tickets) {
-				String[] parts = t.getPath().split("_");
-				int idReservaDelTicket = Integer.parseInt(parts[1]);
-				if(idReservaDelTicket == reservaSeleccionada.getIdReservaEvento() ) {
-					ticketActual = t;
-				}
-			}
-			String pathPdf = "";
-
-			ReporteReservaEvento reporte = new ReporteReservaEvento(reservaSeleccionada, pathPdf);
-			
-			if(ticketActual == null) {
-				Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+		if(this.tablaReservasCliente.getSelectionModel().getSelectedItem() != null) {
+			if(tablaReservasCliente.getSelectionModel().getSelectedItem().getEstado() != ReservaEventoConNombresDTO.EstadoReserva.FINALIZADO) {
+				Validador.mostrarMensaje("Para generar el ticket de una reserva primero debe estar FINALIZADA.");
+			}else {
+				List<ReservaEventoDTO> reservas = this.reservaEvento.obtenerReservasEvento();
 				
-				this.ticketDTO = new TicketDTO(0, reservaSeleccionada.getIdCliente(), reservaSeleccionada.getMontoTotal(), reservaSeleccionada.getObservaciones(), "", fechaActual);
-				System.out.println(this.ticketDTO.getIdCliente() + this.ticketDTO.getDescripcion());
-				this.ticket.agregarCliente(this.ticketDTO);
-				int idTicket = ticket.obtenerIdTicketRecienInsertado(this.ticketDTO.getIdCliente());
-				TicketDTO t = ticket.getTicket(idTicket);
-				String path = "/tickets/evento/ticketEvento_"+ reservaSeleccionada.getIdReservaEvento() + "_" + t.getIdTicket() + ".pdf";
-				pathPdf = ".//tickets//evento//ticketEvento_" + reservaSeleccionada.getIdReservaEvento() + "_" + t.getIdTicket() + ".pdf";
-				System.out.println("Path de la bd : ->"+ path);
-				System.out.println("Path del archivo : ->"+ pathPdf);
-				ticket.modificarTicket(t, path);	
-				reporte = new ReporteReservaEvento(reservaSeleccionada, pathPdf);
-				reporte.guardarPdf();
+				int idReserva = tablaReservasCliente.getSelectionModel().getSelectedItem().getIdReservaEvento();
+				
+				ReservaEventoDTO reservaSeleccionada = null;
+				for(ReservaEventoDTO r : reservas) {
+					if(r.getIdReservaEvento() == idReserva) {
+						reservaSeleccionada = r;
+					}
+				}
+				
+				List<TicketDTO> tickets = this.ticket.obtenerClientes();
+				TicketDTO ticketActual = null;
+				for(TicketDTO t : tickets) {
+					String[] parts = t.getPath().split("_");
+					int idReservaDelTicket = Integer.parseInt(parts[1]);
+					if(idReservaDelTicket == reservaSeleccionada.getIdReservaEvento() ) {
+						ticketActual = t;
+					}
+				}
+				String pathPdf = "";
+
+				ReporteReservaEvento reporte = new ReporteReservaEvento(reservaSeleccionada, pathPdf);
+				
+				if(ticketActual == null) {
+					Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+					
+					this.ticketDTO = new TicketDTO(0, reservaSeleccionada.getIdCliente(), reservaSeleccionada.getMontoTotal(), reservaSeleccionada.getObservaciones(), "", fechaActual);
+					System.out.println(this.ticketDTO.getIdCliente() + this.ticketDTO.getDescripcion());
+					this.ticket.agregarCliente(this.ticketDTO);
+					int idTicket = ticket.obtenerIdTicketRecienInsertado(this.ticketDTO.getIdCliente());
+					TicketDTO t = ticket.getTicket(idTicket);
+					String path = "/tickets/evento/ticketEvento_"+ reservaSeleccionada.getIdReservaEvento() + "_" + t.getIdTicket() + ".pdf";
+					pathPdf = ".//tickets//evento//ticketEvento_" + reservaSeleccionada.getIdReservaEvento() + "_" + t.getIdTicket() + ".pdf";
+					System.out.println("Path de la bd : ->"+ path);
+					System.out.println("Path del archivo : ->"+ pathPdf);
+					ticket.modificarTicket(t, path);	
+					reporte = new ReporteReservaEvento(reservaSeleccionada, pathPdf);
+					reporte.guardarPdf();
+					
+					String pathMsj = "." + path; 
+					ClienteDTO clienteActualSeleccionado = this.cliente.getClientePorId(tablaReservasCliente.getSelectionModel().getSelectedItem().getIdCliente());
+					EmailDTO email = new EmailDTO();
+					email.enviarMsjAdjunto("", pathMsj, clienteActualSeleccionado.getEmail(), "Ticket de reserva evento");
+				}
+				reporte.mostrar();
+				
+				
 			}
-			reporte.mostrar();
 		}
+		else {
+			Validador.mostrarMensaje("Debe seleccionar una reserva para generar un ticket");
+		}
+		
 		
 	}
 	

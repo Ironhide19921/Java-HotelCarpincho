@@ -27,8 +27,8 @@
                <children>
                   <TextField fx:id="txtNombre" layoutX="126.0" layoutY="39.0" prefWidth="200.0" />
                   <TextField fx:id="txtDetalle" layoutX="126.0" layoutY="107.0" prefWidth="200.0" />
-                  <Label layoutY="43.0" prefHeight="17.0" prefWidth="106.0" text="Nombre" />
-                  <Label layoutY="111.0" prefHeight="17.0" prefWidth="106.0" text="Detalle" />
+                  <Label layoutY="43.0" prefHeight="17.0" prefWidth="106.0" text="Nombre(*)" />
+                  <Label layoutY="111.0" prefHeight="17.0" prefWidth="106.0" text="Detalle(*)" />
                </children>
             </Pane>
          </center>

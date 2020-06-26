@@ -302,7 +302,7 @@ CREATE TABLE `salon` (
 
 INSERT INTO `salon` (`idSalon`, `Capacidad`, `Senia`, `Estilo`, `Monto`, `Estado`) VALUES
 (19, 150, 23, 'Amplio salon 150 personas', '1300.000', 1),
-(20, 50, 40, 'Salon pequeño ', '349.990', 1),
+(20, 50, 40, 'Salon pequeño', '349.990', 1),
 (21, 300, 35, 'Salon grande', '2300.990', 1);
 
 

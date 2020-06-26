@@ -509,7 +509,9 @@ public class Validador {
 	}
 
 	public static <T> boolean consultarRepetidos(T objeto, List<T> listaDeObjetos) {
-
+		
+		if(listaDeObjetos.size()>0) {
+		
 		if(objeto instanceof CategoriaCuartoDTO && listaDeObjetos.get(0) instanceof CategoriaCuartoDTO) {
 			for(T cate: listaDeObjetos) {			
 				if(((CategoriaCuartoDTO) cate).getNombre().equals(((CategoriaCuartoDTO)objeto).getNombre())) {				
@@ -580,12 +582,11 @@ public class Validador {
 		}
 		return false;
 	}
-
+		}
 		return false;
 	}
 
 	private PermisoPerfilDTO getIdPerfil() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
