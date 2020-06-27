@@ -534,7 +534,8 @@ public class Validador {
 		else if(objeto instanceof CuartoDTO && listaDeObjetos.get(0) instanceof CuartoDTO) {
 			for(T cuarto: listaDeObjetos) {			
 				if(((CuartoDTO) cuarto).getPiso().equals(((CuartoDTO)objeto).getPiso()) && 
-						((CuartoDTO) cuarto).getHabitacion().equals(((CuartoDTO)objeto).getHabitacion())){				
+						((CuartoDTO) cuarto).getHabitacion().equals(((CuartoDTO)objeto).getHabitacion()) &&
+						((CuartoDTO) cuarto).getId() != ((CuartoDTO)objeto).getId()){				
 					return true;
 				}
 			}
@@ -567,7 +568,8 @@ public class Validador {
 		}
 		else if(objeto instanceof ProductoDTO && listaDeObjetos.get(0) instanceof ProductoDTO) {
 			for(T producto: listaDeObjetos) {			
-				if(((ProductoDTO) producto).getNombre().equals(((ProductoDTO)objeto).getNombre())){				
+				if(((ProductoDTO) producto).getNombre().equalsIgnoreCase(((ProductoDTO)objeto).getNombre()) &&
+						((ProductoDTO) producto).getIdProducto() != (((ProductoDTO)objeto).getIdProducto())){				
 					return true;
 				}
 			}
