@@ -7,26 +7,72 @@
 		<![CDATA[select DATE_FORMAT(Fecha, '%Y-%m-%d') as Fecha,
 sum(Ingreso) as Ingreso,
 sum(Egreso) as Egreso,
-sum(Ganancia) as Ganancia
+sum(Ganancia) as Ganancia,
+sum(Semana) as Semana,
+sum(Mes) as Mes
 from(
 select 
 DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d') as Fecha,
 count(*) as Ingreso,
 0 as Egreso,
-sum(senia) as Ganancia
+sum(r.senia) as Ganancia,
+0 as Semana,
+0 as Mes
 from hotel.reservacuarto as r
 group by DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d')
+union
+select 
+DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d') as Fecha,
+0 as Ingreso,
+0 as Egreso,
+0 as Ganancia,
+sum(r.senia) as Semana,
+0 as Mes
+from hotel.reservacuarto as r
+group by DATE_FORMAT(r.fechaIngreso, '%V')
+union
+select 
+DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d') as Fecha,
+0 as Ingreso,
+0 as Egreso,
+0 as Ganancia,
+0 as Semana,
+sum(r.senia) as Mes
+from hotel.reservacuarto as r
+group by DATE_FORMAT(r.fechaIngreso, '%m')
+
 union
 select
 DATE_FORMAT(r.fechaOut, '%Y-%m-%d') as Fecha,
 0 as Ingreso,
 count(*) as Egreso, 
-sum(r.montoReservaCuarto) as Ganancia
+sum(r.montoReservaCuarto) as Ganancia,
+0 as Semana,
+0 as Mes
 from hotel.reservacuarto as r
 group by DATE_FORMAT(r.fechaOut, '%Y-%m-%d')
+union
+select
+DATE_FORMAT(r.fechaOut, '%Y-%m-%d') as Fecha,
+0 as Ingreso,
+0 as Egreso, 
+0 as Ganancia,
+sum(r.montoReservaCuarto)  as Semana,
+0 as Mes
+from hotel.reservacuarto as r
+group by DATE_FORMAT(r.fechaOut, '%V')
+union
+select
+DATE_FORMAT(r.fechaOut, '%Y-%m-%d') as Fecha,
+0 as Ingreso,
+0 as Egreso, 
+0 as Ganancia,
+0 as Semana,
+sum(r.montoReservaCuarto) as Mes
+from hotel.reservacuarto as r
+group by DATE_FORMAT(r.fechaOut, '%M')
 ) as t
-group by Fecha 
-  ]]>
+group by Fecha, Semana,Mes]]>
 	</queryString>
 	<field name="Fecha" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Fecha"/>
@@ -40,7 +86,15 @@ group by Fecha
 	<field name="Ganancia" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="Ganancia"/>
 	</field>
-	<variable name="SumSemanal" class="java.math.BigDecimal"/>
+	<field name="Semana" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Semana"/>
+	</field>
+	<field name="Mes" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Mes"/>
+	</field>
+	<variable name="SumSemanal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+	</variable>
 	<group name="Fecha">
 		<groupExpression><![CDATA[$F{Fecha}]]></groupExpression>
 	</group>
@@ -54,7 +108,7 @@ group by Fecha
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="32" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<staticText>
 				<reportElement x="16" y="0" width="100" height="20" uuid="ebc5fbdc-9c9d-4112-8d40-4320cb014e12">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="918b6244-ec23-49f7-91e1-c7f1f0a09ced"/>
@@ -80,17 +134,23 @@ group by Fecha
 				<text><![CDATA[Egreso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="350" y="0" width="100" height="20" uuid="467857e5-e326-496c-af89-5526fefce0a4">
+				<reportElement x="327" y="0" width="100" height="20" uuid="467857e5-e326-496c-af89-5526fefce0a4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b24ea1c-a69c-4dd8-a09b-d3e3d9b63fed"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Ganancia]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="427" y="0" width="100" height="30" uuid="19e7e611-cd49-49e2-91fd-5c70d15af768">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49f4b59a-de7b-440a-81d4-36feaacfc95e"/>
+				</reportElement>
+				<text><![CDATA[Semana]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField>
 				<reportElement x="16" y="0" width="100" height="15" uuid="a387dd54-74c2-4154-a351-9bb5481774cd">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="918b6244-ec23-49f7-91e1-c7f1f0a09ced"/>
@@ -116,7 +176,7 @@ group by Fecha
 				<textFieldExpression><![CDATA[$F{Egreso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="350" y="0" width="100" height="15" uuid="6388d58e-d9c4-432c-8b89-af0248ecccd6">
+				<reportElement x="320" y="0" width="100" height="15" uuid="6388d58e-d9c4-432c-8b89-af0248ecccd6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b24ea1c-a69c-4dd8-a09b-d3e3d9b63fed"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -126,10 +186,14 @@ group by Fecha
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="46" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="240" height="14" uuid="dbcd728c-950a-4077-bb39-8024601ff41b"/>
-				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+				<reportElement x="420" y="20" width="100" height="30" uuid="f1295c28-45f5-4b6b-92bc-839d1efb1aa6"/>
+				<textFieldExpression><![CDATA[$F{Semana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="20" width="100" height="30" uuid="d0e4a18c-e211-4b1c-bd3b-9e4307a9748a"/>
+				<textFieldExpression><![CDATA[$F{Mes}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
