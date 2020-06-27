@@ -11,6 +11,7 @@ import javafx.scene.control.DatePicker;
 import modelo.Cuarto;
 import modelo.ErrorImportar;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.reportes.ReporteEncuesta;
 import presentacion.reportes.ReporteErroresImportar;
 import presentacion.reportes.ReporteOcupacion;
 
@@ -27,14 +28,12 @@ public class ControladorVentanaReportes implements Initializable{
 	
 	private Cuarto cuarto;
 	private String reporte;
-	private ErrorImportar error;
 	
 	private ArrayList<Button> listaButtons;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.cuarto = new Cuarto(new DAOSQLFactory());
-		this.error = new ErrorImportar(new DAOSQLFactory());
 		listaButtons = new ArrayList<Button>();
 		listaButtons.add(btnOcupacion);
 		listaButtons.add(btnContable);
@@ -62,9 +61,14 @@ public class ControladorVentanaReportes implements Initializable{
 	
 	@FXML
 	public void elegirError() {
-//		fechaDesde.setDisable(true);
-//		fechaHasta.setDisable(true);
 		this.reporte = "error";
+	}
+	
+	@FXML
+	public void elegirEncuesta() {
+		fechaDesde.setDisable(true);
+		fechaHasta.setDisable(true);
+		this.reporte = "encuesta";
 	}
 	
 	@FXML
@@ -79,8 +83,11 @@ public class ControladorVentanaReportes implements Initializable{
 			ReporteOcupacion reporteOcupacion = new ReporteOcupacion(cuarto.obtenerCuartos());
 			reporteOcupacion.mostrar();
 		}else if(this.reporte.equals("error")) {
-			ReporteErroresImportar reporteError = new ReporteErroresImportar(error.obtenereErrores(),this.getFechaDesde().getValue(),this.getFechaHasta().getValue());
+			ReporteErroresImportar reporteError = new ReporteErroresImportar(this.getFechaDesde().getValue(),this.getFechaHasta().getValue());
 			reporteError.mostrar();
+		}else if(this.reporte.equals("encuesta")) {
+			ReporteEncuesta reporteEncuesta = new ReporteEncuesta();
+			reporteEncuesta.mostrar();
 		}		
 	}
 
