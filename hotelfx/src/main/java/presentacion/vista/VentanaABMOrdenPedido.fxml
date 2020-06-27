@@ -42,7 +42,7 @@
             <Pane prefHeight="65.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnAgregarPedido" layoutX="88.0" layoutY="23.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" text="Agregar pedido" />
-                  <Button fx:id="btnGenerarTicket" layoutX="555.0" layoutY="24.0" mnemonicParsing="false" text="Generar Ticket" />
+                  <Button fx:id="btnGenerarTicket" layoutX="555.0" layoutY="24.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" text="Generar Ticket" />
                   <Pane fx:id="panelTotal" layoutX="413.0" layoutY="20.0" prefHeight="33.0" prefWidth="142.0">
                      <children>
                      <!--<Label fx:id="totalLabel1" layoutY="6.0" prefHeight="17.0" prefWidth="40.0" text="Total" /> -->   
