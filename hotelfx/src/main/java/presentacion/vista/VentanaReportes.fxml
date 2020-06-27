@@ -50,14 +50,14 @@
                   <DatePicker fx:id="fechaDesde" layoutX="349.0" layoutY="117.0" />
                   <Label layoutX="240.0" layoutY="188.0" text="Fecha Hasta(*)" />
                   <DatePicker fx:id="fechaHasta" layoutX="348.0" layoutY="184.0" prefHeight="27.0" prefWidth="196.0" />
-                  <Button fx:id="btnGenerarReporte" layoutX="199.0" layoutY="336.0" mnemonicParsing="false" onAction="#generarReporteOcupacion" text="Generar reporte" />
+                  <Button fx:id="btnGenerarReporte" layoutX="199.0" layoutY="336.0" mnemonicParsing="false" onAction="#generarReporte" text="Generar reporte" />
                   <VBox layoutX="14.0" layoutY="105.0" prefHeight="111.0" prefWidth="147.0" spacing="10.0">
                      <children>
                         <Accordion />
-                        <Button fx:id="btnOcupacion" disable="false" mnemonicParsing="false" onAction="#deshabilitarParametrosFechas" prefHeight="27.0" prefWidth="146.0" text="Ocupacion" />
+                        <Button fx:id="btnOcupacion" disable="true" mnemonicParsing="false" onAction="#deshabilitarParametrosFechas" prefHeight="27.0" prefWidth="146.0" text="Ocupacion" />
                         <Button fx:id="btnContable" disable="true" mnemonicParsing="false" onAction="#habilitarParametrosFechas" prefHeight="27.0" prefWidth="146.0" text="Contables" />
                         <Button fx:id="btnReservas" disable="true" mnemonicParsing="false" onAction="#habilitarParametrosFechas" prefHeight="27.0" prefWidth="148.0" text="Reservas" />
-                        <Button fx:id="btnErrores" disable="true" mnemonicParsing="false" onAction="#habilitarParametrosFechas" prefHeight="27.0" prefWidth="147.0" text="Errores" />
+                        <Button fx:id="btnErrores" disable="true" mnemonicParsing="false" onAction="#elegirError" prefHeight="27.0" prefWidth="147.0" text="Errores" />
                         <Button fx:id="btnEncuestas" disable="true" mnemonicParsing="false" onAction="#habilitarParametrosFechas" prefHeight="27.0" prefWidth="149.0" text="Encuestas" />
                      </children>
                   </VBox>

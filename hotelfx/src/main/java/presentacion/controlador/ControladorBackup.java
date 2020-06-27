@@ -42,6 +42,10 @@ public class ControladorBackup implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Conexion.getConexion();
+		
+		if(ControladorLogin.permisosPorId.contains(21)) {
+			btnSeleccionar.setDisable(false);
+		}
 	}
 	
 	@FXML

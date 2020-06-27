@@ -2,8 +2,10 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import dto.CategoriaCuartoDTO;
 import dto.CategoriaEventoDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.CategoriaEvento;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarCategoriaEvento implements Initializable{
@@ -32,10 +35,15 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
 	 
 		String nombre = txtNombre.getText();
 		String detalle = txtDetalle.getText();
-		
 		CategoriaEventoDTO categoriaEvento = new CategoriaEventoDTO(0, nombre, detalle);
-		this.categoriaEvento.agregarCategoriaEvento(categoriaEvento);
-		cerrarVentana();	
+		if(!Validador.consultarRepetidos(categoriaEvento, this.categoriaEvento.obtenerCategoriasEvento())) {
+			this.categoriaEvento.agregarCategoriaEvento(categoriaEvento);
+			Validador.mostrarMensaje("Categoría agregada.");
+			cerrarVentana();	
+		}	
+		else{
+			Validador.mostrarMensaje("La categoría ya existe.");
+		}
 	}
     
     public void setearCamposPantalla(CategoriaEventoDTO categoriaEvento) throws IOException {
@@ -49,10 +57,25 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
 		
 		String nombre = txtNombre.getText();
 		String detalle = txtDetalle.getText();
-		
+		CategoriaEventoDTO categoriaActual = null;
 		CategoriaEventoDTO categoriaEvento = new CategoriaEventoDTO(id, nombre, detalle);
-		this.categoriaEvento.modificarCategoriaEvento(categoriaEvento);
-		cerrarVentana();	
+		List<CategoriaEventoDTO> categoriasSinActual = this.categoriaEvento.obtenerCategoriasEvento();
+		for(CategoriaEventoDTO c : categoriasSinActual) {
+			if(c.getId() == id) {
+				categoriaActual = c;
+			}
+		}
+		categoriasSinActual.remove(categoriaActual);
+		
+		if(!Validador.consultarRepetidos(categoriaEvento, categoriasSinActual)) {
+			this.categoriaEvento.modificarCategoriaEvento(categoriaEvento);
+			cerrarVentana();	
+			Validador.mostrarMensaje("Categoría modificada.");
+		}
+		else {
+			Validador.mostrarMensaje("Nombre de categoría de evento ya existe.");
+		}
+		
 	}
     
 	

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteErroresImportar" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d5c2516-64c7-40af-b2c2-c0196ea6842a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HotelFx"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="371"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="619"/>
+	<parameter name="FechaDesde" class="java.sql.Timestamp"/>
+	<parameter name="FechaHasta" class="java.sql.Timestamp"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT hotel.errorimportar.`idError`,
+	hotel.errorimportar.fecha,
+	hotel.errorimportar.usuario,
+	hotel.errorimportar.detalle
+FROM hotel.errorimportar
+where 	hotel.errorimportar.fecha between  $P{FechaDesde}  and  $P{FechaHasta} ]]>
+	</queryString>
+	<field name="idError" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idError"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="errorimportar"/>
+	</field>
+	<field name="fecha" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="errorimportar"/>
+	</field>
+	<field name="usuario" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="usuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="errorimportar"/>
+	</field>
+	<field name="detalle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="detalle"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="errorimportar"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="160" y="10" width="200" height="50" uuid="4a675cf3-c525-45a9-a51b-e3d8a505e058"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Reporte de errores importación]]></text>
+			</staticText>
+			<image>
+				<reportElement x="419" y="7" width="100" height="37" uuid="fedad95d-e41c-4830-87b3-6ca59080c50a"/>
+				<imageExpression><![CDATA["https://i.imgur.com/aDOl5Qj.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="50" y="25" width="100" height="30" uuid="6f9826a9-5b20-493f-a998-b9cf391b9806"/>
+				<text><![CDATA[idError]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="25" width="100" height="30" uuid="005027d4-6cd3-436c-a72f-d1e825819df4"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="25" width="100" height="30" uuid="2ce3b1b6-2681-4d3c-a4ba-54a758cf097c"/>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="25" width="100" height="30" uuid="1895b9ca-1d18-42a8-9303-943a259b8012"/>
+				<text><![CDATA[Detalle]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="50" y="0" width="100" height="30" uuid="708e2a7c-63e2-43dd-8026-9149c0f3407e"/>
+				<textFieldExpression><![CDATA[$F{idError}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="100" height="30" uuid="97966cba-ce56-44dc-adf8-4969fc27a9fc"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="30" uuid="7ae2e205-e993-4723-90d3-4670a6e54f00"/>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="100" height="30" uuid="e7444d48-38a8-4d61-b31f-2c62d70bfb3f"/>
+				<textFieldExpression><![CDATA[$F{detalle}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

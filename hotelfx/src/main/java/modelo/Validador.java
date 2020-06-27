@@ -3,6 +3,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import dto.CategoriaCuartoDTO;
@@ -227,25 +228,19 @@ public class Validador {
 			mostrarMensaje("Ingrese la forma de pago.");
 			return false;
 		}
-		if(fechaReserva == null) {
+		
+		/*if(fechaReserva == null) {
 			mostrarMensaje("La fecha de reserva es obligatoria (*).");
 			return false;
 		}
-<<<<<<< HEAD
+*/
 		
 		/*if(cantidadHoras.equals(BigDecimal.valueOf(0)) || montoSenia.equals(BigDecimal.valueOf(0))) {
 			Validador.mostrarMensaje("Monto de la seña o cantidad de horas inválido.");
 			return false;
 		}*/
 		
-=======
 
-		if(cantidadHoras.equals(BigDecimal.valueOf(0)) || montoSenia.equals(BigDecimal.valueOf(0))) {
-			Validador.mostrarMensaje("Monto de la seña o cantidad de horas inválido.");
-			return false;
-		}
-
->>>>>>> 84d2838e9b6e0197e29e6c4c68befdc622350350
 		if(!controladorAgregarReservaCuarto1.getFormaPago().equals(FormaPago.EFECTIVO)) {
 			if(controladorAgregarReservaCuarto1.getTipoTarjeta() == null || numeroTarjeta == null || fechaVencTarjeta == null || codSeguridadTarjeta == null)
 			{
@@ -516,8 +511,10 @@ public class Validador {
 		return texto.matches("[a-zA-Z0-9\\s]+");
 	}
 
-	public static <T> boolean consultarRepetidos(T objeto, ArrayList<T> listaDeObjetos) {
-
+	public static <T> boolean consultarRepetidos(T objeto, List<T> listaDeObjetos) {
+		
+		if(listaDeObjetos.size()>0) {
+		
 		if(objeto instanceof CategoriaCuartoDTO && listaDeObjetos.get(0) instanceof CategoriaCuartoDTO) {
 			for(T cate: listaDeObjetos) {			
 				if(((CategoriaCuartoDTO) cate).getNombre().equals(((CategoriaCuartoDTO)objeto).getNombre())) {				
@@ -545,7 +542,7 @@ public class Validador {
 		}
 		else if(objeto instanceof UsuarioDTO && listaDeObjetos.get(0) instanceof UsuarioDTO) {
 			for(T usuario: listaDeObjetos) {			
-				if(((ClienteDTO) usuario).getEmail().equals(((UsuarioDTO)objeto).getEmail())){				
+				if(((UsuarioDTO) usuario).getEmail().equals(((UsuarioDTO)objeto).getEmail())){				
 					return true;
 				}
 			}
@@ -588,12 +585,11 @@ public class Validador {
 		}
 		return false;
 	}
-
+		}
 		return false;
 	}
 
 	private PermisoPerfilDTO getIdPerfil() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

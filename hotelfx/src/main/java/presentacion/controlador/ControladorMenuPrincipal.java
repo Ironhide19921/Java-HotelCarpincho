@@ -53,7 +53,7 @@ import persistencia.dao.mysql.EncuestaDAOSQL;
 
 import presentacion.vista.FxmlLoader;
 
-public class ControladorMenuPrincipal implements Initializable{
+public class ControladorMenuPrincipal extends Thread implements Initializable  {
 
 	@FXML
 	private Button btnAbrirABMProductos;
@@ -105,7 +105,7 @@ public class ControladorMenuPrincipal implements Initializable{
 		//Llamo al login
 		verLogin();
 		
-		//Preparo los botones para recorrer en un orden espeficico
+		//Preparo los botones para recorrer en un orden especifico
 		listaButtons = new ArrayList<Button>();
 		listaButtons.add(0,btnAbrirABMUsuarios);
 		listaButtons.add(1,btnAbrirABMCliente);
@@ -123,12 +123,10 @@ public class ControladorMenuPrincipal implements Initializable{
 		listaButtons.add(13,btnAbrirVentanaBackup);
 		listaButtons.add(14,btnAbrirVentanaReportes);
 		
-		//Habilito cada boton para el cual exista un permiso
-		for(Integer permisoId : ControladorLogin.permisosPorId) {
-			if(permisoId.equals(16)) {
-				break;
+		for(int i=0; i<15; i++) {
+			if(ControladorLogin.permisosPorId.contains(i+1)) {
+				this.listaButtons.get(i).setDisable(false);
 			}
-			this.listaButtons.get(permisoId-1).setDisable(false);
 		}
 
 		this.email = new EmailDTO(0, null, null, null, null, null, null, null);
@@ -138,15 +136,21 @@ public class ControladorMenuPrincipal implements Initializable{
 		this.clientesAencuestar = getClientesAencuestar();
 		encuestasTodos = FXCollections.observableArrayList();
 		this.encuestasTodos = encuesta.obtenerEncuestas();
+		
+		
 		manejoEncuestas();
 		
-//		this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
+		//this.encuestas = (ArrayList<EncuestaDTO>) encuesta.obtenerEncuestas();
 		email.start();
 		
 		if(EmailDTO.compararFechas(gestionBackup.fechaUltimoBackup(), hoy)>0){
 			gestionBackup.backup();
 		}
 
+	}
+	
+	public void run() { 		
+		manejoEncuestas();
 	}
 
 	private void manejoEncuestas() {
@@ -188,7 +192,7 @@ public class ControladorMenuPrincipal implements Initializable{
 //				}
 				
 			} catch (Exception e) {
-				Validador.mostrarMensaje("Error en encuestas");
+				//Validador.mostrarMensaje("Error en encuestas");
 				e.printStackTrace();
 			}
 		}
@@ -442,7 +446,14 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void deslogear() throws IOException {
 		Main.stage.close();
 		ControladorABMProducto.AgregarProductoStage.close();
-		ControladorABMReservaCuarto.primaryStage.close();
+		
+		try{
+			ControladorABMReservaCuarto.primaryStage.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 		//Desactivo todos los botones para preparar el reinicio
 		for(Button boton : listaButtons) {

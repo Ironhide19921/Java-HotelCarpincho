@@ -12,11 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-<<<<<<< HEAD
 import dto.ClienteDTO;
-=======
+
 import dto.ConfiguracionDTO;
->>>>>>> 84d2838e9b6e0197e29e6c4c68befdc622350350
+
 import dto.CuartoDTO;
 import dto.EmailDTO;
 import dto.ReservaCuartoDTO;
@@ -37,11 +36,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-<<<<<<< HEAD
+
 import modelo.Cliente;
-=======
+
 import modelo.Configuracion;
->>>>>>> 84d2838e9b6e0197e29e6c4c68befdc622350350
+
 import modelo.Cuarto;
 import modelo.Email;
 import modelo.ReservaCuarto;

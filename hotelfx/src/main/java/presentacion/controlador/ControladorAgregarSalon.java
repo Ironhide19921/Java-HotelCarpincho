@@ -2,6 +2,7 @@ package presentacion.controlador;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.CategoriaCuartoDTO;
@@ -46,9 +47,14 @@ public class ControladorAgregarSalon implements Initializable{
 			Boolean estado = true;
 			
 			SalonDTO salon = new SalonDTO(0, capacidad, senia, estilo, monto, estado);
-			this.salon.agregarSalon(salon);
-			cerrarVentana();	
-	
+			if(!Validador.consultarRepetidos(salon, this.salon.obtenerSalones())) {
+				this.salon.agregarSalon(salon);
+				Validador.mostrarMensaje("Salon agregado.");
+				cerrarVentana();	
+			}
+			else {
+				Validador.mostrarMensaje("El salon ya existe.");
+			}
 		}
 		else {
 			Validador.mostrarMensaje("La seña debe ser un porcentaje de 0 a 100.");
@@ -64,10 +70,26 @@ public class ControladorAgregarSalon implements Initializable{
 		String estilo = txtEstilo.getText();
 		BigDecimal monto = new BigDecimal(txtMonto.getText());
 		Boolean estado = true;
-	
+		SalonDTO salonActual = null;
 		SalonDTO salon = new SalonDTO(id , capacidad, senia, estilo, monto, estado);
-		this.salon.modificarSalon(salon);
-		cerrarVentana();	
+		List<SalonDTO> salonesSinActual = this.salon.obtenerSalones();
+		for(SalonDTO s : salonesSinActual) {
+			if(s.getId() == id) {
+				salonActual = s;
+			}
+		}
+		salonesSinActual.remove(salonActual);
+		
+		if(!Validador.consultarRepetidos(salon, salonesSinActual)) {
+			this.salon.modificarSalon(salon);
+			cerrarVentana();
+			Validador.mostrarMensaje("Salon modificado.");
+		}
+		else {
+			Validador.mostrarMensaje("Nombre del salon ya existe.");
+		}
+		
+		
 	}
 	
 	@FXML

@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,6 +18,7 @@ import dto.RespuestaEncuestaDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import persistencia.dao.mysql.DAOSQLFactory;
 
 
 public class SendHttp {
@@ -31,6 +33,8 @@ public class SendHttp {
 
 	// getConversion("ARS","EUR") nos da el valor dl euro frente al peso argentino,
 	// para el dolar cambiar por USD
+
+	
 	public static Double getConversion(String divisaLocal, String divisaExtranjera) throws Exception {
 		String url = "https://api.cambio.today/v1/quotes/" + divisaExtranjera + "/" + divisaLocal
 				+ "/json?quantity=1&key=4487|vPCBh_AxLWD9C1HgQc3Y65tFeJgU^Bwu";
@@ -544,6 +548,73 @@ public class SendHttp {
 		return resultado;
 
 	}
+
+//	private Object cliente;
+//	
+//	private void manejoEncuestas() {
+//		List<ClienteDTO> clientesAencuestar = new ArrayList<ClienteDTO>();
+//		Cliente cliente = new Cliente(new DAOSQLFactory());
+//		clientesAencuestar = cliente.getClientesAencuestar();
+//		encuestasTodos = FXCollections.observableArrayList();
+//		this.encuestasTodos = encuesta.obtenerEncuestas();
+//		Encuesta encuesta = new Encuesta(new DAOSQLFactory());
+//		for(EncuestaDTO e: encuestasTodos) {
+//			try {
+//				if(SendHttp.actualizarEncuestaRespondida(e.getRecipiente()).equals("si")) {
+//					encuesta.modificarEncuesta(e.getIdEncuesta());
+//				}
+//			} catch (Exception e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//		}
+//		
+//		
+//		if(clientesAencuestar.size()>0) {
+//			try {
+//				String collector="";
+//				if(SendHttp.traerCantidadCollectores()==0) {
+//					collector = SendHttp.crearCollector();					
+//				}else {
+//					collector = SendHttp.traerIdPrimerCollector();
+//				}
+//								
+//				String mensaje =SendHttp.crearMensaje(collector);
+//				ArrayList<EncuestaDTO> recipientes = SendHttp.crearRecipientes(collector, mensaje, clientesAencuestar);
+//				for(EncuestaDTO e: recipientes) {
+//					encuesta.agregarEncuesta(e);
+//				}
+//				String envio = SendHttp.enviarEncuestasMail(collector, mensaje);
+//				
+////				System.out.println(SendHttp.traerRespuestas("5541016993"));
+////				ArrayList<RespuestaEncuestaDTO> resultado = SendHttp.consultarRespuestaEncuesta("5541016993");
+////				for(RespuestaEncuestaDTO r: resultado) {
+////					System.out.println(r.getIdPregunta());
+////					for(String s: r.getListaRespuestas()) {
+////						 System.out.println(s);
+////					}
+////				}
+//				
+//			} catch (Exception e) {
+//				//Validador.mostrarMensaje("Error en encuestas");
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+//	
+//	private List<ClienteDTO> getClientesAencuestar() {
+//		List<ClienteDTO> clientesAencuestar = new ArrayList<ClienteDTO>();
+//		Cliente cliente = new Cliente(new DAOSQLFactory());
+//		List<ClienteDTO> clientes = cliente.obtenerClientesaEncuestar();
+//		if(clientes.size()==0) {
+//			Validador.mostrarMensaje("Sin clientes en condiciones para enviar encuestas");
+//		}
+////		clientesAencuestar.clear();
+//		for(ClienteDTO c : clientes) {
+//			clientesAencuestar.add(c);
+//		}
+//		return clientesAencuestar;
+//	}
 
 
 }

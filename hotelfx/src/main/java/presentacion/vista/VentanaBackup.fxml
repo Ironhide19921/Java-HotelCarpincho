@@ -21,7 +21,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="btnSeleccionar" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" onAction="#seleccionar" text="Seleccionar" />
+            <Button fx:id="btnSeleccionar" disable="true" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" onAction="#seleccionar" text="Seleccionar" />
             <TextField fx:id="txtPath" editable="false" layoutX="120.0" layoutY="87.0" prefHeight="25.0" prefWidth="293.0" />
             <Label layoutX="14.0" layoutY="225.0" prefHeight="20.0" prefWidth="211.0" text="Backup de base" underline="true">
                <font>

@@ -2,7 +2,11 @@
 <<<<<<<=HEAD
 >>>>>>>=84d2838e9b6e0197e29e6c4c68befdc622350350
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//reportes/ReporteContableReservaCuarto.jrxml=UTF-8
+=======
+encoding//reportes/ReporteErroresImportar.jrxml=UTF-8
+>>>>>>> 452bb2d982bab91e087866d88bc728279768f2a6
 encoding//reportes/ReporteOcupacion.jrxml=UTF-8
 encoding//reportes/ReportePedidoTicket.jrxml=UTF-8
 encoding//reportes/ReporteReservaEvento.jrxml=UTF-8
