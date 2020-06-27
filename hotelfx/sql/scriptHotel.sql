@@ -68,6 +68,12 @@ INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Salones');
 INSERT INTO `permiso` (nombrePermiso) VALUES ('Configuracion email');
 INSERT INTO `permiso` (nombrePermiso) VALUES ('ABM Orden pedidos');
 INSERT INTO `permiso` (nombrePermiso) VALUES ('Gestion backup');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Reportes');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Ocupacion');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Contable');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Reservas');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Errores');
+INSERT INTO `permiso` (nombrePermiso) VALUES ('Reporte Encuestas');
 
 CREATE TABLE `permisoPerfil`
 (

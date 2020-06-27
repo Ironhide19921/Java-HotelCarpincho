@@ -1,8 +1,9 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=c137f81c1d104d8694a6faa558adc705b9e2d1e2
+>>>>>>>=84d2838e9b6e0197e29e6c4c68befdc622350350
 eclipse.preferences.version=1
-encoding//reportes/ReporteContabilidadReservaCuarto.jrxml=UTF-8
+encoding//reportes/ReporteContableReservaCuarto.jrxml=UTF-8
+encoding//reportes/ReporteOcupacion.jrxml=UTF-8
 encoding//reportes/ReportePedidoTicket.jrxml=UTF-8
 encoding//reportes/ReporteReservaEvento.jrxml=UTF-8
 encoding//reportes/TicketReservaCuarto.jrxml=UTF-8

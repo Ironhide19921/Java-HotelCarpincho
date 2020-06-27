@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modelo.Producto;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.controlador.ControladorAgregarProducto;
 
@@ -105,6 +106,10 @@ public class ControladorABMProducto implements Initializable{
 	
 	@FXML
     private void editarProducto(ActionEvent event) throws Exception {
+		if(tablaProductos.getSelectionModel().getSelectedItem() == null) {
+			Validador.mostrarMensaje("Seleccione un producto para editarlo.");
+			return;
+		}
 		try {
 			//Stage primaryStage = new Stage(); 
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarProducto.fxml");
@@ -127,6 +132,10 @@ public class ControladorABMProducto implements Initializable{
 	
 	@FXML
 	private void borrarProducto() throws Exception{
+		if(tablaProductos.getSelectionModel().getSelectedItem() == null) {
+			Validador.mostrarMensaje("Seleccione un producto para eliminarlo.");
+			return;
+		}
 		try{
 			ProductoDTO productoSeleccionado = tablaProductos.getSelectionModel().getSelectedItem();
 			this.producto.borrarProducto(productoSeleccionado);

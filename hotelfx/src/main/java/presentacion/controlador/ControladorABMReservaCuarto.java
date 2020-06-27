@@ -58,7 +58,7 @@ public class ControladorABMReservaCuarto implements Initializable
 	private ReservaCuarto reserva;
 	private Cuarto cuartos;
 	private FxmlLoader fxml;
-	private Stage primaryStage;
+	public static Stage primaryStage;
 	private ControladorLogin controladorLogin;
 	
 	//public static Stage AgregarReservaStage = new Stage();

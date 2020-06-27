@@ -442,6 +442,7 @@ public class ControladorMenuPrincipal implements Initializable{
 	public void deslogear() throws IOException {
 		Main.stage.close();
 		ControladorABMProducto.AgregarProductoStage.close();
+		ControladorABMReservaCuarto.primaryStage.close();
 		
 		//Desactivo todos los botones para preparar el reinicio
 		for(Button boton : listaButtons) {
