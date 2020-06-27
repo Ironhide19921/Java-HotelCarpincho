@@ -566,8 +566,9 @@ public class Validador {
 			return false;
 		}
 		else if(objeto instanceof ProductoDTO && listaDeObjetos.get(0) instanceof ProductoDTO) {
-			for(T producto: listaDeObjetos) {			
-				if(((ProductoDTO) producto).getNombre().equals(((ProductoDTO)objeto).getNombre()) && ((ProductoDTO) producto).getIdProducto() != ((ProductoDTO) objeto).getIdProducto()){				
+			for(T producto: listaDeObjetos) {								
+				if(((ProductoDTO) producto).getNombre().equalsIgnoreCase(((ProductoDTO)objeto).getNombre()) &&
+						((ProductoDTO) producto).getIdProducto() != (((ProductoDTO)objeto).getIdProducto())){				
 					return true;
 				}
 			}
