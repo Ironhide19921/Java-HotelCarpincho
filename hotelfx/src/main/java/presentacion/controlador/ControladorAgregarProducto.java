@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.ProductoDTO;
@@ -43,8 +44,14 @@ public class ControladorAgregarProducto implements Initializable{
 		String descripcion = txtDescripcion.getText();
 		String proveedor = txtProveedor.getText();
 		ProductoDTO nuevoProd= new ProductoDTO(0, nombre, precio, descripcion, proveedor, "Comida");
-		this.producto.agregarProducto(nuevoProd);
-		cerrarVentanaAgregar();
+		//valido repetidos
+		if(!Validador.consultarRepetidos(nuevoProd, this.producto.obtenerProductos())) {
+			this.producto.agregarProducto(nuevoProd);
+			cerrarVentanaAgregar();
+		}else {
+			Validador.mostrarMensaje("El producto ya existe");
+		}
+		
 	}
 	
 	@FXML
@@ -64,8 +71,25 @@ public class ControladorAgregarProducto implements Initializable{
 		String descripcion = txtDescripcion.getText();
 		String proveedor = txtProveedor.getText();
 		ProductoDTO nuevoProd= new ProductoDTO(id, nombre, precio, descripcion, proveedor, "Comida");
-		this.producto.modificarProducto(nuevoProd);
-		cerrarVentanaEditar();
+		ProductoDTO prodActual = null;
+		//repetidos
+		List<ProductoDTO> productosSinActual = this.producto.obtenerProductos();
+		for(ProductoDTO prod : productosSinActual) {
+			if(prod.getIdProducto() == this.id) {
+				prodActual = prod;
+			}
+		}
+		
+		productosSinActual.remove(prodActual);
+		
+		if(!Validador.consultarRepetidos(nuevoProd, productosSinActual)) {
+			this.producto.modificarProducto(nuevoProd);
+			System.out.println("producto modificado");
+			cerrarVentanaEditar();
+		}else {
+			Validador.mostrarMensaje("El producto ya existe");
+		}
+		
 	}
 	
 	public void setearCamposPantalla(ProductoDTO prodSeleccionado) {

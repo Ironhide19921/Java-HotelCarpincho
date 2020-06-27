@@ -79,13 +79,19 @@ public class ControladorAgregarCuarto implements Initializable {
 			return;
 		}		
 		String piso =txtPiso.getText();
-		String habitacion = txtHabitacion.getText();
+		String habitacion = txtHabitacion.getText().toUpperCase();
 		String categoria = cmbBoxCatesCuarto.getValue();
 		String[] cates = categoria.split("-");
 		int idCateCuarto = Integer.valueOf(cates[0]);	
 		CuartoDTO nuevoCuarto = new CuartoDTO(0,idCateCuarto, capacidad, monto, montoSenia, piso, habitacion, true);
-		this.cuarto.agregarCuarto(nuevoCuarto);
-		cerrarVentanaAgregar();
+		//valido repetidos
+		if(!Validador.consultarRepetidos(nuevoCuarto, this.cuarto.obtenerCuartos())) {
+			this.cuarto.agregarCuarto(nuevoCuarto);
+			cerrarVentanaAgregar();
+		}else {
+			Validador.mostrarMensaje("El cuarto ya existe");
+		}
+		
 	}
 
 	public void setearCamposPantalla(CuartoDTO cuartoSeleccionado) throws IOException {
@@ -123,13 +129,27 @@ public class ControladorAgregarCuarto implements Initializable {
 			return;
 		}
 		String piso =txtPiso.getText();
-		String habitacion = txtHabitacion.getText();
+		String habitacion = txtHabitacion.getText().toUpperCase();
 		String categoria = cmbBoxCatesCuarto.getValue();
 		String[] cates = categoria.split("-");
 		int idCateCuarto = Integer.valueOf(cates[0]);	
 		CuartoDTO nuevoCuarto = new CuartoDTO(id, idCateCuarto, capacidad, monto, montoSenia, piso, habitacion, true);
-		this.cuarto.modificarCuartos(nuevoCuarto);
-		cerrarVentanaModificar();	
+		CuartoDTO cuartoActual = null;
+		List<CuartoDTO> cuartosSinActual = this.cuarto.obtenerCuartos();
+		for(CuartoDTO c : cuartosSinActual) {
+			if(c.getId() == this.id) {
+				cuartoActual = c;
+			}
+		}
+		cuartosSinActual.remove(cuartoActual);
+		
+		if(!Validador.consultarRepetidos(nuevoCuarto, cuartosSinActual)) {
+			this.cuarto.modificarCuartos(nuevoCuarto);
+			cerrarVentanaModificar();
+		}else {
+			Validador.mostrarMensaje("El cuarto ya existe");
+		}
+			
 	}
 	
 	@FXML
