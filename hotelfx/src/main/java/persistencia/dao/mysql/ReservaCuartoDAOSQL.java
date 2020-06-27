@@ -26,7 +26,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?);";
 	private static final String delete = "DELETE FROM reservacuarto WHERE "
 			+ "idReservaCuarto = ?";
-	private static final String readall = "SELECT * FROM reservacuarto";
+	private static final String readall = "SELECT * FROM reservacuarto where Estado = 1";
 	private static final String update = "UPDATE reservacuarto SET idCliente = ?, idUsuario = ?, "
 			+ "idCuarto = ?, Senia = ?, MontoReservaCuarto = ?, EmailFacturacion = ?, "
 			+ "NumeroTarjeta = ? ,FormaPago = ?, TipoTarjeta = ?, CodSeguridadTarjeta = ?, "

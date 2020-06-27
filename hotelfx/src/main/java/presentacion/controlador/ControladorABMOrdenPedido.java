@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -10,6 +11,7 @@ import dto.CuartoDTO;
 import dto.OrdenPedidoDTO;
 import dto.ReservaCuartoDTO;
 import dto.TablaReservaDTO;
+import dto.TicketDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,9 +29,12 @@ import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.OrdenPedido;
 import modelo.ReservaCuarto;
+import modelo.Ticket;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.controlador.ControladorAgregarOrdenPedido;
+import presentacion.reportes.ReportePedidoTicket;
+import presentacion.reportes.ReporteTicketReserva;
 
 public class ControladorABMOrdenPedido implements Initializable{
 	
@@ -51,6 +56,7 @@ public class ControladorABMOrdenPedido implements Initializable{
 	private Cliente cliente;
 	private ReservaCuarto reservas;
 	private BigDecimal montoTotal;
+	private Ticket ticket;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -58,6 +64,7 @@ public class ControladorABMOrdenPedido implements Initializable{
 		this.ordenPedido = new OrdenPedido(new DAOSQLFactory());
 		this.cliente = new Cliente(new DAOSQLFactory() );
 		this.reservas = new ReservaCuarto(new DAOSQLFactory() );
+		this.ticket = new Ticket(new DAOSQLFactory());
 		listaOrdenPedidos = FXCollections.observableArrayList();
 		tablaOrdenPedidos.getItems().clear();
 		this.panelDatos.setVisible(false);
@@ -173,6 +180,48 @@ public class ControladorABMOrdenPedido implements Initializable{
 		monto = monto.add(montoTotalReserva);
 		resultadoTotal.setText(monto+"");
 	}
+	
+	@FXML
+	public void generarYEnviarTicket() {
+		//datos del ticket
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		TicketDTO nuevoTicket = new TicketDTO(0, Integer.parseInt(idCliente.getText()),new BigDecimal(resultadoTotal.getText()), "descripcion", "path", timestamp);
+		this.ticket.agregarCliente(nuevoTicket);
+		int ultimoIdTicket = this.ticket.obtenerIdTicketRecienInsertado(nuevoTicket.getIdCliente());
+		TicketDTO ticket = this.ticket.getTicket(ultimoIdTicket);
+		String path = "/tickets/reserva/ticketReserva_" + idReserva + "_"+ ticket.getIdTicket() +".pdf";
+		String pathPDF = ".//tickets//reserva//ticketReserva_" + idReserva + "_"+ ticket.getIdTicket() +".pdf";
+		
+		//datos del reporte
+		ReporteTicketReserva reporte = new ReporteTicketReserva(Integer.parseInt(idReserva.getText()), pathPDF);
+		reporte.mostrar();
+		
+		if(!verificarPath(path)) {
+			this.ticket.modificarTicket(ticket, path);
+			reporte.guardarPdf();
+		}
+		Validador.mostrarMensaje("Su ticket ha sido creado con exito.");
+		cerrarVentanaAgregarY_GenerarTicket();
+	}
+	
+	
+	private boolean verificarPath(String path) {
+		boolean pathRepetido = false;
+		for(TicketDTO t : this.ticket.obtenerClientes()) {
+			if(t.getPath().equalsIgnoreCase(path)) {
+				pathRepetido = true;
+			}
+		}
+		return pathRepetido;
+	}
+	
+	@FXML
+	private void cerrarVentanaAgregarY_GenerarTicket() {
+		Stage stage = (Stage) btnGenerarTicket.getScene().getWindow();
+		stage.close();
+	}
+		
+
 	
 
 }

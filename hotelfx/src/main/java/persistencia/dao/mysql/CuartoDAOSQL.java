@@ -23,18 +23,32 @@ public class CuartoDAOSQL implements CuartoDAO{
 	private static final String updateEstado = "UPDATE cuarto SET estado = ? WHERE idCuarto = ?";
 	private static final String search = "SELECT * FROM cuarto WHERE capacidad LIKE ? OR monto LIKE ? OR montoSenia LIKE ? OR piso LIKE ? OR habitacion LIKE ?";
 	private static final String search1 = "SELECT * FROM cuarto WHERE idCuarto = ?";
-	private static final String searchDisponible = "SELECT h.idCuarto, h.idCategoriaCuarto, h.Capacidad, "
-			+ "h.Monto, h.MontoSenia, h.Piso, h.Habitacion, h.Estado FROM cuarto h" + 
-			"	left join reservaCuarto r on" + 
-			"	r.idCuarto = h.idCuarto" + 
-			"	where not" + 
-			"	(? <= r.FechaEgreso" + 
-			"	AND ? >= r.FechaIngreso)" + 
-			"UNION " + 
-			"SELECT cuarto.idCuarto, cuarto.idCategoriaCuarto, cuarto.Capacidad, cuarto.Monto, "
-			+ "cuarto.MontoSenia, cuarto.Piso, cuarto.Habitacion, cuarto.Estado FROM cuarto "
-			+ "left join reservaCuarto rc on" + 
-			"				rc.idCuarto <> cuarto.idCuarto " ;
+	private static final String searchDisponible =
+			"SELECT cuarto.idCuarto, "
+			+"cuarto.idCategoriaCuarto,"
+			+"cuarto.capacidad, "
+			+"cuarto.monto, "
+			+"cuarto.montoSenia, "
+			+"cuarto.piso,"
+			+"cuarto.habitacion, "
+			+"cuarto.estado "
+			+"FROM cuarto "
+			+"where estado = 1"
+			+" EXCEPT " 
+			+"SELECT h.idCuarto,"
+			+"h.idCategoriaCuarto,"
+			+"h.capacidad,"
+			+"h.monto,"
+			+"h.montoSenia,"
+			+"h.piso,"
+			+"h.habitacion,"
+			+"h.estado"
+			+"FROM cuarto as h" 
+			+"left join reservacuarto as r on" 
+			+"r.idCuarto = h.idCuarto" 
+			+"where" 
+			+"(? >= r.FechaIngreso and ? < r.FechaIngreso)  " 
+			+"AND (r.FechaEgreso >= ? and r.FechaEgreso < ?) and r.Estado = 1 and h.estado = 1";
 
 	@Override
 	public boolean insert(CuartoDTO cuarto) {
@@ -207,8 +221,11 @@ public class CuartoDAOSQL implements CuartoDAO{
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(searchDisponible);
-			statement.setTimestamp(1,fechaEgreso);
+	
+			statement.setTimestamp(1,fechaIngreso);
 			statement.setTimestamp(2,fechaIngreso);
+			statement.setTimestamp(3,fechaEgreso);
+			statement.setTimestamp(4,fechaEgreso);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()){

@@ -105,7 +105,7 @@ WHERE
 				<textFieldExpression><![CDATA["Ticket de reserva de evento "]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="390" y="0" width="166" height="40" uuid="d877755c-8f35-4593-8cc9-b306956d5b35"/>
+				<reportElement x="0" y="17" width="555" height="40" uuid="d877755c-8f35-4593-8cc9-b306956d5b35"/>
 				<imageExpression><![CDATA["https://i.imgur.com/aDOl5Qj.png"]]></imageExpression>
 			</image>
 		</band>
