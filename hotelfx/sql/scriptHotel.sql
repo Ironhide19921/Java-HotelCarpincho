@@ -117,6 +117,13 @@ INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,11);
 INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,12);
 INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,13);
 INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,14);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,15);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,16);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,17);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,18);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,19);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,20);
+INSERT INTO `permisoPerfil` (idPerfil,IdPermiso) VALUES (1,21);
 
 CREATE TABLE `ordenPedido`
 (
