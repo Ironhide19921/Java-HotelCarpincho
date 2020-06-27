@@ -228,15 +228,18 @@ public class Validador {
 			mostrarMensaje("Ingrese la forma de pago.");
 			return false;
 		}
-		if(fechaReserva == null) {
+		
+		/*if(fechaReserva == null) {
 			mostrarMensaje("La fecha de reserva es obligatoria (*).");
 			return false;
 		}
-
-		if(cantidadHoras.equals(BigDecimal.valueOf(0)) || montoSenia.equals(BigDecimal.valueOf(0))) {
+*/
+		
+		/*if(cantidadHoras.equals(BigDecimal.valueOf(0)) || montoSenia.equals(BigDecimal.valueOf(0))) {
 			Validador.mostrarMensaje("Monto de la seña o cantidad de horas inválido.");
 			return false;
-		}
+		}*/
+		
 
 		if(!controladorAgregarReservaCuarto1.getFormaPago().equals(FormaPago.EFECTIVO)) {
 			if(controladorAgregarReservaCuarto1.getTipoTarjeta() == null || numeroTarjeta == null || fechaVencTarjeta == null || codSeguridadTarjeta == null)
