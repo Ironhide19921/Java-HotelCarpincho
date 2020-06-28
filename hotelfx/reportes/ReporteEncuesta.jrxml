@@ -136,7 +136,7 @@ group by c.encuestado]]>
 			</staticText>
 			<componentElement>
 				<reportElement x="5" y="40" width="544" height="30" uuid="995fc4df-ea33-40bf-b645-ef6a8b3d90a0"/>
-				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="DatasetLista" uuid="cad93cf1-1888-48eb-b752-88e4eabd19d2">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -186,7 +186,7 @@ group by c.encuestado]]>
 		<band height="218" splitType="Stretch">
 			<pieChart>
 				<chart evaluationTime="Report">
-					<reportElement x="170" y="10" width="232" height="200" uuid="eefdee32-2085-4675-99f3-7a78523ed055"/>
+					<reportElement x="170" y="10" width="232" height="200" uuid="fd946209-c217-4987-bf64-46a45ce5c632"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>

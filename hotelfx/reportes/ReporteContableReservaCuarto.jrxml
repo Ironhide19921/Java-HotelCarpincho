@@ -3,140 +3,327 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="047091a0-0eca-4c5f-8669-682f4504f278">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data1"/>
-	<queryString language="SQL">
-		<![CDATA[select DATE_FORMAT(Fecha, '%Y-%m-%d') as Fecha,
-sum(Ingreso) as Ingreso,
-sum(Egreso) as Egreso,
-sum(Ganancia) as Ganancia
-from(
-select 
-DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d') as Fecha,
-count(*) as Ingreso,
-0 as Egreso,
-sum(senia) as Ganancia
-from hotel.reservacuarto as r
-group by DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d')
+	<subDataset name="Dataset1" uuid="ad5bfbb6-e0a0-4414-b3ab-99688c2cb28a">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data1"/>
+		<queryString language="SQL">
+			<![CDATA[
+select TIPOS,
+sum(Ganancias) as Ganancias
+from
+(select
+if(rc.idReservaCuarto is not null, "Ingreso Reserva cuarto", "") as TIPOS,
+            rc.senia as Ganancias
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
 union
-select
-DATE_FORMAT(r.fechaOut, '%Y-%m-%d') as Fecha,
-0 as Ingreso,
-count(*) as Egreso, 
-sum(r.montoReservaCuarto) as Ganancia
-from hotel.reservacuarto as r
-group by DATE_FORMAT(r.fechaOut, '%Y-%m-%d')
+select 
+if(rc.idReservaCuarto is not null, "Egreso Reserva cuarto", "") as TIPOS,
+            rc.MontoReservaCuarto as Ganancias
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
 ) as t
-group by Fecha 
-  ]]>
+group by TIPOS
+ ]]>
+		</queryString>
+		<field name="TIPOS" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="TIPOS"/>
+		</field>
+		<field name="Ganancias" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="Ganancias"/>
+		</field>
+		<variable name="Variable_1" class="java.lang.String"/>
+		<variable name="Ganancia1" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+		</variable>
+		<group name="TIPO">
+			<groupExpression><![CDATA[$F{TIPO}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="FechaI" class="java.sql.Date"/>
+	<parameter name="FechaF" class="java.sql.Date"/>
+	<queryString language="SQL">
+		<![CDATA[select 
+if(rc.idReservaCuarto is not null, "Ingreso Reserva cuarto", "") as TIPO,
+			1 as NTIPO,
+            c.idCliente as Cliente,
+            rc.senia as Ganancia,
+            DATE_FORMAT(rc.fechaIngreso, '%V') as Semana,
+            DATE_FORMAT(rc.fechaIngreso, '%m') as Mes,
+            DATE_FORMAT(rc.fechaIngreso, '%Y-%m-%d') as Fecha
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
+where  DATE_FORMAT(rc.fechaIngreso, '%Y-%m-%d')  >= $P{FechaI} and  DATE_FORMAT(rc.fechaIngreso, '%Y-%m-%d') <= $P{FechaF} 
+union
+select 
+if(rc.idReservaCuarto is not null, "Egreso Reserva cuarto", "") as TIPO,
+		 2 as NTIPO,
+            c.idCliente as Cliente,
+            rc.MontoReservaCuarto as Ganancia,
+            DATE_FORMAT(rc.fechaEgreso, '%V') as Semana,
+            DATE_FORMAT(rc.fechaEgreso, '%m') as Mes,
+            DATE_FORMAT(rc.fechaEgreso, '%Y-%m-%d') as Fecha
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
+where  DATE_FORMAT(rc.fechaEgreso, '%Y-%m-%d') >= $P{FechaI} and  DATE_FORMAT(rc.fechaEgreso, '%Y-%m-%d')<= $P{FechaF} 
+union
+select 
+if(re.idReservaEvento is not null, "Reserva evento", "") as TIPO,
+		3 as NTIPO,
+            c.idCliente as Cliente,
+            re.montoReservaEvento as Ganancia,
+            DATE_FORMAT(re.fechaInicioReserva, '%V') as Semana,
+            DATE_FORMAT(re.fechaInicioReserva, '%m') as Mes,
+            DATE_FORMAT(re.fechaInicioReserva, '%Y-%m-%d') as Fecha
+from cliente c
+inner join reservaevento re on re.idCliente = c.idCliente
+where   DATE_FORMAT(re.fechaInicioReserva, '%Y-%m-%d') >= $P{FechaI} and   DATE_FORMAT(re.fechaInicioReserva, '%Y-%m-%d') <= $P{FechaF} 
+union
+select 
+if(op.idOrdenPedido is not null and op.esRestoran = 0, "Pedido Reserva", "Pedido") as TIPO,
+			4 as NTIPO,
+            c.idCliente as Cliente,
+            op.PrecioTotal as Ganancia,
+            DATE_FORMAT(ti.fechaReserva, '%V') as Semana,
+            DATE_FORMAT(ti.fechaReserva, '%m') as Mes,
+		DATE_FORMAT(ti.fechaReserva, '%Y-%m-%d') as Fecha
+from cliente c
+inner join ordenpedido op on op.idCliente = c.idCliente
+inner join ticket ti on op.idCliente = ti.idCliente
+where  	DATE_FORMAT(ti.fechaReserva, '%Y-%m-%d') >= $P{FechaI} and  	DATE_FORMAT(ti.fechaReserva, '%Y-%m-%d') <= $P{FechaF} 
+order by Fecha]]>
 	</queryString>
-	<field name="Fecha" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="Fecha"/>
+	<field name="TIPO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO"/>
 	</field>
-	<field name="Ingreso" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="Ingreso"/>
+	<field name="NTIPO" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="NTIPO"/>
 	</field>
-	<field name="Egreso" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="Egreso"/>
+	<field name="Cliente" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Cliente"/>
 	</field>
 	<field name="Ganancia" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="Ganancia"/>
 	</field>
-	<variable name="SumSemanal" class="java.math.BigDecimal"/>
-	<group name="Fecha">
+	<field name="Semana" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Semana"/>
+	</field>
+	<field name="Mes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Mes"/>
+	</field>
+	<field name="Fecha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha"/>
+	</field>
+	<variable name="SumDiario" class="java.math.BigDecimal" resetType="Group" resetGroup="Dia" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{Ganancia}]]></initialValueExpression>
+	</variable>
+	<variable name="SumSemanal" class="java.math.BigDecimal" resetType="Group" resetGroup="Semana" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+	</variable>
+	<variable name="SumMes" class="java.math.BigDecimal" resetType="Group" resetGroup="Mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+	</variable>
+	<group name="Mes">
+		<groupExpression><![CDATA[$F{Mes}]]></groupExpression>
+		<groupFooter>
+			<band height="19">
+				<textField>
+					<reportElement x="480" y="0" width="80" height="18" uuid="9f690598-fac0-431c-9ab5-47bdf1d2efb1"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{SumMes}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Transparent" x="0" y="-1" width="559" height="20" forecolor="#969190" backcolor="#736B6B" uuid="87a8cf17-71a7-4806-98db-5dd9ac6bf349"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="0" width="80" height="18" forecolor="#000000" uuid="3a617e1d-de01-4242-903b-29c878e09c85"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Total mensual]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Semana">
+		<groupExpression><![CDATA[$F{Semana}]]></groupExpression>
+		<groupFooter>
+			<band height="19">
+				<textField>
+					<reportElement x="380" y="0" width="100" height="18" uuid="21eea6cd-c743-4e91-ac45-407b06d6f625"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{SumSemanal}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Transparent" x="0" y="-1" width="559" height="20" forecolor="#969190" backcolor="#736B6B" uuid="a6fbe445-cf1b-44c9-ab45-5dc496007b99"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="0" width="80" height="18" forecolor="#000000" uuid="f646fd84-e952-4647-b6d5-59ee529f93dc"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Total semanal]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Dia">
 		<groupExpression><![CDATA[$F{Fecha}]]></groupExpression>
+		<groupFooter>
+			<band height="20">
+				<textField>
+					<reportElement x="280" y="0" width="100" height="18" uuid="6bde7158-9bfc-42da-9e81-02fe80b60adf"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{SumDiario}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Transparent" x="0" y="0" width="559" height="20" forecolor="#969190" backcolor="#736B6B" uuid="2a2e26b3-567c-4d6c-b093-efe0781affe5"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="2" width="80" height="18" forecolor="#000000" uuid="49ac5212-949e-4451-aec1-48e7b15a6fd7"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Total diario]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="32" splitType="Stretch">
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="166" height="40" uuid="594f7898-2f45-40cc-bb17-687e02d65864"/>
+				<imageExpression><![CDATA["https://i.imgur.com/aDOl5Qj.png"]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement x="16" y="0" width="100" height="20" uuid="ebc5fbdc-9c9d-4112-8d40-4320cb014e12">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="918b6244-ec23-49f7-91e1-c7f1f0a09ced"/>
+				<reportElement x="0" y="40" width="210" height="25" uuid="d6b2f84f-5338-4503-b7cc-9a5b33a926e0">
+					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<textElement>
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carpincho CORP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="50" height="20" uuid="8ea31320-f26d-446e-b0e8-bffdeebb39e1"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="470" y="0" width="84" height="20" uuid="ccc21f35-f862-45ce-a52d-508f8fb6ded3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="32" width="206" height="40" uuid="3bf74cbd-43e3-4170-a4e9-05ef71d2a3a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="22"/>
+				</textElement>
+				<text><![CDATA[Reporte Contable]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="80" height="18" forecolor="#000000" uuid="c966d551-0db9-4f46-a5cb-789997d05932"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="20" width="80" height="18" forecolor="#000000" uuid="7eb4a41a-ff4c-4fe4-b960-7d0c1007c722"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="18" forecolor="#000000" uuid="74bd6879-523c-4a96-b1af-2e9e788d4047"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="20" width="100" height="18" uuid="743624f5-bd61-4f63-95be-2af584325b32"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{FechaI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="20" width="100" height="18" uuid="1cbecb58-e007-4b11-bf95-a62c39402fe6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{FechaF}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="-1" width="559" height="20" forecolor="#969190" backcolor="#736B6B" uuid="cc16c5fb-ec6d-4f9b-a6f3-9c6165553518"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="18" forecolor="#FFFFFF" uuid="bf0f24f2-a6a6-47db-8a8e-171b16b4d6c4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="126" y="0" width="100" height="20" uuid="cd32581e-a19f-459d-99f9-1cd6616e0a84">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="77789c27-0007-4ab2-b9ef-cb14d8608cd4"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
+				<reportElement x="80" y="0" width="100" height="18" forecolor="#FFFFFF" uuid="8190c59c-9b1a-48e9-8490-2f0e371a3c04"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Ingreso]]></text>
+				<text><![CDATA[Tipo de ingreso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="226" y="0" width="100" height="20" uuid="a236db96-1560-4397-b8d8-cf220cbdbde2">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31c8f7c6-5f99-46c0-a4c9-97895ce9d6b7"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Egreso]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="350" y="0" width="100" height="20" uuid="467857e5-e326-496c-af89-5526fefce0a4">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b24ea1c-a69c-4dd8-a09b-d3e3d9b63fed"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
+				<reportElement x="180" y="0" width="100" height="18" forecolor="#FFFFFF" uuid="8933a969-4e9d-434a-b237-eeddfc83e2af"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Ganancia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="18" forecolor="#FFFFFF" uuid="509ab502-3b7a-464b-847b-7fa7b1b17e9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ingreso diario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="18" forecolor="#FFFFFF" uuid="583a27e6-008d-4c50-897a-2b9e8575edd9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Semanal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="481" y="0" width="79" height="18" forecolor="#FFFFFF" uuid="646c66e6-8fe0-4dda-9318-4275b5987b36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Mensual]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="19" splitType="Stretch">
 			<textField>
-				<reportElement x="16" y="0" width="100" height="15" uuid="a387dd54-74c2-4154-a351-9bb5481774cd">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="918b6244-ec23-49f7-91e1-c7f1f0a09ced"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="126" y="0" width="100" height="15" uuid="a4877769-17bd-49f2-97ac-4c19de3b431e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="77789c27-0007-4ab2-b9ef-cb14d8608cd4"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Ingreso}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="227" y="0" width="100" height="15" uuid="0134ae5f-3b14-467c-a593-613b62e4c6d0">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31c8f7c6-5f99-46c0-a4c9-97895ce9d6b7"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Egreso}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="350" y="0" width="100" height="15" uuid="6388d58e-d9c4-432c-8b89-af0248ecccd6">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b24ea1c-a69c-4dd8-a09b-d3e3d9b63fed"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
+				<reportElement x="180" y="0" width="100" height="18" uuid="89dbeedb-15cf-4c70-868f-425afadc9a07"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Ganancia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="100" height="18" uuid="499759a9-3e9b-4c62-b9ca-5143a167c166"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="80" height="18" uuid="1f057b34-073d-4cc0-a328-b6d809921a55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="46" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="240" height="14" uuid="dbcd728c-950a-4077-bb39-8024601ff41b"/>
-				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="41" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="170" height="20" uuid="0d9f9b5a-059d-4c7c-a6e3-8aad231b76b2"/>
+				<textFieldExpression><![CDATA["Página :"+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="269" splitType="Stretch"/>
 	</summary>
 </jasperReport>

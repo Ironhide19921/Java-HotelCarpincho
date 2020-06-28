@@ -5,7 +5,7 @@
     
     }
     
-    .table-view:row-selection .table-row-cell:filled:selected { 
+.table-view:row-selection .table-row-cell:filled:selected { 
     -fx-background-color: rgb(60, 60, 60);
 }
 .table-view:row-selection .table-row-cell:filled:selected:hover { 
@@ -20,70 +20,38 @@
    -fx-display: inline-block;
    -fx-margin: 0;
    -fx-background-color:  rgb(0, 108, 71);		
- /* background: var(--color-primary-500);
-  color: var(--color-secondary-900);*/ 
    -fx-background-radius: 0;
    -fx-transition: background 250ms, box-shadow 250ms;
-  
- /*-fx-background-radius:0;
-  
-    -fx-border-width: 0 3 3 0;
-    -fx-background-insets: 0;*/
-    -fx-text-fill: white;
+	-fx-text-fill: white;
 }
+
 .button:hover{
 	-fx-background-color:rgb(120, 120, 120);
 	-fx-text-fill: white;
 }
-/*
-#btnAbrirABMReservas , #btnAbrirImportar, #btnAbrirABMCuartos
-,#btnAbrirABMCliente , #btnAbrirABMUsuarios ,#btnAbrirABMPerfiles , #btnAbrirABMCategoriasCuartos,
-#btnAbrirReservaEvento,#btnAbrirCategoriaEvento, #btnAbrirABMSalones{
+
+.ventana{
+	-fx-pref-height :530px ;
+	-fx-pref-width : 840px;
+}
+
+#panelDatos{
+	 -fx-border-color:grey;
+}
+
+.btn-menu
+{
    -fx-position: relative;
    -fx-display: inline-block;
    -fx-margin: 0;
    -fx-background-color: grey;	
- /* background: var(--color-primary-500);
-  color: var(--color-secondary-900);*/ 
- /*  -fx-background-radius: 0;
-   -fx-transition: background 250ms, box-shadow 250ms;
-   -fx-text-fill: white; */
- /*-fx-background-radius:0;
-    -fx-border-width: 0 3 3 0;
-    -fx-background-insets: 0;*/
-/* }*/
-
-/* #btnAbrirABMReservas:hover , #btnAbrirImportar:hover, #btnAbrirABMCuartos:hover
-,#btnAbrirABMCliente:hover , #btnAbrirABMUsuarios:hover ,#btnAbrirABMPerfiles:hover , #btnAbrirABMCategoriasCuartos:hover,
-#btnAbrirReservaEvento:hover,#btnAbrirCategoriaEvento:hover,  #btnAbrirABMSalones:hover{
-
-	-fx-background-color: rgb(120, 120, 120);	
-	-fx-text-fill: white;
-}*/
-
-.btn-menu{
-	  -fx-position: relative;
-   -fx-display: inline-block;
-   -fx-margin: 0;
-   -fx-background-color: grey;	
    -fx-pref-height: 30px;
- /* background: var(--color-primary-500);
-  color: var(--color-secondary-900);*/ 
-/*  -fx-background-radius: 0;
-   -fx-transition: background 250ms, box-shadow 250ms;
-   -fx-text-fill: white;*/
- /*-fx-background-radius:0;
-    -fx-border-width: 0 3 3 0;
-    -fx-background-insets: 0;*/
  }
 
-.btn-menu:hover{
-	
+.btn-menu:hover
+{
 	-fx-background-color: rgb(120, 120, 120);	
 	-fx-text-fill: white;
 }
 
 
-#center, .bordePrincipal{
-	 -fx-border-color:grey;
-}
