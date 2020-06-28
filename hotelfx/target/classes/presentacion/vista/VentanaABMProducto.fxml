@@ -9,26 +9,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="623.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMProducto">
+<AnchorPane prefHeight="542.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMProducto">
 	<children>
-      <BorderPane layoutX="13.0" layoutY="10.0" prefHeight="632.0" prefWidth="789.0">
+      <BorderPane layoutX="13.0" layoutY="10.0" prefHeight="529.0" prefWidth="789.0">
          <top>
             <Pane prefHeight="66.0" prefWidth="786.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="txtBuscarProd" layoutX="56.0" layoutY="20.0" prefHeight="27.0" prefWidth="196.0" />
-                  <Button fx:id="btnBuscarProd" layoutX="279.0" layoutY="20.0" mnemonicParsing="false" onAction="#buscarProductos" text="Buscar" />
-                  <Button fx:id="btnRefrescar" layoutX="677.0" layoutY="20.0" mnemonicParsing="false" onAction="#refrescarTablaProductos" text="Refrescar" />
+                  <TextField fx:id="txtBuscarProd" layoutX="80.0" layoutY="20.0" prefHeight="27.0" prefWidth="196.0" />
+                  <Button fx:id="btnBuscarProd" layoutX="302.0" layoutY="20.0" mnemonicParsing="false" onAction="#buscarProductos" styleClass="btn-pant-interna" text="Buscar" />
+                  <Button fx:id="btnRefrescar" layoutX="689.0" layoutY="20.0" mnemonicParsing="false" onAction="#refrescarTablaProductos" styleClass="btn-pant-interna" text="Refrescar" />
                </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="519.0" prefWidth="27.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="415.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
          </left>
          <bottom>
-            <Pane prefHeight="151.0" prefWidth="786.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="70.0" prefWidth="789.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarProd" layoutX="29.0" layoutY="28.0" mnemonicParsing="false" onAction="#agregarProducto" text="Agregar producto" />
-                  <Button fx:id="btnEditarProd" layoutX="177.0" layoutY="28.0" mnemonicParsing="false" onAction="#editarProducto" text="Editar producto" />
-                  <Button fx:id="btnBorrarProd" layoutX="308.0" layoutY="28.0" mnemonicParsing="false" onAction="#borrarProducto" text="Borrar producto" />
+                  <Button fx:id="btnAgregarProd" layoutX="80.0" layoutY="23.0" mnemonicParsing="false" onAction="#agregarProducto" styleClass="btn-pant-interna" text="Agregar producto" />
+                  <Button fx:id="btnEditarProd" layoutX="227.0" layoutY="23.0" mnemonicParsing="false" onAction="#editarProducto" styleClass="btn-pant-interna" text="Editar producto" />
+                  <Button fx:id="btnBorrarProd" layoutX="358.0" layoutY="23.0" mnemonicParsing="false" onAction="#borrarProducto" styleClass="btn-pant-interna" text="Borrar producto" />
                </children></Pane>
          </bottom>
          <right>
@@ -41,10 +41,10 @@
                     <columns>
                       <TableColumn fx:id="id" prefWidth="55.0" text="ID" />
                       <TableColumn fx:id="nombre" prefWidth="122.0" text="Nombre" />
-                        <TableColumn fx:id="precio" prefWidth="99.0" text="Precio" />
-                        <TableColumn fx:id="descripcion" prefWidth="220.0" text="Descripcion" />
-                        <TableColumn fx:id="tipo" prefWidth="109.0" text="Tipo" />
-                        <TableColumn fx:id="proveedor" prefWidth="120.0" text="Proveedor" />
+                        <TableColumn fx:id="precio" prefWidth="85.0" text="Precio" />
+                        <TableColumn fx:id="descripcion" prefWidth="186.0" text="Descripcion" />
+                        <TableColumn fx:id="tipo" prefWidth="77.0" text="Tipo" />
+                        <TableColumn fx:id="proveedor" prefWidth="150.0" text="Proveedor" />
                     </columns>
                   </TableView>
                </children>

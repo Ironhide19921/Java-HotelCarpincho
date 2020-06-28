@@ -1,34 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="304.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMReservaEvento">
+<AnchorPane prefHeight="530.0" prefWidth="840.0" styleClass="ventana" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMReservaEvento">
    <children>
-      <BorderPane fx:id="panelActual" prefHeight="304.0" prefWidth="637.0">
+      <BorderPane fx:id="panelActual" prefHeight="530.0" prefWidth="840.0">
          <top>
-            <Pane prefHeight="40.0" prefWidth="479.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="50.0" prefWidth="479.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="textoCliente" layoutX="14.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente :" />
-                  <Button fx:id="btnRefrescar" layoutX="558.0" layoutY="8.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" />
-                  <Text fx:id="nombreCliente" layoutX="65.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="212.5390625" />
+                  <Text fx:id="textoCliente" layoutX="503.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente :">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Text>
+                  <Button fx:id="btnRefrescar" layoutX="558.0" layoutY="8.0" mnemonicParsing="false" onAction="#refrescarTabla" text="Refrescar" visible="false" />
+                  <Text fx:id="nombreCliente" layoutX="554.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="212.5390625" />
+                  <Label layoutX="82.0" layoutY="17.0" prefHeight="17.0" prefWidth="253.0" text="Lista de reservas de eventos">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </top>
          <bottom>
-            <Pane prefHeight="93.0" prefWidth="637.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="100.0" prefWidth="637.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregar" layoutX="481.0" layoutY="16.0" mnemonicParsing="false" onAction="#addReservaEvento" text="Agregar Reserva Evento" />
-                  <Button fx:id="btnEditar" layoutX="427.0" layoutY="16.0" mnemonicParsing="false" onAction="#editarReservaEvento" text="Editar" />
-                  <Button fx:id="btnVolver" layoutX="319.0" layoutY="16.0" mnemonicParsing="false" onAction="#volver" text="Volver a clientes" />
+                  <Button fx:id="btnAgregar" layoutX="481.0" layoutY="16.0" maxHeight="30.0" mnemonicParsing="false" onAction="#addReservaEvento" prefHeight="30.0" text="Agregar Reserva Evento" />
+                  <Button fx:id="btnEditar" layoutX="631.0" layoutY="16.0" mnemonicParsing="false" onAction="#editarReservaEvento" prefHeight="30.0" text="Editar" />
+                  <Button fx:id="btnVolver" layoutX="81.0" layoutY="16.0" mnemonicParsing="false" onAction="#volver" prefHeight="30.0" text="Volver a clientes" />
                   <Button fx:id="btnIniciarReserva" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#iniciarReserva" text="Iniciar" visible="false" />
                   <Button fx:id="btnFinalizarReserva" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#finalizarReserva" text="Finalizar" visible="false" />
-                  <Button fx:id="btnTicket" layoutX="533.0" layoutY="54.0" mnemonicParsing="false" onAction="#generarReporteReservaEvento" text="Generar ticket" />
+                  <Button fx:id="btnTicket" layoutX="685.0" layoutY="16.0" mnemonicParsing="false" onAction="#generarReporteReservaEvento" prefHeight="30.0" text="Generar ticket" />
                </children>
             </Pane>
          </bottom>
@@ -49,6 +59,12 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-         </center></BorderPane>
+         </center>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+         </right></BorderPane>
    </children>
 </AnchorPane>

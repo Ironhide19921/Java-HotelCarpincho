@@ -3,100 +3,122 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="047091a0-0eca-4c5f-8669-682f4504f278">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data1"/>
+	<parameter name="FechaI" class="java.sql.Date"/>
+	<parameter name="FechaF" class="java.sql.Date"/>
 	<queryString language="SQL">
-		<![CDATA[select DATE_FORMAT(Fecha, '%Y-%m-%d') as Fecha,
-sum(Ingreso) as Ingreso,
-sum(Egreso) as Egreso,
-sum(Ganancia) as Ganancia,
-sum(Semana) as Semana,
-sum(Mes) as Mes
-from(
-select 
-DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d') as Fecha,
-count(*) as Ingreso,
-0 as Egreso,
-sum(r.senia) as Ganancia,
-0 as Semana,
-0 as Mes
-from hotel.reservacuarto as r
-group by DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d')
+		<![CDATA[select 
+if(rc.idReservaCuarto is not null, "Ingreso Reserva cuarto", "") as TIPO,
+            c.idCliente as Cliente,
+            rc.senia as Ganancia,
+            DATE_FORMAT(rc.fechaIngreso, '%V') as Semana,
+            DATE_FORMAT(rc.fechaIngreso, '%m') as Mes,
+            DATE_FORMAT(rc.fechaIngreso, '%Y-%m-%d') as Fecha
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
+where  DATE_FORMAT(rc.fechaIngreso, '%Y-%m-%d')  >= $P{FechaI} and  DATE_FORMAT(rc.fechaIngreso, '%Y-%m-%d') <= $P{FechaF} 
 union
 select 
-DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d') as Fecha,
-0 as Ingreso,
-0 as Egreso,
-0 as Ganancia,
-sum(r.senia) as Semana,
-0 as Mes
-from hotel.reservacuarto as r
-group by DATE_FORMAT(r.fechaIngreso, '%V')
+if(rc.idReservaCuarto is not null, "Egreso Reserva cuarto", "") as TIPO,
+            c.idCliente as Cliente,
+            rc.MontoReservaCuarto as Ganancia,
+            DATE_FORMAT(rc.fechaEgreso, '%V') as Semana,
+            DATE_FORMAT(rc.fechaEgreso, '%m') as Mes,
+            DATE_FORMAT(rc.fechaEgreso, '%Y-%m-%d') as Fecha
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
+where  DATE_FORMAT(rc.fechaEgreso, '%Y-%m-%d') >= $P{FechaI} and  DATE_FORMAT(rc.fechaEgreso, '%Y-%m-%d')<= $P{FechaF} 
 union
 select 
-DATE_FORMAT(r.fechaIngreso, '%Y-%m-%d') as Fecha,
-0 as Ingreso,
-0 as Egreso,
-0 as Ganancia,
-0 as Semana,
-sum(r.senia) as Mes
-from hotel.reservacuarto as r
-group by DATE_FORMAT(r.fechaIngreso, '%m')
-
+if(re.idReservaEvento is not null, "Reserva evento", "") as TIPO,
+            c.idCliente as Cliente,
+            re.montoReservaEvento as Ganancia,
+            DATE_FORMAT(re.fechaInicioReserva, '%V') as Semana,
+            DATE_FORMAT(re.fechaInicioReserva, '%m') as Mes,
+            DATE_FORMAT(re.fechaInicioReserva, '%Y-%m-%d') as Fecha
+from cliente c
+inner join reservaevento re on re.idCliente = c.idCliente
+where   DATE_FORMAT(re.fechaInicioReserva, '%Y-%m-%d') >= $P{FechaI} and   DATE_FORMAT(re.fechaInicioReserva, '%Y-%m-%d') <= $P{FechaF} 
 union
-select
-DATE_FORMAT(r.fechaOut, '%Y-%m-%d') as Fecha,
-0 as Ingreso,
-count(*) as Egreso, 
-sum(r.montoReservaCuarto) as Ganancia,
-0 as Semana,
-0 as Mes
-from hotel.reservacuarto as r
-group by DATE_FORMAT(r.fechaOut, '%Y-%m-%d')
-union
-select
-DATE_FORMAT(r.fechaOut, '%Y-%m-%d') as Fecha,
-0 as Ingreso,
-0 as Egreso, 
-0 as Ganancia,
-sum(r.montoReservaCuarto)  as Semana,
-0 as Mes
-from hotel.reservacuarto as r
-group by DATE_FORMAT(r.fechaOut, '%V')
-union
-select
-DATE_FORMAT(r.fechaOut, '%Y-%m-%d') as Fecha,
-0 as Ingreso,
-0 as Egreso, 
-0 as Ganancia,
-0 as Semana,
-sum(r.montoReservaCuarto) as Mes
-from hotel.reservacuarto as r
-group by DATE_FORMAT(r.fechaOut, '%M')
-) as t
-group by Fecha, Semana,Mes]]>
+select 
+if(op.idOrdenPedido is not null and ti.fechaReserva is not null, "Pedido Reserva", "Pedido") as TIPO,
+            c.idCliente as Cliente,
+            op.PrecioTotal as Ganancia,
+            DATE_FORMAT(ti.fechaReserva, '%V') as Semana,
+            DATE_FORMAT(ti.fechaReserva, '%m') as Mes,
+		DATE_FORMAT(ti.fechaReserva, '%Y-%m-%d') as Fecha
+from cliente c
+inner join ordenpedido op on op.idCliente = c.idCliente
+inner join ticket ti on op.idCliente = ti.idCliente
+where  	DATE_FORMAT(ti.fechaReserva, '%Y-%m-%d') >= $P{FechaI} and  	DATE_FORMAT(ti.fechaReserva, '%Y-%m-%d') <= $P{FechaF} 
+order by Fecha
+]]>
 	</queryString>
-	<field name="Fecha" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="Fecha"/>
+	<field name="TIPO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO"/>
 	</field>
-	<field name="Ingreso" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="Ingreso"/>
-	</field>
-	<field name="Egreso" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="Egreso"/>
+	<field name="Cliente" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Cliente"/>
 	</field>
 	<field name="Ganancia" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="Ganancia"/>
 	</field>
-	<field name="Semana" class="java.math.BigDecimal">
+	<field name="Semana" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Semana"/>
 	</field>
-	<field name="Mes" class="java.math.BigDecimal">
+	<field name="Mes" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Mes"/>
 	</field>
-	<variable name="SumSemanal" class="java.math.BigDecimal" calculation="Sum">
+	<field name="Fecha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha"/>
+	</field>
+	<variable name="SumadorTipos" class="java.math.BigDecimal" resetType="Group" resetGroup="Tipos" calculation="Sum">
 		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
 	</variable>
-	<group name="Fecha">
+	<variable name="SumDiario" class="java.math.BigDecimal" resetType="Group" resetGroup="Dia" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{Ganancia}]]></initialValueExpression>
+	</variable>
+	<variable name="SumSemanal" class="java.math.BigDecimal" resetType="Group" resetGroup="Semana" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+	</variable>
+	<variable name="SumMes" class="java.math.BigDecimal" resetType="Group" resetGroup="Mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+	</variable>
+	<group name="Mes">
+		<groupExpression><![CDATA[$F{Mes}]]></groupExpression>
+		<groupFooter>
+			<band height="62">
+				<textField>
+					<reportElement x="490" y="32" width="100" height="30" uuid="9f690598-fac0-431c-9ab5-47bdf1d2efb1"/>
+					<textFieldExpression><![CDATA[$V{SumMes}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Semana">
+		<groupExpression><![CDATA[$F{Semana}]]></groupExpression>
+		<groupFooter>
+			<band height="45">
+				<textField>
+					<reportElement x="400" y="7" width="100" height="30" uuid="21eea6cd-c743-4e91-ac45-407b06d6f625"/>
+					<textFieldExpression><![CDATA[$V{SumSemanal}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Dia">
 		<groupExpression><![CDATA[$F{Fecha}]]></groupExpression>
+		<groupFooter>
+			<band height="30">
+				<textField>
+					<reportElement x="290" y="-5" width="100" height="30" uuid="6bde7158-9bfc-42da-9e81-02fe80b60adf"/>
+					<textFieldExpression><![CDATA[$V{SumDiario}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Tipos">
+		<groupExpression><![CDATA[$F{TIPO}]]></groupExpression>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -108,97 +130,58 @@ group by Fecha, Semana,Mes]]>
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
-			<staticText>
-				<reportElement x="16" y="0" width="100" height="20" uuid="ebc5fbdc-9c9d-4112-8d40-4320cb014e12">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="918b6244-ec23-49f7-91e1-c7f1f0a09ced"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Fecha]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="126" y="0" width="100" height="20" uuid="cd32581e-a19f-459d-99f9-1cd6616e0a84">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="77789c27-0007-4ab2-b9ef-cb14d8608cd4"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Ingreso]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="226" y="0" width="100" height="20" uuid="a236db96-1560-4397-b8d8-cf220cbdbde2">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31c8f7c6-5f99-46c0-a4c9-97895ce9d6b7"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Egreso]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="327" y="0" width="100" height="20" uuid="467857e5-e326-496c-af89-5526fefce0a4">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b24ea1c-a69c-4dd8-a09b-d3e3d9b63fed"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Ganancia]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="427" y="0" width="100" height="30" uuid="19e7e611-cd49-49e2-91fd-5c70d15af768">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49f4b59a-de7b-440a-81d4-36feaacfc95e"/>
-				</reportElement>
-				<text><![CDATA[Semana]]></text>
-			</staticText>
-		</band>
+		<band height="76" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="15" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<textField>
-				<reportElement x="16" y="0" width="100" height="15" uuid="a387dd54-74c2-4154-a351-9bb5481774cd">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="918b6244-ec23-49f7-91e1-c7f1f0a09ced"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="126" y="0" width="100" height="15" uuid="a4877769-17bd-49f2-97ac-4c19de3b431e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="77789c27-0007-4ab2-b9ef-cb14d8608cd4"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Ingreso}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="227" y="0" width="100" height="15" uuid="0134ae5f-3b14-467c-a593-613b62e4c6d0">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31c8f7c6-5f99-46c0-a4c9-97895ce9d6b7"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{Egreso}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="320" y="0" width="100" height="15" uuid="6388d58e-d9c4-432c-8b89-af0248ecccd6">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b24ea1c-a69c-4dd8-a09b-d3e3d9b63fed"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="200" y="0" width="100" height="30" uuid="89dbeedb-15cf-4c70-868f-425afadc9a07"/>
 				<textFieldExpression><![CDATA[$F{Ganancia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="30" uuid="499759a9-3e9b-4c62-b9ca-5143a167c166"/>
+				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="-2" width="100" height="30" uuid="1f057b34-073d-4cc0-a328-b6d809921a55"/>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="53" splitType="Stretch">
-			<textField>
-				<reportElement x="420" y="20" width="100" height="30" uuid="f1295c28-45f5-4b6b-92bc-839d1efb1aa6"/>
-				<textFieldExpression><![CDATA[$F{Semana}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="520" y="20" width="100" height="30" uuid="d0e4a18c-e211-4b1c-bd3b-9e4307a9748a"/>
-				<textFieldExpression><![CDATA[$F{Mes}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="53" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="235" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="180" y="10" width="200" height="200" uuid="e75d68df-7497-42ed-8ae0-c74c6372cdba"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Group" resetGroup="Tipos"/>
+					<pieSeries>
+						<keyExpression><![CDATA[$F{TIPO}]]></keyExpression>
+						<valueExpression><![CDATA[$V{SumadorTipos}]]></valueExpression>
+					</pieSeries>
+					<pieSeries>
+						<keyExpression><![CDATA[$F{Fecha}]]></keyExpression>
+						<valueExpression><![CDATA[$V{SumadorTipos}]]></valueExpression>
+					</pieSeries>
+					<pieSeries>
+						<keyExpression><![CDATA[$F{TIPO}]]></keyExpression>
+						<valueExpression><![CDATA[$V{SumadorTipos}]]></valueExpression>
+						<labelExpression><![CDATA[$V{SumadorTipos}]]></labelExpression>
+					</pieSeries>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
