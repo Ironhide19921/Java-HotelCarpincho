@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteEncuesta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4de822f1-69a5-41ab-808a-5710e636e39a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HotelFx"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="337"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="656"/>
+	<subDataset name="DatasetLista" uuid="bf726d45-bd18-4726-9549-b1d725c973ce">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HotelFx"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT hotel.encuesta.`idEncuesta`,
+	hotel.encuesta.`idCliente`,
+	hotel.encuesta.recipiente,
+case when	hotel.encuesta.encuestado  then 'SI' else 'NO' end as encuestado,
+	hotel.cliente.`Apellido`,
+	hotel.cliente.`Nombre`,
+	hotel.cliente.`Documento`,
+	hotel.cliente.`TipoDocumento`,
+	hotel.cliente.`Email`
+FROM hotel.encuesta
+	INNER JOIN hotel.cliente ON 
+	 hotel.encuesta.`idCliente` = hotel.cliente.`idCliente`]]>
+		</queryString>
+		<field name="idEncuesta" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="idEncuesta"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="encuesta"/>
+		</field>
+		<field name="idCliente" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="idCliente"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="encuesta"/>
+		</field>
+		<field name="recipiente" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="recipiente"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="encuesta"/>
+		</field>
+		<field name="encuestado" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="encuestado"/>
+		</field>
+		<field name="Apellido" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="Apellido"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<field name="Nombre" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<field name="Documento" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="Documento"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<field name="TipoDocumento" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="TipoDocumento"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<field name="Email" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="Email"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
+		</field>
+		<group name="encuestado">
+			<groupExpression><![CDATA[$F{encuestado}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[Select case when c.encuestado then'SI' else 'NO' end as Estado,COUNT(c.encuestado) AS cantidadPorEstado,
+( SELECT COUNT(c.encuestado) *100 / COUNT(encuesta.idEncuesta)
+FROM hotel.encuesta
+) AS porcentaje
+from encuesta c
+group by c.encuestado]]>
+	</queryString>
+	<field name="Estado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estado"/>
+	</field>
+	<field name="cantidadPorEstado" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cantidadPorEstado"/>
+	</field>
+	<field name="porcentaje" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="porcentaje"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="160" y="10" width="200" height="50" uuid="2ca18c06-6dac-48df-ab39-111d03aaac5c"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Reporte de clientes encuestados]]></text>
+			</staticText>
+			<image>
+				<reportElement x="419" y="7" width="100" height="37" uuid="4346b430-1c96-4b0d-b0ea-4f6d42073dd3"/>
+				<imageExpression><![CDATA["https://i.imgur.com/aDOl5Qj.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="11" width="60" height="30" uuid="7135b63d-509d-42cc-89eb-4452a9871c46"/>
+				<text><![CDATA[idEncuesta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="11" width="44" height="30" uuid="f76f8868-3917-4498-b73d-1f2ca913e79e"/>
+				<text><![CDATA[idCliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="11" width="67" height="30" uuid="5ada25ef-1836-4935-87f7-6c2b96e1c7b3"/>
+				<text><![CDATA[Recipiente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="11" width="56" height="30" uuid="f7af818f-133e-4fa9-a683-649a131f5f9e"/>
+				<text><![CDATA[Encuestado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="11" width="40" height="30" uuid="d6797931-4030-4808-96f0-cee7a78abb05"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="11" width="46" height="30" uuid="fd087435-abc1-41e4-a484-60255ecaed1c"/>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="11" width="44" height="30" uuid="8f34308e-08d3-4cfd-8b23-351ee5719075"/>
+				<text><![CDATA[Tipo Doc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="11" width="62" height="30" uuid="8b826189-0e4a-484c-9f09-410c008e3691"/>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="13" width="50" height="30" uuid="17a73d1c-8e86-4cda-adbd-356c976cb32c"/>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="5" y="40" width="544" height="30" uuid="995fc4df-ea33-40bf-b645-ef6a8b3d90a0"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DatasetLista" uuid="cad93cf1-1888-48eb-b752-88e4eabd19d2">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="30" width="544">
+						<textField>
+							<reportElement x="0" y="0" width="50" height="30" uuid="ceb1e395-612b-4fd1-a7f5-a833d2116dae"/>
+							<textFieldExpression><![CDATA[$F{idEncuesta}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="50" y="0" width="40" height="30" uuid="cf369758-7380-4627-9e77-7813b56ff9e2"/>
+							<textFieldExpression><![CDATA[$F{idCliente}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="100" y="0" width="60" height="30" uuid="1a359d5e-a87c-41f6-a1cb-23e41a949d4c"/>
+							<textFieldExpression><![CDATA[$F{recipiente}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="160" y="0" width="34" height="30" uuid="fba7ed80-ad72-40fd-aed5-3759c577d5ac"/>
+							<textFieldExpression><![CDATA[$F{encuestado}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="200" y="0" width="60" height="30" uuid="0c8a5d3b-02b1-4f6f-91c8-ab4d1068f8ba"/>
+							<textFieldExpression><![CDATA[$F{Apellido}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="280" y="0" width="70" height="30" uuid="d8b410b1-7cff-402d-b681-ce6b52267962"/>
+							<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="410" y="0" width="70" height="30" uuid="b06fc7b2-c525-4ddc-880b-3247ca3f9b5b"/>
+							<textFieldExpression><![CDATA[$F{Documento}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="360" y="0" width="50" height="30" uuid="f6ac01ae-548f-479d-921f-e342282095cc"/>
+							<textFieldExpression><![CDATA[$F{TipoDocumento}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="480" y="0" width="64" height="30" uuid="7c837dd6-56aa-4f17-82f3-e2ceefdc7607"/>
+							<textFieldExpression><![CDATA[$F{Email}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="218" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="170" y="10" width="232" height="200" uuid="eefdee32-2085-4675-99f3-7a78523ed055"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{Estado}]]></keyExpression>
+					<valueExpression><![CDATA[$F{porcentaje}]]></valueExpression>
+					<labelExpression><![CDATA[$F{porcentaje}.toPlainString() + " %"]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</columnFooter>
+</jasperReport>

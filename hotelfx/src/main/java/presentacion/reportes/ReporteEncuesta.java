@@ -22,35 +22,33 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import persistencia.conexion.Conexion;
 
-public class ReporteErroresImportar {
+public class ReporteEncuesta {
 	
 	private JasperReport reporte;
 	private JasperViewer reporteViewer;
 	private JasperPrint reporteLleno;
-	private Logger log = Logger.getLogger(ReporteErroresImportar.class);
+	private Logger log = Logger.getLogger(ReporteEncuesta.class);
 	
-	public ReporteErroresImportar(LocalDate fechaDesde,LocalDate fechaHasta) {
-		
-		//JRBeanCollectionDataSource lista = new JRBeanCollectionDataSource(listaErrores);
+	public ReporteEncuesta() {
 		
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		//parametersMap.put("listaErrores", lista);
 		
 //		Timestamp tDesde = new Timestamp(fechaDesde);
-		Timestamp FechaDesde = Timestamp.valueOf(fechaDesde.atTime(LocalTime.of(0,0,0)));
-		Timestamp FechaHasta = Timestamp.valueOf(fechaHasta.atTime(LocalTime.of(23,59,59)));
+//		Timestamp FechaDesde = Timestamp.valueOf(fechaDesde.atTime(LocalTime.of(0,0,0)));
+//		Timestamp FechaHasta = Timestamp.valueOf(fechaHasta.atTime(LocalTime.of(23,59,59)));
 		
-		parametersMap.put("FechaDesde", FechaDesde);
-		parametersMap.put("FechaHasta", FechaHasta);
+//		parametersMap.put("FechaDesde", FechaDesde);
+//		parametersMap.put("FechaHasta", FechaHasta);
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		try	{
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes" + File.separator + "ReporteErroresImportar.jasper");
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes" + File.separator + "ReporteEncuesta.jasper");
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, conexion);
 			log.info("Se cargó correctamente el reporte");
 			
 		}
 		catch(JRException ex){
-			log.error("Ocurrió un error mientras se cargaba el archivo ReporteErroresImportar.Jasper", ex);
+			log.error("Ocurrió un error mientras se cargaba el archivo ReporteEncuesta.Jasper", ex);
 		}
 		
 	}
