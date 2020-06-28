@@ -115,8 +115,29 @@
 		    	<artifactId>jasperreports</artifactId>
 		    	<version>6.0.0</version>
 			</dependency>
-        
-
+       	<!-- ICONOS -->
+        <!--  dependency>
+		    <groupId>org.kordamp.ikonli</groupId>
+		    <artifactId>ikonli-javafx</artifactId>
+		    <version>1.9.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.kordamp.ikonli</groupId>
+		    <artifactId>ikonli-devicons-pack</artifactId>
+		    <version>1.9.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.kordamp.ikonli</groupId>
+		    <artifactId>ikonli-fontawesome-pack</artifactId>
+		    <version>1.9.0</version>
+		</dependency>-->
+		
+		<dependency>
+			<groupId>de.jensd</groupId>
+			<artifactId>fontawesomefx</artifactId>
+			<version>8.9</version>
+		</dependency>
     </dependencies>
 
     <build>

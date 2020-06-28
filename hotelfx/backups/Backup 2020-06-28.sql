@@ -2,7 +2,11 @@
 --
 -- Host: localhost    Database: hotel
 -- ------------------------------------------------------
+<<<<<<< HEAD
+-- Server version	5.5.5-10.0.38-MariaDB
+=======
 -- Server version	8.0.19
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,11 +27,19 @@ DROP TABLE IF EXISTS `categoriacuarto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categoriacuarto` (
+<<<<<<< HEAD
+  `idCategoriaCuarto` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Detalle` varchar(100) NOT NULL,
+  PRIMARY KEY (`idCategoriaCuarto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
   `idCategoriaCuarto` int NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) NOT NULL,
   `Detalle` varchar(100) NOT NULL,
   PRIMARY KEY (`idCategoriaCuarto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +48,10 @@ CREATE TABLE `categoriacuarto` (
 
 LOCK TABLES `categoriacuarto` WRITE;
 /*!40000 ALTER TABLE `categoriacuarto` DISABLE KEYS */;
+<<<<<<< HEAD
+INSERT INTO `categoriacuarto` VALUES (1,'cate1','det1');
+=======
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40000 ALTER TABLE `categoriacuarto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -47,11 +63,19 @@ DROP TABLE IF EXISTS `categoriaevento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categoriaevento` (
+<<<<<<< HEAD
+  `idCategoriaEvento` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Detalle` varchar(100) NOT NULL,
+  PRIMARY KEY (`idCategoriaEvento`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+=======
   `idCategoriaEvento` int NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) NOT NULL,
   `Detalle` varchar(100) NOT NULL,
   PRIMARY KEY (`idCategoriaEvento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +96,11 @@ DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cliente` (
+<<<<<<< HEAD
+  `idCliente` int(11) NOT NULL AUTO_INCREMENT,
+=======
   `idCliente` int NOT NULL AUTO_INCREMENT,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `Nombre` varchar(45) NOT NULL,
   `Apellido` varchar(45) NOT NULL,
   `TipoDocumento` varchar(20) NOT NULL,
@@ -82,7 +110,11 @@ CREATE TABLE `cliente` (
   `Estado` tinyint(1) NOT NULL,
   `FechaNacimiento` date NOT NULL,
   PRIMARY KEY (`idCliente`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,6 +123,10 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+<<<<<<< HEAD
+INSERT INTO `cliente` VALUES (1,'clientea','apellidoa','DNI','22222222','email@email.com','1111111111',1,'2015-07-17');
+=======
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,12 +138,20 @@ DROP TABLE IF EXISTS `configuracion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `configuracion` (
+<<<<<<< HEAD
+  `idConfig` int(11) NOT NULL AUTO_INCREMENT,
+=======
   `idConfig` int NOT NULL AUTO_INCREMENT,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `provSMTP` varchar(100) NOT NULL,
   PRIMARY KEY (`idConfig`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,9 +172,15 @@ DROP TABLE IF EXISTS `cuarto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cuarto` (
+<<<<<<< HEAD
+  `idCuarto` int(11) NOT NULL AUTO_INCREMENT,
+  `idCategoriaCuarto` int(11) NOT NULL,
+  `Capacidad` int(5) NOT NULL,
+=======
   `idCuarto` int NOT NULL AUTO_INCREMENT,
   `idCategoriaCuarto` int NOT NULL,
   `Capacidad` int NOT NULL,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `Monto` double(10,3) NOT NULL,
   `MontoSenia` double(10,3) NOT NULL,
   `Piso` varchar(5) NOT NULL,
@@ -138,8 +188,13 @@ CREATE TABLE `cuarto` (
   `Estado` tinyint(1) NOT NULL,
   PRIMARY KEY (`idCuarto`),
   KEY `fk_idCategoriaCuarto` (`idCategoriaCuarto`),
+<<<<<<< HEAD
+  CONSTRAINT `fk_idCategoriaCuarto` FOREIGN KEY (`idCategoriaCuarto`) REFERENCES `categoriacuarto` (`idCategoriaCuarto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
   CONSTRAINT `cuarto_ibfk_1` FOREIGN KEY (`idCategoriaCuarto`) REFERENCES `categoriacuarto` (`idCategoriaCuarto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,6 +203,10 @@ CREATE TABLE `cuarto` (
 
 LOCK TABLES `cuarto` WRITE;
 /*!40000 ALTER TABLE `cuarto` DISABLE KEYS */;
+<<<<<<< HEAD
+INSERT INTO `cuarto` VALUES (1,1,2,300.000,10.000,'2','B',1);
+=======
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40000 ALTER TABLE `cuarto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +218,11 @@ DROP TABLE IF EXISTS `email`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `email` (
+<<<<<<< HEAD
+  `idEmail` int(11) NOT NULL AUTO_INCREMENT,
+=======
   `idEmail` int NOT NULL AUTO_INCREMENT,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `fechaCreacion` datetime NOT NULL,
   `Texto` varchar(500) NOT NULL,
   `Asunto` varchar(50) NOT NULL,
@@ -168,7 +231,11 @@ CREATE TABLE `email` (
   `Estado` tinyint(1) NOT NULL,
   `Pass` varchar(50) NOT NULL,
   PRIMARY KEY (`idEmail`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,6 +244,10 @@ CREATE TABLE `email` (
 
 LOCK TABLES `email` WRITE;
 /*!40000 ALTER TABLE `email` DISABLE KEYS */;
+<<<<<<< HEAD
+INSERT INTO `email` VALUES (1,'2020-06-27 00:00:00','Acordate que tenes una reserva','Recordatorio','carpinchocorp@gmail.com','cecialf1991@gmail.com',0,'covid-19');
+=======
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40000 ALTER TABLE `email` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,14 +259,24 @@ DROP TABLE IF EXISTS `encuesta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `encuesta` (
+<<<<<<< HEAD
+  `idEncuesta` int(11) NOT NULL AUTO_INCREMENT,
+  `idCliente` int(11) NOT NULL,
+=======
   `idEncuesta` int NOT NULL AUTO_INCREMENT,
   `idCliente` int NOT NULL,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `recipiente` varchar(60) NOT NULL,
   `encuestado` tinyint(1) NOT NULL,
   PRIMARY KEY (`idEncuesta`),
   KEY `fk_cliente_id_encuesta` (`idCliente`),
+<<<<<<< HEAD
+  CONSTRAINT `fk_cliente_id_encuesta` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
   CONSTRAINT `encuesta_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,6 +285,10 @@ CREATE TABLE `encuesta` (
 
 LOCK TABLES `encuesta` WRITE;
 /*!40000 ALTER TABLE `encuesta` DISABLE KEYS */;
+<<<<<<< HEAD
+INSERT INTO `encuesta` VALUES (1,1,'5570377442',0);
+=======
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40000 ALTER TABLE `encuesta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,12 +300,21 @@ DROP TABLE IF EXISTS `errorimportar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `errorimportar` (
+<<<<<<< HEAD
+  `idError` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
+  `usuario` int(11) NOT NULL,
+  `detalle` varchar(500) NOT NULL,
+  PRIMARY KEY (`idError`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
   `idError` int NOT NULL AUTO_INCREMENT,
   `fecha` datetime NOT NULL,
   `usuario` int NOT NULL,
   `detalle` varchar(500) NOT NULL,
   PRIMARY KEY (`idError`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,15 +334,25 @@ DROP TABLE IF EXISTS `notificacion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `notificacion` (
+<<<<<<< HEAD
+  `idNotificacion` int(11) NOT NULL AUTO_INCREMENT,
+  `idCliente` int(11) NOT NULL,
+=======
   `idNotificacion` int NOT NULL AUTO_INCREMENT,
   `idCliente` int NOT NULL,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `Detalle` varchar(45) NOT NULL,
   `Estado` varchar(20) NOT NULL,
   `Tipo` varchar(20) NOT NULL,
   PRIMARY KEY (`idNotificacion`),
   KEY `fk_cliente_id` (`idCliente`),
+<<<<<<< HEAD
+  CONSTRAINT `fk_cliente_id` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
   CONSTRAINT `notificacion_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,11 +372,19 @@ DROP TABLE IF EXISTS `ordenpedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ordenpedido` (
+<<<<<<< HEAD
+  `idOrdenPedido` int(11) NOT NULL AUTO_INCREMENT,
+  `idProducto` int(11) NOT NULL,
+  `idCliente` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `Cantidad` int(20) NOT NULL,
+=======
   `idOrdenPedido` int NOT NULL AUTO_INCREMENT,
   `idProducto` int NOT NULL,
   `idCliente` int NOT NULL,
   `idUsuario` int NOT NULL,
   `Cantidad` int NOT NULL,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `PrecioTotal` decimal(10,3) NOT NULL,
   `FormaPago` varchar(20) DEFAULT NULL,
   `TipoTarjeta` varchar(25) DEFAULT NULL,
@@ -284,10 +396,17 @@ CREATE TABLE `ordenpedido` (
   KEY `fk_idProducto` (`idProducto`),
   KEY `fk_id_Cliente` (`idCliente`),
   KEY `fk_idUsuario` (`idUsuario`),
+<<<<<<< HEAD
+  CONSTRAINT `fk_idProducto` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`),
+  CONSTRAINT `fk_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
+  CONSTRAINT `fk_id_Cliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
   CONSTRAINT `ordenpedido_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`),
   CONSTRAINT `ordenpedido_ibfk_2` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
   CONSTRAINT `ordenpedido_ibfk_3` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,10 +426,17 @@ DROP TABLE IF EXISTS `perfil`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `perfil` (
+<<<<<<< HEAD
+  `idPerfil` int(11) NOT NULL AUTO_INCREMENT,
+  `NombrePerfil` varchar(45) NOT NULL,
+  PRIMARY KEY (`idPerfil`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
   `idPerfil` int NOT NULL AUTO_INCREMENT,
   `NombrePerfil` varchar(45) NOT NULL,
   PRIMARY KEY (`idPerfil`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,10 +457,17 @@ DROP TABLE IF EXISTS `permiso`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permiso` (
+<<<<<<< HEAD
+  `idPermiso` int(11) NOT NULL AUTO_INCREMENT,
+  `NombrePermiso` varchar(45) NOT NULL,
+  PRIMARY KEY (`idPermiso`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+=======
   `idPermiso` int NOT NULL AUTO_INCREMENT,
   `NombrePermiso` varchar(45) NOT NULL,
   PRIMARY KEY (`idPermiso`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,6 +488,17 @@ DROP TABLE IF EXISTS `permisoperfil`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permisoperfil` (
+<<<<<<< HEAD
+  `idPermisoPerfil` int(11) NOT NULL AUTO_INCREMENT,
+  `idPerfil` int(11) NOT NULL,
+  `idPermiso` int(11) NOT NULL,
+  PRIMARY KEY (`idPermisoPerfil`),
+  KEY `fk_idPerfil` (`idPerfil`),
+  KEY `fk_idPermiso` (`idPermiso`),
+  CONSTRAINT `fk_idPerfil` FOREIGN KEY (`idPerfil`) REFERENCES `perfil` (`idPerfil`),
+  CONSTRAINT `fk_idPermiso` FOREIGN KEY (`idPermiso`) REFERENCES `permiso` (`idPermiso`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+=======
   `idPermisoPerfil` int NOT NULL AUTO_INCREMENT,
   `idPerfil` int NOT NULL,
   `idPermiso` int NOT NULL,
@@ -364,6 +508,7 @@ CREATE TABLE `permisoperfil` (
   CONSTRAINT `permisoperfil_ibfk_1` FOREIGN KEY (`idPerfil`) REFERENCES `perfil` (`idPerfil`),
   CONSTRAINT `permisoperfil_ibfk_2` FOREIGN KEY (`idPermiso`) REFERENCES `permiso` (`idPermiso`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,14 +529,22 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto` (
+<<<<<<< HEAD
+  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
+=======
   `idProducto` int NOT NULL AUTO_INCREMENT,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `Precio` decimal(10,3) NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Descripcion` varchar(200) NOT NULL,
   `Proveedor` varchar(50) NOT NULL,
   `Tipo` varchar(20) NOT NULL,
   PRIMARY KEY (`idProducto`)
+<<<<<<< HEAD
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -411,10 +564,17 @@ DROP TABLE IF EXISTS `reservacuarto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reservacuarto` (
+<<<<<<< HEAD
+  `idReservaCuarto` int(11) NOT NULL AUTO_INCREMENT,
+  `idCliente` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `idCuarto` int(11) NOT NULL,
+=======
   `idReservaCuarto` int NOT NULL AUTO_INCREMENT,
   `idCliente` int NOT NULL,
   `idUsuario` int NOT NULL,
   `idCuarto` int NOT NULL,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `Senia` decimal(20,3) NOT NULL,
   `MontoReservaCuarto` decimal(20,3) NOT NULL,
   `EmailFacturacion` varchar(50) NOT NULL,
@@ -436,9 +596,15 @@ CREATE TABLE `reservacuarto` (
   KEY `fk_id_Usuario` (`idUsuario`),
   KEY `fk_idCuarto` (`idCuarto`),
   CONSTRAINT `fk_clienteId` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
+<<<<<<< HEAD
+  CONSTRAINT `fk_idCuarto` FOREIGN KEY (`idCuarto`) REFERENCES `cuarto` (`idCuarto`),
+  CONSTRAINT `fk_id_Usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+=======
   CONSTRAINT `fk_id_Usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `fk_idCuarto` FOREIGN KEY (`idCuarto`) REFERENCES `cuarto` (`idCuarto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -447,6 +613,10 @@ CREATE TABLE `reservacuarto` (
 
 LOCK TABLES `reservacuarto` WRITE;
 /*!40000 ALTER TABLE `reservacuarto` DISABLE KEYS */;
+<<<<<<< HEAD
+INSERT INTO `reservacuarto` VALUES (1,1,1,1,10.000,87900.000,'cecialf1991@gmail.com','2020-06-27 23:00:00','2020-06-27 23:07:37','2020-06-28 00:00:00','2020-06-27 23:07:37','2020-07-10 06:00:00','EFECTIVO','NO','0','0','0','PENDIENTE','',1);
+=======
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40000 ALTER TABLE `reservacuarto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -458,11 +628,19 @@ DROP TABLE IF EXISTS `reservaevento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reservaevento` (
+<<<<<<< HEAD
+  `idReservaEvento` int(11) NOT NULL AUTO_INCREMENT,
+  `idCliente` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `idSalon` int(11) NOT NULL,
+  `idCategoriaEvento` int(11) NOT NULL,
+=======
   `idReservaEvento` int NOT NULL AUTO_INCREMENT,
   `idCliente` int NOT NULL,
   `idUsuario` int NOT NULL,
   `idSalon` int NOT NULL,
   `idCategoriaEvento` int NOT NULL,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `TipoTarjeta` enum('VISA','MASTERCARD','NO') NOT NULL,
   `CodSeguridadTarjeta` varchar(10) NOT NULL,
   `FechaVencTarjeta` varchar(15) NOT NULL,
@@ -487,7 +665,11 @@ CREATE TABLE `reservaevento` (
   CONSTRAINT `reservaevento_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `reservaevento_ibfk_3` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `reservaevento_ibfk_4` FOREIGN KEY (`idCategoriaEvento`) REFERENCES `categoriaevento` (`idCategoriaEvento`) ON DELETE CASCADE ON UPDATE CASCADE
+<<<<<<< HEAD
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+=======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -507,14 +689,24 @@ DROP TABLE IF EXISTS `salon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `salon` (
+<<<<<<< HEAD
+  `idSalon` int(11) NOT NULL AUTO_INCREMENT,
+  `Capacidad` int(5) NOT NULL,
+  `Senia` int(20) NOT NULL,
+=======
   `idSalon` int NOT NULL AUTO_INCREMENT,
   `Capacidad` int NOT NULL,
   `Senia` int NOT NULL,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `Estilo` varchar(150) NOT NULL,
   `Monto` decimal(20,3) NOT NULL,
   `Estado` tinyint(1) NOT NULL,
   PRIMARY KEY (`idSalon`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+=======
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -535,6 +727,18 @@ DROP TABLE IF EXISTS `ticket`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ticket` (
+<<<<<<< HEAD
+  `idTicket` int(11) NOT NULL AUTO_INCREMENT,
+  `idCliente` int(10) NOT NULL,
+  `precioTotal` decimal(10,3) NOT NULL,
+  `descripcion` varchar(300) DEFAULT NULL,
+  `path` varchar(300) DEFAULT NULL,
+  `FechaReserva` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idTicket`),
+  KEY `fk_idCliente` (`idCliente`),
+  CONSTRAINT `fk_idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
   `idTicket` int NOT NULL AUTO_INCREMENT,
   `idCliente` int NOT NULL,
   `precioTotal` decimal(10,3) NOT NULL,
@@ -545,6 +749,7 @@ CREATE TABLE `ticket` (
   KEY `fk_idCliente` (`idCliente`),
   CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -564,8 +769,13 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
+<<<<<<< HEAD
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `idPerfil` int(11) NOT NULL,
+=======
   `idUsuario` int NOT NULL AUTO_INCREMENT,
   `idPerfil` int NOT NULL,
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
   `Nombre` varchar(45) NOT NULL,
   `Apellido` varchar(45) NOT NULL,
   `TipoDocumento` varchar(20) NOT NULL,
@@ -575,8 +785,13 @@ CREATE TABLE `usuario` (
   `Estado` tinyint(1) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   KEY `fk_id_Perfil` (`idPerfil`),
+<<<<<<< HEAD
+  CONSTRAINT `fk_id_Perfil` FOREIGN KEY (`idPerfil`) REFERENCES `perfil` (`idPerfil`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idPerfil`) REFERENCES `perfil` (`idPerfil`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -598,4 +813,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
+-- Dump completed on 2020-06-28 10:36:54
+=======
 -- Dump completed on 2020-06-28 13:24:43
+>>>>>>> 9b0098cbc6c8ee3a619a152e770298f87d75dfa2

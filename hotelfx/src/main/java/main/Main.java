@@ -30,6 +30,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Menu Principal");
 		    primaryStage.setScene(new Scene(root));
 		    Application.setUserAgentStylesheet(STYLESHEET_CASPIAN);
+		   
 		    primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 		    primaryStage.sizeToScene();
 		    primaryStage.show();

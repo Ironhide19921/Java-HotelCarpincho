@@ -50,7 +50,7 @@ public class ControladorABMReservaCuarto implements Initializable
 	@FXML private TableColumn estado;
 	@FXML private TableColumn fechaReserva;
 	@FXML private TableColumn fechaCheckIn;
-	@FXML private TableColumn fechaOut;
+	//@FXML private TableColumn fechaOut;
 	@FXML private TableColumn fechaIngreso;
 	@FXML private TableColumn fechaEgreso;
 	
@@ -144,7 +144,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 		estado.setCellValueFactory(new PropertyValueFactory("estado"));
 		fechaReserva.setCellValueFactory(new PropertyValueFactory("fechaReserva"));
 		fechaCheckIn.setCellValueFactory(new PropertyValueFactory("fechaCheckIn"));
-		fechaOut.setCellValueFactory(new PropertyValueFactory("fechaOut"));	
+		//fechaOut.setCellValueFactory(new PropertyValueFactory("fechaOut"));	
 		fechaIngreso.setCellValueFactory(new PropertyValueFactory("fechaIngreso"));
 		fechaEgreso.setCellValueFactory(new PropertyValueFactory("fechaEgreso"));
 	}
@@ -226,6 +226,13 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 		else {
 			 Validador.mostrarMensaje("Debe seleccionar una reserva.");
 		 }
+	}
+
+
+	public void modificarBotones() {
+		this.btnAgregarReserva.setDisable(true);
+		this.btnHabDesReserva.setDisable(true);
+		this.btnModificarReserva.setDisable(true);
 	}
 	
 }

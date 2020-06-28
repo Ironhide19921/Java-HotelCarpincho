@@ -8,55 +8,79 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="597.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMOrdenPedido">
+<AnchorPane prefHeight="597.0" prefWidth="737.0" styleClass="ventana" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMOrdenPedido">
    <children>
-      <BorderPane layoutX="23.0" layoutY="10.0" prefHeight="573.0" prefWidth="700.0">
+      <BorderPane layoutX="23.0" layoutY="10.0" prefHeight="530.0" prefWidth="840.0">
          <top>
-            <Pane prefHeight="114.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="74.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="panelDatos" layoutX="58.0" prefHeight="113.0" prefWidth="479.0">
+                  <Pane fx:id="panelDatos" layoutX="289.0" layoutY="6.0" prefHeight="62.0" prefWidth="479.0">
                      <children>
-                        <Label fx:id="labelCliente" layoutX="5.0" layoutY="42.0" prefHeight="17.0" prefWidth="52.0" text="Cliente:" />
-                        <Label fx:id="labelReserva" layoutX="254.0" layoutY="40.0" prefHeight="17.0" prefWidth="68.0" text="N º Reserva" />
-                        <Label layoutY="16.0" prefHeight="17.0" prefWidth="146.0" text="Datos del cliente" />
-                        <Label layoutX="254.0" layoutY="14.0" prefHeight="17.0" prefWidth="146.0" text="Datos del reserva" />
-                        <Label fx:id="labelReserva1" layoutX="254.0" layoutY="68.0" prefHeight="17.0" prefWidth="52.0" text="Monto " />
-                        <Label fx:id="labelCliente1" layoutX="5.0" layoutY="72.0" prefHeight="17.0" prefWidth="110.0" text="Nombre completo:" />
-                        <Label fx:id="idCliente" layoutX="103.0" layoutY="40.0" prefHeight="17.0" prefWidth="133.0" />
-                        <Label fx:id="labelClienteNombre" layoutX="129.0" layoutY="70.0" prefHeight="17.0" prefWidth="110.0" />
-                        <Label fx:id="idReserva" layoutX="334.0" layoutY="40.0" prefHeight="24.0" prefWidth="133.0" />
-                        <Label fx:id="montoReserva" layoutX="334.0" layoutY="68.0" prefHeight="17.0" prefWidth="133.0" />
+                        <Label fx:id="labelCliente" layoutX="2.0" layoutY="9.0" prefHeight="17.0" prefWidth="69.0" text="N º Cliente:">
+                           <font>
+                              <Font name="Century Gothic" size="12.0" />
+                           </font></Label>
+                        <Label fx:id="labelReserva" layoutX="254.0" layoutY="6.0" prefHeight="17.0" prefWidth="68.0" text="N º Reserva">
+                           <font>
+                              <Font name="Century Gothic" size="12.0" />
+                           </font></Label>
+                        <Label fx:id="labelReserva1" layoutX="254.0" layoutY="33.0" prefHeight="17.0" prefWidth="52.0" text="Monto ">
+                           <font>
+                              <Font name="Century Gothic" size="12.0" />
+                           </font></Label>
+                        <Label fx:id="labelCliente1" layoutX="2.0" layoutY="36.0" prefHeight="17.0" prefWidth="66.0" text="Nombre :">
+                           <font>
+                              <Font name="Century Gothic" size="12.0" />
+                           </font></Label>
+                        <Label fx:id="idCliente" layoutX="86.0" layoutY="9.0" prefHeight="17.0" prefWidth="133.0" />
+                        <Label fx:id="labelClienteNombre" layoutX="68.0" layoutY="36.0" prefHeight="17.0" prefWidth="168.0" />
+                        <Label fx:id="idReserva" layoutX="334.0" layoutY="2.0" prefHeight="24.0" prefWidth="133.0" />
+                        <Label fx:id="montoReserva" layoutX="334.0" layoutY="33.0" prefHeight="17.0" prefWidth="133.0" />
                      </children>
                   </Pane>
-                  <Button fx:id="btnRefrescar" layoutX="577.0" layoutY="75.0" mnemonicParsing="false" onAction="#refrescarTablaOrdenPedidos" text="Refrescar" />
+                  <Button fx:id="btnRefrescar" layoutX="576.0" layoutY="40.0" mnemonicParsing="false" onAction="#refrescarTablaOrdenPedidos" text="Refrescar" visible="false" />
+                  <Label layoutX="57.0" layoutY="29.0" prefHeight="19.0" prefWidth="211.0" text="Lista de ordenes de pedido">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font>
+                  </Label>
                </children></Pane>
          </top>
          <left>
             <Pane prefHeight="510.0" prefWidth="59.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="438.0" prefWidth="54.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="438.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="65.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarPedido" layoutX="88.0" layoutY="23.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" text="Agregar pedido" />
-                  <Button fx:id="btnGenerarTicket" layoutX="555.0" layoutY="24.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" text="Generar Ticket" />
-                  <Pane fx:id="panelTotal" layoutX="413.0" layoutY="20.0" prefHeight="33.0" prefWidth="142.0">
+                  <Button fx:id="btnAgregarPedido" layoutX="61.0" layoutY="5.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" prefHeight="30.0" text="Agregar pedido" />
+                  <Button fx:id="btnGenerarTicket" layoutX="675.0" layoutY="5.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" prefHeight="30.0" text="Generar Ticket" />
+                  <Pane fx:id="panelTotal" layoutX="426.0" layoutY="4.0" prefHeight="33.0" prefWidth="233.0">
                      <children>
                      <!--<Label fx:id="totalLabel1" layoutY="6.0" prefHeight="17.0" prefWidth="40.0" text="Total" /> -->   
-                        <Label fx:id="resultadoTotal" layoutX="60.0" layoutY="6.0" prefHeight="17.0" prefWidth="82.0" />
+                        <Label fx:id="resultadoTotal" layoutX="104.0" layoutY="6.0" prefHeight="17.0" prefWidth="82.0" text="-">
+                           <font>
+                              <Font name="Century Gothic" size="14.0" />
+                           </font></Label>
+                        <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="60.0" text="Total">
+                           <font>
+                              <Font name="Century Gothic" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
-                  <Button fx:id="btnEliminarPedido" layoutX="221.0" layoutY="24.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" text="Eliminar pedido" />
+                  <Button fx:id="btnEliminarPedido" layoutX="175.0" layoutY="5.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" prefHeight="30.0" text="Eliminar pedido" />
                </children>
             </Pane>
          </bottom>
          <center>
             <VBox prefHeight="438.0" prefWidth="639.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tablaOrdenPedidos" prefHeight="389.0" prefWidth="587.0">
+                  <TableView fx:id="tablaOrdenPedidos" prefHeight="380.0" prefWidth="680.0">
                     <columns>
                       <TableColumn fx:id="id" prefWidth="55.0" text="ID Pedido" />
                       <TableColumn fx:id="idProducto" prefWidth="155.0" text="Id Producto" />

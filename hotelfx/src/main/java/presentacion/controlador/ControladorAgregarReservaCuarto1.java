@@ -426,8 +426,9 @@ public void consultarCuarto() {
 			ControladorABMCuarto scene2Controller = fxmlLoader.getController();
 			LocalDate localInicioIngreso = this.fechaIngreso.getValue();
 			LocalDate localInicioEgreso = this.fechaEgreso.getValue();
-			Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(8,0,0)));
-			Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(8,0,0)));
+			
+			Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(cmbBoxHoraIngreso.getSelectionModel().getSelectedItem(),0,0)));
+			Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(cmbBoxHoraEgreso.getSelectionModel().getSelectedItem(),0,0)));
 			scene2Controller.consultaReservaCuarto(fechaEgreso,fechaIngreso);
 			scene2Controller.enviarControlador(this);
 			scene2Controller.modificarBotones(true);
