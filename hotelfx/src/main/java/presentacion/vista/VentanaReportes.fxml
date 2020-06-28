@@ -58,7 +58,7 @@
                         <Button fx:id="btnContable" disable="true" mnemonicParsing="false" onAction="#habilitarParametrosFechas" prefHeight="27.0" prefWidth="146.0" text="Contables" />
                         <Button fx:id="btnReservas" disable="true" mnemonicParsing="false" onAction="#habilitarParametrosFechas" prefHeight="27.0" prefWidth="148.0" text="Reservas" />
                         <Button fx:id="btnErrores" disable="true" mnemonicParsing="false" onAction="#elegirError" prefHeight="27.0" prefWidth="147.0" text="Errores" />
-                        <Button fx:id="btnEncuestas" disable="true" mnemonicParsing="false" onAction="#habilitarParametrosFechas" prefHeight="27.0" prefWidth="149.0" text="Encuestas" />
+                        <Button fx:id="btnEncuestas" disable="true" mnemonicParsing="false" onAction="#elegirEncuesta" prefHeight="27.0" prefWidth="149.0" text="Encuestas" />
                      </children>
                   </VBox>
                </children>

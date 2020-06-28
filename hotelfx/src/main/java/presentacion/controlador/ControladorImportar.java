@@ -19,6 +19,7 @@ import javax.annotation.processing.FilerException;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import dto.ClienteDTO;
+import dto.EmailDTO;
 import dto.ErrorImportarDTO;
 import dto.ReservaCuartoDTO;
 
@@ -57,10 +58,6 @@ import java.sql.Date;
 
 public class ControladorImportar implements Initializable {
 
-
-	//	@FXML private Controller controller;
-
-	//	@FXML private ControladorMenuPrincipal menuPrincipal;
 	@FXML Button btnImportar;
 	@FXML private Button btnInsertar;
 	@FXML private Button btnMail;
@@ -72,13 +69,12 @@ public class ControladorImportar implements Initializable {
 	@FXML private TableColumn Documento;
 	@FXML private TableColumn Email;
 	@FXML private TableColumn Telefono;
-	//	@FXML private TableColumn Estado;
 	@FXML private TableColumn FechaNacimiento;
 
 	@FXML private TableView<ReservaCuartoDTO> tablaReservasImportar;
 	@FXML private TableColumn idCuarto,Senia,MontoReservaCuarto,EmailFacturacion,
 	FechaReserva,FechaCheckIn,FechaIngreso,FechaOut,FechaEgreso,
-//	Forma,Tipo,
+	//	Forma,Tipo,
 	NumeroTarjeta,FechaVencTarjeta,CodSeguridadTarjeta,Comentarios;
 
 
@@ -88,7 +84,7 @@ public class ControladorImportar implements Initializable {
 	private int cantidadNuevosClientes;
 	private int cantidadNuevosReservas;
 	private ArrayList<String> columnas,columnas2;
-	
+
 	@FXML private ErrorImportar errorImportar;
 	@FXML private ObservableList<ClienteDTO> activeSession;
 	@FXML private ObservableList<ClienteDTO> clientesAcargar;
@@ -111,17 +107,22 @@ public class ControladorImportar implements Initializable {
 		errorImportar = new ErrorImportar(new DAOSQLFactory());
 		cargarColumnas();
 		columnas = new ArrayList<String>();
+		columnas2 = new ArrayList<String>();
 		//		columnas.add("idCliente");
+		agregarColumnasAvalidar();
+
+	}
+
+
+	private void agregarColumnasAvalidar() {
 		columnas.add("Nombre");
 		columnas.add("Apellido");
 		columnas.add("TipoDocumento");
 		columnas.add("Documento");
 		columnas.add("Email");
 		columnas.add("Telefono");
-		//		columnas.add("Estado");
 		columnas.add("FechaNacimiento");
 
-		columnas2 = new ArrayList<String>();
 		columnas2.add("idCuarto");
 		columnas2.add("Senia");
 		columnas2.add("MontoReservaCuarto");
@@ -131,7 +132,6 @@ public class ControladorImportar implements Initializable {
 		columnas2.add("FechaIngreso");
 		columnas2.add("FechaOut");
 		columnas2.add("FechaEgreso");
-
 		columnas2.add("FormaPago");
 		columnas2.add("TipoTarjeta");
 		columnas2.add("NumeroTarjeta");
@@ -150,36 +150,23 @@ public class ControladorImportar implements Initializable {
 		Documento.setCellValueFactory(new PropertyValueFactory("numeroDocumento"));
 		Email.setCellValueFactory(new PropertyValueFactory("email"));
 		Telefono.setCellValueFactory(new PropertyValueFactory("telefono"));
-		//		Estado.setCellValueFactory(new PropertyValueFactory("estado"));
 		FechaNacimiento.setCellValueFactory(new PropertyValueFactory("fechaNacimiento"));
-
 
 		idCuarto.setCellValueFactory(new PropertyValueFactory("idCuarto"));
 		Senia.setCellValueFactory(new PropertyValueFactory("senia"));
 		MontoReservaCuarto.setCellValueFactory(new PropertyValueFactory("MontoReservaCuarto"));
-		EmailFacturacion.setCellValueFactory(new PropertyValueFactory("MontoReservaCuarto"));
+		EmailFacturacion.setCellValueFactory(new PropertyValueFactory("emailFacturacion"));
 		FechaReserva.setCellValueFactory(new PropertyValueFactory("FechaReserva"));
 		FechaCheckIn.setCellValueFactory(new PropertyValueFactory("FechaCheckIn"));
 		FechaIngreso.setCellValueFactory(new PropertyValueFactory("FechaIngreso"));
 		FechaOut.setCellValueFactory(new PropertyValueFactory("FechaOut"));
 		FechaEgreso.setCellValueFactory(new PropertyValueFactory("FechaEgreso"));
-
-//		Forma.setCellValueFactory(new PropertyValueFactory<ReservaCuartoDTO,String>("forma"));
-//		System.out.println("valor columna "+Forma.getCellData(0));
-
-//		Tipo.setCellValueFactory(new PropertyValueFactory("tipoTarjeta"));
 		NumeroTarjeta.setCellValueFactory(new PropertyValueFactory("numTarjeta"));
 		FechaVencTarjeta.setCellValueFactory(new PropertyValueFactory("fechaVencTarjeta"));
 		CodSeguridadTarjeta.setCellValueFactory(new PropertyValueFactory("codSeguridadTarjeta"));
 		Comentarios.setCellValueFactory(new PropertyValueFactory("comentarios"));
 
 	}
-
-	//	private void cargarColumnas() {
-	//		idCliente.setCellValueFactory(new PropertyValueFactory("Nombre"));		
-	//		id.setCellValueFactory(new PropertyValueFactory("idCategoriaCuarto"));	
-	//		detalle .setCellValueFactory(new PropertyValueFactory("Detalle"));
-	//	}
 
 	private ObservableList<ClienteDTO> getAllClientes() {
 		List<ClienteDTO> clientes = this.cliente.obtenerClientes();
@@ -200,20 +187,6 @@ public class ControladorImportar implements Initializable {
 		tablaReservasImportar.setItems(lista);
 		tablaReservasImportar.setEditable(true);
 
-		//		System.out.println("lista numtarjeta "+lista.get(0).getNumTarjeta());
-		//		System.out.println("lista tipotarjeta "+lista.get(0).getTiposTarjeta());
-		//		//tablaReservasImportar.getItems().get(0).setFormasDePago("valor de prueba");
-		//		System.out.println("lista tipotarjeta "+lista.get(0).getFormasDePago());
-		//		System.out.println(tablaReservasImportar.getItems().get(0).getFormasDePago());
-		//		//		for(ReservaCuartoDTO r: lista) {
-		//		//			Forma.setCellValueFactory(c-> new SimpleStringProperty(r.getFormasDePago()));
-		//		//		}
-		//		//		Forma.setCellValueFactory(c-> new SimpleStringProperty(lista.get(0).getFormasDePago()));
-		//		System.out.println("valor columna forma de pago luego de cargado "+Forma.getCellData(1));
-		//
-		//		System.out.println("valor columna numerotarjeta luego de cargado "+NumeroTarjeta.getCellData(1));
-		//		System.out.println("valor columna fechavenc luego de cargado "+FechaVencTarjeta.getCellData(1));
-		//		System.out.println("valor columna tipo tarjeta luego de cargado "+Tipo.getCellData(1));
 	}
 
 	@FXML
@@ -250,24 +223,22 @@ public class ControladorImportar implements Initializable {
 		clienteCargado.setIdCliente(consultarRepetidos(clienteCargado).getIdCliente());
 		return clienteCargado;
 	}
-	
+
 	private void actualizarIdReservas() {
 		for (int i=0; i < reservasAcargar.size(); i++) {
 			reservasAcargar.get(i).setIdCliente(clientesAcargar.get(i).getIdCliente());
 		}
-		
+
 	}
 
 	public void guardarCliente(ClienteDTO nuevoCliente) throws IOException {
 		this.cliente.agregarCliente(nuevoCliente);
 		cantidadNuevosClientes++;
-		//			cerrarVentanaAgregar();	
 	}
 
 	public void guardarReserva(ReservaCuartoDTO nuevaReserva) throws IOException {
 		this.reserva.agregarReservaCuarto(nuevaReserva);
-		cantidadNuevosReservas++;
-		//			cerrarVentanaAgregar();	
+		cantidadNuevosReservas++;	
 	}
 
 
@@ -288,25 +259,35 @@ public class ControladorImportar implements Initializable {
 				Scanner scanner = new Scanner(selectedFile);
 				String filaColumnas = scanner.nextLine();
 				String[] nombresColumnas = filaColumnas.split(",");
-				
-				//Validación errores
+
+				//Validación errores columnas faltantes
 				for(int f=0; f<nombresColumnas.length; f++) {
 					if(f<7) {
-						if(!nombresColumnas[f].equals(columnas.get(f))) {				
-							tieneErrores = true;
-							Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-							ErrorImportarDTO error = new ErrorImportarDTO(0, timestamp, 1, "Falta columna: "+columnas.get(f));
-							errorImportar.agregarError(error);
-						}
+//						if(nombresColumnas[f] != null) {
+							if(!nombresColumnas[f].equals(columnas.get(f))) {				
+								tieneErrores = true;
+								Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+								ErrorImportarDTO error = new ErrorImportarDTO(0, timestamp, 1, "Faltan columnas: "+columnas.get(f)+"está presente.");
+								errorImportar.agregarError(error);
+							}
+//						}
 					} else {
-						if(!nombresColumnas[f].equals(columnas2.get(f-7))) {				
-							tieneErrores = true;
-							Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-							ErrorImportarDTO error = new ErrorImportarDTO(0, timestamp, 1, "Falta columna: "+columnas2.get(f-7));
-							errorImportar.agregarError(error);
-						}
+//						if(nombresColumnas[f] != null) {
+							if(!nombresColumnas[f].equals(columnas2.get(f-7))) {				
+								tieneErrores = true;
+								Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+								ErrorImportarDTO error = new ErrorImportarDTO(0, timestamp, 1, "Faltan columnas: "+columnas2.get(f-7)+"está presente.");
+								errorImportar.agregarError(error);
+							}
+//						}
 					}
 				}
+
+				if(tieneErrores) {
+					btnInsertar.setDisable(true);
+					Validador.mostrarMensaje("Archivo con errores de columnas faltantes, por favor verificar el reporte correspondiente.");
+					return;
+				}		
 
 				int fila = 0;
 				//Salteo 1er fila con nombres de columnas
@@ -324,10 +305,16 @@ public class ControladorImportar implements Initializable {
 							} else { 
 								ErrorImportarDTO error = new ErrorImportarDTO(0, timestamp, 1, "Columna: "+ columnas2.get(i-7) +", fila número: " +fila+" , se encuentra vacía.");
 								errorImportar.agregarError(error);
-							}
-						}						
+							}							
+						}			
 					}
+					if(tieneErrores) {
+						btnInsertar.setDisable(true);
+						Validador.mostrarMensaje("Archivo con errores de columnas vacías, por favor verificar el reporte correspondiente.");
+						return;
+					}					
 
+					//Formateo de fechas
 					java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(valores[6].replace("\"", ""));
 
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -366,7 +353,7 @@ public class ControladorImportar implements Initializable {
 						e.printStackTrace();
 					}
 
-					java.util.Date fechaIngreso;
+					java.util.Date fechaIngreso = null;
 					java.sql.Timestamp fechaIngresoTime = null;;
 					try {
 						fechaIngreso = dateFormat.parse(valores[13]);
@@ -377,7 +364,7 @@ public class ControladorImportar implements Initializable {
 						e.printStackTrace();
 					}
 
-					java.util.Date fechaEgreso;
+					java.util.Date fechaEgreso = null;
 					java.sql.Timestamp fechaEgresoTime = null;;
 					try {
 						fechaEgreso = dateFormat.parse(valores[15]);
@@ -397,14 +384,11 @@ public class ControladorImportar implements Initializable {
 					ReservaCuartoDTO reservaParaTabla = new ReservaCuartoDTO(clienteParaTabla.getIdCliente(), Integer.parseInt(valores[7]), 1, new BigDecimal(valores[8]), new BigDecimal(valores[9]), 
 							valores[10], valores[18], FormaPago.valueOf(valores[16]), TipoTarjeta.valueOf(valores[17]), valores[20], valores[19], fechaReservaTime,
 							fechaIngresoTime, fechaEgresoTime, EstadoReserva.PENDIENTE, valores[21], true);
-				
-					/*ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
-							emailFacturacion, numTarjeta, formaDePago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
-							fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);*/
-					 reservaParaTabla.setFechaCheckIn(fechaCheckInTime);
-					 reservaParaTabla.setFechaOut(fechaOutTime);
+
+					reservaParaTabla.setFechaCheckIn(fechaCheckInTime);
+					reservaParaTabla.setFechaOut(fechaOutTime);
 					reservaParaTabla.setIdReserva(0);
-					
+
 					//Validacion IdCuartoExistente
 					if(cuarto.traerCuarto(reservaParaTabla.getIdCuarto()) == null) {
 						tieneErrores = true;
@@ -412,12 +396,12 @@ public class ControladorImportar implements Initializable {
 						ErrorImportarDTO error = new ErrorImportarDTO(0, timestamp, 1, "El idCuarto: "+ reservaParaTabla.getIdCuarto() +",de la fila número: " +fila+" , no existe.");
 						errorImportar.agregarError(error);
 					}
-					//Dias hardcodeados
-					reservaParaTabla.setCantidadDias("1");
-					//	reservaParaTabla.setNumTarjeta(reservaParaTabla.getTiposTarjeta());
-					//	reservaParaTabla.setFormasDePago(reservaParaTabla.getFormasDePago());
-					//	System.out.println(reservaParaTabla.getFormasDePago());
-					//	System.out.println(reservaParaTabla.getTiposTarjeta());
+					if(tieneErrores) {
+						btnInsertar.setDisable(true);
+						Validador.mostrarMensaje("Archivo con errores de cuartos no existentes, por favor verificar el reporte correspondiente.");
+						return;
+					}
+					reservaParaTabla.setCantidadDias(compararFechas(fechaIngreso, fechaEgreso));
 					clientesAcargar.add(clienteParaTabla);
 					reservasAcargar.add(reservaParaTabla);
 					fila ++;
@@ -426,24 +410,19 @@ public class ControladorImportar implements Initializable {
 				crearTabla(clientesAcargar);
 				crearTablaReservas(reservasAcargar);
 
-				if(tieneErrores) {
-					btnInsertar.setDisable(true);
-					Validador.mostrarMensaje("Archivo con errores, por favor verificar el reporte correspondiente.");
-				}					
+
 
 				scanner.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				//Date hoy = new Date(System.currentTimeMillis());
-
 			} 
 
 		} else {
 			Validador.mostrarMensaje("Archivo no válido");			
 		}
 	}
-	
+
 	private <T> ClienteDTO consultarRepetidos(T objeto) {
 		if(objeto instanceof ClienteDTO) {
 			activeSession = getAllClientes();			
@@ -455,6 +434,19 @@ public class ControladorImportar implements Initializable {
 			}
 		}
 		return null;
+	}
+
+	private String compararFechas(java.util.Date fechaIngreso2, java.util.Date fechaEgreso2) {
+		int diferencia=(int) ((fechaEgreso2.getTime()-fechaIngreso2.getTime())/1000);
+
+		int dias=0;
+		int horas=0;
+		int minutos=0;
+		if(diferencia>86400) {
+			dias=(int)Math.floor(diferencia/86400);
+			diferencia=diferencia-(dias*86400);
+		}
+		return String.valueOf(dias);
 	}
 
 }
