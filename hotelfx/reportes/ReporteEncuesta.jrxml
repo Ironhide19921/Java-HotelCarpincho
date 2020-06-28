@@ -62,18 +62,15 @@ FROM hotel.encuesta
 		</group>
 	</subDataset>
 	<queryString language="SQL">
-		<![CDATA[Select case when c.encuestado then'SI' else 'NO' end as Estado,COUNT(c.encuestado) AS cantidadPorEstado,
+		<![CDATA[Select case when c.encuestado then'SI' else 'NO' end as Estado,
 ( SELECT COUNT(c.encuestado) *100 / COUNT(encuesta.idEncuesta)
 FROM hotel.encuesta
 ) AS porcentaje
 from encuesta c
-group by c.encuestado]]>
+group by estado]]>
 	</queryString>
 	<field name="Estado" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Estado"/>
-	</field>
-	<field name="cantidadPorEstado" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.label" value="cantidadPorEstado"/>
 	</field>
 	<field name="porcentaje" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="porcentaje"/>
@@ -136,7 +133,7 @@ group by c.encuestado]]>
 			</staticText>
 			<componentElement>
 				<reportElement x="5" y="40" width="544" height="30" uuid="995fc4df-ea33-40bf-b645-ef6a8b3d90a0"/>
-				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="DatasetLista" uuid="cad93cf1-1888-48eb-b752-88e4eabd19d2">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
