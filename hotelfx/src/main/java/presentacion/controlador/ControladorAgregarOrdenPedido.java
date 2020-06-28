@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
+import dto.EmailDTO;
 import dto.OrdenPedidoDTO;
 import dto.ProductoDTO;
 import dto.ProductoPedidoDTO;
@@ -487,6 +488,11 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 			this.ticket.modificarTicket(ticket, path);
 			reporte.guardarPdf();
 		}
+		
+		String pathMsj = "." + path; 
+		ClienteDTO clienteActual = this.cliente.getClientePorId(idCliente);
+		EmailDTO email = new EmailDTO();
+		email.enviarMsjAdjunto("", pathMsj, clienteActual.getEmail(), "ticket de restoran");
 		
 		cerrarVentanaAgregarY_GenerarTicket();
 		

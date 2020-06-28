@@ -517,7 +517,7 @@ public class Validador {
 		
 		if(objeto instanceof CategoriaCuartoDTO && listaDeObjetos.get(0) instanceof CategoriaCuartoDTO) {
 			for(T cate: listaDeObjetos) {			
-				if(((CategoriaCuartoDTO) cate).getNombre().equals(((CategoriaCuartoDTO)objeto).getNombre())) {				
+				if(((CategoriaCuartoDTO) cate).getNombre().equals(((CategoriaCuartoDTO)objeto).getNombre()) && ((CategoriaCuartoDTO) cate).getIdCategoriaCuarto()!= ((CategoriaCuartoDTO)objeto).getIdCategoriaCuarto()) {				
 					return true;
 				}
 			}
@@ -525,7 +525,7 @@ public class Validador {
 		}
 		else if(objeto instanceof ClienteDTO && listaDeObjetos.get(0) instanceof ClienteDTO) {
 			for(T cli: listaDeObjetos) {						
-				if(((ClienteDTO) cli).getEmail().equals(((ClienteDTO)objeto).getEmail())){				
+				if(((ClienteDTO) cli).getEmail().equals(((ClienteDTO)objeto).getEmail()) && ((ClienteDTO) cli).getIdCliente() != ((ClienteDTO) objeto).getIdCliente()){				
 					return true;
 				}
 			}
@@ -534,7 +534,7 @@ public class Validador {
 		else if(objeto instanceof CuartoDTO && listaDeObjetos.get(0) instanceof CuartoDTO) {
 			for(T cuarto: listaDeObjetos) {			
 				if(((CuartoDTO) cuarto).getPiso().equals(((CuartoDTO)objeto).getPiso()) && 
-						((CuartoDTO) cuarto).getHabitacion().equals(((CuartoDTO)objeto).getHabitacion())){				
+						((CuartoDTO) cuarto).getHabitacion().equals(((CuartoDTO)objeto).getHabitacion()) && ((CuartoDTO) cuarto).getId()!= ((CuartoDTO) objeto).getId()){				
 					return true;
 				}
 			}
@@ -542,7 +542,7 @@ public class Validador {
 		}
 		else if(objeto instanceof UsuarioDTO && listaDeObjetos.get(0) instanceof UsuarioDTO) {
 			for(T usuario: listaDeObjetos) {			
-				if(((UsuarioDTO) usuario).getEmail().equals(((UsuarioDTO)objeto).getEmail())){				
+				if(((UsuarioDTO) usuario).getEmail().equals(((UsuarioDTO)objeto).getEmail()) && ((UsuarioDTO) usuario).getIdUsuario() != ((UsuarioDTO) objeto).getIdUsuario()){				
 					return true;
 				}
 			}
@@ -551,7 +551,7 @@ public class Validador {
 		else if(objeto instanceof CategoriaEventoDTO && listaDeObjetos.get(0) instanceof CategoriaEventoDTO) {
 			for(T cateEvento: listaDeObjetos) {			
 				if(((CategoriaEventoDTO) cateEvento).getNombre().equals(((CategoriaEventoDTO)objeto).getNombre())
-						&& ((CategoriaEventoDTO) cateEvento).getDetalle().equals(((CategoriaEventoDTO)objeto).getDetalle())){				
+						&& ((CategoriaEventoDTO) cateEvento).getDetalle().equals(((CategoriaEventoDTO)objeto).getDetalle()) && ((CategoriaEventoDTO) cateEvento).getId() != ((CategoriaEventoDTO) objeto).getId()){				
 					return true;
 				}
 			}
@@ -559,15 +559,16 @@ public class Validador {
 		}
 		else if(objeto instanceof SalonDTO && listaDeObjetos.get(0) instanceof SalonDTO) {
 			for(T salon: listaDeObjetos) {			
-				if(((SalonDTO) salon).getEstilo().equals(((SalonDTO)objeto).getEstilo())){				
+				if(((SalonDTO) salon).getEstilo().equals(((SalonDTO)objeto).getEstilo()) && ((SalonDTO) salon).getId() != ((SalonDTO) objeto).getId()){				
 					return true;
 				}
 			}
 			return false;
 		}
 		else if(objeto instanceof ProductoDTO && listaDeObjetos.get(0) instanceof ProductoDTO) {
-			for(T producto: listaDeObjetos) {			
-				if(((ProductoDTO) producto).getNombre().equals(((ProductoDTO)objeto).getNombre())){				
+			for(T producto: listaDeObjetos) {								
+				if(((ProductoDTO) producto).getNombre().equalsIgnoreCase(((ProductoDTO)objeto).getNombre()) &&
+						((ProductoDTO) producto).getIdProducto() != (((ProductoDTO)objeto).getIdProducto())){				
 					return true;
 				}
 			}
@@ -579,7 +580,8 @@ public class Validador {
 			int pId=(int)((PermisoPerfilDTO) permisoPefil).getIdPerfil();
 			
 			if((int)((PermisoPerfilDTO) permisoPefil).getIdPerfil() == (int)((PermisoPerfilDTO) objeto).getIdPerfil() 
-					&& (int)((PermisoPerfilDTO) permisoPefil).getIdPermiso() == (int)((PermisoPerfilDTO) objeto).getIdPermiso()){				
+					&& (int)((PermisoPerfilDTO) permisoPefil).getIdPermiso() == (int)((PermisoPerfilDTO) objeto).getIdPermiso()
+					&& (int)((PermisoPerfilDTO) permisoPefil).getIdPermisoPerfil() != (int)((PermisoPerfilDTO) objeto).getIdPermisoPerfil()){				
 				return true;
 			}
 		}
@@ -587,10 +589,6 @@ public class Validador {
 	}
 		}
 		return false;
-	}
-
-	private PermisoPerfilDTO getIdPerfil() {
-		return null;
 	}
 
 
