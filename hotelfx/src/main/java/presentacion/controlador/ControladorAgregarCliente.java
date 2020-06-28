@@ -54,6 +54,7 @@ public class ControladorAgregarCliente implements Initializable {
 
 	
 	@FXML private ControladorMenuPrincipal menuPrincipal;
+	private ControladorABMCliente controladorABMCliente;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -86,11 +87,11 @@ public class ControladorAgregarCliente implements Initializable {
 			java.sql.Date gettedDatePickerDate = java.sql.Date.valueOf(txtFecha.getValue());
 			ClienteDTO nuevoCliente = new ClienteDTO(0, nombre, apellido, tipoDoc, documento, email, tel, true,gettedDatePickerDate);
 			
-				
-			
+		
 			
 			this.hotel.agregarCliente(nuevoCliente);
-
+			this.controladorABMCliente.refrescarTabla();
+			
 			cerrarVentanaAgregar();	
 
 	}
@@ -125,7 +126,7 @@ public class ControladorAgregarCliente implements Initializable {
 				
 				ClienteDTO nuevoCliente = new ClienteDTO(id, nombre, apellido, tipoDoc, documento, email, tel, true,gettedDatePickerDate);
 				this.hotel.modificarCliente(nuevoCliente);
-			
+				this.controladorABMCliente.refrescarTabla();
 				cerrarVentanaModificar();	
 		}
 	 
@@ -235,6 +236,11 @@ public class ControladorAgregarCliente implements Initializable {
 
 	public ComboBox<String> getComboTipoDoc() {
 		return comboTipoDoc;
+	}
+
+	public void enviarControlador(ControladorABMCliente controladorABMCliente) {
+		// TODO Auto-generated method stub
+		this.controladorABMCliente = controladorABMCliente;
 	}
 	
 

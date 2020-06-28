@@ -30,6 +30,7 @@ public class ControladorAgregarSalon implements Initializable{
 		  private Salon salon;
 		  private Integer id;
 		  private Alert alert;
+		private ControladorABMSalon controladorABMSalon;
 		  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -54,6 +55,7 @@ public class ControladorAgregarSalon implements Initializable{
 			SalonDTO salon = new SalonDTO(0, capacidad, senia, estilo, monto, estado);
 			if(!Validador.consultarRepetidos(salon, this.salon.obtenerSalones())) {
 				this.salon.agregarSalon(salon);
+				this.controladorABMSalon.refrescarTabla();
 				Validador.mostrarMensaje("Salon agregado.");
 				cerrarVentana();	
 			}
@@ -91,6 +93,7 @@ public class ControladorAgregarSalon implements Initializable{
 		
 		if(!Validador.consultarRepetidos(salon, salonesSinActual)) {
 			this.salon.modificarSalon(salon);
+			this.controladorABMSalon.refrescarTabla();
 			cerrarVentana();
 			Validador.mostrarMensaje("Salon modificado.");
 		}
@@ -147,5 +150,10 @@ public class ControladorAgregarSalon implements Initializable{
 	
 	public void setDisableBtnModificarSalon(Boolean value) {
 		this.btnEditarSalon.setDisable(value);
+	}
+
+	public void enviarControlador(ControladorABMSalon controladorABMSalon) {
+		// TODO Auto-generated method stub
+		this.controladorABMSalon = controladorABMSalon;
 	}
 }

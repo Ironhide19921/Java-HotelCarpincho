@@ -140,6 +140,7 @@ public class ControladorABMCliente implements Initializable{
 				primaryStage.setScene(fxml.getScene("VentanaAgregarCliente"));   
 				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
 				ControladorAgregarCliente controlador = fxmlLoader.getController();
+				controlador.enviarControlador(this);
 				controlador.setVisibilityBtnAgregarCliente(true);
 				controlador.setDisableBtnAgregarCliente(false);
 				controlador.setVisibilityBtnModificarCliente(false);
@@ -162,6 +163,7 @@ public class ControladorABMCliente implements Initializable{
 				FXMLLoader fxmlLoader = fxml.getFXMLLoader();
 				ControladorAgregarCliente controlador = fxmlLoader.getController();
 				ClienteDTO clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
+				controlador.enviarControlador(this);
 				controlador.setearCamposPantalla(clienteSeleccionado);
 				controlador.setVisibilityBtnAgregarCliente(false);
 				controlador.setVisibilityBtnModificarCliente(true);	 

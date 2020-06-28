@@ -43,6 +43,7 @@ public class ControladorAgregarCuarto implements Initializable {
 		  private Cuarto cuarto;
 		  private CategoriaCuarto categorias;
 		  private Integer id;
+		private ControladorABMCuarto controladorABMCuarto;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -87,6 +88,7 @@ public class ControladorAgregarCuarto implements Initializable {
 		//valido repetidos
 		if(!Validador.consultarRepetidos(nuevoCuarto, this.cuarto.obtenerCuartos())) {
 			this.cuarto.agregarCuarto(nuevoCuarto);
+			this.controladorABMCuarto.refrescarTabla();
 			cerrarVentanaAgregar();
 		}else {
 			Validador.mostrarMensaje("El cuarto ya existe");
@@ -145,6 +147,7 @@ public class ControladorAgregarCuarto implements Initializable {
 		
 		if(!Validador.consultarRepetidos(nuevoCuarto, cuartosSinActual)) {
 			this.cuarto.modificarCuartos(nuevoCuarto);
+			this.controladorABMCuarto.refrescarTabla();
 			cerrarVentanaModificar();
 		}else {
 			Validador.mostrarMensaje("El cuarto ya existe");
@@ -244,6 +247,11 @@ public class ControladorAgregarCuarto implements Initializable {
 
 	public ComboBox<String> getCmbBoxCatesCuarto() {
 		return cmbBoxCatesCuarto;
+	}
+
+	public void enviarControlador(ControladorABMCuarto controladorABMCuarto) {
+		// TODO Auto-generated method stub
+		this.controladorABMCuarto = controladorABMCuarto;
 	}
 	
 	

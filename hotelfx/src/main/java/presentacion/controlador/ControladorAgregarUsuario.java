@@ -44,6 +44,7 @@ public class ControladorAgregarUsuario implements Initializable {
 		  private ObservableList<PerfilDTO> listaPerfiles;
 		  
 		  private Validador validador;
+		private ControladorABMUsuarios controladorABMUsuarios;
 		  
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {
@@ -84,6 +85,7 @@ public class ControladorAgregarUsuario implements Initializable {
 				
 				if(!(Validador.consultarRepetidos(nuevoUsuario, (this.usuariosRegistrados)))) {
 					this.usuarios.agregarUsuario(nuevoUsuario);
+					this.controladorABMUsuarios.refrescarTabla();
 					cerrarVentanaAgregar();
 				}else {
 					Validador.mostrarMensaje("Email ya registrado");
@@ -132,6 +134,7 @@ public class ControladorAgregarUsuario implements Initializable {
 				
 				if(!(Validador.consultarRepetidos(nuevoUsuario, (this.usuariosRegistrados)))) {
 					this.usuarios.modificarUsuario(nuevoUsuario);
+					this.controladorABMUsuarios.refrescarTabla();
 					cerrarVentanaModificar();
 				}else {
 					Validador.mostrarMensaje("Email ya registrado");
@@ -234,6 +237,11 @@ public class ControladorAgregarUsuario implements Initializable {
 
 		public ComboBox<String> getComboTipoDoc() {
 			return comboTipoDoc;
+		}
+
+		public void enviarControlador(ControladorABMUsuarios controladorABMUsuarios) {
+			// TODO Auto-generated method stub
+			this.controladorABMUsuarios = controladorABMUsuarios;
 		}
 	
 }

@@ -111,6 +111,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	private Timestamp FechaEgreso = null;
 	private Email ModeloEmail;
 	private Configuracion configuracion;
+	private ControladorABMReservaEvento controladorABMReservaEvento;
 	
 	
 	@Override
@@ -252,6 +253,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 					Date date = java.sql.Date.valueOf(fechaInicioReserva.getValue());
 					EmailDTO recordatorio = new EmailDTO(0, date, "Acordate que tenes una reserva", "Recordatorio reserva evento", config.get(0).getUsername(), this.clienteActual.getEmail(), false, config.get(0).getPassword());
 					ModeloEmail.agregarEmail(recordatorio);
+					this.controladorABMReservaEvento.refrescarTabla();
 					Validador.mostrarMensaje("Reserva dada de alta correctamente");
 					cerrarVentana();
 				}
@@ -267,6 +269,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 				EmailDTO recordatorio = new EmailDTO(0, date, "Acordate que tenes una reserva", "Recordatorio reserva evento", config.get(0).getUsername(), this.clienteActual.getEmail(), false, config.get(0).getPassword());
 				ModeloEmail.agregarEmail(recordatorio);
 				Validador.mostrarMensaje("Reserva dada de alta correctamente");
+				this.controladorABMReservaEvento.refrescarTabla();
 				//cuando se agrega hay que enviar un mail al cliente
 				cerrarVentana();
 			}
@@ -374,6 +377,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 					}
 					
 					this.reserva.modificarReservaEvento(nuevaReserva);
+					this.controladorABMReservaEvento.refrescarTabla();
 					cerrarVentana();
 				}
 			}
@@ -395,6 +399,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 				}
 				
 				this.reserva.modificarReservaEvento(nuevaReserva);
+				this.controladorABMReservaEvento.refrescarTabla();
 				Validador.mostrarMensaje("Reserva modificada correctamente");
 				cerrarVentana();
 			}
@@ -805,6 +810,14 @@ public class ControladorAgregarReservaEvento implements Initializable{
 
 	public void setVisibilityComboClientes(boolean b) {
 		this.comboClientes.setVisible(b);
+	}
+
+
+
+
+	public void enviarControlador(ControladorABMReservaEvento controladorABMReservaEvento) {
+		// TODO Auto-generated method stub
+		this.controladorABMReservaEvento = controladorABMReservaEvento;
 	}
 	
 }

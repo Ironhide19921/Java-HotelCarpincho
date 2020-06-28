@@ -71,6 +71,7 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 				primaryStage.setScene(new Scene(root));   
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarCategoriaCuarto scene2Controller = fxmlLoader.getController();
+				scene2Controller.enviarControlador(this);
 				scene2Controller.setVisibilityBtnAgregarCategoriaCuarto(true);
 				scene2Controller.setDisableBtnAgregarCategoriaCuarto(false);
 				scene2Controller.setVisibilityBtnModificarCategoriaCuarto(false);
@@ -105,7 +106,7 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 				scene2Controller.setVisibilityBtnAgregarCategoriaCuarto(false);
 				scene2Controller.setDisableBtnAgregarCategoriaCuarto(true);
 				scene2Controller.setVisibilityBtnModificarCategoriaCuarto(true);
-
+				scene2Controller.enviarControlador(this);
 				scene2Controller.setDisableBtnModificarCategoriaCuarto(false);
 				scene2Controller.setearCamposPantalla(tablaCategoriaCuarto.getSelectionModel().getSelectedItem());
 				primaryStage.setTitle("Modificar categoria de cuarto");
@@ -147,6 +148,7 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 		this.categoriaCuarto = new CategoriaCuarto(new DAOSQLFactory());
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		this.alert = new Alert(AlertType.INFORMATION);
+		this.btnRefrescar.setVisible(false);
 		cargarColumnas();
 		activeSession = FXCollections.observableArrayList();
 		tablaCategoriaCuarto.getItems().clear();
@@ -156,8 +158,7 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 		refrescarListaIdCategoriaCuarto();
 	}
 
-	 @FXML
-		private void refrescarTabla(){
+	 @FXML void refrescarTabla(){
 	 		crearTabla(getAllClientes());
 		}
 	 

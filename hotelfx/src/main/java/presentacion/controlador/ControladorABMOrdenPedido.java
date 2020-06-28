@@ -57,6 +57,9 @@ public class ControladorABMOrdenPedido implements Initializable{
 	private ReservaCuarto reservas;
 	private BigDecimal montoTotal;
 	private Ticket ticket;
+	//son para el refrescar
+	private ControladorABMReservaCuarto controladorABMReservaCuarto;
+	private ControladorAgregarReservaCuarto1 controladorAgregarReservaCuarto1;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -201,6 +204,7 @@ public class ControladorABMOrdenPedido implements Initializable{
 			reporte.guardarPdf();
 		}
 		Validador.mostrarMensaje("Su ticket ha sido creado con exito.");
+		this.controladorABMReservaCuarto.refrescarTabla();
 		cerrarVentanaAgregarY_GenerarTicket();
 	}
 	
@@ -219,6 +223,16 @@ public class ControladorABMOrdenPedido implements Initializable{
 	private void cerrarVentanaAgregarY_GenerarTicket() {
 		Stage stage = (Stage) btnGenerarTicket.getScene().getWindow();
 		stage.close();
+	}
+
+	public void enviarControlador(ControladorABMReservaCuarto controladorABMReservaCuarto) {
+		// TODO Auto-generated method stub
+		this.controladorABMReservaCuarto = controladorABMReservaCuarto;
+	}
+
+	public void enviarControlador(ControladorAgregarReservaCuarto1 controladorAgregarReservaCuarto1) {
+		// TODO Auto-generated method stub
+		this.controladorAgregarReservaCuarto1 = controladorAgregarReservaCuarto1;
 	}
 		
 

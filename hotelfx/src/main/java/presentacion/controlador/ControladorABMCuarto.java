@@ -88,6 +88,7 @@ public class ControladorABMCuarto implements Initializable
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
 				ControladorAgregarCuarto scene2Controller = fxmlLoader.getController();
+				scene2Controller.enviarControlador(this);
 				scene2Controller.modificarVisibilidadBotones(true);
 				primaryStage.setTitle("Agregar cuarto");
 				primaryStage.sizeToScene();
@@ -113,6 +114,7 @@ public class ControladorABMCuarto implements Initializable
 				primaryStage.setScene(new Scene(root));   
 				ControladorAgregarCuarto scene2Controller = fxmlLoader.getController();
 				CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
+				scene2Controller.enviarControlador(this);
 				scene2Controller.cargarCmbCateCuarto();
 				scene2Controller.setearCamposPantalla(cuartoSeleccionado);
 				scene2Controller.modificarVisibilidadBotones(false); 
@@ -125,8 +127,7 @@ public class ControladorABMCuarto implements Initializable
 		     } 
 	    }
 	 
-	@FXML
-	private void refrescarTabla(){
+	@FXML void refrescarTabla(){
 		txtBuscar.setText("");
 		crearTabla(getAllCuartos());
 	}
