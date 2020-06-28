@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Contable" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e4c71be-9ab3-46ab-b792-e2db3ccf39a9">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data1"/>
+	<parameter name="FechaI" class="java.sql.Date"/>
+	<parameter name="FechaF" class="java.sql.Date"/>
+	<queryString language="SQL">
+		<![CDATA[select tipo,
+sum(ganancia)
+FROM
+(select 
+if(rc.idReservaCuarto is not null, "Ingreso Reserva cuarto", "") as TIPO,
+            c.idCliente as Cliente,
+            rc.senia as Ganancia
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
+union
+select 
+if(rc.idReservaCuarto is not null, "Egreso Reserva cuarto", "") as TIPO,
+            c.idCliente as Cliente,
+            rc.MontoReservaCuarto as Ganancia
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
+union
+select 
+if(re.idReservaEvento is not null, "Reserva evento", "") as TIPO,
+            c.idCliente as Cliente,
+            re.montoReservaEvento as Ganancia
+from cliente c
+inner join reservaevento re on re.idCliente = c.idCliente
+union
+select 
+if(op.idOrdenPedido is not null and op.esRestoran = 0, "Pedido Reserva", "Pedido") as TIPO,
+            c.idCliente as Cliente,
+            op.PrecioTotal as Ganancia
+from cliente c
+inner join ordenpedido op on op.idCliente = c.idCliente
+inner join ticket ti on op.idCliente = ti.idCliente)t
+
+group by tipo]]>
+	</queryString>
+	<field name="tipo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipo"/>
+	</field>
+	<field name="sum(ganancia)" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="sum(ganancia)"/>
+	</field>
+	<group name="GDia"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="106" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="105" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="108" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="216" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="140" y="32" width="310" height="130" uuid="d7c0f565-c708-41b0-a4d3-c27122898a56"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{tipo}]]></keyExpression>
+					<valueExpression><![CDATA[$F{sum(ganancia)}]]></valueExpression>
+					<labelExpression><![CDATA[$F{tipo} + "-" + $F{sum(ganancia)}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
