@@ -32,7 +32,7 @@ public class ProductoTest {
 		producto = new Producto(new DAOSQLFactory());
 		List<ProductoDTO> listaProductos = producto.buscarProductos("comi");
 		System.out.println(listaProductos.size());
-		assertEquals(1, listaProductos.size());
+		assertEquals(2, listaProductos.size());
 	
 	}
 	

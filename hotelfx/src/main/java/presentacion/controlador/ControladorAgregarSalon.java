@@ -39,6 +39,11 @@ public class ControladorAgregarSalon implements Initializable{
 	
 	@FXML
 	public void guardarSalon() throws IOException {
+		
+		if(!Validador.formatoNumero(txtSenia.getText()) || !Validador.formatoNumero(txtCapacidad.getText())) {
+			Validador.mostrarMensaje("Formatos incorrectos");
+			return;
+		}
 		int senia = Integer.parseInt(txtSenia.getText());
 		if(senia <= 100 && senia>=0) {
 			int capacidad = Integer.parseInt(txtCapacidad.getText());
@@ -65,6 +70,10 @@ public class ControladorAgregarSalon implements Initializable{
 	public void modificarSalon() throws IOException {
 	
 		Integer id = this.id;
+		if(!Validador.formatoNumero(txtSenia.getText()) || !Validador.formatoNumero(txtCapacidad.getText())) {
+			Validador.mostrarMensaje("Formatos incorrectos");
+			return;
+		}
 		int capacidad = Integer.parseInt(txtCapacidad.getText());
 		int senia = Integer.parseInt(txtSenia.getText());
 		String estilo = txtEstilo.getText();
