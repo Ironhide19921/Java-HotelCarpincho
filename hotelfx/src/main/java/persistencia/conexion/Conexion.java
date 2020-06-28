@@ -32,8 +32,6 @@ public class Conexion {
 	private Logger log = Logger.getLogger(Conexion.class);
 	
 	public static String ejecucion = "Aceptar";
-	
-	ControladorMenuPrincipal menuPrincipal = new ControladorMenuPrincipal();
 
 	private Conexion() {
 		int estado = 0;
@@ -46,7 +44,7 @@ public class Conexion {
 			try {
 
 				Class.forName("com.mysql.jdbc.Driver");
-				this.connection = DriverManager.getConnection("jdbc:mysql://" + config.getHost() + "/hotel",
+				this.connection = DriverManager.getConnection("jdbc:mysql://" + config.getHost() + "/hotel", //Recordar cambiar el test
 						"" + config.getUser() + "", "" + config.getPass() + "");
 				this.connection.setAutoCommit(false);
 				log.info("ConexiÃ³n exitosa");
@@ -56,6 +54,7 @@ public class Conexion {
 			catch (Exception e) {
 				ejecucion = Validador.mostrarMensajeOpcion();
 				if (ejecucion.equals("Aceptar") || ejecucion.equals("OK")) {
+					ControladorMenuPrincipal menuPrincipal = new ControladorMenuPrincipal();
 					menuPrincipal.verVentanaConexion();
 				}
 				if (ejecucion.equals("Cancelar") || ejecucion.equals("Cancel")) {

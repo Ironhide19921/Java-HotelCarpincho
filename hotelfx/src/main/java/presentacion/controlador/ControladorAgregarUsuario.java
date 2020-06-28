@@ -129,8 +129,14 @@ public class ControladorAgregarUsuario implements Initializable {
 
 				UsuarioDTO nuevoUsuario = new UsuarioDTO(idUsuario, idPerfil, nombre, apellido, tipoDoc, documento,
 						email, password, true);
-				this.usuarios.modificarUsuario(nuevoUsuario);
-				cerrarVentanaModificar();
+				
+				if(!(Validador.consultarRepetidos(nuevoUsuario, (this.usuariosRegistrados)))) {
+					this.usuarios.modificarUsuario(nuevoUsuario);
+					cerrarVentanaModificar();
+				}else {
+					Validador.mostrarMensaje("Email ya registrado");
+				}
+				
 			}
 		 
 		 

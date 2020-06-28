@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import dto.CuartoDTO;
 import modelo.Cuarto;
+import persistencia.conexion.Conexion;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class CuartoTest {
