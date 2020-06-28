@@ -227,5 +227,12 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 			 Validador.mostrarMensaje("Debe seleccionar una reserva.");
 		 }
 	}
+
+
+	public void modificarBotones() {
+		this.btnAgregarReserva.setDisable(true);
+		this.btnHabDesReserva.setDisable(true);
+		this.btnModificarReserva.setDisable(true);
+	}
 	
 }

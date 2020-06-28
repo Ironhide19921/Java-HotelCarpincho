@@ -24,31 +24,17 @@ public class CuartoDAOSQL implements CuartoDAO{
 	private static final String search = "SELECT * FROM cuarto WHERE capacidad LIKE ? OR monto LIKE ? OR montoSenia LIKE ? OR piso LIKE ? OR habitacion LIKE ?";
 	private static final String search1 = "SELECT * FROM cuarto WHERE idCuarto = ?";
 	private static final String searchDisponible =
-			"SELECT cuarto.idCuarto, "
-			+"cuarto.idCategoriaCuarto,"
-			+"cuarto.capacidad, "
-			+"cuarto.monto, "
-			+"cuarto.montoSenia, "
-			+"cuarto.piso,"
-			+"cuarto.habitacion, "
-			+"cuarto.estado "
-			+"FROM cuarto "
-			+"where estado = 1"
-			+" EXCEPT " 
-			+"SELECT h.idCuarto,"
-			+"h.idCategoriaCuarto,"
-			+"h.capacidad,"
-			+"h.monto,"
-			+"h.montoSenia,"
-			+"h.piso,"
-			+"h.habitacion,"
-			+"h.estado"
-			+"FROM cuarto as h" 
-			+"left join reservacuarto as r on" 
-			+"r.idCuarto = h.idCuarto" 
-			+"where" 
-			+"(? >= r.FechaIngreso and ? < r.FechaIngreso)  " 
-			+"AND (r.FechaEgreso >= ? and r.FechaEgreso < ?) and r.Estado = 1 and h.estado = 1";
+			"select" 
+			+" *"
+			+" from cuarto"
+			+" where idCuarto not in (select"
+			+" c.idCuarto"
+			+" from cuarto as c"
+			+" left join reservacuarto as r on r.idCuarto= c.idCuarto"
+			+" where (r.FechaIngreso < ? and r.FechaEgreso > ?)"
+			+" or (r.FechaIngreso < ? and r.FechaEgreso > ?)"
+			+" or (? between r.FechaIngreso and r.FechaEgreso and ? between r.FechaIngreso and r.FechaEgreso)"
+			+" or (r.FechaIngreso <= ? and r.FechaEgreso >= ?))";
 
 	@Override
 	public boolean insert(CuartoDTO cuarto) {
@@ -226,6 +212,10 @@ public class CuartoDAOSQL implements CuartoDAO{
 			statement.setTimestamp(2,fechaIngreso);
 			statement.setTimestamp(3,fechaEgreso);
 			statement.setTimestamp(4,fechaEgreso);
+			statement.setTimestamp(5,fechaIngreso);
+			statement.setTimestamp(6,fechaEgreso);
+			statement.setTimestamp(7,fechaIngreso);
+			statement.setTimestamp(8,fechaEgreso);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()){

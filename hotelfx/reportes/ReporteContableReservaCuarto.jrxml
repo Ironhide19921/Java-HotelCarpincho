@@ -3,11 +3,49 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="047091a0-0eca-4c5f-8669-682f4504f278">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data1"/>
+	<subDataset name="Dataset1" uuid="ad5bfbb6-e0a0-4414-b3ab-99688c2cb28a">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data1"/>
+		<queryString language="SQL">
+			<![CDATA[
+select TIPOS,
+sum(Ganancias) as Ganancias
+from
+(select
+if(rc.idReservaCuarto is not null, "Ingreso Reserva cuarto", "") as TIPOS,
+            rc.senia as Ganancias
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
+union
+select 
+if(rc.idReservaCuarto is not null, "Egreso Reserva cuarto", "") as TIPOS,
+            rc.MontoReservaCuarto as Ganancias
+from cliente c
+inner join reservacuarto rc on rc.idCliente = c.idCliente
+) as t
+group by TIPOS
+ ]]>
+		</queryString>
+		<field name="TIPOS" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="TIPOS"/>
+		</field>
+		<field name="Ganancias" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="Ganancias"/>
+		</field>
+		<variable name="Variable_1" class="java.lang.String"/>
+		<variable name="Ganancia1" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
+		</variable>
+		<group name="TIPO">
+			<groupExpression><![CDATA[$F{TIPO}]]></groupExpression>
+		</group>
+	</subDataset>
 	<parameter name="FechaI" class="java.sql.Date"/>
 	<parameter name="FechaF" class="java.sql.Date"/>
 	<queryString language="SQL">
 		<![CDATA[select 
 if(rc.idReservaCuarto is not null, "Ingreso Reserva cuarto", "") as TIPO,
+			1 as NTIPO,
             c.idCliente as Cliente,
             rc.senia as Ganancia,
             DATE_FORMAT(rc.fechaIngreso, '%V') as Semana,
@@ -19,6 +57,7 @@ where  DATE_FORMAT(rc.fechaIngreso, '%Y-%m-%d')  >= $P{FechaI} and  DATE_FORMAT(
 union
 select 
 if(rc.idReservaCuarto is not null, "Egreso Reserva cuarto", "") as TIPO,
+		 2 as NTIPO,
             c.idCliente as Cliente,
             rc.MontoReservaCuarto as Ganancia,
             DATE_FORMAT(rc.fechaEgreso, '%V') as Semana,
@@ -30,6 +69,7 @@ where  DATE_FORMAT(rc.fechaEgreso, '%Y-%m-%d') >= $P{FechaI} and  DATE_FORMAT(rc
 union
 select 
 if(re.idReservaEvento is not null, "Reserva evento", "") as TIPO,
+		3 as NTIPO,
             c.idCliente as Cliente,
             re.montoReservaEvento as Ganancia,
             DATE_FORMAT(re.fechaInicioReserva, '%V') as Semana,
@@ -40,7 +80,8 @@ inner join reservaevento re on re.idCliente = c.idCliente
 where   DATE_FORMAT(re.fechaInicioReserva, '%Y-%m-%d') >= $P{FechaI} and   DATE_FORMAT(re.fechaInicioReserva, '%Y-%m-%d') <= $P{FechaF} 
 union
 select 
-if(op.idOrdenPedido is not null and ti.fechaReserva is not null, "Pedido Reserva", "Pedido") as TIPO,
+if(op.idOrdenPedido is not null and op.esRestoran = 0, "Pedido Reserva", "Pedido") as TIPO,
+			4 as NTIPO,
             c.idCliente as Cliente,
             op.PrecioTotal as Ganancia,
             DATE_FORMAT(ti.fechaReserva, '%V') as Semana,
@@ -50,11 +91,13 @@ from cliente c
 inner join ordenpedido op on op.idCliente = c.idCliente
 inner join ticket ti on op.idCliente = ti.idCliente
 where  	DATE_FORMAT(ti.fechaReserva, '%Y-%m-%d') >= $P{FechaI} and  	DATE_FORMAT(ti.fechaReserva, '%Y-%m-%d') <= $P{FechaF} 
-order by Fecha
-]]>
+order by Fecha]]>
 	</queryString>
 	<field name="TIPO" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="TIPO"/>
+	</field>
+	<field name="NTIPO" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="NTIPO"/>
 	</field>
 	<field name="Cliente" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="Cliente"/>
@@ -71,9 +114,6 @@ order by Fecha
 	<field name="Fecha" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Fecha"/>
 	</field>
-	<variable name="SumadorTipos" class="java.math.BigDecimal" resetType="Group" resetGroup="Tipos" calculation="Sum">
-		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
-	</variable>
 	<variable name="SumDiario" class="java.math.BigDecimal" resetType="Group" resetGroup="Dia" calculation="Sum">
 		<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
 		<initialValueExpression><![CDATA[$F{Ganancia}]]></initialValueExpression>
@@ -87,103 +127,203 @@ order by Fecha
 	<group name="Mes">
 		<groupExpression><![CDATA[$F{Mes}]]></groupExpression>
 		<groupFooter>
-			<band height="62">
+			<band height="19">
 				<textField>
-					<reportElement x="490" y="32" width="100" height="30" uuid="9f690598-fac0-431c-9ab5-47bdf1d2efb1"/>
+					<reportElement x="480" y="0" width="80" height="18" uuid="9f690598-fac0-431c-9ab5-47bdf1d2efb1"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{SumMes}]]></textFieldExpression>
 				</textField>
+				<rectangle>
+					<reportElement mode="Transparent" x="0" y="-1" width="559" height="20" forecolor="#969190" backcolor="#736B6B" uuid="87a8cf17-71a7-4806-98db-5dd9ac6bf349"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="0" width="80" height="18" forecolor="#000000" uuid="3a617e1d-de01-4242-903b-29c878e09c85"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Total mensual]]></text>
+				</staticText>
 			</band>
 		</groupFooter>
 	</group>
 	<group name="Semana">
 		<groupExpression><![CDATA[$F{Semana}]]></groupExpression>
 		<groupFooter>
-			<band height="45">
+			<band height="19">
 				<textField>
-					<reportElement x="400" y="7" width="100" height="30" uuid="21eea6cd-c743-4e91-ac45-407b06d6f625"/>
+					<reportElement x="380" y="0" width="100" height="18" uuid="21eea6cd-c743-4e91-ac45-407b06d6f625"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{SumSemanal}]]></textFieldExpression>
 				</textField>
+				<rectangle>
+					<reportElement mode="Transparent" x="0" y="-1" width="559" height="20" forecolor="#969190" backcolor="#736B6B" uuid="a6fbe445-cf1b-44c9-ab45-5dc496007b99"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="0" width="80" height="18" forecolor="#000000" uuid="f646fd84-e952-4647-b6d5-59ee529f93dc"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Total semanal]]></text>
+				</staticText>
 			</band>
 		</groupFooter>
 	</group>
 	<group name="Dia">
 		<groupExpression><![CDATA[$F{Fecha}]]></groupExpression>
 		<groupFooter>
-			<band height="30">
+			<band height="20">
 				<textField>
-					<reportElement x="290" y="-5" width="100" height="30" uuid="6bde7158-9bfc-42da-9e81-02fe80b60adf"/>
+					<reportElement x="280" y="0" width="100" height="18" uuid="6bde7158-9bfc-42da-9e81-02fe80b60adf"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{SumDiario}]]></textFieldExpression>
 				</textField>
+				<rectangle>
+					<reportElement mode="Transparent" x="0" y="0" width="559" height="20" forecolor="#969190" backcolor="#736B6B" uuid="2a2e26b3-567c-4d6c-b093-efe0781affe5"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="2" width="80" height="18" forecolor="#000000" uuid="49ac5212-949e-4451-aec1-48e7b15a6fd7"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Total diario]]></text>
+				</staticText>
 			</band>
 		</groupFooter>
-	</group>
-	<group name="Tipos">
-		<groupExpression><![CDATA[$F{TIPO}]]></groupExpression>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="166" height="40" uuid="594f7898-2f45-40cc-bb17-687e02d65864"/>
+				<imageExpression><![CDATA["https://i.imgur.com/aDOl5Qj.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="40" width="210" height="25" uuid="d6b2f84f-5338-4503-b7cc-9a5b33a926e0">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carpincho CORP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="50" height="20" uuid="8ea31320-f26d-446e-b0e8-bffdeebb39e1"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="470" y="0" width="84" height="20" uuid="ccc21f35-f862-45ce-a52d-508f8fb6ded3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="32" width="206" height="40" uuid="3bf74cbd-43e3-4170-a4e9-05ef71d2a3a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="22"/>
+				</textElement>
+				<text><![CDATA[Reporte Contable]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="80" height="18" forecolor="#000000" uuid="c966d551-0db9-4f46-a5cb-789997d05932"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="20" width="80" height="18" forecolor="#000000" uuid="7eb4a41a-ff4c-4fe4-b960-7d0c1007c722"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="18" forecolor="#000000" uuid="74bd6879-523c-4a96-b1af-2e9e788d4047"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="20" width="100" height="18" uuid="743624f5-bd61-4f63-95be-2af584325b32"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{FechaI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="20" width="100" height="18" uuid="1cbecb58-e007-4b11-bf95-a62c39402fe6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{FechaF}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="76" splitType="Stretch"/>
+		<band height="23" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="-1" width="559" height="20" forecolor="#969190" backcolor="#736B6B" uuid="cc16c5fb-ec6d-4f9b-a6f3-9c6165553518"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="18" forecolor="#FFFFFF" uuid="bf0f24f2-a6a6-47db-8a8e-171b16b4d6c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="18" forecolor="#FFFFFF" uuid="8190c59c-9b1a-48e9-8490-2f0e371a3c04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo de ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="18" forecolor="#FFFFFF" uuid="8933a969-4e9d-434a-b237-eeddfc83e2af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ganancia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="18" forecolor="#FFFFFF" uuid="509ab502-3b7a-464b-847b-7fa7b1b17e9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Ingreso diario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="18" forecolor="#FFFFFF" uuid="583a27e6-008d-4c50-897a-2b9e8575edd9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Semanal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="481" y="0" width="79" height="18" forecolor="#FFFFFF" uuid="646c66e6-8fe0-4dda-9318-4275b5987b36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Mensual]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="53" splitType="Stretch">
+		<band height="19" splitType="Stretch">
 			<textField>
-				<reportElement x="200" y="0" width="100" height="30" uuid="89dbeedb-15cf-4c70-868f-425afadc9a07"/>
+				<reportElement x="180" y="0" width="100" height="18" uuid="89dbeedb-15cf-4c70-868f-425afadc9a07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Ganancia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="0" width="100" height="30" uuid="499759a9-3e9b-4c62-b9ca-5143a167c166"/>
+				<reportElement x="80" y="0" width="100" height="18" uuid="499759a9-3e9b-4c62-b9ca-5143a167c166"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="-2" width="100" height="30" uuid="1f057b34-073d-4cc0-a328-b6d809921a55"/>
+				<reportElement x="0" y="0" width="80" height="18" uuid="1f057b34-073d-4cc0-a328-b6d809921a55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="53" splitType="Stretch"/>
+		<band height="41" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="235" splitType="Stretch">
-			<pieChart>
-				<chart evaluationTime="Report">
-					<reportElement x="180" y="10" width="200" height="200" uuid="e75d68df-7497-42ed-8ae0-c74c6372cdba"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<pieDataset>
-					<dataset resetType="Group" resetGroup="Tipos"/>
-					<pieSeries>
-						<keyExpression><![CDATA[$F{TIPO}]]></keyExpression>
-						<valueExpression><![CDATA[$V{SumadorTipos}]]></valueExpression>
-					</pieSeries>
-					<pieSeries>
-						<keyExpression><![CDATA[$F{Fecha}]]></keyExpression>
-						<valueExpression><![CDATA[$V{SumadorTipos}]]></valueExpression>
-					</pieSeries>
-					<pieSeries>
-						<keyExpression><![CDATA[$F{TIPO}]]></keyExpression>
-						<valueExpression><![CDATA[$V{SumadorTipos}]]></valueExpression>
-						<labelExpression><![CDATA[$V{SumadorTipos}]]></labelExpression>
-					</pieSeries>
-				</pieDataset>
-				<piePlot>
-					<plot/>
-					<itemLabel/>
-				</piePlot>
-			</pieChart>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="170" height="20" uuid="0d9f9b5a-059d-4c7c-a6e3-8aad231b76b2"/>
+				<textFieldExpression><![CDATA["Página :"+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="269" splitType="Stretch"/>
 	</summary>
 </jasperReport>

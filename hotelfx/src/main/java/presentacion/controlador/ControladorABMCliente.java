@@ -204,6 +204,7 @@ public class ControladorABMCliente implements Initializable{
 				ControladorABMReservaCuarto scene2Controller = fxmlLoader.getController();
 				//obtengo el cliente seleccionado en la tabla y se lo transfiero a la otra pantalla
 				scene2Controller.crearTabla(scene2Controller.getAllReservasCuartosPorCliente(reservas));
+				scene2Controller.modificarBotones();
 				fxml.mostrarStage(primaryStage, "Reservas de cuarto del cliente: " + tablaPersonas.getSelectionModel().getSelectedItem().getNombre() + " " + 
 				tablaPersonas.getSelectionModel().getSelectedItem().getApellido() );
 		    	 } 
