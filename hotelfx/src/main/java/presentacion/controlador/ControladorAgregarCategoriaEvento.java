@@ -24,6 +24,7 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
 	@FXML private Button btnCerrar;
 		  private CategoriaEvento categoriaEvento;
 		  private Integer id;
+		private ControladorABMCategoriaEvento controladorABMCategoriaEvento;
 		  
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,6 +40,7 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
 		if(!Validador.consultarRepetidos(categoriaEvento, this.categoriaEvento.obtenerCategoriasEvento())) {
 			this.categoriaEvento.agregarCategoriaEvento(categoriaEvento);
 			Validador.mostrarMensaje("Categoría agregada.");
+			this.controladorABMCategoriaEvento.refrescarTabla();
 			cerrarVentana();	
 		}	
 		else{
@@ -69,6 +71,7 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
 		
 		if(!Validador.consultarRepetidos(categoriaEvento, categoriasSinActual)) {
 			this.categoriaEvento.modificarCategoriaEvento(categoriaEvento);
+			this.controladorABMCategoriaEvento.refrescarTabla();
 			cerrarVentana();	
 			Validador.mostrarMensaje("Categoría modificada.");
 		}
@@ -125,5 +128,10 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
 	
 	public void setDisableBtnModificarCategoriaEvento(Boolean value) {
 		this.btnEditarCategoriaEvento.setDisable(value);
+	}
+
+	public void enviarControlador(ControladorABMCategoriaEvento controladorABMCategoriaEvento) {
+		// TODO Auto-generated method stub
+		this.controladorABMCategoriaEvento = controladorABMCategoriaEvento;
 	}
 }

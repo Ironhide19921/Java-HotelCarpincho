@@ -24,7 +24,7 @@ public class ControladorAgregarCategoriaCuarto implements Initializable{
 	@FXML private Button btnCerrar;
 		  private CategoriaCuarto categoriaCuarto;
 		  private Integer id;
-		  
+		  private ControladorABMCategoriaCuarto controladorABMCategoriaCuarto;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.categoriaCuarto = new CategoriaCuarto(new DAOSQLFactory());
@@ -39,6 +39,7 @@ public class ControladorAgregarCategoriaCuarto implements Initializable{
 		if(!Validador.consultarRepetidos(categoriaCuarto, this.categoriaCuarto.obtenerCategoriasCuartos())) {
 			this.categoriaCuarto.agregarCategoriaCuarto(categoriaCuarto);
 			Validador.mostrarMensaje("Categoría agregada.");
+			controladorABMCategoriaCuarto.refrescarTabla();
 			cerrarVentanaAgregar();	
 		}
 		else {
@@ -72,6 +73,7 @@ public class ControladorAgregarCategoriaCuarto implements Initializable{
 		categoriasSinActual.remove(categoriaActual);
 		if(!Validador.consultarRepetidos(categoriaCuarto, categoriasSinActual)) {
 			this.categoriaCuarto.modificarCategoriaCuarto(categoriaCuarto);
+			controladorABMCategoriaCuarto.refrescarTabla();
 			cerrarVentanaModificar();	
 			Validador.mostrarMensaje("Categoría modificada.");
 		}	
@@ -130,6 +132,11 @@ public class ControladorAgregarCategoriaCuarto implements Initializable{
 
 		public void setBtnModificarCategoriaCuarto(Button btnModificarCliente) {
 				this.btnEditarCategoriaCuarto = btnModificarCliente;
+		}
+
+		public void enviarControlador(ControladorABMCategoriaCuarto controladorABMCategoriaCuarto) {
+			// TODO Auto-generated method stub
+			this.controladorABMCategoriaCuarto = controladorABMCategoriaCuarto;
 		}
 
 	 

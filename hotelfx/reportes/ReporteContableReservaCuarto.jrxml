@@ -3,43 +3,6 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="047091a0-0eca-4c5f-8669-682f4504f278">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data1"/>
-	<subDataset name="Dataset1" uuid="ad5bfbb6-e0a0-4414-b3ab-99688c2cb28a">
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Data1"/>
-		<queryString language="SQL">
-			<![CDATA[
-select TIPOS,
-sum(Ganancias) as Ganancias
-from
-(select
-if(rc.idReservaCuarto is not null, "Ingreso Reserva cuarto", "") as TIPOS,
-            rc.senia as Ganancias
-from cliente c
-inner join reservacuarto rc on rc.idCliente = c.idCliente
-union
-select 
-if(rc.idReservaCuarto is not null, "Egreso Reserva cuarto", "") as TIPOS,
-            rc.MontoReservaCuarto as Ganancias
-from cliente c
-inner join reservacuarto rc on rc.idCliente = c.idCliente
-) as t
-group by TIPOS
- ]]>
-		</queryString>
-		<field name="TIPOS" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="TIPOS"/>
-		</field>
-		<field name="Ganancias" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="Ganancias"/>
-		</field>
-		<variable name="Variable_1" class="java.lang.String"/>
-		<variable name="Ganancia1" class="java.math.BigDecimal" calculation="Sum">
-			<variableExpression><![CDATA[$F{Ganancia}]]></variableExpression>
-		</variable>
-		<group name="TIPO">
-			<groupExpression><![CDATA[$F{TIPO}]]></groupExpression>
-		</group>
-	</subDataset>
 	<parameter name="FechaI" class="java.sql.Date"/>
 	<parameter name="FechaF" class="java.sql.Date"/>
 	<queryString language="SQL">

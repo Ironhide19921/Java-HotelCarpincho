@@ -59,8 +59,7 @@ public class ControladorABMSalon implements Initializable{
 		estado.setCellValueFactory(new PropertyValueFactory("estado"));	
 	}
 	
-	@FXML
-	private void refrescarTabla(){
+	@FXML void refrescarTabla(){
  		crearTabla(getAllSalones());
 	}
 	
@@ -98,6 +97,7 @@ public class ControladorABMSalon implements Initializable{
 			Parent root = (Parent) fxmlLoader.load();
 			primaryStage.setScene(new Scene(root));   
 			ControladorAgregarSalon scene2Controller = fxmlLoader.getController();
+			scene2Controller.enviarControlador(this);
 			scene2Controller.setVisibilityBtnAgregarSalon(false);
 			scene2Controller.setDisableBtnAgregarSalon(true);
 			scene2Controller.setVisibilityBtnModificarSalon(true);

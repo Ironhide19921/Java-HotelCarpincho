@@ -62,8 +62,7 @@ public class ControladorABMProducto implements Initializable{
 		proveedor.setCellValueFactory(new PropertyValueFactory("proveedor"));		
 	}
 	
-	@FXML
-	private void refrescarTablaProductos() {
+	@FXML void refrescarTablaProductos() {
 		//crearTabla(listaProductos);
 		txtBuscarProd.setText("");
 		crearTabla(getAllProductos());
@@ -94,7 +93,7 @@ public class ControladorABMProducto implements Initializable{
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnAgregarProd(true);
 			scene2Controller.setVisibilityBtnEditarProd(false);
-		
+			scene2Controller.enviarControlador(this);
 			AgregarProductoStage.setTitle("Agregar Producto");
 			AgregarProductoStage.sizeToScene();
 			AgregarProductoStage.show();
@@ -121,6 +120,7 @@ public class ControladorABMProducto implements Initializable{
 			scene2Controller.setearCamposPantalla(productoSeleccionado);
 		    scene2Controller.setVisibilityBtnAgregarProd(false);
 		    scene2Controller.setVisibilityBtnEditarProd(true);
+		    scene2Controller.enviarControlador(this);
 		    AgregarProductoStage.setTitle("Modificar producto");
 		    AgregarProductoStage.sizeToScene();
 		    AgregarProductoStage.show(); 
