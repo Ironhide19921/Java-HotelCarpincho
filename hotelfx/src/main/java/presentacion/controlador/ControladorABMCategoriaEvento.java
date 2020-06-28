@@ -69,8 +69,7 @@ public class ControladorABMCategoriaEvento implements Initializable{
 		detalle.setCellValueFactory(new PropertyValueFactory("Detalle"));
 	}
 	
-	@FXML
-	private void refrescarTabla(){
+	@FXML void refrescarTabla(){
  		crearTabla(getAllCategoriasEvento());
 	}
 	
@@ -88,7 +87,7 @@ public class ControladorABMCategoriaEvento implements Initializable{
 			scene2Controller.setDisableBtnAgregarCategoriaEvento(false);
 			scene2Controller.setVisibilityBtnModificarCategoriaEvento(false);
 			scene2Controller.setDisableBtnModificarCategoriaEvento(true);		 
-		
+			scene2Controller.enviarControlador(this);
 			primaryStage.setTitle("Agregar categoria de evento");
 			primaryStage.sizeToScene();
 			primaryStage.show(); 
@@ -111,6 +110,7 @@ public class ControladorABMCategoriaEvento implements Initializable{
 			scene2Controller.setDisableBtnAgregarCategoriaEvento(true);
 			scene2Controller.setVisibilityBtnModificarCategoriaEvento(true);
 			scene2Controller.setDisableBtnModificarCategoriaEvento(false);		 
+			scene2Controller.enviarControlador(this);
 			scene2Controller.setearCamposPantalla(tablaCategoriasEvento.getSelectionModel().getSelectedItem());
 			primaryStage.setTitle("Modificar categoria de evento");
 			primaryStage.sizeToScene();

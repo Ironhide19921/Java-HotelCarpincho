@@ -124,6 +124,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 	private Email ModeloEmail;
 	private ObservableList<ConfiguracionDTO> listaConfig;
 	private Configuracion configuracion;
+	private ControladorABMReservaCuarto controladorABMReservaCuarto;
 	
 
 	@Override
@@ -387,6 +388,7 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 				reserva.setFechaCheckIn(fechaCheckIn);
 				this.reservaCuarto.modificarReservaCuarto(reserva);
 				Validador.mostrarMensaje("Su reserva se ha modificado con exito");
+				this.controladorABMReservaCuarto.refrescarTabla();
 				cerrarVentana();	
 			}
 			else {
@@ -401,6 +403,7 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 				reserva.setFechaCheckIn(fechaCheckIn);
 				reserva.setFechaOut(fechaOut);
 				this.reservaCuarto.modificarReservaCuarto(reserva);
+				this.controladorABMReservaCuarto.refrescarTabla();
 				Validador.mostrarMensaje("Su reserva se ha modificado con exito");
 				cerrarVentana();
 			}
@@ -479,6 +482,7 @@ public void consultarCuarto() {
 							ControladorABMOrdenPedido controlador = fxmlLoader.getController();
 							controlador.enviarIdReserva(idReserva,devolverCuarto(reserva.getIdCuarto()),devolverCliente(reserva.getIdCliente()) );
 							controlador.modificarBotones();
+							controlador.enviarControlador(this);
 							fxml.mostrarStage(primaryStage, "Consulta de pendientes de pago del cliente");
 				
 						}
@@ -499,6 +503,7 @@ public void consultarCuarto() {
 							ControladorABMOrdenPedido controlador = fxmlLoader.getController();
 							controlador.enviarIdReserva(idReserva,devolverCuarto(reserva.getIdCuarto()),devolverCliente(reserva.getIdCliente()) );
 							controlador.modificarBotones();
+							controlador.enviarControlador(this);
 							fxml.mostrarStage(primaryStage, "Consulta de pendientes de pago del cliente");
 						}
 						else {
@@ -529,6 +534,7 @@ public void consultarCuarto() {
 			//public EmailDTO(int idEmail, Date fechaCreacion, String texto, String asunto, String emisor, String receptor, Boolean estado, String pass)
 			EmailDTO recordatorio = new EmailDTO(0, date, "Acordate que tenes una reserva", "Recordatorio", config.get(0).getUsername(), this.email.getText(), false, config.get(0).getPassword());
 			ModeloEmail.agregarEmail(recordatorio);
+			this.controladorABMReservaCuarto.refrescarTabla();
 			cerrarVentana();
 		}
 		else{
@@ -819,15 +825,6 @@ public void setearCamposModificar() throws Exception {
 		Validador.mostrarMensaje("La fecha de checkIn debe estar entre el rango de fechas"
 				+ " desde el "+ fechaIngreso.getValue() + " hasta el " + fechaEgreso.getValue() + ".");
 	}
-
-	
-	/*if(this.fechaCheckOut.getValue()!=null && !this.fechaCheckOut.getValue().isEqual(this.fechaEgreso.getValue()) && this.fechaEgreso.getValue().isBefore(this.fechaCheckOut.getValue())) {
-
-		this.fechaCheckOut.setValue(null);
-		this.cmbBoxHoraCheckOut.setValue(null);
-		Validador.mostrarMensaje("La fecha de checkOut debe estar entre el rango de fechas"
-				+ " desde el "+ fechaIngreso.getValue() + " hasta el " + fechaEgreso.getValue() + ".");
-	}*/
 	
 	if(this.fechaCheckIn.getValue()!=null && this.fechaCheckIn.getValue().equals(this.fechaIngreso.getValue()) 
 			&& this.cmbBoxHoraCheckIn.getValue()<this.cmbBoxHoraIngreso.getValue()) {
@@ -1090,6 +1087,11 @@ private CuartoDTO devolverCuarto(Integer id) {
 			}
 		}
 		return null;
+	}
+
+	public void enviarControlador(ControladorABMReservaCuarto controladorABMReservaCuarto) {
+		// TODO Auto-generated method stub
+		this.controladorABMReservaCuarto = controladorABMReservaCuarto;
 	}
 
 

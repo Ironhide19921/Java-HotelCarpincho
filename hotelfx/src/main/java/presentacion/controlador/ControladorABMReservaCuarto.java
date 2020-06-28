@@ -77,8 +77,7 @@ public class ControladorABMReservaCuarto implements Initializable
 	}
 
 	
-	@FXML
-	private void refrescarTabla() 
+	@FXML void refrescarTabla() 
 	{
 		crearTabla(getAllReservasCuartos());
 	}
@@ -158,6 +157,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 				ControladorAgregarReservaCuarto1 controlador = fxmlLoader.getController();
 				controlador.setCmbBoxEstados(EstadoReserva.PENDIENTE);
 				controlador.setUsuario(controladorLogin.usuarioLogeado);
+				controlador.enviarControlador(this);
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				controlador.setFechaReserva(timestamp);
 				controlador.setearCamposAgregar();
@@ -179,6 +179,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 					controlador.setearCampos(this.tablaReservas.getSelectionModel().getSelectedItem().getReserva());
 					controlador.setearCamposModificar();
 					controlador.habilitarComboEstados();
+					controlador.enviarControlador(this);
 					fxml.mostrarStage(primaryStage, "Modificar reserva de cuarto");
 			 }
 			 else {
@@ -197,6 +198,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 					FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 					ControladorABMOrdenPedido controlador = fxmlLoader.getController();
 					controlador.modificarBotones();
+					controlador.enviarControlador(this);
 					controlador.enviarIdReserva(this.tablaReservas.getSelectionModel().getSelectedItem().getIdReserva(),this.tablaReservas.getSelectionModel().getSelectedItem().getCuarto(),
 					this.tablaReservas.getSelectionModel().getSelectedItem().getCliente());
 					fxml.mostrarStage(primaryStage, "Consultar estado de reserva del cuarto.");

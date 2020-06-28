@@ -200,7 +200,7 @@ public class ControladorABMReservaEvento implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 				ControladorAgregarReservaEvento scene2Controller = fxmlLoader.<ControladorAgregarReservaEvento>getController();
-				
+				scene2Controller.enviarControlador(this);
 				
 				if(this.clienteActual == 0) {
 					scene2Controller.setVisibilityComboClientes(true);
@@ -240,7 +240,7 @@ public class ControladorABMReservaEvento implements Initializable{
 			 	   FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				   Parent root = (Parent) fxmlLoader.load();
 				   ControladorAgregarReservaEvento scene2Controller = fxmlLoader.<ControladorAgregarReservaEvento>getController();
-		
+					scene2Controller.enviarControlador(this);
 				   scene2Controller.setearCamposPantalla(tablaReservasCliente.getSelectionModel().getSelectedItem());
 				   scene2Controller.setVisibilityBtnAgregarReservaEvento(false);
 				   scene2Controller.setDisableBtnAgregarReservaEvento(true);

@@ -73,6 +73,7 @@ public class ControladorABMUsuarios implements Initializable{
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
 				ControladorAgregarUsuario scene2Controller = fxmlLoader.getController();
+				scene2Controller.enviarControlador(this);
 				scene2Controller.setVisibilityBtnAgregarUsuario(true);
 				scene2Controller.setDisableBtnAgregarUsuario(false);
 				scene2Controller.setVisibilityBtnModificarUsuario(false);
@@ -101,6 +102,7 @@ public class ControladorABMUsuarios implements Initializable{
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
 				ControladorAgregarUsuario scene2Controller = fxmlLoader.getController();
+				scene2Controller.enviarControlador(this);
 				scene2Controller.setVisibilityBtnAgregarUsuario(false);
 				scene2Controller.setDisableBtnAgregarUsuario(true);
 				scene2Controller.setVisibilityBtnModificarUsuario(true);
@@ -116,7 +118,7 @@ public class ControladorABMUsuarios implements Initializable{
 	    }
 	 
 	 @FXML
-		private void refrescarTabla(){
+		public void refrescarTabla(){
 	 		crearTabla(getAllClientes());
 		}
 

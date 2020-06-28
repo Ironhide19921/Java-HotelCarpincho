@@ -26,6 +26,7 @@ public class ControladorAgregarProducto implements Initializable{
 	@FXML private Button btnEditarProducto;	
 	private Producto producto;
 	private Integer id;
+	private ControladorABMProducto controladorABMProducto;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -47,6 +48,7 @@ public class ControladorAgregarProducto implements Initializable{
 		//valido repetidos
 		if(!Validador.consultarRepetidos(nuevoProd, this.producto.obtenerProductos())) {
 			this.producto.agregarProducto(nuevoProd);
+			this.controladorABMProducto.refrescarTablaProductos();
 			cerrarVentanaAgregar();
 		}else {
 			Validador.mostrarMensaje("El producto ya existe");
@@ -85,6 +87,7 @@ public class ControladorAgregarProducto implements Initializable{
 		if(!Validador.consultarRepetidos(nuevoProd, productosSinActual)) {
 			this.producto.modificarProducto(nuevoProd);
 			System.out.println("producto modificado");
+			this.controladorABMProducto.refrescarTablaProductos();
 			cerrarVentanaEditar();
 		}else {
 			Validador.mostrarMensaje("El producto ya existe");
@@ -128,6 +131,11 @@ public class ControladorAgregarProducto implements Initializable{
 
 	public TextField getTxtProveedor() {
 		return txtProveedor;
+	}
+
+	public void enviarControlador(ControladorABMProducto controladorABMProducto) {
+		// TODO Auto-generated method stub
+		this.controladorABMProducto = controladorABMProducto;
 	}
 
 }
