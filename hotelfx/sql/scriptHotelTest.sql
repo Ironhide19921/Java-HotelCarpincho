@@ -17,6 +17,8 @@ CREATE TABLE `cliente`
   PRIMARY KEY (`idCliente`)
 );
 
+INSERT INTO `cliente` (nombre, apellido, tipoDocumento, documento, email, telefono, estado, fechaNacimiento) VALUES ('Alberto', 'Fernandez', 'dni', '56677889', 'afernan@kmail.com', '54231567', true, '1968/08/24');
+
 CREATE TABLE `ticket`
 (
   `idTicket` int(11) NOT NULL AUTO_INCREMENT,
@@ -40,12 +42,16 @@ CREATE TABLE `producto`
   PRIMARY KEY (`idProducto`)
 );
 
+INSERT INTO `producto` (precio, nombre, descripcion, proveedor, tipo) VALUES (50.00, 'Fideos', 'con salsa', 'luqueti', 'comida');
+
 CREATE TABLE `perfil`
 (
   `idPerfil` int(11) NOT NULL AUTO_INCREMENT,
   `NombrePerfil` varchar(45) NOT NULL,
   PRIMARY KEY (`idPerfil`)
 );
+
+INSERT INTO `perfil` (nombrePerfil) VALUES ('Admin');
 
 CREATE TABLE `permiso`
 (
@@ -101,7 +107,7 @@ CREATE TABLE `usuario`
   CONSTRAINT FOREIGN KEY fk_id_Perfil (idPerfil) REFERENCES perfil (idPerfil)
 );
 
-
+INSERT INTO `usuario` (idPerfil, nombre, apellido, tipoDocumento, documento, email, password, estado) VALUES(1, 'Jose', 'Argento', 'dni', '12345678', 'jargento@gmail.com', 'pass', true);
 
 CREATE TABLE `ordenPedido`
 (
@@ -130,6 +136,8 @@ CREATE TABLE `categoriaCuarto`
   `Detalle` varchar(100) NOT NULL,
   PRIMARY KEY (`idCategoriaCuarto`)
 );
+
+INSERT INTO `categoriaCuarto` (nombre, detalle) VALUES ('Buena', 'Buenarda');
 
 CREATE TABLE `cuarto`
 (
