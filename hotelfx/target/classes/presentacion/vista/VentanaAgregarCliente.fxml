@@ -9,31 +9,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCliente">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCliente">
    <children>
-      <AnchorPane prefHeight="512.0" prefWidth="800.0">
+      <AnchorPane prefHeight="432.0" prefWidth="717.0">
          <children>
-            <BorderPane prefHeight="600.0" prefWidth="800.0">
+            <BorderPane prefHeight="443.0" prefWidth="719.0">
                <center>
-                  <Pane prefHeight="305.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="268.0" prefWidth="372.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField fx:id="txtNombre" layoutX="150.0" layoutY="25.0" prefHeight="25.0" prefWidth="300.0" />
-                        <Label layoutY="29.0" prefHeight="17.0" prefWidth="115.0" text="Nombre" />
-                        <Label layoutY="78.0" prefHeight="17.0" prefWidth="115.0" text="Apellido" />
-                        <Label layoutY="127.0" prefHeight="17.0" prefWidth="115.0" text="Email" />
-                        <Label layoutY="311.0" prefHeight="17.0" prefWidth="115.0" text="Telefono" />
-                        <Label layoutY="220.0" prefHeight="17.0" prefWidth="115.0" text="Tipo documento" />
-                        <Label layoutY="266.0" prefHeight="17.0" prefWidth="115.0" text="Nº Documento" />
-                        <TextField fx:id="txtApellido" layoutX="150.0" layoutY="74.0" prefHeight="25.0" prefWidth="300.0" />
-                        <TextField fx:id="txtEmail" layoutX="150.0" layoutY="123.0" prefHeight="25.0" prefWidth="300.0" />
-                        <TextField fx:id="txtTelefono" layoutX="150.0" layoutY="307.0" prefHeight="25.0" prefWidth="300.0" />
-                        <TextField fx:id="txtNumDocumento" layoutX="150.0" layoutY="262.0" prefHeight="25.0" prefWidth="300.0" />
-                        <Label layoutY="175.0" prefHeight="17.0" prefWidth="115.0" text="Fecha nac." />
-                        <DatePicker fx:id="txtFecha" layoutX="150.0" layoutY="171.0" prefHeight="25.0" prefWidth="300.0" />
-                        <ComboBox fx:id="comboTipoDoc" layoutX="150.0" layoutY="216.0" prefHeight="25.0" prefWidth="300.0" />
+                        <TextField fx:id="txtNombre" layoutX="195.0" layoutY="34.0" prefHeight="0.0" prefWidth="150.0" />
+                        <Label layoutX="52.0" layoutY="38.0" prefHeight="17.0" prefWidth="115.0" text="Nombre" />
+                        <Label layoutX="52.0" layoutY="74.0" prefHeight="17.0" prefWidth="115.0" text="Apellido" />
+                        <Label layoutX="52.0" layoutY="112.0" prefHeight="17.0" prefWidth="115.0" text="Email" />
+                        <Label layoutX="51.0" layoutY="258.0" prefHeight="17.0" prefWidth="115.0" text="Telefono" />
+                        <Label layoutX="52.0" layoutY="189.0" prefHeight="17.0" prefWidth="115.0" text="Tipo documento" />
+                        <Label layoutX="51.0" layoutY="224.0" prefHeight="17.0" prefWidth="115.0" text="Nº Documento" />
+                        <TextField fx:id="txtApellido" layoutX="195.0" layoutY="70.0" prefHeight="0.0" prefWidth="150.0" />
+                        <TextField fx:id="txtEmail" layoutX="195.0" layoutY="108.0" prefHeight="0.0" prefWidth="150.0" />
+                        <TextField fx:id="txtTelefono" layoutX="194.0" layoutY="258.0" prefHeight="0.0" prefWidth="150.0" />
+                        <TextField fx:id="txtNumDocumento" layoutX="194.0" layoutY="221.0" prefHeight="0.0" prefWidth="150.0" />
+                        <Label layoutX="52.0" layoutY="149.0" prefHeight="17.0" prefWidth="115.0" text="Fecha nac." />
+                        <DatePicker fx:id="txtFecha" layoutX="195.0" layoutY="146.0" prefHeight="0.0" prefWidth="150.0" />
+                        <ComboBox fx:id="comboTipoDoc" layoutX="195.0" layoutY="184.0" prefHeight="0.0" prefWidth="150.0" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" />
@@ -41,24 +41,26 @@
                   </Pane>
                </center>
                <left>
-                  <Pane prefHeight="346.0" prefWidth="175.0" BorderPane.alignment="CENTER" />
+                  <Pane prefHeight="419.0" prefWidth="172.0" BorderPane.alignment="CENTER" />
                </left>
                <top>
                   <Pane prefHeight="54.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="56.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" styleClass="rect-header" width="800.0" />
-                        <Text layoutX="51.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar Cliente" wrappingWidth="282.13671875" />
+                        <Text layoutX="51.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar Cliente" wrappingWidth="282.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font></Text>
                      </children></Pane>
                </top>
                <right>
                   <Pane prefHeight="482.0" prefWidth="175.0" BorderPane.alignment="CENTER" />
                </right>
                <bottom>
-                  <Pane prefHeight="127.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="92.0" prefWidth="719.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="btnAgregarCliente" layoutX="208.0" layoutY="14.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="30.0" prefWidth="120.0" text="Agregar " />
-                        <Button fx:id="btnModificarCliente" layoutX="208.0" layoutY="14.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="30.0" prefWidth="120.0" text="Modificar " />
-                        <Button fx:id="btnCerrar" layoutX="82.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="120.0" text="Cerrar" />
+                        <Button fx:id="btnAgregarCliente" layoutX="387.0" layoutY="30.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="30.0" prefWidth="150.0" text="Agregar " />
+                        <Button fx:id="btnModificarCliente" layoutX="387.0" layoutY="29.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="30.0" prefWidth="150.0" text="Modificar " />
+                        <Button fx:id="btnCerrar" layoutX="191.0" layoutY="31.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="150.0" text="Cerrar" />
                      </children>
                   </Pane>
                </bottom>

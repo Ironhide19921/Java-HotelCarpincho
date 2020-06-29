@@ -16,7 +16,7 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tablaPersonas" prefHeight="381.0" prefWidth="696.0">
+                  <TableView fx:id="tablaPersonas" prefHeight="380.0" prefWidth="740.0">
                     <columns>
                       <TableColumn fx:id="id" prefWidth="48.0" text="ID" />
                       <TableColumn fx:id="nombre" prefWidth="102.0" text="Nombre" />
@@ -32,19 +32,19 @@
             </Pane>
          </center>
          <left>
-            <Pane prefHeight="200.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </left>
          <top>
             <Pane prefHeight="50.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnLimpiarFiltro" layoutX="669.0" layoutY="11.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" text="Refrescar" visible="false" />
-                  <Button fx:id="btnBuscar" layoutX="726.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="30.0" text="Buscar" />
-                  <TextField fx:id="txtBuscar" layoutX="569.0" layoutY="10.0" prefHeight="30.0" />
-                  <Label layoutX="476.0" layoutY="18.0" text="Buscar Usuario">
+                  <Button fx:id="btnBuscar" layoutX="688.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="30.0" prefWidth="100.0" text="Buscar" />
+                  <TextField fx:id="txtBuscar" layoutX="531.0" layoutY="10.0" prefHeight="30.0" />
+                  <Label layoutX="438.0" layoutY="18.0" text="Buscar Usuario">
                      <font>
                         <Font name="Century Gothic" size="12.0" />
                      </font></Label>
-                  <Label layoutX="79.0" layoutY="18.0" prefHeight="25.0" prefWidth="260.0" text="Lista de usuarios">
+                  <Label layoutX="50.0" layoutY="16.0" prefHeight="25.0" prefWidth="260.0" text="Lista de usuarios">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font>
@@ -53,15 +53,15 @@
             </Pane>
          </top>
          <right>
-            <Pane prefHeight="200.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnHabilitar" layoutX="626.0" layoutY="20.0" mnemonicParsing="false" onAction="#habilitarUsuario" prefHeight="30.0" text="Habilitar" />
-                  <Button fx:id="btnDeshabilitar" layoutX="701.0" layoutY="20.0" mnemonicParsing="false" onAction="#deshabilitarUsuario" prefHeight="30.0" text="Deshabilitar" />
-                  <Button fx:id="btnAgregar" layoutX="405.0" layoutY="20.0" mnemonicParsing="false" onAction="#addUsuario" prefHeight="30.0" text="Agregar Usuario" />
-                  <Button fx:id="btnEditar" layoutX="522.0" layoutY="20.0" mnemonicParsing="false" onAction="#editUsuario" prefHeight="30.0" text="Editar Usuario" />
+                  <Button fx:id="btnHabilitar" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarUsuario" prefHeight="30.0" prefWidth="150.0" text="Habilitar" />
+                  <Button fx:id="btnDeshabilitar" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" onAction="#deshabilitarUsuario" prefHeight="30.0" prefWidth="150.0" text="Deshabilitar" />
+                  <Button fx:id="btnAgregar" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#addUsuario" prefHeight="30.0" prefWidth="150.0" text="Agregar Usuario" />
+                  <Button fx:id="btnEditar" layoutX="208.0" layoutY="14.0" mnemonicParsing="false" onAction="#editUsuario" prefHeight="30.0" prefWidth="150.0" text="Editar Usuario" />
                </children>
             </Pane>
          </bottom>

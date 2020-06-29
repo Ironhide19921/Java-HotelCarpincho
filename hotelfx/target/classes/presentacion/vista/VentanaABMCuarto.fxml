@@ -38,11 +38,14 @@
          <top>
             <Pane prefHeight="50.0" prefWidth="892.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnBuscar" layoutX="652.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscarCuartos" prefHeight="30.0" prefWidth="115.0" text="Buscar" />
+                  <Button fx:id="btnBuscar" layoutX="688.0" layoutY="11.0" mnemonicParsing="false" onAction="#buscarCuartos" prefHeight="30.0" prefWidth="100.0" text="Buscar" />
                   <Button fx:id="btnLimpiarFiltro" layoutX="466.0" layoutY="10.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="120.0" text="Refresh" visible="false" />
-                  <TextField fx:id="txtBuscar" layoutX="450.0" layoutY="11.0" prefHeight="27.0" prefWidth="190.0" />
-                  <Label layoutX="389.0" layoutY="16.0" prefHeight="17.0" prefWidth="110.0" text="Búsqueda" />
-                  <Label layoutX="81.0" layoutY="17.0" prefHeight="17.0" prefWidth="250.0" text="Lista de cuartos">
+                  <TextField fx:id="txtBuscar" layoutX="479.0" layoutY="11.0" prefHeight="30.0" prefWidth="200.0" />
+                  <Label layoutX="389.0" layoutY="16.0" prefHeight="17.0" prefWidth="110.0" text="Búsqueda">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font></Label>
+                  <Label layoutX="52.0" layoutY="17.0" prefHeight="17.0" prefWidth="250.0" text="Lista de cuartos">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font>
@@ -51,19 +54,19 @@
             </Pane>
          </top>
          <left>
-            <Pane prefHeight="397.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="397.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="423.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="423.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="100.0" prefWidth="844.0" BorderPane.alignment="CENTER">
            
                <children>
-                  <Button fx:id="btnAgregarCuarto" layoutX="329.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCuarto" prefHeight="30.0" prefWidth="120.0" text="Agregar cuarto" />
-                  <Button fx:id="btnEditar" layoutX="650.0" layoutY="14.0" mnemonicParsing="false" onAction="#editCuarto" prefHeight="30.0" prefWidth="120.0" text="Editar cuarto" />
-                  <Button fx:id="btnHabilitarCuarto" layoutX="471.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarCuartos" prefHeight="30.0" prefWidth="160.0" text="Habilitar/Deshabilitar" />
-                  <Button fx:id="btnSeleccionarCuarto" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#seleccionarCuarto" prefHeight="30.0" prefWidth="120.0" text="Seleccionar Cuarto" />
+                  <Button fx:id="btnAgregarCuarto" layoutX="51.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCuarto" prefHeight="30.0" prefWidth="150.0" text="Agregar cuarto" />
+                  <Button fx:id="btnEditar" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" onAction="#editCuarto" prefHeight="30.0" prefWidth="150.0" text="Editar cuarto" />
+                  <Button fx:id="btnHabilitarCuarto" layoutX="213.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarCuartos" prefHeight="30.0" prefWidth="150.0" text="Habilitar/Deshabilitar" />
+                  <Button fx:id="btnSeleccionarCuarto" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#seleccionarCuarto" prefHeight="30.0" prefWidth="150.0" text="Seleccionar Cuarto" />
                </children>
             </Pane>
          
