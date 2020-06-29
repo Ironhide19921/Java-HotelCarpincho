@@ -81,6 +81,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	
 	private Ticket ticket;
 	private int idUsuarioLog = ControladorLogin.usuarioLogeado.getIdUsuario();
+	private ControladorABMOrdenPedido controladorABMOrdenPedido;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -343,8 +344,9 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					
 					BigDecimal total = new BigDecimal(txtSubtotal.getText());
 					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, this.idUsuarioLog, cantidad, total);
-					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
 					
+					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
+					this.controladorABMOrdenPedido.refrescarTablaOrdenPedidos();
 				}
 								
 				if(i == 0) {
@@ -362,7 +364,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					BigDecimal total = new BigDecimal(txtSubtotal.getText());
 					OrdenPedidoDTO nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, this.idUsuarioLog, cantidad, total);
 					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
-					
+					this.controladorABMOrdenPedido.refrescarTablaOrdenPedidos();
 					idPedido = this.ordenPedido.obtenerIdMaximo();
 				}								
 			}
@@ -431,7 +433,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 					String codSeg = codSegTarjeta.getText();
 					nuevoPedido = new OrdenPedidoDTO(idPedido, idProd, idCliente, this.idUsuarioLog, cantidad, total, pagoSelec, tipoTarjSelec, numTarj, fecVenc, codSeg, true);
 					this.ordenPedido.agregarOrdenPedido(nuevoPedido);
-					
+					this.controladorABMOrdenPedido.refrescarTablaOrdenPedidos();
 				}
 								
 				if(i == 0 ) {
@@ -462,7 +464,8 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 						String fecVenc = fechaVencTarjeta.getText();
 						String codSeg = codSegTarjeta.getText();
 						nuevoPedido = new OrdenPedidoDTO(0, idProd, idCliente, this.idUsuarioLog, cantidad, total, pagoSelec, tipoTarjSelec, numTarj, fecVenc, codSeg, true);
-						this.ordenPedido.agregarOrdenPedido(nuevoPedido);				
+						this.ordenPedido.agregarOrdenPedido(nuevoPedido);		
+						this.controladorABMOrdenPedido.refrescarTablaOrdenPedidos();
 						idPedido = this.ordenPedido.obtenerIdMaximo();
 						
 					}										
@@ -556,6 +559,11 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 
 	public TextField getCodSegTarjeta() {
 		return codSegTarjeta;
+	}
+
+	public void enviarControlador(ControladorABMOrdenPedido controladorABMOrdenPedido) {
+		// TODO Auto-generated method stub
+		this.controladorABMOrdenPedido = controladorABMOrdenPedido;
 	}
 
 }
