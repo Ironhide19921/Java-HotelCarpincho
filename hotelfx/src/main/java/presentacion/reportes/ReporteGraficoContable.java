@@ -35,12 +35,12 @@ public class ReporteGraficoContable {
 	
 		Connection conexion = Conexion.getConexion().getSQLConexion();
     	try	{
-    		this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes" + File.separator + "ReporteGraficoContable.jasper");
+    		this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes" + File.separator + "GraficoContable.jasper");
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, conexion);
     		log.info("Se cargó correctamente el reporte");
 		}
 		catch( JRException ex ) {
-			log.error("Ocurrió un error mientras se cargaba el archivo ReporteGraficoContable.Jasper", ex);
+			log.error("Ocurrió un error mientras se cargaba el archivo GraficoContable.Jasper", ex);
 		}
 		
 	}
