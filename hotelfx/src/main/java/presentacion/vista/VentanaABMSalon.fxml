@@ -10,28 +10,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="637.0" prefWidth="904.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMSalon">
+<AnchorPane prefHeight="530.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMSalon">
    <children>
-      <BorderPane prefHeight="637.0" prefWidth="904.0">
+      <BorderPane prefHeight="530.0" prefWidth="840.0">
          <top>
             <Pane prefHeight="50.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnRefrescar" layoutX="704.0" layoutY="10.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" visible="false" />
-                  <Text layoutX="99.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de salones">
+                  <Text layoutX="50.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de salones">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Century Gothic" size="15.0" />
                      </font>
                   </Text>
+                  <Button fx:id="btnRefrescar" layoutX="688.0" layoutY="10.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" visible="false" />
                </children>
             </Pane>
          </top>
          <bottom>
-            <Pane prefHeight="122.0" prefWidth="904.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="100.0" prefWidth="904.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregar" layoutX="101.0" layoutY="14.0" mnemonicParsing="false" onAction="#addSalon" prefHeight="30.0" prefWidth="100.0" text="Agregar salon" />
-                  <Button fx:id="btnDeshabilitarCliente" layoutX="646.0" layoutY="14.0" mnemonicParsing="false" onAction="#deshabilitarSalon" prefHeight="30.0" prefWidth="160.0" text="Deshabilitar" />
-                  <Button fx:id="btnHabilitaCliente" layoutX="476.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarSalon" prefHeight="30.0" prefWidth="160.0" text="Habilitar" />
-                  <Button fx:id="btnEditar" layoutX="218.0" layoutY="14.0" mnemonicParsing="false" onAction="#editSalon" prefHeight="30.0" prefWidth="100.0" text="Editar salon" />
+                  <Button fx:id="btnAgregar" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#addSalon" prefHeight="30.0" prefWidth="150.0" text="Agregar salon" />
+                  <Button fx:id="btnDeshabilitarCliente" layoutX="640.0" layoutY="14.0" mnemonicParsing="false" onAction="#deshabilitarSalon" prefHeight="30.0" prefWidth="150.0" text="Deshabilitar" />
+                  <Button fx:id="btnHabilitaCliente" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarSalon" prefHeight="30.0" prefWidth="150.0" text="Habilitar" />
+                  <Button fx:id="btnEditar" layoutX="208.0" layoutY="14.0" mnemonicParsing="false" onAction="#editSalon" prefHeight="30.0" prefWidth="150.0" text="Editar salon" />
                </children>
             </Pane>
          </bottom>
@@ -55,10 +55,10 @@
             </VBox>
          </center>
          <left>
-            <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="100.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
       </BorderPane>
    </children>

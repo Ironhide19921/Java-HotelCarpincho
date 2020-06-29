@@ -89,7 +89,7 @@ public class ControladorABMReservaEvento implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.reservaEvento = new ReservaEvento(new DAOSQLFactory());
-		this.cliente = new Cliente(new DAOSQLFactory());
+		this.cliente = new Cliente(new DAOSQLFactory()); 
 		this.categoriaEvento = new CategoriaEvento(new DAOSQLFactory());
 		this.ticket = new Ticket(new DAOSQLFactory());
 		this.alert = new Alert(AlertType.INFORMATION);
@@ -268,6 +268,8 @@ public class ControladorABMReservaEvento implements Initializable{
 			panelActual.setCenter(view);
 			panelActual.setTop(null);
 			panelActual.setBottom(null);
+			panelActual.setLeft(null);
+			panelActual.setRight(null);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

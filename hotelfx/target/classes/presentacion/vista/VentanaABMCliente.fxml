@@ -16,11 +16,11 @@ xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"-->
 
 <AnchorPane prefHeight="530.0" prefWidth="840.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMCliente">
    <children>
-      <BorderPane fx:id="panelActual" prefHeight="527.0" prefWidth="832.0">
+      <BorderPane fx:id="panelActual" prefHeight="530.0" prefWidth="840.0">
          <center>
             <VBox fx:id="fondoTabla" prefHeight="378.0" prefWidth="734.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tablaPersonas" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="380.0" prefWidth="680.0">
+                  <TableView fx:id="tablaPersonas" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="380.0">
                     <columns>
                       <TableColumn fx:id="idCliente" prefWidth="55.0" text="ID" />
                       <TableColumn fx:id="numeroDocumento" prefWidth="86.0" text="Documento" />
@@ -38,17 +38,17 @@ xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"-->
             </VBox>
          </center>
          <top>
-            <Pane prefHeight="56.0" prefWidth="904.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="50.0" prefWidth="904.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnBuscarCliente" layoutX="560.0" layoutY="13.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="30.0" prefWidth="100.0" text="Buscar" />
-                  <Label layoutX="252.0" layoutY="21.0" prefHeight="17.0" prefWidth="95.0" text="Buscar cliente">
+                  <Button fx:id="btnBuscarCliente" layoutX="548.0" layoutY="13.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="30.0" prefWidth="100.0" text="Buscar" />
+                  <Label layoutX="240.0" layoutY="21.0" prefHeight="17.0" prefWidth="95.0" text="Buscar cliente">
                      <font>
                         <Font name="Century Gothic" size="12.0" />
                      </font></Label>
-                  <TextField fx:id="ingresarCliente" layoutX="354.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" />
+                  <TextField fx:id="ingresarCliente" layoutX="342.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" />
                   <Button fx:id="btnEditCliente" layoutX="495.0" layoutY="13.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" visible="false" />
-                  <Button fx:id="btnSeleccionarCliente" layoutX="670.0" layoutY="13.0" mnemonicParsing="false" onAction="#seleccionarCliente" prefHeight="30.0" prefWidth="130.0" text="Seleccionar" />
-                  <Label layoutX="83.0" layoutY="20.0" prefHeight="17.0" prefWidth="180.0" text="Lista de clientes">
+                  <Button fx:id="btnSeleccionarCliente" layoutX="658.0" layoutY="13.0" mnemonicParsing="false" onAction="#seleccionarCliente" prefHeight="30.0" prefWidth="130.0" text="Seleccionar" />
+                  <Label layoutX="52.0" layoutY="20.0" prefHeight="17.0" prefWidth="180.0" text="Lista de clientes">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font>
@@ -57,23 +57,23 @@ xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"-->
             </Pane>
          </top>
          <left>
-            <Pane prefHeight="419.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="419.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </left>
          <bottom>
-            <Pane prefHeight="93.0" prefWidth="904.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="100.0" prefWidth="904.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnHabilitaCliente" layoutX="210.0" layoutY="16.0" mnemonicParsing="false" onAction="#habilitarCliente" prefHeight="30.0" prefWidth="150.0" text="Habilitar/Deshabilitar" />
-                  <Button fx:id="btnAddCliente" layoutX="79.0" layoutY="16.0" mnemonicParsing="false" onAction="#addCliente" prefHeight="30.0" prefWidth="120.0" text="Agregar Cliente" />
-                  <Button fx:id="btnEditarCliente" layoutX="79.0" layoutY="51.0" mnemonicParsing="false" onAction="#editarCliente" prefHeight="30.0" prefWidth="120.0" text="Editar Cliente" />
-                  <Button fx:id="btnVerReservaCuarto" layoutX="590.0" layoutY="51.0" mnemonicParsing="false" onAction="#verReservasCuarto" prefHeight="30.0" prefWidth="170.0" text="Ver Reservas de cuartos" />
-                  <Button fx:id="btnVerEncuesta" layoutX="366.0" layoutY="16.0" mnemonicParsing="false" onAction="#verEncuesta" prefHeight="30.0" prefWidth="120.0" text="Ver Encuesta" />
-                  <Button fx:id="btnVerReservasEvento" layoutX="590.0" layoutY="16.0" mnemonicParsing="false" onAction="#verReservasEvento" prefHeight="30.0" prefWidth="170.0" text="Ver reservas de evento" />
+                  <Button fx:id="btnHabilitaCliente" layoutX="208.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarCliente" prefHeight="30.0" prefWidth="150.0" text="Habilitar/Deshabilitar" />
+                  <Button fx:id="btnAddCliente" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCliente" prefHeight="30.0" prefWidth="150.0" text="Agregar Cliente" />
+                  <Button fx:id="btnEditarCliente" layoutX="49.0" layoutY="51.0" mnemonicParsing="false" onAction="#editarCliente" prefHeight="30.0" prefWidth="150.0" text="Editar Cliente" />
+                  <Button fx:id="btnVerReservaCuarto" layoutX="639.0" layoutY="51.0" mnemonicParsing="false" onAction="#verReservasCuarto" prefHeight="30.0" prefWidth="150.0" text="Ver Reservas de cuartos" />
+                  <Button fx:id="btnVerEncuesta" layoutX="366.0" layoutY="14.0" mnemonicParsing="false" onAction="#verEncuesta" prefHeight="30.0" prefWidth="150.0" text="Ver Encuesta" />
+                  <Button fx:id="btnVerReservasEvento" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#verReservasEvento" prefHeight="30.0" prefWidth="150.0" text="Ver reservas de evento" />
 
                </children>
             </Pane>
          </bottom>
          <right>
-            <Pane prefHeight="378.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="378.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
       </BorderPane>
    </children>

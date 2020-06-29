@@ -5,21 +5,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="328.0" prefWidth="459.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorConfiguracion">
+<AnchorPane prefHeight="530.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorConfiguracion">
    <children>
-      <Pane layoutX="198.0" layoutY="46.0" prefHeight="208.0" prefWidth="241.0">
-         <children>
-            <TextField fx:id="txtUsername" layoutX="37.0" layoutY="36.0" prefHeight="25.0" prefWidth="193.0" />
-            <TextField fx:id="txtPassword" layoutX="37.0" layoutY="88.0" prefHeight="25.0" prefWidth="193.0" />
-            <ComboBox fx:id="comboProvs" layoutX="36.0" layoutY="136.0" prefWidth="150.0" />
-         </children>
-      </Pane>
-      <Label layoutX="80.0" layoutY="80.0" text="Mail:" />
-      <Label layoutX="80.0" layoutY="132.0" prefHeight="17.0" prefWidth="68.0" text="Password:" />
-      <Label layoutX="80.0" layoutY="187.0" text="Proveedor SMTP:" />
-      <Button fx:id="btnGuardar" layoutX="105.0" layoutY="254.0" mnemonicParsing="false" onAction="#modificarConfig" prefHeight="25.0" prefWidth="104.0" text="Guardar" />
-      <Button fx:id="btnTest" layoutX="319.0" layoutY="254.0" mnemonicParsing="false" onAction="#testMail" prefHeight="25.0" prefWidth="104.0" text="Testear Cuenta" />
+      <BorderPane prefHeight="530.0" prefWidth="840.0">
+         <center>
+            <Pane prefHeight="208.0" prefWidth="241.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="txtUsername" layoutX="240.0" prefHeight="25.0" prefWidth="190.0" />
+                  <TextField fx:id="txtPassword" layoutX="240.0" layoutY="55.0" prefHeight="25.0" prefWidth="190.0" />
+                  <ComboBox fx:id="comboProvs" layoutX="241.0" layoutY="109.0" prefWidth="190.0" />
+                  <Label layoutY="3.0" text="Mail:" />
+                  <Label layoutY="58.0" prefHeight="17.0" prefWidth="68.0" text="Password:" />
+                  <Label layoutY="113.0" text="Proveedor SMTP:" />
+                  <Button fx:id="btnGuardar" layoutX="31.0" layoutY="195.0" mnemonicParsing="false" onAction="#modificarConfig" prefHeight="30.0" prefWidth="150.0" text="Guardar" />
+                  <Button fx:id="btnTest" layoutX="245.0" layoutY="195.0" mnemonicParsing="false" onAction="#testMail" prefHeight="30.0" prefWidth="150.0" text="Testear Cuenta" />
+               </children>
+            </Pane>
+         </center>
+         <bottom>
+            <Pane prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+         </right>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+         </left>
+         <top>
+            <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
    </children>
 </AnchorPane>

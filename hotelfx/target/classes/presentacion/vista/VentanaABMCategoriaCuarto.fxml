@@ -13,10 +13,10 @@
    <children>
       <BorderPane prefHeight="530.0" prefWidth="840.0">
          <top>
-            <Pane prefHeight="54.0" prefWidth="840.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="50.0" prefWidth="840.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnRefrescar" layoutX="656.0" layoutY="12.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" />
-                  <Label layoutX="79.0" layoutY="19.0" prefHeight="23.0" prefWidth="236.0" text="Categoría de cuartos">
+                  <Button fx:id="btnRefrescar" layoutX="688.0" layoutY="12.0" mnemonicParsing="false" onAction="#refrescarTabla" prefHeight="30.0" prefWidth="100.0" text="Refrescar" />
+                  <Label layoutX="50.0" layoutY="16.0" prefHeight="23.0" prefWidth="236.0" text="Categoría de cuartos">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font>
@@ -25,15 +25,15 @@
             </Pane>
          </top>
          <left>
-            <Pane prefHeight="200.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="200.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tablaCategoriaCuarto" layoutX="-3.0" prefHeight="380.0" prefWidth="680.0">
+                  <TableView fx:id="tablaCategoriaCuarto" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="740.0">
                     <columns>
                       <TableColumn fx:id="id" prefWidth="64.0" text="ID" />
                       <TableColumn fx:id="nombre" prefWidth="144.0" text="Nombre" />
@@ -47,11 +47,11 @@
             </Pane>
          </center>
          <bottom>
-            <Pane prefHeight="96.0" prefWidth="840.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="100.0" prefWidth="840.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregar" layoutX="380.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCategoria" prefHeight="30.0" prefWidth="120.0" text="Agregar Categoria" />
-                  <Button fx:id="btnEditar" layoutX="507.0" layoutY="14.0" mnemonicParsing="false" onAction="#EditCategoria" prefHeight="30.0" prefWidth="120.0" text="Editar Categoria" />
-                  <Button fx:id="btnBorrar" layoutX="636.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarCategoria" prefHeight="30.0" prefWidth="120.0" text="Borrar Categoria" />
+                  <Button fx:id="btnAgregar" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCategoria" prefHeight="30.0" prefWidth="150.0" text="Agregar Categoria" />
+                  <Button fx:id="btnEditar" layoutX="208.0" layoutY="14.0" mnemonicParsing="false" onAction="#EditCategoria" prefHeight="30.0" prefWidth="150.0" text="Editar Categoria" />
+                  <Button fx:id="btnBorrar" layoutX="367.0" layoutY="13.0" mnemonicParsing="false" onAction="#eliminarCategoria" prefHeight="30.0" prefWidth="150.0" text="Borrar Categoria" />
                </children>
             </Pane>
          </bottom>

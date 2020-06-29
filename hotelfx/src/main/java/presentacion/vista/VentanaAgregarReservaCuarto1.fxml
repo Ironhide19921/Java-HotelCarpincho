@@ -83,9 +83,9 @@
                         <TextArea fx:id="observaciones" layoutX="120.0" layoutY="242.0" prefHeight="100.0" prefWidth="170.0" />
                         <Button fx:id="btnAgregarCuarto" layoutX="298.0" layoutY="24.0" mnemonicParsing="false" onAction="#consultarCuarto" text="+" />
                         <Button fx:id="btnAgregarCliente" layoutX="298.0" layoutY="57.0" mnemonicParsing="false" onAction="#consultarCliente" text="+" />
-                        <Button fx:id="btnAgregar" layoutX="190.0" layoutY="356.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefWidth="100.0" text="Agregar" />
-                        <Button fx:id="btnModificar" layoutX="190.0" layoutY="356.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefWidth="100.0" text="Modificar" />
-                        <Button fx:id="btnCerrar" layoutX="190.0" layoutY="391.0" mnemonicParsing="false" prefWidth="100.0" text="Cancelar" />
+                        <Button fx:id="btnAgregar" layoutX="182.0" layoutY="390.0" mnemonicParsing="false" onAction="#agregarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Agregar" />
+                        <Button fx:id="btnModificar" layoutX="182.0" layoutY="390.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Modificar" />
+                        <Button fx:id="btnCerrar" layoutX="182.0" layoutY="425.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Cancelar" />
                         <Label layoutX="14.0" layoutY="28.0" prefWidth="100.0" text="Nº Cuarto  (*)" />
                         <Label layoutX="14.0" layoutY="61.0" prefWidth="100.0" text="Nº Cliente  (*)" />
                         <Label layoutX="14.0" layoutY="134.0" prefWidth="100.0" text="Seña (%)" />
@@ -94,7 +94,7 @@
                         <Label layoutX="14.0" layoutY="242.0" prefWidth="100.0" text="Observaciones" />
                         <TextField fx:id="cantidadHoras" layoutX="120.0" layoutY="99.0" prefHeight="25.0" prefWidth="170.0" />
                         <Label layoutX="14.0" layoutY="103.0" prefWidth="100.0" text="Cantidad de dias" />
-                        <Button fx:id="btnGenerarTicket" layoutX="31.0" layoutY="356.0" mnemonicParsing="false" onAction="#consultarPendientes" prefHeight="25.0" prefWidth="144.0" text="Confirmar cierre" />
+                        <Button fx:id="btnGenerarTicket" layoutX="25.0" layoutY="390.0" mnemonicParsing="false" onAction="#consultarPendientes" prefHeight="30.0" prefWidth="150.0" text="Confirmar cierre" />
                      </children>
                   </Pane>
                </children>

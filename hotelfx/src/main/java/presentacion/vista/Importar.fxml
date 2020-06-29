@@ -8,18 +8,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="625.0" prefWidth="1203.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorImportar">
+<AnchorPane prefHeight="530.0" prefWidth="840.0" styleClass="bordePrincipal" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorImportar">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="1182.0">
+      <BorderPane prefHeight="530.0" prefWidth="840.0">
          <center>
-            <Pane prefHeight="492.0" prefWidth="987.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="376.0" prefWidth="1062.0" BorderPane.alignment="CENTER">
                <children>
-                  <ScrollPane fx:id="panelMovible" layoutX="5.0" prefHeight="439.0" prefWidth="1169.0">
+                  <ScrollPane fx:id="panelMovible" layoutX="1.0" prefHeight="384.0" prefWidth="743.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="1151.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="1152.0">
                            <children>
-                              <TableView fx:id="tablaClientesImportar" layoutX="3.0" layoutY="17.0" prefHeight="406.0" prefWidth="271.0">
+                              <TableView fx:id="tablaClientesImportar" prefHeight="370.0" prefWidth="271.0">
                                 <columns>
                                     <TableColumn fx:id="idCliente" prefWidth="75.0" text="idCliente" />
                                   <TableColumn fx:id="Nombre" prefWidth="84.0" text="Nombre" />
@@ -31,7 +32,7 @@
                                     <TableColumn fx:id="FechaNacimiento" prefWidth="130.0" text="FechaNacimiento" />
                                 </columns>
                               </TableView>
-                              <TableView fx:id="tablaReservasImportar" layoutX="290.0" layoutY="15.0" prefHeight="409.0" prefWidth="858.0">
+                              <TableView fx:id="tablaReservasImportar" layoutX="290.0" prefHeight="370.0" prefWidth="858.0">
                                 <columns>
                                   <TableColumn fx:id="idCuarto" prefWidth="63.333343505859375" text="idCuarto" />
                                   <TableColumn fx:id="Senia" prefWidth="66.00003051757812" text="Senia" />
@@ -57,24 +58,33 @@
                </children></Pane>
          </center>
          <top>
-            <Pane prefHeight="47.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="50.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="96.0" layoutY="15.0" prefHeight="17.0" prefWidth="123.0" text="Tabla Clientes" textAlignment="CENTER" />
-                  <Label layoutX="468.0" layoutY="15.0" prefHeight="17.0" prefWidth="123.0" text="Tabla Reservas" textAlignment="CENTER" />
+                  <Label layoutX="53.0" layoutY="18.0" prefHeight="17.0" prefWidth="123.0" text="Tabla Clientes" textAlignment="CENTER">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font></Label>
+                  <Label layoutX="343.0" layoutY="17.0" prefHeight="17.0" prefWidth="123.0" text="Tabla Reservas" textAlignment="CENTER">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font></Label>
                </children>
             </Pane>
          </top>
          <left>
-            <Pane prefHeight="440.0" prefWidth="9.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="440.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </left>
          <bottom>
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnImportar" layoutX="72.0" layoutY="20.0" mnemonicParsing="false" onAction="#importarCSV" prefHeight="30.0" prefWidth="150.0" text="Importar" />
-                  <Button fx:id="btnInsertar" layoutX="513.0" layoutY="20.0" mnemonicParsing="false" onAction="#insertarClientesyReservasNuevos" prefHeight="30.0" prefWidth="150.0" text="Insertar" />
+                  <Button fx:id="btnImportar" layoutX="51.0" layoutY="14.0" mnemonicParsing="false" onAction="#importarCSV" prefHeight="30.0" prefWidth="150.0" text="Importar" />
+                  <Button fx:id="btnInsertar" layoutX="210.0" layoutY="14.0" mnemonicParsing="false" onAction="#insertarClientesyReservasNuevos" prefHeight="30.0" prefWidth="150.0" text="Insertar" />
                </children>
             </Pane>
          </bottom>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+         </right>
       </BorderPane>
 
       <!--  Pane layoutY="-7.0" prefHeight="421.0" prefWidth="684.0">

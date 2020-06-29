@@ -10,38 +10,38 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="597.0" prefWidth="737.0" styleClass="ventana" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMOrdenPedido">
+<AnchorPane prefHeight="530.0" prefWidth="840.0" styleClass="ventana" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMOrdenPedido">
    <children>
-      <BorderPane layoutX="23.0" layoutY="10.0" prefHeight="530.0" prefWidth="840.0">
+      <BorderPane prefHeight="530.0" prefWidth="840.0">
          <top>
-            <Pane prefHeight="74.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
                   <Pane fx:id="panelDatos" layoutX="289.0" layoutY="6.0" prefHeight="62.0" prefWidth="479.0">
                      <children>
-                        <Label fx:id="labelCliente" layoutX="2.0" layoutY="9.0" prefHeight="17.0" prefWidth="69.0" text="N º Cliente:">
+                        <Label fx:id="labelCliente" layoutX="2.0" prefHeight="17.0" prefWidth="69.0" text="N º Cliente:">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></Label>
-                        <Label fx:id="labelReserva" layoutX="254.0" layoutY="6.0" prefHeight="17.0" prefWidth="68.0" text="N º Reserva">
+                        <Label fx:id="labelReserva" layoutX="254.0" layoutY="1.0" prefHeight="17.0" prefWidth="68.0" text="N º Reserva">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></Label>
-                        <Label fx:id="labelReserva1" layoutX="254.0" layoutY="33.0" prefHeight="17.0" prefWidth="52.0" text="Monto ">
+                        <Label fx:id="labelReserva1" layoutX="254.0" layoutY="27.0" prefHeight="17.0" prefWidth="52.0" text="Monto ">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></Label>
-                        <Label fx:id="labelCliente1" layoutX="2.0" layoutY="36.0" prefHeight="17.0" prefWidth="66.0" text="Nombre :">
+                        <Label fx:id="labelCliente1" layoutX="2.0" layoutY="27.0" prefHeight="17.0" prefWidth="66.0" text="Nombre :">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></Label>
-                        <Label fx:id="idCliente" layoutX="86.0" layoutY="9.0" prefHeight="17.0" prefWidth="133.0" />
-                        <Label fx:id="labelClienteNombre" layoutX="68.0" layoutY="36.0" prefHeight="17.0" prefWidth="168.0" />
-                        <Label fx:id="idReserva" layoutX="334.0" layoutY="2.0" prefHeight="24.0" prefWidth="133.0" />
-                        <Label fx:id="montoReserva" layoutX="334.0" layoutY="33.0" prefHeight="17.0" prefWidth="133.0" />
+                        <Label fx:id="idCliente" layoutX="86.0" layoutY="1.0" prefHeight="17.0" prefWidth="133.0" />
+                        <Label fx:id="labelClienteNombre" layoutX="68.0" layoutY="26.0" prefHeight="17.0" prefWidth="168.0" />
+                        <Label fx:id="idReserva" layoutX="334.0" layoutY="-4.0" prefHeight="24.0" prefWidth="133.0" />
+                        <Label fx:id="montoReserva" layoutX="334.0" layoutY="25.0" prefHeight="17.0" prefWidth="133.0" />
                      </children>
                   </Pane>
                   <Button fx:id="btnRefrescar" layoutX="576.0" layoutY="40.0" mnemonicParsing="false" onAction="#refrescarTablaOrdenPedidos" text="Refrescar" visible="false" />
-                  <Label layoutX="57.0" layoutY="29.0" prefHeight="19.0" prefWidth="211.0" text="Lista de ordenes de pedido">
+                  <Label layoutX="51.0" layoutY="16.0" prefHeight="19.0" prefWidth="211.0" text="Lista de ordenes de pedido">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font>
@@ -49,31 +49,31 @@
                </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="510.0" prefWidth="59.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="510.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="438.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="438.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="65.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="100.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarPedido" layoutX="61.0" layoutY="5.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" prefHeight="30.0" text="Agregar pedido" />
-                  <Button fx:id="btnGenerarTicket" layoutX="675.0" layoutY="5.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" prefHeight="30.0" text="Generar Ticket" />
-                  <Pane fx:id="panelTotal" layoutX="426.0" layoutY="4.0" prefHeight="33.0" prefWidth="233.0">
+                  <Button fx:id="btnAgregarPedido" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" prefHeight="30.0" text="Agregar pedido" />
+                  <Button fx:id="btnGenerarTicket" layoutX="697.0" layoutY="14.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" prefHeight="30.0" text="Generar Ticket" />
+                  <Pane fx:id="panelTotal" layoutX="426.0" layoutY="14.0" prefHeight="33.0" prefWidth="233.0">
                      <children>
                      <!--<Label fx:id="totalLabel1" layoutY="6.0" prefHeight="17.0" prefWidth="40.0" text="Total" /> -->   
-                        <Label fx:id="resultadoTotal" layoutX="104.0" layoutY="6.0" prefHeight="17.0" prefWidth="82.0" text="-">
+                        <Label fx:id="resultadoTotal" layoutX="104.0" layoutY="8.0" prefHeight="17.0" prefWidth="82.0" text="-">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font></Label>
-                        <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="60.0" text="Total">
+                        <Label layoutX="14.0" layoutY="8.0" prefHeight="17.0" prefWidth="60.0" text="Total">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
-                  <Button fx:id="btnEliminarPedido" layoutX="175.0" layoutY="5.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" prefHeight="30.0" text="Eliminar pedido" />
+                  <Button fx:id="btnEliminarPedido" layoutX="164.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" prefHeight="30.0" text="Eliminar pedido" />
                </children>
             </Pane>
          </bottom>

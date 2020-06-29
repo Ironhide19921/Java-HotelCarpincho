@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="250.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCategoriaCuarto">
@@ -15,8 +15,10 @@
          <top>
             <Pane prefHeight="35.0" prefWidth="524.0" BorderPane.alignment="CENTER">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="41.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" styleClass="rect-header" width="524.0" />
-                  <Text layoutX="41.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar categoria de cuartos" wrappingWidth="297.13671875" />
+                  <Text layoutX="41.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar categoria de cuartos" wrappingWidth="297.13671875">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font></Text>
                </children></Pane>
          </top>
          <left>
@@ -25,10 +27,10 @@
          <center>
             <Pane prefHeight="138.0" prefWidth="350.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="txtNombre" layoutX="126.0" layoutY="39.0" prefWidth="200.0" />
-                  <TextField fx:id="txtDetalle" layoutX="126.0" layoutY="107.0" prefWidth="200.0" />
+                  <TextField fx:id="txtNombre" layoutX="126.0" layoutY="39.0" prefWidth="150.0" />
+                  <TextField fx:id="txtDetalle" layoutX="126.0" layoutY="81.0" prefWidth="150.0" />
                   <Label layoutY="43.0" prefHeight="17.0" prefWidth="106.0" text="Nombre(*)" />
-                  <Label layoutY="111.0" prefHeight="17.0" prefWidth="106.0" text="Detalle(*)" />
+                  <Label layoutY="85.0" prefHeight="17.0" prefWidth="106.0" text="Detalle(*)" />
                </children>
             </Pane>
          </center>
@@ -38,9 +40,9 @@
          <bottom>
             <Pane prefHeight="54.0" prefWidth="524.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnCerrar" layoutX="212.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="100.0" text="Cerrar" />
-                  <Button fx:id="btnAgregarCategoriaCuarto" layoutX="343.0" layoutY="3.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="25.0" prefWidth="102.0" text="Agregar" />
-                  <Button fx:id="btnEditarCategoriaCuarto" layoutX="344.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="30.0" prefWidth="100.0" text="Modificar" />
+                  <Button fx:id="btnCerrar" layoutX="107.0" layoutY="-1.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="150.0" text="Cerrar" />
+                  <Button fx:id="btnAgregarCategoriaCuarto" layoutX="267.0" layoutY="2.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="25.0" prefWidth="150.0" text="Agregar" />
+                  <Button fx:id="btnEditarCategoriaCuarto" layoutX="268.0" layoutY="-1.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="30.0" prefWidth="150.0" text="Modificar" />
                </children>
             </Pane>
          </bottom>
