@@ -113,6 +113,7 @@ public class ControladorABMOrdenPedido implements Initializable{
 			Parent root = (Parent) fxmlLoader.load();
 			primaryStage.setScene(new Scene(root));
 			ControladorAgregarOrdenPedido scene2Controller = fxmlLoader.getController();
+			scene2Controller.enviarControlador(this);
 			scene2Controller.setVisibilityBtnConfirmarPedido(true);
 			scene2Controller.setVisibilityBtnConfirmarGenerarTicket(true);
 			primaryStage.setTitle("Agregar Orden Pedido");
@@ -253,7 +254,12 @@ public class ControladorABMOrdenPedido implements Initializable{
 		EmailDTO email = new EmailDTO();
 		email.enviarMsjAdjunto("", pathMsj, reserva.getEmailFacturacion(), "Ticket de reserva");
 		Validador.mostrarMensaje("Su ticket ha sido creado con exito.");
-	//	this.controladorABMReservaCuarto.refrescarTabla();
+		//elimina orden de pedido del cliente que acabo de cobrarle
+		for(OrdenPedidoDTO o : tablaOrdenPedidos.getItems()) {
+			if(	o.getIdCliente() == Integer.parseInt(idCliente.getText())){
+				this.ordenPedido.eliminarOrdenPedido(o);
+			}
+		}
 		cerrarVentanaAgregarY_GenerarTicket();
 	}
 	

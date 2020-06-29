@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -41,6 +42,7 @@ public class ControladorABMCuarto implements Initializable
 	@FXML private Button btnEditarReserva;
 	@FXML private Button btnReporte;
 	@FXML private Button btnSeleccionarCuarto;
+	@FXML private Label busqueda;
 	@FXML private TableColumn id;
 	@FXML private TableColumn piso;
 	@FXML private TableColumn habitacion;
@@ -201,7 +203,9 @@ public class ControladorABMCuarto implements Initializable
 			this.btnAgregarCuarto.setVisible(false);
 			this.btnEditar.setVisible(false);
 			this.btnHabilitarCuarto.setVisible(false);
-			
+			this.btnBuscar.setVisible(false);
+			this.txtBuscar.setVisible(false);
+			this.busqueda.setVisible(false);
 		}
 		else{
 			this.btnSeleccionarCuarto.setVisible(false);
