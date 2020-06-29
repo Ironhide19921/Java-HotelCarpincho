@@ -303,12 +303,13 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 				return null;
 			}
 			//obtengo la reserva con validaciones
-			ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
+			ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario,new BigDecimal(this.montoSenia.getText()), montoReservaCuarto,
 					emailFacturacion, numeroTarjeta, formaPago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
 					fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
 			//adicionales a los datos preexistentes de reserva
 			reserva.setCantidadDias(this.cantidadHoras.getText());
-			reserva.setMontoSenia(montoSenia);
+			//reserva.setMontoSenia(new BigDecimal(tChis.montoSenia.getText()));
+			reserva.setMontoReservaCuarto(new BigDecimal(this.montoCompleto.getText()));
 			return reserva;	
 		}
 		else {
@@ -386,6 +387,8 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 			if(this.cmbBoxHoraCheckIn.getValue()!=null) {
 				fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
 				reserva.setFechaCheckIn(fechaCheckIn);
+				this.cmbBoxEstados.setValue(EstadoReserva.EN_CURSO.name());
+				reserva.setEstado(EstadoReserva.valueOf(this.cmbBoxEstados.getValue()));
 				this.reservaCuarto.modificarReservaCuarto(reserva);
 				Validador.mostrarMensaje("Su reserva se ha modificado con exito");
 				this.controladorABMReservaCuarto.refrescarTabla();
@@ -402,6 +405,8 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 				fechaOut = Timestamp.valueOf(localInicioCheckOut.atTime(LocalTime.of(cmbBoxHoraCheckOut.getSelectionModel().getSelectedItem()+1,0,0)));
 				reserva.setFechaCheckIn(fechaCheckIn);
 				reserva.setFechaOut(fechaOut);
+				
+				verificarFinalizacionReservaCuarto(reserva);
 				this.reservaCuarto.modificarReservaCuarto(reserva);
 				this.controladorABMReservaCuarto.refrescarTabla();
 				Validador.mostrarMensaje("Su reserva se ha modificado con exito");
@@ -471,7 +476,7 @@ public void consultarCuarto() {
 					LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();	
 					Timestamp fechaCheckIn;
 					Timestamp fechaOut;
-					if(localInicioCheckIn!=null) 
+					/*if(localInicioCheckIn!=null) 
 					{
 						if(cmbBoxHoraCheckIn.getValue()!=null) {
 							fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
@@ -489,7 +494,7 @@ public void consultarCuarto() {
 						else {
 							Validador.mostrarMensaje("Ingrese la hora de check in.");
 						}
-					}	
+					}*/	
 					if(localInicioCheckIn != null && localInicioCheckOut != null)
 					{
 						if(cmbBoxHoraCheckIn.getValue()!=null && cmbBoxHoraCheckOut.getValue()!=null) {
@@ -497,14 +502,17 @@ public void consultarCuarto() {
 							fechaOut = Timestamp.valueOf(localInicioCheckOut.atTime(LocalTime.of(cmbBoxHoraCheckOut.getSelectionModel().getSelectedItem()+1,0,0)));
 							reserva.setFechaCheckIn(fechaCheckIn);
 							reserva.setFechaOut(fechaOut);
+							verificarFinalizacionReservaCuarto(reserva);
 							this.reservaCuarto.modificarReservaCuarto(reserva);
 							primaryStage.setScene(fxml.getScene("VentanaABMOrdenPedido"));   
 							FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
 							ControladorABMOrdenPedido controlador = fxmlLoader.getController();
+							
 							controlador.enviarIdReserva(idReserva,devolverCuarto(reserva.getIdCuarto()),devolverCliente(reserva.getIdCliente()) );
 							controlador.modificarBotones();
-							controlador.enviarControlador(this);
+							//controlador.enviarControlador(this);
 							fxml.mostrarStage(primaryStage, "Consulta de pendientes de pago del cliente");
+							cerrarVentana();
 						}
 						else {
 							Validador.mostrarMensaje("Ingrese la hora de check in y check out.");
@@ -526,14 +534,19 @@ public void consultarCuarto() {
 		
 		
 		if(Validador.validarReserva(this)) {
+			
 			ReservaCuartoDTO reserva = obtenerDatosReservaValidados();	
+			reserva.setFechaCheckIn(null);
 			this.reservaCuarto.agregarReservaCuarto(reserva);
 			Validador.mostrarMensaje("Su reserva ha sido agregada con exito");
 			List<ConfiguracionDTO> config = configuracion.obtenerConfiguraciones();
 			java.sql.Date date = java.sql.Date.valueOf(fechaIngreso.getValue());
-			//public EmailDTO(int idEmail, Date fechaCreacion, String texto, String asunto, String emisor, String receptor, Boolean estado, String pass)
-			EmailDTO recordatorio = new EmailDTO(0, date, "Acordate que tenes una reserva", "Recordatorio", config.get(0).getUsername(), this.email.getText(), false, config.get(0).getPassword());
-			ModeloEmail.agregarEmail(recordatorio);
+			String mensaje = "Estimado\n"
+					+"Su reserva ha sido registrada con éxito. La fecha de ingreso es el día " 
+					+ reserva.getFechaIngreso() +".\n"
+					+"Muchas gracias.";
+			EmailDTO recordatorio = new EmailDTO(0, date, mensaje, "Registro de reserva", config.get(0).getUsername(), this.email.getText(), false, config.get(0).getPassword());
+			ModeloEmail.agregarEmail(recordatorio);	
 			this.controladorABMReservaCuarto.refrescarTabla();
 			cerrarVentana();
 		}
@@ -714,7 +727,6 @@ public void verificarHoras() throws Exception {
 public void verificarHorasCheck() throws Exception {
 	Integer horaInicioCombo = cmbBoxHoraCheckIn.getValue();	
 	Integer horaFinCombo = cmbBoxHoraCheckOut.getValue();
-	
 	LocalDate localFinReserva = fechaCheckOut.getValue();
 	LocalDate localInicioReserva = fechaCheckIn.getValue();
 	
@@ -770,6 +782,7 @@ public void verMontoTotalySenia() {
 		
 		List<CuartoDTO> cuarto = this.cuartos.obtenerCuarto(Integer.parseInt(this.cuarto.getText())); 
 		if(cuarto.size()>0) {
+			
 			this.montoTotal = BigDecimal.valueOf(cuarto.get(0).getMonto());
 			this.senia.setText(String.valueOf(cuarto.get(0).getMontoSenia()));		
 			long diferenciaHoras = Duration.between(localInicioReserva.atTime(horaInicioCombo, 0),localFinReserva.atTime(horaFinCombo, 0)).toHours();
@@ -782,6 +795,7 @@ public void verMontoTotalySenia() {
 			BigDecimal montoSenia = montoFinalDescuento.multiply(BigDecimal.valueOf(senia).divide(BigDecimal.valueOf(100)));
 			this.montoSenia.setText(String.valueOf(montoSenia));	
 			this.montoCompleto.setText(String.valueOf(montoFinalDescuento));
+			//colocarle los dias
 			this.cantidadHoras.setText(String.valueOf(cantHoras));
 		}
 		
@@ -808,11 +822,25 @@ public void setearCamposAgregar() {
 }
 
 public void setearCamposModificar() throws Exception {
+	this.btnAgregarCliente.setDisable(true);
+	this.btnAgregarCuarto.setDisable(true);
 	this.btnAgregar.setVisible(false);
 	this.btnModificar.setVisible(true);
 	this.fechasCheck.setVisible(true);
 	this.cmbBoxHoraCheckOut.setValue(null);
 	this.fechaCheckOut.setValue(null);
+	this.fechaIngreso.setDisable(true);
+	this.fechaEgreso.setDisable(true);
+	this.cmbBoxHoraEgreso.setDisable(true);
+	this.cmbBoxHoraIngreso.setDisable(true);
+	this.cmbBoxFormaPago.setDisable(true);
+	this.cuarto.setDisable(true);
+	this.cliente.setDisable(true);
+	this.email.setDisable(true);
+	this.cmbBoxTiposTarjeta.setDisable(true);
+	this.numTarjeta.setDisable(true);
+	this.fechaVecTarjeta.setDisable(true);
+	this.codSeguridad.setDisable(true);
 	if(!this.cmbBoxFormaPago.getValue().equals(FormaPago.EFECTIVO.name())){
 		this.infoTarjeta.setVisible(true);
 	}
