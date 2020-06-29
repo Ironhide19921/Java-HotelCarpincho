@@ -11,4 +11,6 @@ public interface ErrorImportarDAO {
 	
 	public List<ErrorImportarDTO> search(String buscar);
 
+	boolean delete(ErrorImportarDTO errorAeliminar);
+
 }

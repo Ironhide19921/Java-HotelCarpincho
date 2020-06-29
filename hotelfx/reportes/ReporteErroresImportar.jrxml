@@ -8,12 +8,12 @@
 	<parameter name="FechaDesde" class="java.sql.Timestamp"/>
 	<parameter name="FechaHasta" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT hotel.errorimportar.`idError`,
+		<![CDATA[SELECT hotel.errorimportar.idError,
 	hotel.errorimportar.fecha,
 	hotel.errorimportar.usuario,
 	hotel.errorimportar.detalle
 FROM hotel.errorimportar
-where 	hotel.errorimportar.fecha between  $P{FechaDesde}  and  $P{FechaHasta} ]]>
+where 	hotel.errorimportar.fecha between  $P{FechaDesde}  and  $P{FechaHasta}]]>
 	</queryString>
 	<field name="idError" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idError"/>

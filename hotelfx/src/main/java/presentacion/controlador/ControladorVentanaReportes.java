@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import modelo.Cuarto;
 import modelo.ErrorImportar;
+import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.reportes.ReporteContableReservaCuarto;
 import presentacion.reportes.ReporteEncuesta;
@@ -88,22 +89,28 @@ public class ControladorVentanaReportes implements Initializable{
 	
 	@FXML
 	public void generarReporte() {
-		if(this.reporte.equals("ocupacion")) {
-			ReporteOcupacion reporteOcupacion = new ReporteOcupacion(cuarto.obtenerCuartos());
-			reporteOcupacion.mostrar();
-		}/*else if(this.reporte.equals("error")) {
-			ReporteErroresImportar reporteError = new ReporteErroresImportar(this.getFechaDesde().getValue(),this.getFechaHasta().getValue());
-			reporteError.mostrar();
-		}*/else if(this.reporte.equals("encuesta")) {
-			ReporteEncuesta reporteEncuesta = new ReporteEncuesta();
-			reporteEncuesta.mostrar();
-		}	
-		else if(this.reporte.equals("contable")) {
-			ReporteContableReservaCuarto reporteContable = new ReporteContableReservaCuarto(this.getFechaDesde().getValue(),this.getFechaHasta().getValue());
-			ReporteGraficoContable reporteGrafico = new ReporteGraficoContable(this.getFechaDesde().getValue(),this.getFechaHasta().getValue());
-			reporteContable.mostrar();
-			reporteGrafico.mostrar();
-		}	
+
+		try {
+			if(this.reporte.equals("ocupacion")) {
+				ReporteOcupacion reporteOcupacion = new ReporteOcupacion(cuarto.obtenerCuartos());
+				reporteOcupacion.mostrar();
+			}else if(this.reporte.equals("error")) {
+				ReporteErroresImportar reporteError = new ReporteErroresImportar(this.getFechaDesde().getValue(),this.getFechaHasta().getValue());
+				reporteError.mostrar();
+			}else if(this.reporte.equals("encuesta")) {
+				ReporteEncuesta reporteEncuesta = new ReporteEncuesta();
+				reporteEncuesta.mostrar();
+			}else if(this.reporte.equals("contable")) {
+				ReporteContableReservaCuarto reporteContable = new ReporteContableReservaCuarto(this.getFechaDesde().getValue(),this.getFechaHasta().getValue());
+				ReporteGraficoContable reporteGrafico = new ReporteGraficoContable(this.getFechaDesde().getValue(),this.getFechaHasta().getValue());
+				reporteContable.mostrar();
+				reporteGrafico.mostrar();
+			}	
+		} catch (Exception e) {
+			// TODO: handle exception
+			Validador.mostrarMensaje("Sin valores para reporte");
+		}
+
 	}
 
 	public DatePicker getFechaDesde() {

@@ -76,16 +76,6 @@ public class ControladorConfiguracion implements Initializable{
 	}
 
 
-	//	@FXML
-	//	public void guardarConfig() throws IOException {
-	//		String mail = txtUsername.getText();
-	//		String password = txtPassword.getText();
-	//		
-	//		
-	//		ConfiguracionDTO config = new ConfiguracionDTO(0, mail, password);
-	//		this.configuracion.agregarConfiguracion(config);
-	//	}
-
 	@FXML
 	public void modificarConfig() throws IOException {
 		if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) {

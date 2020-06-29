@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.List;
 import dto.ErrorImportarDTO;
+import dto.ProductoDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.ErrorImportarDAO;
 
@@ -25,5 +26,8 @@ private ErrorImportarDAO error;
 		return this.error.search(buscar);
 	}
 	
+	public void borrarError(ErrorImportarDTO error) {
+		this.error.delete(error);
+	}
 
 }

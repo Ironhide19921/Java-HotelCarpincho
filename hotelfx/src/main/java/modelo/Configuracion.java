@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.List;
 import dto.ConfiguracionDTO;
+import dto.ProductoDTO;
 import persistencia.dao.interfaz.ConfiguracionDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 

@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import dto.ErrorImportarDTO;
+import dto.ProductoDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ErrorImportarDAO;
 
@@ -17,7 +18,8 @@ public class ErrorImportarDAOSQL implements ErrorImportarDAO{
 			+ "VALUES(?, ?, ?, ?)";
 	private static final String readall = "SELECT * FROM errorImportar";
 	private static final String search = "SELECT * FROM errorImportar WHERE idError LIKE ? OR usuario LIKE ? OR fecha LIKE ? ";
-
+	private static final String delete = "DELETE FROM errorImportar WHERE idError = ?";
+	
 	@Override
 	public boolean insert(ErrorImportarDTO error) {
 		PreparedStatement statement;
@@ -93,6 +95,30 @@ public class ErrorImportarDAOSQL implements ErrorImportarDAO{
 			e.printStackTrace();
 		}
 		return errores;
+	}
+	
+	@Override
+	public boolean delete(ErrorImportarDTO errorAeliminar) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isDeleteExitoso = false;
+		try{
+			statement = conexion.prepareStatement(delete);
+			statement.setInt(1, errorAeliminar.getIdError());
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				isDeleteExitoso = true;
+			}
+		} 
+		catch (SQLException e){
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}		
+		return isDeleteExitoso;
 	}
 
 }
