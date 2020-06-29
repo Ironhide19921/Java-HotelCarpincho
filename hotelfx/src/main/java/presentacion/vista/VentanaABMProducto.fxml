@@ -7,48 +7,50 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="542.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMProducto">
+<AnchorPane prefHeight="530.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorABMProducto">
 	<children>
-      <BorderPane layoutX="13.0" layoutY="10.0" prefHeight="529.0" prefWidth="789.0">
+      <BorderPane prefHeight="530.0" prefWidth="840.0">
          <top>
-            <Pane prefHeight="66.0" prefWidth="786.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="50.0" prefWidth="479.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="txtBuscarProd" layoutX="80.0" layoutY="20.0" prefHeight="27.0" prefWidth="196.0" />
-                  <Button fx:id="btnBuscarProd" layoutX="302.0" layoutY="20.0" mnemonicParsing="false" onAction="#buscarProductos" styleClass="btn-pant-interna" text="Buscar" />
-                  <Button fx:id="btnRefrescar" layoutX="689.0" layoutY="20.0" mnemonicParsing="false" onAction="#refrescarTablaProductos" styleClass="btn-pant-interna" text="Refrescar" />
+                  <Text layoutX="52.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de productos">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtBuscarProd" layoutX="482.0" layoutY="11.0" prefHeight="30.0" prefWidth="200.0" />
+                  <Button fx:id="btnBuscarProd" layoutX="689.0" layoutY="11.0" mnemonicParsing="false" onAction="#buscarProductos" prefHeight="30.0" prefWidth="100.0" styleClass="btn-pant-interna" text="Buscar" />
+                  <Button fx:id="btnRefrescar" layoutX="688.0" layoutY="11.0" mnemonicParsing="false" onAction="#refrescarTablaProductos" prefHeight="30.0" prefWidth="100.0" styleClass="btn-pant-interna" text="Refrescar" visible="false" />
                </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="415.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="415.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </left>
          <bottom>
-            <Pane prefHeight="70.0" prefWidth="789.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="100.0" prefWidth="789.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarProd" layoutX="80.0" layoutY="23.0" mnemonicParsing="false" onAction="#agregarProducto" styleClass="btn-pant-interna" text="Agregar producto" />
-                  <Button fx:id="btnEditarProd" layoutX="227.0" layoutY="23.0" mnemonicParsing="false" onAction="#editarProducto" styleClass="btn-pant-interna" text="Editar producto" />
-                  <Button fx:id="btnBorrarProd" layoutX="358.0" layoutY="23.0" mnemonicParsing="false" onAction="#borrarProducto" styleClass="btn-pant-interna" text="Borrar producto" />
+                  <Button fx:id="btnAgregarProd" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-pant-interna" text="Agregar producto" />
+                  <Button fx:id="btnEditarProd" layoutX="206.0" layoutY="14.0" mnemonicParsing="false" onAction="#editarProducto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-pant-interna" text="Editar producto" />
+                  <Button fx:id="btnBorrarProd" layoutX="362.0" layoutY="14.0" mnemonicParsing="false" onAction="#borrarProducto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-pant-interna" text="Borrar producto" />
                </children></Pane>
          </bottom>
          <right>
-            <Pane prefHeight="519.0" prefWidth="33.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="519.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <TableView fx:id="tablaProductos" prefHeight="475.0" prefWidth="726.0">
-                    <columns>
-                      <TableColumn fx:id="id" prefWidth="55.0" text="ID" />
-                      <TableColumn fx:id="nombre" prefWidth="122.0" text="Nombre" />
-                        <TableColumn fx:id="precio" prefWidth="85.0" text="Precio" />
-                        <TableColumn fx:id="descripcion" prefWidth="186.0" text="Descripcion" />
-                        <TableColumn fx:id="tipo" prefWidth="77.0" text="Tipo" />
-                        <TableColumn fx:id="proveedor" prefWidth="150.0" text="Proveedor" />
-                    </columns>
-                  </TableView>
-               </children>
-            </VBox>
+            <TableView fx:id="tablaProductos" prefHeight="162.0" prefWidth="707.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="id" prefWidth="55.0" text="ID" />
+                <TableColumn fx:id="nombre" prefWidth="122.0" text="Nombre" />
+                  <TableColumn fx:id="precio" prefWidth="85.0" text="Precio" />
+                  <TableColumn fx:id="descripcion" prefWidth="186.0" text="Descripcion" />
+                  <TableColumn fx:id="tipo" prefWidth="77.0" text="Tipo" />
+                  <TableColumn fx:id="proveedor" prefWidth="150.0" text="Proveedor" />
+              </columns>
+            </TableView>
          </center>
       </BorderPane>
    </children>

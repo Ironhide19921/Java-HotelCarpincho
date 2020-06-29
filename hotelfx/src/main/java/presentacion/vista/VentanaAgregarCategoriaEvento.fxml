@@ -14,12 +14,12 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label contentDisplay="RIGHT" layoutX="152.0" layoutY="48.0" text="Nombre(*)">
+                  <Label contentDisplay="RIGHT" layoutX="157.0" layoutY="45.0" text="Nombre(*)">
                      <graphic>
                         <TextField fx:id="txtNombre" />
                      </graphic>
                   </Label>
-                  <Label contentDisplay="RIGHT" layoutX="161.0" layoutY="93.0" text="Detalle(*)">
+                  <Label contentDisplay="RIGHT" layoutX="166.0" layoutY="90.0" text="Detalle(*)">
                      <graphic>
                         <TextField fx:id="txtDetalle" />
                      </graphic>
@@ -28,17 +28,17 @@
             </Pane>
          </center>
          <top>
-            <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="92.0" prefWidth="524.0" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
             <Pane prefHeight="100.0" prefWidth="0.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarCategoriaEvento" layoutX="218.0" layoutY="20.0" mnemonicParsing="false" onAction="#guardarCategoriaEvento" text="Agregar ">
+                  <Button fx:id="btnAgregarCategoriaEvento" layoutX="187.0" layoutY="14.0" mnemonicParsing="false" onAction="#guardarCategoriaEvento" prefHeight="30.0" prefWidth="150.0" text="Agregar ">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnEditarCategoriaEvento" layoutX="216.0" layoutY="19.0" mnemonicParsing="false" onAction="#editarCategoriaEvento" text="Modificar">
+                  <Button fx:id="btnEditarCategoriaEvento" layoutX="187.0" layoutY="14.0" mnemonicParsing="false" onAction="#editarCategoriaEvento" prefHeight="30.0" prefWidth="150.0" text="Modificar">
                      <font>
                         <Font size="14.0" />
                      </font>

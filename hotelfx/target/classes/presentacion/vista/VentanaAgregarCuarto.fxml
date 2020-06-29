@@ -7,17 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="484.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCuarto">
+<AnchorPane prefHeight="494.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCuarto">
 	<children>
-      <BorderPane layoutX="31.0" layoutY="3.0" prefHeight="482.0" prefWidth="883.0">
+      <BorderPane layoutX="11.0" layoutY="12.0" prefHeight="482.0" prefWidth="703.0">
          <top>
             <Pane prefHeight="45.0" prefWidth="831.0" BorderPane.alignment="CENTER">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="56.0" layoutX="-7.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" styleClass="rect-header" width="838.0" />
-                  <Text layoutX="35.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar cuarto" wrappingWidth="329.13671875" />
+                  <Text layoutX="35.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar cuarto" wrappingWidth="329.13671875">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font></Text>
                </children></Pane>
          </top>
          <left>
@@ -29,9 +31,9 @@
          <bottom>
             <Pane prefHeight="96.0" prefWidth="831.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnConfirmarCuarto" layoutX="150.0" layoutY="38.0" mnemonicParsing="false" onAction="#agregarCuarto" prefHeight="30.0" prefWidth="160.0" text="Confirmar" />
-                  <Button fx:id="btnIrACateCuarto" layoutX="491.0" layoutY="38.0" mnemonicParsing="false" onAction="#mostrarAbmCategoriaCuarto" prefHeight="30.0" prefWidth="200.0" text="Ir a Categorias de cuarto" />
-                  <Button fx:id="btnEditarCuarto" layoutX="150.0" layoutY="38.0" mnemonicParsing="false" onAction="#editarCuarto" prefHeight="30.0" prefWidth="160.0" text="Editar" />
+                  <Button fx:id="btnConfirmarCuarto" layoutX="176.0" layoutY="32.0" mnemonicParsing="false" onAction="#agregarCuarto" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
+                  <Button fx:id="btnIrACateCuarto" layoutX="371.0" layoutY="33.0" mnemonicParsing="false" onAction="#mostrarAbmCategoriaCuarto" prefHeight="30.0" prefWidth="150.0" text="Ir a Categorias de cuarto" />
+                  <Button fx:id="btnEditarCuarto" layoutX="176.0" layoutY="32.0" mnemonicParsing="false" onAction="#editarCuarto" prefHeight="30.0" prefWidth="150.0" text="Editar" />
                </children>
             </Pane>
          </bottom>
@@ -39,19 +41,19 @@
             <Pane prefHeight="377.0" prefWidth="640.0" BorderPane.alignment="CENTER">
                <children>
 
-                  <Label layoutX="75.0" layoutY="30.0" prefHeight="25.0" prefWidth="87.0" text="Capacidad(*)" />
-                  <Label layoutX="75.0" layoutY="85.0" prefHeight="17.0" prefWidth="71.0" text="Monto(*)" />
-                  <Label layoutX="75.0" layoutY="134.0" prefHeight="17.0" prefWidth="96.0" text="Seña (%)*" />
-                  <Label layoutX="75.0" layoutY="183.0" prefHeight="17.0" prefWidth="48.0" text="Piso(*)" />
-                  <Label layoutX="78.0" layoutY="232.0" text="Habitacion(*)" />
-                  <Label layoutX="75.0" layoutY="285.0" prefHeight="17.0" prefWidth="149.0" text="Categorias de cuarto(*)" />
+                  <Label layoutX="57.0" layoutY="34.0" prefHeight="25.0" prefWidth="87.0" text="Capacidad(*)" />
+                  <Label layoutX="57.0" layoutY="89.0" prefHeight="17.0" prefWidth="71.0" text="Monto(*)" />
+                  <Label layoutX="57.0" layoutY="138.0" prefHeight="17.0" prefWidth="96.0" text="Seña (%)*" />
+                  <Label layoutX="57.0" layoutY="187.0" prefHeight="17.0" prefWidth="48.0" text="Piso(*)" />
+                  <Label layoutX="57.0" layoutY="236.0" text="Habitacion(*)" />
+                  <Label layoutX="57.0" layoutY="289.0" prefHeight="17.0" prefWidth="149.0" text="Categorias de cuarto(*)" />
 
-                  <TextField fx:id="txtCapacidad" layoutX="403.0" layoutY="29.0" />
-                  <TextField fx:id="txtMonto" layoutX="403.0" layoutY="80.0" />
-                  <TextField fx:id="txtMontoSenia" layoutX="403.0" layoutY="129.0" />
-                  <TextField fx:id="txtPiso" layoutX="403.0" layoutY="178.0" />
-                  <TextField fx:id="txtHabitacion" layoutX="403.0" layoutY="227.0" />
-                  <ComboBox fx:id="cmbBoxCatesCuarto" layoutX="403.0" layoutY="280.0" onAction="#cargarCmbCateCuarto" onMousePressed="#recargarCmbCategoriasCuarto" prefHeight="27.0" prefWidth="167.0" />
+                  <TextField fx:id="txtCapacidad" layoutX="299.0" layoutY="38.0" prefWidth="150.0" />
+                  <TextField fx:id="txtMonto" layoutX="299.0" layoutY="89.0" prefWidth="150.0" />
+                  <TextField fx:id="txtMontoSenia" layoutX="299.0" layoutY="138.0" prefWidth="150.0" />
+                  <TextField fx:id="txtPiso" layoutX="299.0" layoutY="187.0" prefWidth="150.0" />
+                  <TextField fx:id="txtHabitacion" layoutX="299.0" layoutY="236.0" prefWidth="150.0" />
+                  <ComboBox fx:id="cmbBoxCatesCuarto" layoutX="299.0" layoutY="289.0" onAction="#cargarCmbCateCuarto" onMousePressed="#recargarCmbCategoriasCuarto" prefHeight="27.0" prefWidth="150.0" />
             
                </children>
             </Pane>

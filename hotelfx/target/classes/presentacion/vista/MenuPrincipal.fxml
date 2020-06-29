@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="573.0" prefWidth="982.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorMenuPrincipal">
+<AnchorPane prefHeight="552.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorMenuPrincipal">
    <children>
-      <BorderPane fx:id="mainPane" layoutX="14.0" layoutY="3.0" prefHeight="570.0" prefWidth="971.0">
+      <BorderPane fx:id="mainPane" layoutY="3.0" prefHeight="562.0" prefWidth="985.0">
 
          <!--left>
             <VBox prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
@@ -102,7 +102,7 @@
          <top>
             <Pane prefHeight="38.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                <children>
-                  <MenuBar layoutX="-14.0" prefHeight="25.0" prefWidth="985.0">
+                  <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="985.0">
                     <menus>
                       <Menu disable="true" mnemonicParsing="false" text="Usuario">
                         <items>
@@ -122,7 +122,7 @@
             <Pane prefHeight="11.0" prefWidth="1080.0" BorderPane.alignment="CENTER" />
          </bottom>
          <left>
-            <Pane prefHeight="640.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="498.0" prefWidth="150.0" BorderPane.alignment="CENTER">
                <children>
               <Button fx:id="btnAbrirABMProductos" disable="true" mnemonicParsing="false" onAction="#verABMProductos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Productos" />
                   <Button fx:id="btnAbrirABMReservas" disable="true" layoutY="34.0" mnemonicParsing="false" onAction="#verReservaCuarto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Reservas cuartos" />

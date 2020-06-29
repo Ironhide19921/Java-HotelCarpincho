@@ -4,42 +4,62 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="530.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorBackup">
    <children>
-      <AnchorPane layoutX="83.0" layoutY="70.0" prefHeight="349.0" prefWidth="613.0">
-         <children>
-            <Label layoutX="14.0" layoutY="51.0" prefHeight="20.0" prefWidth="434.0" text="Seleccione un archivo para realizar la restauración:">
-               <font>
-                  <Font name="Century Gothic" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="20.0" prefHeight="20.0" prefWidth="263.0" text="Restore de base" underline="true">
-               <font>
-                  <Font name="Century Gothic" size="15.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnSeleccionar" disable="true" layoutX="15.0" layoutY="82.0" mnemonicParsing="false" onAction="#seleccionar" prefHeight="30.0" prefWidth="110.0" text="Seleccionar" />
-            <TextField fx:id="txtPath" editable="false" layoutX="146.0" layoutY="82.0" prefHeight="30.0" prefWidth="293.0" />
-            <Label layoutX="14.0" layoutY="225.0" prefHeight="20.0" prefWidth="211.0" text="Backup de base" underline="true">
-               <font>
-                  <Font name="Century Gothic" size="15.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnRestore" disable="true" layoutX="15.0" layoutY="123.0" mnemonicParsing="false" onAction="#restore" prefHeight="50.0" text="Confirmar restore" />
-            <Text layoutX="14.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Se recomienda reiniciar la aplicación luego de completar un restore de base" wrappingWidth="621.43359375">
-               <font>
-                  <Font name="Century Gothic" size="12.0" />
-               </font></Text>
-            <Label layoutX="14.0" layoutY="262.0" prefHeight="20.0" prefWidth="466.0" text="Puede realizar backups adicionales al automatico diario:">
-               <font>
-                  <Font name="Century Gothic" size="14.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnBackup" layoutX="9.0" layoutY="292.0" mnemonicParsing="false" onAction="#backup" prefHeight="50.0" prefWidth="121.0" text="Realizar backup" />
-         </children>
-      </AnchorPane>
+      <AnchorPane prefHeight="530.0" prefWidth="840.0" />
+      <BorderPane prefHeight="530.0" prefWidth="840.0">
+         <top>
+            <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </top>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="46.0" layoutY="48.0" prefHeight="20.0" prefWidth="434.0" text="Seleccione un archivo para realizar la restauración:">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="18.0" prefHeight="20.0" prefWidth="263.0" text="Restore de base" underline="true">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnSeleccionar" disable="true" layoutX="50.0" layoutY="81.0" mnemonicParsing="false" onAction="#seleccionar" prefHeight="30.0" prefWidth="150.0" text="Seleccionar" />
+                  <TextField fx:id="txtPath" editable="false" layoutX="217.0" layoutY="81.0" prefHeight="30.0" prefWidth="293.0" />
+                  <Label layoutY="240.0" prefHeight="20.0" prefWidth="211.0" text="Backup de base" underline="true">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnRestore" disable="true" layoutX="50.0" layoutY="126.0" mnemonicParsing="false" onAction="#restore" prefHeight="30.0" prefWidth="150.0" text="Confirmar restore" />
+                  <Text layoutX="53.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Se recomienda reiniciar la aplicación luego de completar un restore de base" wrappingWidth="621.43359375">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="50.0" layoutY="267.0" prefHeight="20.0" prefWidth="466.0" text="Puede realizar backups adicionales al automatico diario:">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnBackup" layoutX="50.0" layoutY="292.0" mnemonicParsing="false" onAction="#backup" prefHeight="30.0" prefWidth="150.0" text="Realizar backup" />
+               </children>
+            </Pane>
+         </center>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

@@ -31,7 +31,7 @@ public class CuartoDAOSQL implements CuartoDAO{
 			+" c.idCuarto"
 			+" from cuarto as c"
 			+" left join reservacuarto as r on r.idCuarto= c.idCuarto"
-			+" where (r.FechaIngreso < ? and r.FechaEgreso > ?)"
+			+" where r.Estado = 1 and (r.FechaIngreso < ? and r.FechaEgreso > ?)"
 			+" or (r.FechaIngreso < ? and r.FechaEgreso > ?)"
 			+" or (? between r.FechaIngreso and r.FechaEgreso and ? between r.FechaIngreso and r.FechaEgreso)"
 			+" or (r.FechaIngreso <= ? and r.FechaEgreso >= ?))";

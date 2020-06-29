@@ -8,8 +8,10 @@ import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
 import dto.CuartoDTO;
+import dto.EmailDTO;
 import dto.OrdenPedidoDTO;
 import dto.ReservaCuartoDTO;
+import dto.ReservaCuartoDTO.EstadoReserva;
 import dto.TablaReservaDTO;
 import dto.TicketDTO;
 import javafx.collections.FXCollections;
@@ -159,29 +161,69 @@ public class ControladorABMOrdenPedido implements Initializable{
 	}
 
 	public void enviarIdReserva(int selectedItem, CuartoDTO cuartoDTO, ClienteDTO clienteDTO) {
-		// TODO Auto-generated method stub
+		
 		ReservaCuartoDTO reserva = this.reservas.obtenerReservaCuartoPorId(selectedItem);
 		BigDecimal montoTotalReserva = reserva.getMontoReservaCuarto();
-		BigDecimal montoSeñaCalculo = montoTotalReserva.multiply(reserva.getSenia().divide(BigDecimal.valueOf(100)));
-		BigDecimal montoSeña = montoSeñaCalculo;
-		montoTotalReserva.add(montoSeña.negate());
-		List<OrdenPedidoDTO> pedidosDelCliente = this.ordenPedido.buscarOrdenesPedidosPorReserva(clienteDTO.getIdCliente());
-		BigDecimal monto = BigDecimal.valueOf(0);
-		listaOrdenPedidos.clear();
-		listaOrdenPedidos.addAll(pedidosDelCliente);
-		this.tablaOrdenPedidos.setItems(listaOrdenPedidos);
-		this.idCliente.setText(clienteDTO.getIdCliente()+"");
-		//consultar datos del cliente
-		this.labelClienteNombre.setText(clienteDTO.getNombre() + " " + clienteDTO.getApellido());
-		this.idReserva.setText(selectedItem+"");
-		this.montoReserva.setText(montoTotalReserva+ "");
-		
-		for(OrdenPedidoDTO o : pedidosDelCliente) {
+		BigDecimal montoSeña = reserva.getSenia();
+		if(reserva.getEstadoReserva().equals(EstadoReserva.FINALIZADO)) {
+			//montoTotalReserva.add(montoSeña.negate());
+			List<OrdenPedidoDTO> pedidosDelCliente = this.ordenPedido.buscarOrdenesPedidosPorReserva(clienteDTO.getIdCliente());
+			BigDecimal monto = BigDecimal.valueOf(0);
+			listaOrdenPedidos.clear();
+			listaOrdenPedidos.addAll(pedidosDelCliente);
+			this.tablaOrdenPedidos.setItems(listaOrdenPedidos);
+			this.idCliente.setText(clienteDTO.getIdCliente()+"");
+			//consultar datos del cliente
+			this.labelClienteNombre.setText(clienteDTO.getNombre() + " " + clienteDTO.getApellido());
+			this.idReserva.setText(selectedItem+"");
+			this.montoReserva.setText(montoTotalReserva+ "");
 			
-			monto = monto.add(o.getPrecioTotal());
+			for(OrdenPedidoDTO o : pedidosDelCliente) {
+				
+				monto = monto.add(o.getPrecioTotal());
+			}
+			monto = monto.add(montoTotalReserva);
+			resultadoTotal.setText(monto+"");
 		}
-		monto = monto.add(montoTotalReserva);
-		resultadoTotal.setText(monto+"");
+		else if(reserva.getEstadoReserva().equals(EstadoReserva.CANCELADO)) {
+			//montoTotalReserva.add(montoSeña.negate());
+			List<OrdenPedidoDTO> pedidosDelCliente = this.ordenPedido.buscarOrdenesPedidosPorReserva(clienteDTO.getIdCliente());
+			BigDecimal monto = BigDecimal.valueOf(0);
+			listaOrdenPedidos.clear();
+			listaOrdenPedidos.addAll(pedidosDelCliente);
+			this.tablaOrdenPedidos.setItems(listaOrdenPedidos);
+			this.idCliente.setText(clienteDTO.getIdCliente()+"");
+			//consultar datos del cliente
+			this.labelClienteNombre.setText(clienteDTO.getNombre() + " " + clienteDTO.getApellido());
+			this.idReserva.setText(selectedItem+"");
+			this.montoReserva.setText(montoSeña+ "");
+			
+			for(OrdenPedidoDTO o : pedidosDelCliente) {
+				
+				monto = monto.add(o.getPrecioTotal());
+			}
+			monto = monto.add(montoSeña);
+			resultadoTotal.setText(monto+"");
+		}else {
+			List<OrdenPedidoDTO> pedidosDelCliente = this.ordenPedido.buscarOrdenesPedidosPorReserva(clienteDTO.getIdCliente());
+			BigDecimal monto = BigDecimal.valueOf(0);
+			listaOrdenPedidos.clear();
+			listaOrdenPedidos.addAll(pedidosDelCliente);
+			this.tablaOrdenPedidos.setItems(listaOrdenPedidos);
+			this.idCliente.setText(clienteDTO.getIdCliente()+"");
+			//consultar datos del cliente
+			this.labelClienteNombre.setText(clienteDTO.getNombre() + " " + clienteDTO.getApellido());
+			this.idReserva.setText(selectedItem+"");
+			this.montoReserva.setText(montoTotalReserva+ "");
+			
+			for(OrdenPedidoDTO o : pedidosDelCliente) {
+				
+				monto = monto.add(o.getPrecioTotal());
+			}
+			monto = monto.add(montoTotalReserva);
+			resultadoTotal.setText(monto+"");
+		}
+		
 	}
 	
 	@FXML
@@ -194,8 +236,11 @@ public class ControladorABMOrdenPedido implements Initializable{
 		TicketDTO ticket = this.ticket.getTicket(ultimoIdTicket);
 		String path = "/tickets/reserva/ticketReserva_" + idReserva + "_"+ ticket.getIdTicket() +".pdf";
 		String pathPDF = ".//tickets//reserva//ticketReserva_" + idReserva + "_"+ ticket.getIdTicket() +".pdf";
-		
+		ReservaCuartoDTO reserva = this.reservas.obtenerReservaCuartoPorId(Integer.parseInt(idReserva.getText()));
 		//datos del reporte
+		
+		reserva.setEstado(false);
+		this.reservas.modificarReservaCuarto(reserva);
 		ReporteTicketReserva reporte = new ReporteTicketReserva(Integer.parseInt(idReserva.getText()), pathPDF);
 		reporte.mostrar();
 		
@@ -203,8 +248,12 @@ public class ControladorABMOrdenPedido implements Initializable{
 			this.ticket.modificarTicket(ticket, path);
 			reporte.guardarPdf();
 		}
+		String pathMsj = "." + path; 
+		ClienteDTO clienteActual = this.cliente.getClientePorId(Integer.parseInt(idCliente.getText()));
+		EmailDTO email = new EmailDTO();
+		email.enviarMsjAdjunto("", pathMsj, reserva.getEmailFacturacion(), "Ticket de reserva");
 		Validador.mostrarMensaje("Su ticket ha sido creado con exito.");
-		this.controladorABMReservaCuarto.refrescarTabla();
+	//	this.controladorABMReservaCuarto.refrescarTabla();
 		cerrarVentanaAgregarY_GenerarTicket();
 	}
 	
