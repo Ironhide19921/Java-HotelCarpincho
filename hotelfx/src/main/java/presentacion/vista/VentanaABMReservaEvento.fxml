@@ -36,8 +36,8 @@
                   <Button fx:id="btnAgregar" layoutX="48.0" layoutY="14.0" maxHeight="30.0" mnemonicParsing="false" onAction="#addReservaEvento" prefHeight="30.0" prefWidth="150.0" text="Agregar Reserva Evento" />
                   <Button fx:id="btnEditar" layoutX="205.0" layoutY="14.0" mnemonicParsing="false" onAction="#editarReservaEvento" prefHeight="30.0" prefWidth="150.0" text="Modificar" />
                   <Button fx:id="btnVolver" layoutX="638.0" layoutY="14.0" mnemonicParsing="false" onAction="#volver" prefHeight="30.0" prefWidth="150.0" text="Volver a clientes" />
-                  <Button fx:id="btnIniciarReserva" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#iniciarReserva" text="Iniciar" visible="false" />
-                  <Button fx:id="btnFinalizarReserva" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#finalizarReserva" text="Finalizar" visible="false" />
+                  <Button fx:id="btnIniciarReserva" layoutX="48.0" layoutY="56.0" mnemonicParsing="false" onAction="#iniciarReserva" prefHeight="30.0" prefWidth="150.0" text="Iniciar" visible="false" />
+                  <Button fx:id="btnFinalizarReserva" layoutX="48.0" layoutY="56.0" mnemonicParsing="false" onAction="#finalizarReserva" prefHeight="30.0" prefWidth="150.0" text="Finalizar" visible="false" />
                   <Button fx:id="btnTicket" layoutX="363.0" layoutY="14.0" mnemonicParsing="false" onAction="#generarReporteReservaEvento" prefHeight="30.0" prefWidth="150.0" text="Generar ticket" />
                </children>
             </Pane>
