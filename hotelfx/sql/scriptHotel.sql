@@ -167,7 +167,8 @@ CREATE TABLE `cuarto`
   CONSTRAINT FOREIGN KEY fk_idCategoriaCuarto (idCategoriaCuarto) REFERENCES categoriaCuarto (idCategoriaCuarto)
 );
 
-CREATE TABLE `reservacuarto` (
+
+  CREATE TABLE `reservacuarto` (
   `idReservaCuarto` int(11) NOT NULL,
   `idCliente` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
@@ -176,9 +177,9 @@ CREATE TABLE `reservacuarto` (
   `MontoReservaCuarto` decimal(20,3) NOT NULL,
   `EmailFacturacion` varchar(50) NOT NULL,
   `FechaReserva` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `FechaCheckIn` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FechaCheckIn` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `FechaIngreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `FechaOut` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `FechaOut` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `FechaEgreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `FormaPago` enum('EFECTIVO','DEBITO','CREDITO') NOT NULL,
   `TipoTarjeta` enum('VISA','MASTERCARD','NO') NOT NULL,
