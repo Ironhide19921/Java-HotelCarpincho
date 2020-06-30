@@ -32,6 +32,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -409,7 +411,6 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 			URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaLogin.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-
 			loginStage.setScene(new Scene(root));
 			loginStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			loginStage.setTitle("Pantalla de Login");

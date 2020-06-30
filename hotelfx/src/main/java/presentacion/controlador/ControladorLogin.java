@@ -19,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import main.Main;
@@ -39,6 +41,7 @@ public class ControladorLogin implements Initializable {
 	@FXML PasswordField txtPass;
 	@FXML Button btnLogin;
 	
+	
 	private EmailDTO email;
 	private Configuracion emailConfig;
 	private Email ModeloEmail;
@@ -50,6 +53,7 @@ public class ControladorLogin implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+	
 		this.usuario = new Usuario(new DAOSQLFactory());
 		this.permisoPerfil = new PermisoPerfil(new DAOSQLFactory());
 		this.emailConfig = new Configuracion(new DAOSQLFactory());

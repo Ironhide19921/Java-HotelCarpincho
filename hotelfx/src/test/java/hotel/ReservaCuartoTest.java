@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dto.CategoriaCuartoDTO;
-import dto.CategoriaEventoDTO;
 import dto.ClienteDTO;
 import dto.CuartoDTO;
 import dto.PerfilDTO;
@@ -22,7 +21,6 @@ import dto.ReservaCuartoDTO;
 import dto.ReservaCuartoDTO.EstadoReserva;
 import dto.ReservaCuartoDTO.FormaPago;
 import dto.ReservaCuartoDTO.TipoTarjeta;
-import dto.SalonDTO;
 import dto.UsuarioDTO;
 import modelo.CategoriaCuarto;
 import modelo.CategoriaEvento;
@@ -30,8 +28,6 @@ import modelo.Cliente;
 import modelo.Cuarto;
 import modelo.Perfil;
 import modelo.ReservaCuarto;
-import modelo.ReservaEvento;
-import modelo.Salon;
 import modelo.Usuario;
 import persistencia.conexion.Conexion;
 import persistencia.dao.mysql.DAOSQLFactory;
@@ -152,40 +148,6 @@ public class ReservaCuartoTest {
 	}
 	
 	
-	@Test
-	public void testSetearIngresoEgresoReservaCuarto()
-	{
-		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
-		modeloReservaCuarto.agregarReservaCuarto(reservaCuartoDTO);
-		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		Timestamp tiempo = Timestamp.valueOf("2020-06-28 01:25:22");
-		//modeloReservaEvento.setearIngresoEgresoReservaEvento(tiempo , null, listaReservaEvento.get(0).getIdReservaEvento());
-		//listaReservaEvento = modeloReservaEvento.obtenerReservasEvento();
-		//assertEquals(tiempo, listaReservaEvento.get(0).getFechaIngreso());
-	}
-	
-	@Test
-	public void testFechasEntre()
-	{
-		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
-		modeloReservaCuarto.agregarReservaCuarto(reservaCuartoDTO);
-		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		Timestamp tiempo1 = Timestamp.valueOf("2020-06-26 01:25:22");
-		Timestamp tiempo2 = Timestamp.valueOf("2020-06-30 01:25:22");
-		
-		List<ReservaCuartoDTO> listaReservasEntre = modeloReservaCuarto.verReservasEntreFechas(tiempo1, tiempo2);
-		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		assertEquals(1, listaReservasEntre.size());
-		
-		
-		Timestamp tiempo3 = Timestamp.valueOf("2020-06-28 10:25:22");
-		Timestamp tiempo4 = Timestamp.valueOf("2020-06-28 19:25:22");
-		
-		listaReservasEntre = modeloReservaCuarto.verReservasEntreFechas(tiempo3, tiempo4);
-		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		
-		assertEquals(0, listaReservasEntre.size());
-	}
 	
 	@After
 	public void normalizar() {
@@ -213,6 +175,11 @@ public class ReservaCuartoTest {
 		
 	}
 	
+	public void crearPerfil() {
+		perfilTest = new PerfilDTO(0,"perfilTest");
+		modeloPerfil.agregarPerfil(perfilTest);
+		listaPerfiles = modeloPerfil.obtenerPerfil();
+	}
 	
 	public void crearCliente() {
 		clienteTest = new ClienteDTO(0, "Prueba", "Test", "DNI", "50456456", "cliente@gmail.com", "1523422345", true, Date.valueOf("2020-01-28"));
@@ -221,9 +188,9 @@ public class ReservaCuartoTest {
 	}
 	
 	public void crearCategoriaCuarto() {
-		categoriaCuartoTest = new CategoriaCuartoDTO(0, 120, 33, "Salon test", BigDecimal.valueOf(1233.22), true);
+		categoriaCuartoTest = new CategoriaCuartoDTO(0,"cateA","DetalleA");
 		modeloCategoriaCuarto.agregarCategoriaCuarto(categoriaCuartoTest);
-		listaCategoriaCuarto = modeloCategoriaCuarto.obtenerCategoriaCuarto();
+		listaCategoria = modeloCategoriaCuarto.obtenerCategoriasCuartos();
 	}
 	
 	public void crearUsuario() {
@@ -233,15 +200,10 @@ public class ReservaCuartoTest {
 	}
 	
 	public void crearCuarto() {
-		cuartoTest = new CuartoDTO(0,"perfilTest");
-		modeloCuarto.agregar
-(perfilTest);
+		cuartoTest = new CuartoDTO();
+		modeloCuartos.agregarCuarto(cuartoTest);
 		listaPerfiles = modeloPerfil.obtenerPerfil();
 	}
 	
-	public void crearPerfil() {
-		perfilTest = new PerfilDTO(0,"perfilTest");
-		modeloPerfil.agregarPerfil(perfilTest);
-		listaPerfiles = modeloPerfil.obtenerPerfil();
-	}
+	
 }

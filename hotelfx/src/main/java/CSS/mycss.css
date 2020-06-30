@@ -25,17 +25,17 @@
 	-fx-text-fill: white;
 }
 
-.button:hover{
+.button:hover {
 	-fx-background-color:rgb(120, 120, 120);
 	-fx-text-fill: white;
 }
 
-.ventana{
+.ventana {
 	-fx-pref-height :530px ;
 	-fx-pref-width : 840px;
 }
 
-#panelDatos{
+#panelDatos {
 	 -fx-border-color:grey;
 }
 
@@ -48,10 +48,23 @@
    -fx-pref-height: 30px;
  }
 
-.btn-menu:hover
-{
+.btn-menu:hover {
 	-fx-background-color: rgb(120, 120, 120);	
 	-fx-text-fill: white;
 }
 
+.btnLogin {
+	-fx-background-color:#74686D;	
+	-fx-text-fill: white;
+}
+
+ .btnLogin:hover {
+	-fx-background-color:#74686D;	
+	-fx-text-fill: white;
+}
+
+.btnLogin:pressed {
+	-fx-background-color:#74686D;	
+	-fx-text-fill: white;
+}
 
