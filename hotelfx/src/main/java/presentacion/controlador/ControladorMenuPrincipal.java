@@ -1,5 +1,7 @@
 package presentacion.controlador;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -75,6 +77,7 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 	@FXML private EmailDTO email;
 	@FXML private Encuesta encuesta;
 	@FXML private Cliente cliente;
+	@FXML private Button btnVerManual;
 
 	@FXML private static Button btnAbrirDivisas;
 	
@@ -474,6 +477,16 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void verManual() {
+		try {
+		     File path = new File (".//manual//manual.pdf");
+		     Desktop.getDesktop().open(path);
+		}catch (IOException ex) {
+		     ex.printStackTrace();
 		}
 	}
 	

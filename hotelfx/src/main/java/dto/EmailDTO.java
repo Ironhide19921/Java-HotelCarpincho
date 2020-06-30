@@ -263,7 +263,6 @@ public class EmailDTO extends Thread{
 			//String mensaje = "Mensaje enviado";
 			//Transport.send(msg -> System.out.println("Mensaje enviado"));
 			Transport.send(msg);
-			Validador.mostrarMensaje("Testing exitoso!");
 		} catch (AddressException e) {
 			e.printStackTrace();
 			Validador.mostrarMensaje("Error con cuenta de mail");

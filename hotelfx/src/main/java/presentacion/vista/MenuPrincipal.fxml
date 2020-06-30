@@ -112,6 +112,7 @@
                     </menus>
                   </MenuBar>
                   <Button fx:id="btnAbrirDivisas" layoutX="918.0" layoutY="-1.0" minWidth="51.0" mnemonicParsing="false" onAction="#verDivisas" prefHeight="25.0" prefWidth="51.0" text="\$" />
+                  <Button fx:id="btnVerManual" layoutX="861.0" layoutY="-1.0" minWidth="51.0" mnemonicParsing="false" onAction="#verManual" prefHeight="25.0" prefWidth="51.0" text="?" />
                </children>
             </Pane>
          </top>
