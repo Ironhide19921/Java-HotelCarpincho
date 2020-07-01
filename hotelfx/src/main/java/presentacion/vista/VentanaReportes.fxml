@@ -56,9 +56,9 @@
                         <Accordion />
                         <Button fx:id="btnOcupacion" disable="true" mnemonicParsing="false" onAction="#deshabilitarParametrosFechas" prefHeight="30.0" prefWidth="150.0" text="Ocupacion" />
                         <Button fx:id="btnContable" disable="true" mnemonicParsing="false" onAction="#elegirContable" prefHeight="30.0" prefWidth="150.0" text="Contables" />
-                        <Button fx:id="btnReservas" disable="true" mnemonicParsing="false" onAction="#habilitarParametrosFechas" prefHeight="30.0" prefWidth="150.0" text="Reservas" />
                         <Button fx:id="btnErrores" disable="true" mnemonicParsing="false" onAction="#elegirError" prefHeight="30.0" prefWidth="150.0" text="Errores" />
                         <Button fx:id="btnEncuestas" disable="true" mnemonicParsing="false" onAction="#elegirEncuesta" prefHeight="30.0" prefWidth="150.0" text="Encuestas" />
+                        <Button fx:id="btnReservas" disable="true" mnemonicParsing="false" onAction="#elegirEncuesta" prefHeight="30.0" prefWidth="150.0" text="Reservas" visible="false" />
                      </children>
                   </VBox>
                </children>

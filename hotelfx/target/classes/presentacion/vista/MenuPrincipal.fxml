@@ -112,6 +112,7 @@
                     </menus>
                   </MenuBar>
                   <Button fx:id="btnAbrirDivisas" layoutX="918.0" layoutY="-1.0" minWidth="51.0" mnemonicParsing="false" onAction="#verDivisas" prefHeight="25.0" prefWidth="51.0" text="\$" />
+                  <Button fx:id="btnVerManual" accessibleHelp="Manual de usuario" layoutX="861.0" layoutY="-1.0" minWidth="51.0" mnemonicParsing="false" onAction="#verManual" prefHeight="25.0" prefWidth="51.0" text="?" />
                </children>
             </Pane>
          </top>
@@ -122,9 +123,9 @@
             <Pane prefHeight="11.0" prefWidth="1080.0" BorderPane.alignment="CENTER" />
          </bottom>
          <left>
-            <Pane prefHeight="498.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="513.0" prefWidth="152.0" BorderPane.alignment="CENTER">
                <children>
-              <Button fx:id="btnAbrirABMProductos" disable="true" mnemonicParsing="false" onAction="#verABMProductos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Productos" />
+              <Button fx:id="btnAbrirABMProductos" disable="true" mnemonicParsing="false" onAction="#verABMProductos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Productos" textFill="#110000" />
                   <Button fx:id="btnAbrirABMReservas" disable="true" layoutY="34.0" mnemonicParsing="false" onAction="#verReservaCuarto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Reservas cuartos" />
                   <Button fx:id="btnAbrirReservaEvento" disable="true" layoutY="68.0" mnemonicParsing="false" onAction="#verMenuReservaEvento" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Reservas Evento" />
                   <Button fx:id="btnAbrirImportar" disable="true" layoutY="102.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Importar Reservas" />
@@ -134,7 +135,7 @@
                   <Button fx:id="btnAbrirABMUsuarios" disable="true" layoutY="238.0" mnemonicParsing="false" onAction="#verABMUsuarios" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Usuarios" />
                   <Button fx:id="btnAbrirABMPerfiles" disable="true" layoutY="272.0" mnemonicParsing="false" onAction="#verABMPerfiles" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Perfiles" />
                   <Button fx:id="btnAbrirABMCategoriasCuartos" disable="true" layoutY="306.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Categoria Cuarto" />
-                  <Button fx:id="btnAbrirABMSalones" disable="true" layoutY="340.0" mnemonicParsing="false" onAction="#verABMSalones" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ABM Salones" />
+                  <Button fx:id="btnAbrirABMSalones" disable="true" layoutY="340.0" mnemonicParsing="false" onAction="#verABMSalones" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Salones" />
                   <Button fx:id="btnAbrirConfig" disable="true" layoutY="374.0" mnemonicParsing="false" onAction="#verConfig" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ConfigMail" />
                   <Button fx:id="btnAbrirOrdenPedidos" disable="true" layoutY="408.0" mnemonicParsing="false" onAction="#verABMOrdenPedidos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Orden Pedidos" />
                   <Button fx:id="btnAbrirVentanaBackup" disable="true" layoutY="442.0" mnemonicParsing="false" onAction="#verVentanaBackup" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Gestión de backups" />
