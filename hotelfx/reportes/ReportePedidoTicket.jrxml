@@ -53,6 +53,10 @@ WHERE op.idOrdenPedido = $P{idPedidoAbuscar}]]>
 					</textElement>
 					<text><![CDATA[Ticket Pedido]]></text>
 				</staticText>
+				<image>
+					<reportElement x="410" y="2" width="100" height="28" uuid="09c70b87-2d2e-4bbb-9b63-3bb34fb99f79"/>
+					<imageExpression><![CDATA["https://i.imgur.com/aDOl5Qj.png"]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>

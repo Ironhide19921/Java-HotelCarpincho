@@ -157,7 +157,7 @@ public class ControladorABMCuarto implements Initializable
 	 @FXML
 	 private void habilitarCuartos(){
 		 if (tablaCuartos.getSelectionModel().getSelectedItem() == null) {
-			validador.mostrarMensaje("Debes seleccionar un cuarto de la lista para habilitar");
+			validador.mostrarMensaje("Debes seleccionar un cuarto de la lista para habilitar o deshabilitar");
 			return;
 		 }
 		 CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
