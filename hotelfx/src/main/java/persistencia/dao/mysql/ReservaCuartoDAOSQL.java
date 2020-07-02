@@ -35,7 +35,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			+ " FechaOut = ?,  FechaEgreso = ?"
 			+ ",EstadoReserva = ? , Comentarios = ? , Estado = ? WHERE idReservaCuarto = ?";
 	private static final String search = "SELECT * FROM reservacuarto "
-			+ "WHERE idUsuario LIKE ? OR idCuarto LIKE ? OR idCliente LIKE ? OR nombre LIKE ? OR apellido LIKE ?";
+			+ "WHERE idUsuario LIKE ? OR idCuarto LIKE ? OR idCliente LIKE ? ";
 
 	private static final String search1 = "SELECT * FROM reservacuarto where idCliente = ?";
 	
@@ -197,8 +197,6 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 			statement.setString(1, "%" + buscar + "%");
 			statement.setString(2, "%" + buscar + "%");
 			statement.setString(3, "%" + buscar + "%");
-			statement.setString(4, "%" + buscar + "%");
-			statement.setString(5, "%" + buscar + "%");
 
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
