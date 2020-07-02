@@ -12,44 +12,65 @@
 
 <AnchorPane prefHeight="452.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarUsuario">
    <children>
-      <BorderPane prefHeight="432.0" prefWidth="600.0">
+      <BorderPane prefHeight="452.0" prefWidth="600.0">
          <center>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="txtNombre" layoutX="196.0" layoutY="11.0" prefWidth="200.0" />
                   <TextField fx:id="txtApellido" layoutX="196.0" layoutY="54.0" prefWidth="200.0" />
                   <TextField fx:id="txtPassword" layoutX="196.0" layoutY="100.0" prefWidth="200.0" />
-                  <Label layoutX="4.0" layoutY="15.0" text="Nombre(*)" />
-                  <Label layoutX="4.0" layoutY="58.0" text="Apellido(*)" />
-                  <Label layoutX="4.0" layoutY="104.0" text="Password(*)" />
-                  <Label layoutX="4.0" layoutY="151.0" text="Tipo documento(*)" />
-                  <Label layoutX="4.0" layoutY="192.0" text="Numero documento(*)" />
+                  <Label layoutX="4.0" layoutY="15.0" text="Nombre(*)" textFill="#f8f6f6">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="4.0" layoutY="58.0" text="Apellido(*)" textFill="#f8f6f6">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="4.0" layoutY="104.0" text="Password(*)" textFill="#f8f6f6">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="4.0" layoutY="151.0" text="Tipo documento(*)" textFill="#f8f6f6">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="4.0" layoutY="192.0" text="Numero documento(*)" textFill="#f8f6f6">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
                   <TextField fx:id="txtNumDocumento" layoutX="196.0" layoutY="188.0" prefWidth="200.0" />
                   <TextField fx:id="txtEmail" layoutX="196.0" layoutY="230.0" prefWidth="200.0" />
-                  <Label layoutX="3.0" layoutY="234.0" text="Email(*)" />
-                  <Label layoutX="4.0" layoutY="283.0" text="Perfil(*)" />
+                  <Label layoutX="3.0" layoutY="234.0" text="Email(*)" textFill="#f8f6f6">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="4.0" layoutY="283.0" text="Perfil(*)" textFill="#f8f6f6">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
                   <ComboBox fx:id="comboPerfil" layoutX="196.0" layoutY="279.0" prefHeight="25.0" prefWidth="202.0" />
                   <ComboBox fx:id="comboTipoDoc" layoutX="196.0" layoutY="147.0" prefHeight="25.0" prefWidth="199.0" />
                </children>
             </Pane>
          </center>
          <top>
-            <Pane prefHeight="48.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
-                  <Text layoutX="35.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="rect-header" text="Usuario" wrappingWidth="89.341796875">
+                  <Text fill="WHITE" layoutX="255.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="rect-header" text="Usuario" textAlignment="CENTER" underline="true" wrappingWidth="89.341796875">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font></Text>
                </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="69.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="69.0" prefWidth="600.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnCerrar" layoutX="190.0" layoutY="20.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="100.0" text="Cerrar" />
                   <Button fx:id="btnAgregarUsuario" layoutX="311.0" layoutY="20.0" mnemonicParsing="false" onAction="#guardarUsuario" prefHeight="30.0" prefWidth="100.0" text="Agregar" />

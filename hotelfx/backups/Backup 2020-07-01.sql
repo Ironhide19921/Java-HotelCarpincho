@@ -2,7 +2,11 @@
 --
 -- Host: localhost    Database: hotel
 -- ------------------------------------------------------
+<<<<<<< HEAD
 -- Server version	5.5.5-10.0.38-MariaDB
+=======
+-- Server version	5.5.5-10.4.11-MariaDB
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +31,11 @@ CREATE TABLE `categoriacuarto` (
   `Nombre` varchar(45) NOT NULL,
   `Detalle` varchar(100) NOT NULL,
   PRIMARY KEY (`idCategoriaCuarto`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +44,11 @@ CREATE TABLE `categoriacuarto` (
 
 LOCK TABLES `categoriacuarto` WRITE;
 /*!40000 ALTER TABLE `categoriacuarto` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `categoriacuarto` VALUES (1,'cate1','det1'),(2,'categoriaB','detalleB');
+=======
+INSERT INTO `categoriacuarto` VALUES (1,'Suite','Suite');
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `categoriacuarto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +95,11 @@ CREATE TABLE `cliente` (
   `Estado` tinyint(1) NOT NULL,
   `FechaNacimiento` date NOT NULL,
   PRIMARY KEY (`idCliente`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +108,11 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `cliente` VALUES (1,'clientea','apellidoa','DNI','22222222','email@email.com','1111111111',1,'2015-07-17'),(2,'ClienteB','ApellidoB','DNI','12234567','cecialf1991@gmail.com','1345678906',1,'2020-06-04'),(3,'clienteC','clienteC','DNI','34555666','email@email.com','1534343434',1,'2020-07-03');
+=======
+INSERT INTO `cliente` VALUES (1,'prueba','asp','DNI','6549151','carpinchocorp@gmail.com','44560101',1,'2020-06-04'),(3,'soynuevo7','nuevo7','DNI','9999','carpinchocorp@gmail.com','52880202',1,'2020-05-22');
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +129,11 @@ CREATE TABLE `configuracion` (
   `password` varchar(45) NOT NULL,
   `provSMTP` varchar(100) NOT NULL,
   PRIMARY KEY (`idConfig`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +165,11 @@ CREATE TABLE `cuarto` (
   PRIMARY KEY (`idCuarto`),
   KEY `fk_idCategoriaCuarto` (`idCategoriaCuarto`),
   CONSTRAINT `fk_idCategoriaCuarto` FOREIGN KEY (`idCategoriaCuarto`) REFERENCES `categoriacuarto` (`idCategoriaCuarto`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +178,11 @@ CREATE TABLE `cuarto` (
 
 LOCK TABLES `cuarto` WRITE;
 /*!40000 ALTER TABLE `cuarto` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `cuarto` VALUES (1,1,2,300.000,10.000,'2','B',1),(2,1,4,700.000,25.000,'1','B',1),(3,1,3,500.000,25.000,'2','A',1);
+=======
+INSERT INTO `cuarto` VALUES (1,1,2,1000.000,30.000,'1','A',1),(2,1,4,2000.000,40.000,'2','B',1);
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `cuarto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +203,11 @@ CREATE TABLE `email` (
   `Estado` tinyint(1) NOT NULL,
   `Pass` varchar(50) NOT NULL,
   PRIMARY KEY (`idEmail`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +216,11 @@ CREATE TABLE `email` (
 
 LOCK TABLES `email` WRITE;
 /*!40000 ALTER TABLE `email` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `email` VALUES (1,'2020-06-27 00:00:00','Acordate que tenes una reserva','Recordatorio','carpinchocorp@gmail.com','cecialf1991@gmail.com',0,'covid-19'),(2,'2020-06-30 00:00:00','Acordate que tenes una reserva','Recordatorio reserva evento','carpinchocorp@gmail.com','email@email.com',1,'covid-19'),(3,'2020-06-28 00:00:00','Acordate que tenes una reserva','Recordatorio','carpinchocorp@gmail.com','alfonsocecilia91@gmail.com',0,'covid-19'),(4,'2020-07-03 00:00:00','Acordate que tenes una reserva','Recordatorio','carpinchocorp@gmail.com','cecialf1991@gmail.com',1,'covid-19'),(5,'2020-06-29 00:00:00','Acordate que tenes una reserva','Recordatorio','carpinchocorp@gmail.com','cecialf1991@hotmail.com',0,'covid-19'),(6,'2020-06-28 00:00:00','Acordate que tenes una reserva','Recordatorio','carpinchocorp@gmail.com','cecialf1991@gmail.com',0,'covid-19'),(7,'2020-06-28 00:00:00','Acordate que tenes una reserva','Recordatorio','carpinchocorp@gmail.com','cecialf1991@gmail.com',0,'covid-19'),(8,'2020-07-09 00:00:00','Estimado\nSu reserva ha sido registrada con éxito. La fecha de ingreso es el día 2020-07-09 07:00:00.0.\nMuchas gracias.','Registro de reserva','carpinchocorp@gmail.com','cecialf1991@hotmail.com',0,'covid-19');
+=======
+INSERT INTO `email` VALUES (1,'2020-06-30 00:00:00','Acordate que tenes una reserva','Recordatorio reserva evento','carpinchocorp@gmail.com','carpinchocorp@gmail.com',0,'covid-19');
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `email` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,7 +239,11 @@ CREATE TABLE `encuesta` (
   PRIMARY KEY (`idEncuesta`),
   KEY `fk_cliente_id_encuesta` (`idCliente`),
   CONSTRAINT `fk_cliente_id_encuesta` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +252,11 @@ CREATE TABLE `encuesta` (
 
 LOCK TABLES `encuesta` WRITE;
 /*!40000 ALTER TABLE `encuesta` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `encuesta` VALUES (1,1,'5570377442',0),(2,2,'5570929725',0),(3,3,'5573812597',0);
+=======
+INSERT INTO `encuesta` VALUES (2,1,'5573395579',1),(3,3,'5576762604',0);
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `encuesta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,7 +273,11 @@ CREATE TABLE `errorimportar` (
   `usuario` int(11) NOT NULL,
   `detalle` varchar(500) NOT NULL,
   PRIMARY KEY (`idError`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +305,11 @@ CREATE TABLE `notificacion` (
   PRIMARY KEY (`idNotificacion`),
   KEY `fk_cliente_id` (`idCliente`),
   CONSTRAINT `fk_cliente_id` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +348,11 @@ CREATE TABLE `ordenpedido` (
   CONSTRAINT `fk_idProducto` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`),
   CONSTRAINT `fk_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `fk_id_Cliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,7 +375,11 @@ CREATE TABLE `perfil` (
   `idPerfil` int(11) NOT NULL AUTO_INCREMENT,
   `NombrePerfil` varchar(45) NOT NULL,
   PRIMARY KEY (`idPerfil`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,7 +403,11 @@ CREATE TABLE `permiso` (
   `idPermiso` int(11) NOT NULL AUTO_INCREMENT,
   `NombrePermiso` varchar(45) NOT NULL,
   PRIMARY KEY (`idPermiso`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -368,7 +436,11 @@ CREATE TABLE `permisoperfil` (
   KEY `fk_idPermiso` (`idPermiso`),
   CONSTRAINT `fk_idPerfil` FOREIGN KEY (`idPerfil`) REFERENCES `perfil` (`idPerfil`),
   CONSTRAINT `fk_idPermiso` FOREIGN KEY (`idPermiso`) REFERENCES `permiso` (`idPermiso`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,7 +468,11 @@ CREATE TABLE `producto` (
   `Proveedor` varchar(50) NOT NULL,
   `Tipo` varchar(20) NOT NULL,
   PRIMARY KEY (`idProducto`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -405,7 +481,10 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `producto` VALUES (1,122.000,'productoA','productoA','A','Comida'),(2,444.000,'productoB','productoB','B','Comida');
+=======
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,7 +503,11 @@ CREATE TABLE `reservacuarto` (
   `Senia` decimal(20,3) NOT NULL,
   `MontoReservaCuarto` decimal(20,3) NOT NULL,
   `EmailFacturacion` varchar(50) NOT NULL,
+<<<<<<< HEAD
   `FechaReserva` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+=======
+  `FechaReserva` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
   `FechaCheckIn` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `FechaIngreso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `FechaOut` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -444,7 +527,11 @@ CREATE TABLE `reservacuarto` (
   CONSTRAINT `fk_clienteId` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
   CONSTRAINT `fk_idCuarto` FOREIGN KEY (`idCuarto`) REFERENCES `cuarto` (`idCuarto`),
   CONSTRAINT `fk_id_Usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -453,7 +540,10 @@ CREATE TABLE `reservacuarto` (
 
 LOCK TABLES `reservacuarto` WRITE;
 /*!40000 ALTER TABLE `reservacuarto` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `reservacuarto` VALUES (1,1,1,1,10.000,87900.000,'cecialf1991@gmail.com','2020-06-27 23:00:00','2020-06-27 23:07:37','2020-06-28 00:00:00','2020-06-27 23:07:37','2020-07-10 06:00:00','EFECTIVO','NO','0','0','0','PENDIENTE','',0),(2,1,1,1,10.000,27000.000,'alfonsocecilia91@gmail.com','2020-06-28 13:00:00','2020-06-28 13:43:13','2020-06-28 14:00:00','2020-06-28 13:43:13','2020-07-02 09:00:00','EFECTIVO','NO','0','0','0','PENDIENTE','a',1),(3,2,1,1,10.000,50700.000,'cecialf1991@gmail.com','2020-06-28 14:00:00','2020-06-28 14:10:54','2020-07-03 04:00:00','2020-06-28 14:10:54','2020-07-10 06:00:00','EFECTIVO','NO','0','0','0','PENDIENTE','s',1),(4,2,1,2,42350.000,169400.000,'cecialf1991@hotmail.com','2020-06-28 21:00:00','2020-06-29 07:00:00','2020-06-29 05:00:00','2020-07-02 09:00:00','2020-07-09 09:00:00','EFECTIVO','NO','0','0','0','FINALIZADO','w',0),(5,2,1,3,25.000,1500.000,'cecialf1991@gmail.com','2020-06-28 22:00:00','2020-06-29 01:00:00','2020-06-29 00:00:00','2020-06-29 04:00:00','2020-06-29 05:00:00','EFECTIVO','NO','0','0','0','FINALIZADO','a',0),(6,2,1,2,25.000,2800.000,'cecialf1991@gmail.com','2020-06-28 23:00:00','2020-06-28 23:23:35','2020-06-29 00:00:00','2020-06-28 23:23:35','2020-06-29 05:00:00','EFECTIVO','NO','0','0','0','PENDIENTE','1',1),(7,3,1,2,25.000,48300.000,'cecialf1991@hotmail.com','2020-06-29 00:00:00','2020-07-10 06:00:00','2020-07-09 10:00:00','2020-07-03 09:00:00','2020-07-12 10:00:00','EFECTIVO','NO','0','0','0','FINALIZADO','b',0);
+=======
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `reservacuarto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -478,7 +568,11 @@ CREATE TABLE `reservaevento` (
   `MontoTotal` decimal(20,3) NOT NULL,
   `MontoReservaEvento` decimal(20,3) NOT NULL,
   `Senia` decimal(20,3) NOT NULL,
+<<<<<<< HEAD
   `FechaGeneracionReserva` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+=======
+  `FechaGeneracionReserva` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
   `FechaInicioReserva` timestamp NULL DEFAULT NULL,
   `FechaFinReserva` timestamp NULL DEFAULT NULL,
   `FechaIngreso` timestamp NULL DEFAULT NULL,
@@ -503,7 +597,11 @@ CREATE TABLE `reservaevento` (
 
 LOCK TABLES `reservaevento` WRITE;
 /*!40000 ALTER TABLE `reservaevento` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `reservaevento` VALUES (1,1,1,19,1,'NO','0','0','0','EFECTIVO',6500.000,1300.000,1495.000,'2020-06-28 13:39:01','2020-06-30 05:00:00','2020-06-30 11:00:00',NULL,NULL,'PENDIENTE','Cumple de Abuelo');
+=======
+INSERT INTO `reservaevento` VALUES (1,1,1,20,1,'NO','0','0','0','EFECTIVO',699.980,349.990,279.992,'2020-06-29 19:36:46','2020-06-30 04:00:00','2020-06-30 07:00:00',NULL,NULL,'PENDIENTE','asd');
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `reservaevento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -548,11 +646,19 @@ CREATE TABLE `ticket` (
   `precioTotal` decimal(10,3) NOT NULL,
   `descripcion` varchar(300) DEFAULT NULL,
   `path` varchar(300) DEFAULT NULL,
+<<<<<<< HEAD
   `FechaReserva` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idTicket`),
   KEY `fk_idCliente` (`idCliente`),
   CONSTRAINT `fk_idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+=======
+  `FechaReserva` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`idTicket`),
+  KEY `fk_idCliente` (`idCliente`),
+  CONSTRAINT `fk_idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -561,7 +667,10 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `ticket` VALUES (1,1,29996.000,'descripcion','/tickets/reserva/ticketReserva_Label[id=idReserva, styleClass=label]\'2\'_1.pdf','2020-06-28 13:52:27'),(2,1,244.000,'descripcion','/tickets/ordenPedido/ticketPedido_2_2.pdf','2020-06-28 13:54:04'),(3,3,48300.000,'descripcion','/tickets/reserva/ticketReserva_Label[id=idReserva, styleClass=label]\'7\'_3.pdf','2020-06-29 01:09:12'),(4,2,1500.000,'descripcion','/tickets/reserva/ticketReserva_Label[id=idReserva, styleClass=label]\'5\'_4.pdf','2020-06-29 01:20:34'),(5,2,169400.000,'descripcion','/tickets/reserva/ticketReserva_Label[id=idReserva, styleClass=label]\'4\'_5.pdf','2020-06-29 01:59:00'),(6,1,91140.000,'descripcion','/tickets/reserva/ticketReserva_Label[id=idReserva, styleClass=label]\'1\'_6.pdf','2020-06-29 20:14:57');
+=======
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -585,7 +694,11 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`idUsuario`),
   KEY `fk_id_Perfil` (`idPerfil`),
   CONSTRAINT `fk_id_Perfil` FOREIGN KEY (`idPerfil`) REFERENCES `perfil` (`idPerfil`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -607,4 +720,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
 -- Dump completed on 2020-07-01 21:03:25
+=======
+-- Dump completed on 2020-07-01 20:21:39
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664

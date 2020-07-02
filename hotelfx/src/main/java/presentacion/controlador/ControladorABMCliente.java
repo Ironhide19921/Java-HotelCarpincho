@@ -319,6 +319,7 @@ public class ControladorABMCliente implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("presentacion/vista/VentanaABMReservaEvento.fxml"));
 				
 			    Parent root = (Parent) fxmlLoader.load();
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorABMReservaEvento controller = fxmlLoader.<ControladorABMReservaEvento>getController();
 				controller.initData(idClienteSeleccionado);
 				panelActual.setCenter(root);

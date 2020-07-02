@@ -8,37 +8,46 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="359.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCategoriaEvento">
+<AnchorPane prefHeight="263.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarCategoriaEvento">
    <children>
-      <BorderPane layoutX="1.0" prefHeight="359.0" prefWidth="524.0">
+      <BorderPane prefHeight="277.0" prefWidth="525.0">
          <center>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
                <children>
-                  <Label contentDisplay="RIGHT" layoutX="157.0" layoutY="45.0" text="Nombre(*)">
-                     <graphic>
-                        <TextField fx:id="txtNombre" />
-                     </graphic>
+                  <Label contentDisplay="RIGHT" layoutX="116.0" layoutY="25.0" prefHeight="18.0" prefWidth="83.0" text="Nombre(*)" textFill="#fffefe">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
                   </Label>
-                  <Label contentDisplay="RIGHT" layoutX="166.0" layoutY="90.0" text="Detalle(*)">
-                     <graphic>
-                        <TextField fx:id="txtDetalle" />
-                     </graphic>
+                  <Label contentDisplay="RIGHT" layoutX="116.0" layoutY="79.0" prefHeight="18.0" prefWidth="84.0" text="Detalle(*)  " textFill="#fffefe">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
                   </Label>
+                  <TextField fx:id="txtNombre" layoutX="221.0" layoutY="20.0" prefHeight="27.0" prefWidth="159.0" />
+                  <TextField fx:id="txtDetalle" layoutX="222.0" layoutY="75.0" prefHeight="25.0" prefWidth="157.0" />
                </children>
             </Pane>
          </center>
          <top>
-            <Pane prefHeight="92.0" prefWidth="524.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="59.0" prefWidth="515.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" layoutX="116.0" layoutY="21.0" prefHeight="19.0" prefWidth="314.0" text="Agregar/Modificar Categorias de evento" textFill="#fffefe" underline="true">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
          </top>
          <bottom>
-            <Pane prefHeight="100.0" prefWidth="0.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="63.0" prefWidth="525.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarCategoriaEvento" layoutX="187.0" layoutY="14.0" mnemonicParsing="false" onAction="#guardarCategoriaEvento" prefHeight="30.0" prefWidth="150.0" text="Agregar ">
+                  <Button fx:id="btnAgregarCategoriaEvento" layoutX="351.0" layoutY="14.0" mnemonicParsing="false" onAction="#guardarCategoriaEvento" prefHeight="30.0" prefWidth="150.0" text="Agregar ">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnEditarCategoriaEvento" layoutX="187.0" layoutY="14.0" mnemonicParsing="false" onAction="#editarCategoriaEvento" prefHeight="30.0" prefWidth="150.0" text="Modificar">
+                  <Button fx:id="btnEditarCategoriaEvento" layoutX="351.0" layoutY="14.0" mnemonicParsing="false" onAction="#editarCategoriaEvento" prefHeight="30.0" prefWidth="150.0" text="Modificar">
                      <font>
                         <Font size="14.0" />
                      </font>

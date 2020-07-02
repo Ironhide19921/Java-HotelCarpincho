@@ -163,6 +163,7 @@ public class ControladorAgregarCuarto implements Initializable {
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			primaryStage.setScene(new Scene(root));   
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			primaryStage.sizeToScene();
 			primaryStage.show(); 
 		} 

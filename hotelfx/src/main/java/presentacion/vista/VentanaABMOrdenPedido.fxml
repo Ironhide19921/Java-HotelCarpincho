@@ -14,34 +14,34 @@
    <children>
       <BorderPane prefHeight="530.0" prefWidth="840.0">
          <top>
-            <Pane prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="79.0" prefWidth="840.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="panelDatos" layoutX="289.0" layoutY="6.0" prefHeight="62.0" prefWidth="479.0">
+                  <Pane fx:id="panelDatos" layoutX="297.0" layoutY="16.0" prefHeight="62.0" prefWidth="491.0" style="-fx-background-color: #74686D;">
                      <children>
-                        <Label fx:id="labelCliente" layoutX="2.0" prefHeight="17.0" prefWidth="69.0" text="N º Cliente:">
+                        <Label fx:id="labelCliente" alignment="BOTTOM_CENTER" layoutX="16.0" prefHeight="17.0" prefWidth="69.0" text="N º Cliente:" textFill="#f8f7f7">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></Label>
-                        <Label fx:id="labelReserva" layoutX="254.0" layoutY="1.0" prefHeight="17.0" prefWidth="68.0" text="N º Reserva">
+                        <Label fx:id="labelReserva" alignment="BOTTOM_CENTER" layoutX="254.0" layoutY="1.0" prefHeight="17.0" prefWidth="68.0" text="N º Reserva" textFill="#f8f7f7">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></Label>
-                        <Label fx:id="labelReserva1" layoutX="254.0" layoutY="27.0" prefHeight="17.0" prefWidth="52.0" text="Monto ">
+                        <Label fx:id="labelReserva1" alignment="BOTTOM_LEFT" layoutX="254.0" layoutY="27.0" prefHeight="17.0" prefWidth="52.0" text="Monto " textFill="#f8f7f7">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></Label>
-                        <Label fx:id="labelCliente1" layoutX="2.0" layoutY="27.0" prefHeight="17.0" prefWidth="66.0" text="Nombre :">
+                        <Label fx:id="labelCliente1" alignment="BOTTOM_LEFT" layoutX="18.0" layoutY="27.0" prefHeight="17.0" prefWidth="66.0" text="Nombre :" textFill="#f8f7f7">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font></Label>
-                        <Label fx:id="idCliente" layoutX="86.0" layoutY="1.0" prefHeight="17.0" prefWidth="133.0" />
-                        <Label fx:id="labelClienteNombre" layoutX="68.0" layoutY="26.0" prefHeight="17.0" prefWidth="168.0" />
-                        <Label fx:id="idReserva" layoutX="334.0" layoutY="-4.0" prefHeight="24.0" prefWidth="133.0" />
-                        <Label fx:id="montoReserva" layoutX="334.0" layoutY="25.0" prefHeight="17.0" prefWidth="133.0" />
+                        <Label fx:id="idCliente" layoutX="100.0" layoutY="3.0" prefHeight="17.0" prefWidth="133.0" />
+                        <Label fx:id="labelClienteNombre" layoutX="83.0" layoutY="28.0" prefHeight="17.0" prefWidth="168.0" />
+                        <Label fx:id="idReserva" layoutX="334.0" prefHeight="24.0" prefWidth="133.0" />
+                        <Label fx:id="montoReserva" layoutX="334.0" layoutY="27.0" prefHeight="17.0" prefWidth="133.0" />
                      </children>
                   </Pane>
                   <Button fx:id="btnRefrescar" layoutX="576.0" layoutY="40.0" mnemonicParsing="false" onAction="#refrescarTablaOrdenPedidos" text="Refrescar" visible="false" />
-                  <Label layoutX="51.0" layoutY="16.0" prefHeight="19.0" prefWidth="211.0" text="Lista de ordenes de pedido">
+                  <Label layoutX="53.0" layoutY="30.0" prefHeight="19.0" prefWidth="211.0" text="Lista de ordenes de pedido" underline="true">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font>
@@ -57,8 +57,8 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarPedido" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" prefHeight="30.0" text="Agregar pedido" />
-                  <Button fx:id="btnGenerarTicket" layoutX="697.0" layoutY="14.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" prefHeight="30.0" text="Generar Ticket" />
+                  <Button fx:id="btnAgregarPedido" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" prefHeight="30.0" prefWidth="140.0" text="Agregar pedido" />
+                  <Button fx:id="btnGenerarTicket" layoutX="648.0" layoutY="16.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" prefHeight="30.0" prefWidth="140.0" text="Generar Ticket" />
                   <Pane fx:id="panelTotal" layoutX="426.0" layoutY="14.0" prefHeight="33.0" prefWidth="233.0">
                      <children>
                      <!--<Label fx:id="totalLabel1" layoutY="6.0" prefHeight="17.0" prefWidth="40.0" text="Total" /> -->   
@@ -73,18 +73,18 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Button fx:id="btnEliminarPedido" layoutX="164.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" prefHeight="30.0" text="Eliminar pedido" />
+                  <Button fx:id="btnEliminarPedido" layoutX="215.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" prefHeight="30.0" prefWidth="140.0" text="Eliminar pedido" />
                </children>
             </Pane>
          </bottom>
          <center>
             <VBox prefHeight="438.0" prefWidth="639.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tablaOrdenPedidos" prefHeight="380.0" prefWidth="680.0">
+                  <TableView fx:id="tablaOrdenPedidos" prefHeight="356.0" prefWidth="740.0">
                     <columns>
                       <TableColumn fx:id="id" prefWidth="55.0" text="ID Pedido" />
-                      <TableColumn fx:id="idProducto" prefWidth="155.0" text="Id Producto" />
-                        <TableColumn fx:id="cantidad" prefWidth="179.0" text="Cantidad" />
+                      <TableColumn fx:id="idProducto" prefWidth="186.0" text="Id Producto" />
+                        <TableColumn fx:id="cantidad" prefWidth="183.0" text="Cantidad" />
                         <TableColumn fx:id="total" prefWidth="75.0" text="Total" />
                     </columns>
                      <columnResizePolicy>

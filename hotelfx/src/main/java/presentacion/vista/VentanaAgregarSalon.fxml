@@ -13,37 +13,37 @@
    <children>
       <BorderPane prefHeight="359.0" prefWidth="524.0">
          <center>
-            <Pane prefHeight="235.0" prefWidth="414.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="235.0" prefWidth="414.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="txtCapacidad" layoutX="201.0" layoutY="51.0" minWidth="100.0" />
                   <TextField fx:id="txtSenia" layoutX="201.0" layoutY="91.0" minWidth="100.0" />
                   <TextField fx:id="txtEstilo" layoutX="201.0" layoutY="131.0" minWidth="100.0" />
                   <TextField fx:id="txtMonto" layoutX="201.0" layoutY="171.0" minWidth="100.0" />
-                  <Label layoutX="56.0" layoutY="54.0" text="Capacidad(*)">
+                  <Label layoutX="56.0" layoutY="54.0" text="Capacidad(*)" textFill="#fffefe">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="56.0" layoutY="94.0" text="Seña(%)(*)">
+                  <Label layoutX="56.0" layoutY="94.0" text="Seña(%)(*)" textFill="#fffefe">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="56.0" layoutY="134.0" text="Estilo(*)">
+                  <Label layoutX="56.0" layoutY="134.0" text="Estilo(*)" textFill="#fffefe">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="56.0" layoutY="174.0" text="Monto (por hora)(*)">
+                  <Label layoutX="56.0" layoutY="174.0" text="Monto (por hora)(*)" textFill="#fffefe">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="13.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
          </center>
          <bottom>
-            <Pane prefHeight="71.0" prefWidth="524.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="71.0" prefWidth="524.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnAgregarSalon" layoutX="268.0" layoutY="14.0" mnemonicParsing="false" onAction="#guardarSalon" prefHeight="30.0" prefWidth="100.0" text="Agregar">
                      <font>
@@ -60,9 +60,9 @@
             </Pane>
          </bottom>
          <top>
-            <Pane prefHeight="48.0" prefWidth="524.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="48.0" prefWidth="524.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
-                  <Text layoutX="23.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salon" wrappingWidth="164.13671875">
+                  <Text fill="#f5f4f4" layoutX="180.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salon" textAlignment="CENTER" underline="true" wrappingWidth="164.13671875">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font></Text>
@@ -70,10 +70,10 @@
             </Pane>
          </top>
          <right>
-            <Pane prefHeight="210.0" prefWidth="56.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="210.0" prefWidth="56.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
          </right>
          <left>
-            <Pane prefHeight="210.0" prefWidth="54.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="210.0" prefWidth="54.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
          </left></BorderPane>
    </children>
 </AnchorPane>

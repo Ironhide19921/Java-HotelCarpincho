@@ -82,6 +82,7 @@ public class ControladorABMCategoriaEvento implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			primaryStage.setScene(new Scene(root));   
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarCategoriaEvento scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnAgregarCategoriaEvento(true);
 			scene2Controller.setDisableBtnAgregarCategoriaEvento(false);
@@ -104,7 +105,8 @@ public class ControladorABMCategoriaEvento implements Initializable{
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCategoriaEvento.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));   
+			primaryStage.setScene(new Scene(root));  
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarCategoriaEvento scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnAgregarCategoriaEvento(false);
 			scene2Controller.setDisableBtnAgregarCategoriaEvento(true);

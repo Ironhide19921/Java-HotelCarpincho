@@ -59,7 +59,7 @@ public class ReservaCuartoTest {
 	
 	@Before
 	public void init() {
-		
+		/*
 		modeloUsuario = new Usuario(new DAOSQLFactory());
 		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
 		modeloCliente = new Cliente(new DAOSQLFactory());
@@ -205,5 +205,14 @@ public class ReservaCuartoTest {
 		listaPerfiles = modeloPerfil.obtenerPerfil();
 	}
 	
+<<<<<<< HEAD
+=======
+	public void crearPerfil() {
+		perfilTest = new PerfilDTO(0,"perfilTest");
+		modeloPerfil.agregarPerfil(perfilTest);
+		listaPerfiles = modeloPerfil.obtenerPerfil();
+		*/
+	}
+>>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 	
 }

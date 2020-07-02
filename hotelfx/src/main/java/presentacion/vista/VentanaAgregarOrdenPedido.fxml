@@ -11,34 +11,53 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="663.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarOrdenPedido">
+<AnchorPane prefHeight="669.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarOrdenPedido">
    <children>
-      <BorderPane layoutX="12.0" layoutY="10.0" prefHeight="674.0" prefWidth="849.0">
+      <BorderPane prefHeight="674.0" prefWidth="849.0">
          <top>
-            <Pane prefHeight="228.0" prefWidth="767.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="849.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
                <children>
                   <ComboBox fx:id="cmbBoxProductos" layoutX="30.0" layoutY="70.0" onAction="#verPrecio" prefHeight="30.0" prefWidth="164.0" />
-                  <Label layoutX="30.0" layoutY="31.0" prefHeight="17.0" prefWidth="150.0" text="Productos(*)" />
-                  <Label layoutX="216.0" layoutY="31.0" prefHeight="17.0" prefWidth="136.0" text="Cantidad(*)" />
+                  <Label layoutX="30.0" layoutY="31.0" prefHeight="17.0" prefWidth="150.0" text="Productos(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
+                  <Label layoutX="216.0" layoutY="31.0" prefHeight="17.0" prefWidth="136.0" text="Cantidad(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
                   <ComboBox fx:id="cmbBoxCantidad" layoutX="209.0" layoutY="70.0" onAction="#verPrecioSubtotal" prefHeight="30.0" prefWidth="164.0" />
                   <Button fx:id="btnAgregarProducto" layoutX="393.0" layoutY="70.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="30.0" prefWidth="150.0" text="Agregar producto" />
                   <TextField fx:id="txtPrecioSubtotal" layoutX="209.0" layoutY="162.0" prefHeight="30.0" prefWidth="164.0" />
                   <TextField fx:id="txtPrecio" layoutX="209.0" layoutY="114.0" prefHeight="30.0" prefWidth="164.0" />
-                  <Label layoutX="30.0" layoutY="119.0" prefHeight="17.0" prefWidth="50.0" text="Precio" />
-                  <Label layoutX="30.0" layoutY="167.0" text="Subtotal" />
-                  <Label layoutX="583.0" layoutY="40.0" text="Clientes(*)" />
+                  <Label layoutX="30.0" layoutY="119.0" prefHeight="17.0" prefWidth="50.0" text="Precio" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
+                  <Label layoutX="30.0" layoutY="167.0" text="Subtotal" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
+                  <Label layoutX="583.0" layoutY="40.0" text="Clientes(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
                   <ComboBox fx:id="cmbBoxClientes" layoutX="583.0" layoutY="71.0" prefHeight="30.0" prefWidth="150.0" />
                   <Button fx:id="btnEliminarProducto" layoutX="393.0" layoutY="114.0" mnemonicParsing="false" onAction="#eliminarProducto" prefHeight="30.0" prefWidth="150.0" text="Eliminar producto" />
-                  <CheckBox fx:id="pagoRestoran" layoutX="583.0" layoutY="120.0" mnemonicParsing="false" onAction="#mostrarCamposPago" prefHeight="18.0" prefWidth="145.0" text="Pago en restoran" />
+                  <CheckBox fx:id="pagoRestoran" layoutX="583.0" layoutY="120.0" mnemonicParsing="false" onAction="#mostrarCamposPago" prefHeight="19.0" prefWidth="156.0" text="Pago en restoran" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></CheckBox>
                </children>
             </Pane>
          </top>
          <left>
-            <Pane prefHeight="383.0" prefWidth="18.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="383.0" prefWidth="18.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="383.0" prefWidth="201.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="383.0" prefWidth="201.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnConfirmarPedido" layoutX="22.0" layoutY="53.0" mnemonicParsing="false" onAction="#confirmarPedido" prefHeight="30.0" prefWidth="150.0" text="Confirmar pedido" />
                   <Button fx:id="btnConfirmarY_GenerarTicket" layoutX="21.0" layoutY="97.0" mnemonicParsing="false" onAction="#confirmarY_GenerarTicket" prefHeight="60.0" prefWidth="150.0" text="Confirmar pedido y generar ticket" textAlignment="CENTER" wrapText="true" />
@@ -46,27 +65,45 @@
             </Pane>
          </right>
          <bottom>
-            <Pane prefHeight="249.0" prefWidth="849.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="249.0" prefWidth="849.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="226.0" layoutY="25.0" prefHeight="17.0" prefWidth="55.0" text="Total" />
+                  <Label layoutX="226.0" layoutY="25.0" prefHeight="17.0" prefWidth="55.0" text="Total" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
                   <TextField fx:id="txtSubtotal" layoutX="296.0" layoutY="18.0" prefHeight="30.0" prefWidth="150.0" />
-                  <Label fx:id="formaPago" layoutX="29.0" layoutY="85.0" prefHeight="17.0" prefWidth="114.0" text="Forma de pago(*)" />
+                  <Label fx:id="formaPago" layoutX="29.0" layoutY="85.0" prefHeight="17.0" prefWidth="114.0" text="Forma de pago(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
                   <ComboBox fx:id="cmbBoxFormasPago" layoutX="175.0" layoutY="80.0" onAction="#verificarFormaPago" prefHeight="27.0" prefWidth="164.0" />
-                  <Label fx:id="tipoTarj" layoutX="29.0" layoutY="125.0" text="Tipo de tarjeta(*)" />
-                  <Label fx:id="numTarj" layoutX="29.0" layoutY="164.0" text="Nº de tarjeta(*)" />
+                  <Label fx:id="tipoTarj" layoutX="29.0" layoutY="125.0" text="Tipo de tarjeta(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
+                  <Label fx:id="numTarj" layoutX="29.0" layoutY="164.0" text="Nº de tarjeta(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
                   <TextField fx:id="numTarjeta" layoutX="175.0" layoutY="159.0" prefHeight="27.0" prefWidth="164.0" />
-                  <Label fx:id="fechaVencTarj" layoutX="425.0" layoutY="85.0" prefHeight="17.0" prefWidth="154.0" text="Fecha de vencimiento(*)" />
+                  <Label fx:id="fechaVencTarj" layoutX="425.0" layoutY="85.0" prefHeight="17.0" prefWidth="154.0" text="Fecha de vencimiento(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
                   <TextField fx:id="fechaVencTarjeta" layoutX="606.0" layoutY="80.0" prefWidth="164.0" />
-                  <Label fx:id="codSegTarj" layoutX="425.0" layoutY="125.0" text="Codigo de seguridad(*)" />
+                  <Label fx:id="codSegTarj" layoutX="425.0" layoutY="125.0" text="Codigo de seguridad(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
                   <TextField fx:id="codSegTarjeta" layoutX="606.0" layoutY="120.0" prefWidth="164.0" />
                   <ComboBox fx:id="cmbBoxTiposTarjeta" layoutX="175.0" layoutY="120.0" prefHeight="27.0" prefWidth="164.0" />
                </children>
             </Pane>
          </bottom>
          <center>
-            <VBox prefHeight="372.0" prefWidth="328.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="372.0" prefWidth="328.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="productosEnTabla" prefHeight="346.0" prefWidth="511.0">
+                  <TableView fx:id="productosEnTabla" prefHeight="229.0" prefWidth="630.0">
                     <columns>
                       <TableColumn fx:id="nombreProd" prefWidth="163.0" text="Nombre" />
                       <TableColumn fx:id="precio" prefWidth="159.0" text="Precio" />

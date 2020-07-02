@@ -23,7 +23,7 @@
                      <font>
                         <Font name="Century Gothic" size="12.0" />
                      </font></Label>
-                  <Label layoutX="51.0" layoutY="16.0" prefHeight="17.0" prefWidth="232.0" text="Lista de reservas de cuarto">
+                  <Label layoutX="51.0" layoutY="16.0" prefHeight="17.0" prefWidth="232.0" text="Lista de reservas de cuarto" underline="true">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font>

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="552.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorMenuPrincipal">
    <children>
-      <BorderPane fx:id="mainPane" layoutY="3.0" prefHeight="562.0" prefWidth="985.0">
+      <BorderPane fx:id="mainPane" layoutY="1.0" prefHeight="562.0" prefWidth="985.0">
 
          <!--left>
             <VBox prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
@@ -100,7 +105,7 @@
          </left>-->
 
          <top>
-            <Pane prefHeight="38.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="24.0" prefWidth="985.0" BorderPane.alignment="CENTER">
                <children>
                   <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="985.0">
                     <menus>
@@ -111,8 +116,8 @@
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <Button fx:id="btnAbrirDivisas" layoutX="918.0" layoutY="-1.0" minWidth="51.0" mnemonicParsing="false" onAction="#verDivisas" prefHeight="25.0" prefWidth="51.0" text="\$" />
-                  <Button fx:id="btnVerManual" accessibleHelp="Manual de usuario" layoutX="861.0" layoutY="-1.0" minWidth="51.0" mnemonicParsing="false" onAction="#verManual" prefHeight="25.0" prefWidth="51.0" text="?" />
+                  <Button fx:id="btnAbrirDivisas" layoutX="884.0" minWidth="51.0" mnemonicParsing="false" onAction="#verDivisas" prefHeight="21.0" prefWidth="68.0" text="\$" />
+                  <Button fx:id="btnVerManual" accessibleHelp="Manual de usuario" layoutX="954.0" layoutY="-2.0" minWidth="32.0" mnemonicParsing="false" onAction="#verManual" prefHeight="25.0" prefWidth="32.0" text="?" />
                </children>
             </Pane>
          </top>
@@ -120,32 +125,59 @@
             <Pane prefHeight="521.0" prefWidth="33.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="11.0" prefWidth="1080.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="0.0" prefWidth="985.0" BorderPane.alignment="CENTER" />
          </bottom>
          <left>
-            <Pane prefHeight="513.0" prefWidth="152.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="530.0" prefWidth="152.0" style="-fx-background-color: #353535;" BorderPane.alignment="CENTER">
                <children>
-              <Button fx:id="btnAbrirABMProductos" disable="true" mnemonicParsing="false" onAction="#verABMProductos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Productos" textFill="#110000" />
-                  <Button fx:id="btnAbrirABMReservas" disable="true" layoutY="34.0" mnemonicParsing="false" onAction="#verReservaCuarto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Reservas cuartos" />
-                  <Button fx:id="btnAbrirReservaEvento" disable="true" layoutY="68.0" mnemonicParsing="false" onAction="#verMenuReservaEvento" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Reservas Evento" />
-                  <Button fx:id="btnAbrirImportar" disable="true" layoutY="102.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Importar Reservas" />
-                  <Button fx:id="btnAbrirABMCuartos" disable="true" layoutY="136.0" mnemonicParsing="false" onAction="#verABMCuartos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Cuartos" />
-                  <Button fx:id="btnAbrirABMCliente" disable="true" layoutY="170.0" mnemonicParsing="false" onAction="#verABMClientes" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Clientes" />
-                  <Button fx:id="btnAbrirCategoriaEvento" disable="true" layoutY="204.0" mnemonicParsing="false" onAction="#verABMCategoriaEvento" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Categoria Evento" />
-                  <Button fx:id="btnAbrirABMUsuarios" disable="true" layoutY="238.0" mnemonicParsing="false" onAction="#verABMUsuarios" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Usuarios" />
-                  <Button fx:id="btnAbrirABMPerfiles" disable="true" layoutY="272.0" mnemonicParsing="false" onAction="#verABMPerfiles" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Perfiles" />
-                  <Button fx:id="btnAbrirABMCategoriasCuartos" disable="true" layoutY="306.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Categoria Cuarto" />
-                  <Button fx:id="btnAbrirABMSalones" disable="true" layoutY="340.0" mnemonicParsing="false" onAction="#verABMSalones" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Salones" />
-                  <Button fx:id="btnAbrirConfig" disable="true" layoutY="374.0" mnemonicParsing="false" onAction="#verConfig" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ConfigMail" />
-                  <Button fx:id="btnAbrirOrdenPedidos" disable="true" layoutY="408.0" mnemonicParsing="false" onAction="#verABMOrdenPedidos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Orden Pedidos" />
-                  <Button fx:id="btnAbrirVentanaBackup" disable="true" layoutY="442.0" mnemonicParsing="false" onAction="#verVentanaBackup" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Gestión de backups" />
-                  <Button fx:id="btnAbrirVentanaReportes" disable="true" layoutY="476.0" mnemonicParsing="false" onAction="#verReportes" prefHeight="32.0" prefWidth="149.0" text="Reportes" />
+
+                  <Button fx:id="btnAbrirABMReservas" alignment="BASELINE_LEFT" disable="true" layoutY="220.0" mnemonicParsing="false" onAction="#verReservaCuarto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Reservas cuartos" />
+                  <Button fx:id="btnAbrirReservaEvento" alignment="BASELINE_LEFT" disable="true" layoutY="342.0" mnemonicParsing="false" onAction="#verMenuReservaEvento" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Reservas Evento" />
+                  <Button fx:id="btnAbrirImportar" alignment="BASELINE_LEFT" disable="true" layoutY="250.0" mnemonicParsing="false" onAction="#verImportar" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Importar Reservas" />
+                  <Button fx:id="btnAbrirABMCuartos" alignment="BASELINE_LEFT" disable="true" layoutY="160.0" mnemonicParsing="false" onAction="#verABMCuartos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Cuartos" />
+                  <Button fx:id="btnAbrirABMCliente" alignment="BASELINE_LEFT" disable="true" layoutY="130.0" mnemonicParsing="false" onAction="#verABMClientes" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Clientes" />
+                  <Button fx:id="btnAbrirCategoriaEvento" alignment="BASELINE_LEFT" disable="true" layoutY="312.0" mnemonicParsing="false" onAction="#verABMCategoriaEvento" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Categoria Evento" />
+                  <Button fx:id="btnAbrirABMUsuarios" alignment="BASELINE_LEFT" disable="true" layoutY="70.0" mnemonicParsing="false" onAction="#verABMUsuarios" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Usuarios" />
+                  <Button fx:id="btnAbrirABMPerfiles" alignment="BASELINE_LEFT" disable="true" layoutY="100.0" mnemonicParsing="false" onAction="#verABMPerfiles" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Perfiles" />
+                  <Button fx:id="btnAbrirABMCategoriasCuartos" alignment="BASELINE_LEFT" disable="true" layoutY="190.0" mnemonicParsing="false" onAction="#verABMCategorias" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Categoria Cuarto" />
+                  <Button fx:id="btnAbrirABMSalones" alignment="BASELINE_LEFT" disable="true" layoutY="281.0" mnemonicParsing="false" onAction="#verABMSalones" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Salones" />
+                  <Button fx:id="btnAbrirConfig" alignment="BASELINE_LEFT" disable="true" layoutY="435.0" mnemonicParsing="false" onAction="#verConfig" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="ConfigMail" />
+                  <Button fx:id="btnAbrirOrdenPedidos" alignment="BASELINE_LEFT" disable="true" layoutY="404.0" mnemonicParsing="false" onAction="#verABMOrdenPedidos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Orden Pedidos" />
+                  <Button fx:id="btnAbrirVentanaBackup" alignment="BASELINE_LEFT" disable="true" layoutY="467.0" mnemonicParsing="false" onAction="#verVentanaBackup" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Gestión de backups" />
+                  <Button fx:id="btnAbrirVentanaReportes" alignment="BASELINE_LEFT" disable="true" layoutY="498.0" mnemonicParsing="false" onAction="#verReportes" prefHeight="32.0" prefWidth="149.0" styleClass="btn-menu" text="Reportes" />
+
                   <Pane fx:id="center" layoutX="-294.0" layoutY="-91.0" prefHeight="200.0" prefWidth="200.0" />
+              <Button fx:id="btnAbrirABMProductos" alignment="BASELINE_LEFT" disable="true" layoutY="373.0" mnemonicParsing="false" onAction="#verABMProductos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Productos" />
+                  <Label alignment="BASELINE_RIGHT" layoutX="57.0" layoutY="24.0" prefHeight="18.0" prefWidth="48.0" text="Menu" textFill="#e8e2e2">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font>
+                  </Label>
+                  <Line endX="49.0" layoutX="100.0" layoutY="497.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="464.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="434.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="402.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="372.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="341.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="281.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="311.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="219.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="249.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="160.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="190.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="129.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="99.0" startX="-100.0" stroke="#b64b7f" />
+                  <Line endX="49.0" layoutX="100.0" layoutY="70.0" startX="-100.0" stroke="#b64b7f" />
+                  <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="19.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/hotelIcono.jpg" />
+                     </image>
+                  </ImageView>
               
 
                                     
                </children>
-            </Pane>
+           	 </Pane>
          </left> 
       </BorderPane>
    </children>

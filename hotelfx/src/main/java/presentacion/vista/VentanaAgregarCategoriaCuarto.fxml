@@ -13,36 +13,42 @@
    <children>
       <BorderPane prefHeight="250.0" prefWidth="524.0">
          <top>
-            <Pane prefHeight="35.0" prefWidth="524.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="47.0" prefWidth="524.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
-                  <Text layoutX="41.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar categoria de cuartos" wrappingWidth="297.13671875">
+                  <Text fill="#fffefe" layoutX="113.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar categoria de cuartos" textAlignment="CENTER" underline="true" wrappingWidth="297.13671875">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font></Text>
                </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="138.0" prefWidth="99.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="138.0" prefWidth="99.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <Pane prefHeight="138.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="161.0" prefWidth="293.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="txtNombre" layoutX="126.0" layoutY="39.0" prefWidth="150.0" />
-                  <TextField fx:id="txtDetalle" layoutX="126.0" layoutY="81.0" prefWidth="150.0" />
-                  <Label layoutY="43.0" prefHeight="17.0" prefWidth="106.0" text="Nombre(*)" />
-                  <Label layoutY="85.0" prefHeight="17.0" prefWidth="106.0" text="Detalle(*)" />
+                  <TextField fx:id="txtNombre" layoutX="126.0" layoutY="39.0" prefHeight="25.0" prefWidth="173.0" />
+                  <TextField fx:id="txtDetalle" layoutX="126.0" layoutY="81.0" prefHeight="25.0" prefWidth="173.0" />
+                  <Label layoutX="20.0" layoutY="43.0" prefHeight="17.0" prefWidth="106.0" text="Nombre(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
+                  <Label layoutX="20.0" layoutY="85.0" prefHeight="17.0" prefWidth="106.0" text="Detalle(*)" textFill="#fffafa">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
                </children>
             </Pane>
          </center>
          <right>
-            <Pane prefHeight="134.0" prefWidth="82.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="161.0" prefWidth="90.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="54.0" prefWidth="524.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="54.0" prefWidth="524.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnCerrar" layoutX="107.0" layoutY="-1.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="150.0" text="Cerrar" />
-                  <Button fx:id="btnAgregarCategoriaCuarto" layoutX="267.0" layoutY="2.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="25.0" prefWidth="150.0" text="Agregar" />
-                  <Button fx:id="btnEditarCategoriaCuarto" layoutX="268.0" layoutY="-1.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="30.0" prefWidth="150.0" text="Modificar" />
+                  <Button fx:id="btnCerrar" layoutX="100.0" layoutY="12.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="150.0" text="Cerrar" />
+                  <Button fx:id="btnAgregarCategoriaCuarto" layoutX="289.0" layoutY="12.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="30.0" prefWidth="150.0" text="Agregar" />
+                  <Button fx:id="btnEditarCategoriaCuarto" layoutX="289.0" layoutY="12.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="30.0" prefWidth="150.0" text="Modificar" />
                </children>
             </Pane>
          </bottom>

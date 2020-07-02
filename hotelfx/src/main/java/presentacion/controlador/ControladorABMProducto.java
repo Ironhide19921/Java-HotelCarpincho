@@ -89,7 +89,8 @@ public class ControladorABMProducto implements Initializable{
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarProducto.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-			AgregarProductoStage.setScene(new Scene(root));   
+			AgregarProductoStage.setScene(new Scene(root));  
+			AgregarProductoStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnAgregarProd(true);
 			scene2Controller.setVisibilityBtnEditarProd(false);
@@ -115,6 +116,7 @@ public class ControladorABMProducto implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			AgregarProductoStage.setScene(new Scene(root));   
+			AgregarProductoStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			ProductoDTO productoSeleccionado = tablaProductos.getSelectionModel().getSelectedItem();
 			scene2Controller.setearCamposPantalla(productoSeleccionado);

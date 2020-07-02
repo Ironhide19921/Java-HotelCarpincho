@@ -199,6 +199,7 @@ public class ControladorABMReservaEvento implements Initializable{
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaEvento.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarReservaEvento scene2Controller = fxmlLoader.<ControladorAgregarReservaEvento>getController();
 				scene2Controller.enviarControlador(this);
 				
@@ -239,8 +240,9 @@ public class ControladorABMReservaEvento implements Initializable{
 				
 			 	   FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				   Parent root = (Parent) fxmlLoader.load();
+					primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				   ControladorAgregarReservaEvento scene2Controller = fxmlLoader.<ControladorAgregarReservaEvento>getController();
-					scene2Controller.enviarControlador(this);
+				scene2Controller.enviarControlador(this);
 				   scene2Controller.setearCamposPantalla(tablaReservasCliente.getSelectionModel().getSelectedItem());
 				   scene2Controller.setVisibilityBtnAgregarReservaEvento(false);
 				   scene2Controller.setDisableBtnAgregarReservaEvento(true);

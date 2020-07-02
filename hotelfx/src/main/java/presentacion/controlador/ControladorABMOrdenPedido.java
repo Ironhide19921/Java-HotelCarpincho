@@ -112,6 +112,7 @@ public class ControladorABMOrdenPedido implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			primaryStage.setScene(new Scene(root));
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarOrdenPedido scene2Controller = fxmlLoader.getController();
 			scene2Controller.enviarControlador(this);
 			scene2Controller.setVisibilityBtnConfirmarPedido(true);

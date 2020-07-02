@@ -71,7 +71,8 @@ public class ControladorABMUsuarios implements Initializable{
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarUsuario.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root));   
+				primaryStage.setScene(new Scene(root));
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarUsuario scene2Controller = fxmlLoader.getController();
 				scene2Controller.enviarControlador(this);
 				scene2Controller.setVisibilityBtnAgregarUsuario(true);
@@ -101,6 +102,7 @@ public class ControladorABMUsuarios implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarUsuario scene2Controller = fxmlLoader.getController();
 				scene2Controller.enviarControlador(this);
 				scene2Controller.setVisibilityBtnAgregarUsuario(false);

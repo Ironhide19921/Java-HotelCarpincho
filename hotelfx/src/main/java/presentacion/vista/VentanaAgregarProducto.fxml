@@ -6,35 +6,58 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="468.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarProducto">
+<AnchorPane prefHeight="401.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controlador.ControladorAgregarProducto">
 	<children>
-      <BorderPane layoutX="7.0" layoutY="8.0" prefHeight="460.0" prefWidth="666.0">
+      <BorderPane prefHeight="401.0" prefWidth="666.0">
          <top>
-            <Pane prefHeight="69.0" prefWidth="733.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="76.0" prefWidth="666.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="#fffdfd" layoutX="177.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar/modificar Producto" textAlignment="CENTER" underline="true" wrappingWidth="312.13671875">
+                     <font>
+                        <Font name="Century Gothic" size="18.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="648.0" prefWidth="90.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="648.0" prefWidth="90.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
          </left>
          <bottom>
-            <Pane prefHeight="103.0" prefWidth="753.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="82.0" prefWidth="666.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnEditarProducto" layoutX="424.0" layoutY="21.0" mnemonicParsing="false" onAction="#editarProducto" prefHeight="30.0" prefWidth="150.0" text="Editar" />
+                  <Button fx:id="btnConfirmarProducto" layoutX="424.0" layoutY="21.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
+               </children></Pane>
          </bottom>
          <right>
-            <Pane prefHeight="567.0" prefWidth="90.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="567.0" prefWidth="90.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
          </right>
          <center>
-            <Pane prefHeight="373.0" prefWidth="554.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="373.0" prefWidth="554.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="59.0" layoutY="71.0" prefHeight="17.0" prefWidth="71.0" text="Nombre(*)" />
-                  <Label layoutX="62.0" layoutY="113.0" prefHeight="17.0" prefWidth="60.0" text="Precio(*)" />
-                  <Label layoutX="62.0" layoutY="160.0" prefHeight="17.0" prefWidth="94.0" text="Descripcion(*)" />
-                  <Label layoutX="60.0" layoutY="206.0" text="Proveedor(*)" />
-                  <TextField fx:id="txtNombre" layoutX="303.0" layoutY="66.0" />
-                  <TextField fx:id="txtPrecio" layoutX="303.0" layoutY="113.0" />
-                  <TextField fx:id="txtDescripcion" layoutX="303.0" layoutY="155.0" />
-                  <TextField fx:id="txtProveedor" layoutX="303.0" layoutY="201.0" />
-                  <Button fx:id="btnConfirmarProducto" layoutX="168.0" layoutY="291.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="30.0" prefWidth="150.0" text="Confirmar" />
-                  <Button fx:id="btnEditarProducto" layoutX="168.0" layoutY="291.0" mnemonicParsing="false" onAction="#editarProducto" prefHeight="30.0" prefWidth="150.0" text="Editar" />
+                  <Label layoutX="60.0" layoutY="39.0" prefHeight="19.0" prefWidth="104.0" text="Nombre(*)" textFill="#fcf6f6">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font></Label>
+                  <Label layoutX="63.0" layoutY="81.0" prefHeight="19.0" prefWidth="111.0" text="Precio(*)" textFill="#fcf6f6">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font></Label>
+                  <Label layoutX="63.0" layoutY="128.0" prefHeight="19.0" prefWidth="130.0" text="Descripcion(*)" textFill="#fcf6f6">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font></Label>
+                  <Label layoutX="61.0" layoutY="174.0" text="Proveedor(*)" textFill="#fcf6f6">
+                     <font>
+                        <Font name="Century Gothic" size="15.0" />
+                     </font></Label>
+                  <TextField fx:id="txtNombre" layoutX="253.0" layoutY="34.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtPrecio" layoutX="253.0" layoutY="81.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtDescripcion" layoutX="253.0" layoutY="123.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtProveedor" layoutX="253.0" layoutY="169.0" prefHeight="25.0" prefWidth="200.0" />
                </children>
             </Pane>
          </center>
