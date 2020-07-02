@@ -55,12 +55,7 @@ public class ControladorLogin implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		URL linkWelcome = getClass().getResource("/img/welcomehotel.png");
-		URL linkLlave = getClass().getResource("/img/llave-del-hotel.png");
-		Image image = new Image(linkLlave.toString(),24,24,false,true) ;
-		Image imageWelcome = new Image(linkWelcome.toString(),274,385,false,true) ;
-		this.img = new ImageView(imageWelcome);
-		this.btnLogin.setGraphic(new ImageView(image));
+		cargarIconos();
 		this.usuario = new Usuario(new DAOSQLFactory());
 		this.permisoPerfil = new PermisoPerfil(new DAOSQLFactory());
 		this.emailConfig = new Configuracion(new DAOSQLFactory());
@@ -70,6 +65,19 @@ public class ControladorLogin implements Initializable {
 		ControladorMenuPrincipal.loginStage.setOnCloseRequest(e->onClose());
 	}
 	
+	private void cargarIconos() {
+		// TODO Auto-generated method stub
+	//	URL linkWelcome = getClass().getResource("/img/welcomehotel.png");
+		URL linkLlave = getClass().getResource("/img/llave-del-hotel.png");
+		
+		
+		Image image = new Image(linkLlave.toString(),24,24,false,true) ;
+		//Image imageWelcome = new Image(linkWelcome.toString(),274,385,false,true) ;
+		
+		//this.img = new ImageView(imageWelcome);
+		this.btnLogin.setGraphic(new ImageView(image));
+	}
+
 	@FXML
 	public void verificarUsuario() {
 		
