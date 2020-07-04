@@ -1,32 +1,31 @@
 package hotel;
 
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
-
 import dto.CategoriaCuartoDTO;
 import dto.ClienteDTO;
 import dto.CuartoDTO;
-import dto.PerfilDTO;
 import dto.ReservaCuartoDTO;
 import dto.ReservaCuartoDTO.EstadoReserva;
 import dto.ReservaCuartoDTO.FormaPago;
 import dto.ReservaCuartoDTO.TipoTarjeta;
+<<<<<<< HEAD
 import dto.UsuarioDTO;
 import modelo.CategoriaCuarto;
 import modelo.CategoriaEvento;
+=======
+>>>>>>> 414b48e2fb7e633dd6740288d1e4bb70c8887190
 import modelo.Cliente;
 import modelo.Cuarto;
-import modelo.Perfil;
 import modelo.ReservaCuarto;
 import modelo.Usuario;
 import persistencia.conexion.Conexion;
@@ -37,141 +36,123 @@ public class ReservaCuartoTest {
 	private static ReservaCuarto modeloReservaCuarto;
 	private static Cuarto modeloCuartos;
 	private static Cliente modeloCliente;
-	private static CategoriaCuarto modeloCategoriaCuarto;
-	private static Perfil modeloPerfil;
-	
-	private static List<PerfilDTO> listaPerfiles;
-	private static List<UsuarioDTO> listaUsuarios;
-	private static List<CuartoDTO> listaCuartos;
 	private static List<ReservaCuartoDTO> listaReservaCuarto;
-	private static List<ClienteDTO> listaCliente;
-	private static List<CategoriaCuartoDTO> listaCategoria;
-	
-	private static UsuarioDTO usuarioTest;
-	private static CuartoDTO cuartoTest;
-	private static ReservaCuartoDTO reservaTest;
-	private static ClienteDTO clienteTest;
-	private static CategoriaCuartoDTO categoriaCuartoTest;
-	private static PerfilDTO perfilTest;
-	
-	
 	private static ReservaCuartoDTO reservaCuartoDTO; //dependiente
 	
 	@Before
 	public void init() {
-		/*
+		
 		modeloUsuario = new Usuario(new DAOSQLFactory());
 		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
 		modeloCliente = new Cliente(new DAOSQLFactory());
 		modeloCuartos = new Cuarto(new DAOSQLFactory());
-		modeloCategoriaCuarto = new CategoriaCuarto(new DAOSQLFactory());
-		modeloPerfil = new Perfil(new DAOSQLFactory());
-	
-		crearCategoriaCuarto();
-		crearCuarto();
-		crearPerfil();
-		crearUsuario();
-		crearCliente();
+		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
 		
-		int idReservaEvento = 0;
-		int idCliente = listaCliente.get(0).getIdCliente();
-		int idUsuario = listaUsuarios.get(0).getIdUsuario();
-		int idCuarto = listaCuartos.get(0).getId();
-		int idCategoriaCuarto = listaCategoria.get(0).getIdCategoriaCuarto();
+	}
+	
+	@Test
+	public void testGeneral()
+	{
+		testAgregarReservaCuarto();
+		testDeshabilitarReservaCuarto();
+		testHabilitarReservaCuarto();
+		buscarReserva();
+	}
+	
+	private void testAgregarReservaCuarto()
+	{
+		ClienteDTO cli = modeloCliente.getClientePorId(1);
+		int idUsuario = 1;
+		CuartoDTO c = modeloCuartos.traerCuarto(1);
+		int idCuarto = 1;
+		int idCategoriaCuarto = c.getIdCateCuarto();
+		
 		
 		BigDecimal Senia = BigDecimal.valueOf(333.12);
-		BigDecimal MontoReservaEvento = BigDecimal.valueOf(1222.12);
+		BigDecimal MontoReservaCuarto = BigDecimal.valueOf(1222.12);
 		BigDecimal MontoTotal = BigDecimal.valueOf(242122.2);
 		Timestamp FechaGeneracionReserva = Timestamp.valueOf("2020-06-27 20:35:18");
 		Timestamp FechaInicioReserva = Timestamp.valueOf("2020-06-28 20:35:18");
 		Timestamp FechaFinReserva = Timestamp.valueOf("2020-06-29 20:35:18");
 		Timestamp FechaIngreso = null;
 		Timestamp FechaEgreso = null;
-		FormaPago FormaPago = FormaPago.EFECTIVO;
-		TipoTarjeta TipoTarjeta = TipoTarjeta.NO;
-		String NumeroTarjeta = "0";
-		String FechaVencTarjeta = "0";
-		String CodSeguridadTarjeta = "0";
+		
+		String NumeroTarjeta = "4451451264512356";
+		String FechaVencTarjeta = "12/30";
+		String CodSeguridadTarjeta = "915";
 		EstadoReserva estado = EstadoReserva.PENDIENTE;
+		FormaPago formaPago = FormaPago.EFECTIVO;
+		TipoTarjeta tipoTarjeta = TipoTarjeta.VISA;
+		
 		String Observaciones = "asd";
 		
+		ReservaCuartoDTO rc = new ReservaCuartoDTO(cli.getIdCliente(),idCuarto,idUsuario,BigDecimal.valueOf(c.getMontoSenia()),BigDecimal.valueOf(c.getMonto()),cli.getEmail(),
+				NumeroTarjeta,formaPago,tipoTarjeta,CodSeguridadTarjeta,FechaVencTarjeta,FechaGeneracionReserva,FechaIngreso,FechaEgreso,estado,"",true); 
+		modeloReservaCuarto.agregarReservaCuarto(rc);
 		
-	//	reservaEventoDTO = new ReservaEventoDTO(idReservaEvento, idCliente, idUsuario, idSalon, idCategoriaEvento, Senia, MontoReservaEvento, MontoTotal, FechaGeneracionReserva, FechaInicioReserva, FechaFinReserva, FechaIngreso, FechaEgreso, FormaPago, TipoTarjeta, NumeroTarjeta, FechaVencTarjeta, CodSeguridadTarjeta, estado, Observaciones);
-	}
-	
-	@Test
-	public void testAgregarReservaEvento()
-	{
-		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
-		modeloReservaCuarto.agregarReservaCuarto(reservaCuartoDTO);
 		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
 		assertEquals(1, listaReservaCuarto.size());
 	}
 	
-	@Test
-	public void testDeshabilitarReservaCuarto()
+	
+	private void testDeshabilitarReservaCuarto()
 	{
-		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
-		modeloReservaCuarto.agregarReservaCuarto(reservaCuartoDTO);
+
 		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		
-	//modeloReservaCuarto.borrarReservaCuarto(listaReservaCuarto.get(0));
-		//listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuarto();
-		//assertEquals(0, listaReservaEvento.size());
-	}
-	
-	@Test
-	public void testModificarReservaCuarto()
-	{
-		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
-		modeloReservaCuarto.agregarReservaCuarto(reservaCuartoDTO);
-		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		listaReservaCuarto.get(0).setMontoReservaCuarto(BigDecimal.valueOf(1222.222));
-		
-		modeloReservaCuarto.modificarReservaCuarto(listaReservaCuarto.get(0));
-		
-		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		assertEquals(BigDecimal.valueOf(1222.222),listaReservaCuarto.get(0).getMontoReservaCuarto());
-	}
-	
-	@Test
-	public void testCambiarEstadoReservaCuarto()
-	{
-		modeloReservaCuarto = new ReservaCuarto(new DAOSQLFactory());
-		modeloReservaCuarto.agregarReservaCuarto(reservaCuartoDTO);
-		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		listaReservaCuarto.get(0).setEstado(EstadoReserva.CANCELADO);
-		modeloReservaCuarto.modificarReservaCuarto(listaReservaCuarto.get(0));
-		
-		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
-		assertEquals("CANCELADO", String.valueOf(listaReservaCuarto.get(0).getEstado()));
-	}
-	
-	
-	
-	@After
-	public void normalizar() {
-		try {
-			java.sql.Statement statement = Conexion.instancia.getSQLConexion().createStatement();
-			statement.executeUpdate("TRUNCATE reservaevento;");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		ReservaCuartoDTO rc = listaReservaCuarto.get(0); 
+		boolean estadoAnterior = listaReservaCuarto.get(0).getEstado();
+		if(estadoAnterior == true) {
+			rc.setEstado(false);
+			assertEquals(false,rc.getEstado());
 		}
 		
 	}
 	
+	private void  testHabilitarReservaCuarto()
+	{
+
+		listaReservaCuarto = modeloReservaCuarto.obtenerReservasCuartos();
+		System.out.println(listaReservaCuarto.size());
+		ReservaCuartoDTO rc = listaReservaCuarto.get(0); 
+		System.out.println(rc.getCantidadDias());
+		boolean estadoAnterior = listaReservaCuarto.get(0).getEstado();
+		if(estadoAnterior == false) {
+			rc.setEstado(true);
+			assertEquals(true,listaReservaCuarto.get(0).getEstado());
+		}		
+	}
+	
+	
+<<<<<<< HEAD
+=======
+	private void buscarReserva()
+	{
+		List<ReservaCuartoDTO> lista = modeloReservaCuarto.buscarReservaCuarto("1");
+		assertEquals(1, lista.size());
+	}
+>>>>>>> 414b48e2fb7e633dd6740288d1e4bb70c8887190
+	
+	@After
+	public void eliminarReservasCuarto() {
+		try {
+			java.sql.Statement statement = Conexion.instancia.getSQLConexion().createStatement();
+			statement.executeUpdate("DELETE FROM `reservacuarto`");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@AfterClass
-	public static void normalizarConexion() {
+	public static void normalizar() {
 		try {
 			Conexion.instancia.getSQLConexion().setAutoCommit(true);
 			Conexion.instancia.getSQLConexion().close();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 		
 	}
 	
@@ -215,4 +196,8 @@ public class ReservaCuartoTest {
 	}
 >>>>>>> b5adac2719b86da95669e9aa354d850806b45664
 	
+=======
+	}
+
+>>>>>>> 414b48e2fb7e633dd6740288d1e4bb70c8887190
 }
