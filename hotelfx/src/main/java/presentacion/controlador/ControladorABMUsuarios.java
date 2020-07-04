@@ -17,6 +17,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Usuario;
 import modelo.Validador;
@@ -46,6 +48,7 @@ public class ControladorABMUsuarios implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		cargarIconos();
 		this.usuarios = new Usuario(new DAOSQLFactory());
 		cargarColumnas();
 		activeSession = FXCollections.observableArrayList();
@@ -71,7 +74,8 @@ public class ControladorABMUsuarios implements Initializable{
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarUsuario.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root));   
+				primaryStage.setScene(new Scene(root));
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarUsuario scene2Controller = fxmlLoader.getController();
 				scene2Controller.enviarControlador(this);
 				scene2Controller.setVisibilityBtnAgregarUsuario(true);
@@ -101,6 +105,7 @@ public class ControladorABMUsuarios implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarUsuario scene2Controller = fxmlLoader.getController();
 				scene2Controller.enviarControlador(this);
 				scene2Controller.setVisibilityBtnAgregarUsuario(false);
@@ -181,4 +186,29 @@ public class ControladorABMUsuarios implements Initializable{
 	 		return activeSession;
 		}
 
+	 
+	 private void cargarIconos() {
+			
+			URL linkAgregar = getClass().getResource("/img/aceptar.png");
+			URL linkModificar = getClass().getResource("/img/editar.png");
+			URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+			URL linkHabilitar = getClass().getResource("/img/habilitar.png");
+
+			
+			Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+			Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+			Image imageBuscar = new Image(linkBuscar.toString(),24,24,false,true) ;
+			Image imageHabilitar = new Image(linkHabilitar.toString(),24,24,false,true) ;
+		
+			
+		 
+			this.btnAgregar.setGraphic(new ImageView(imageAgregar));
+			this.btnEditar.setGraphic(new ImageView(imageModificar));
+			this.btnHabilitar.setGraphic(new ImageView(imageHabilitar));
+			this.btnBuscar.setGraphic(new ImageView(imageBuscar));
+			//this.btnReporte.setGraphic(new ImageView(imageSeleccionar));
+			
+		}
+	 
+	 
 }

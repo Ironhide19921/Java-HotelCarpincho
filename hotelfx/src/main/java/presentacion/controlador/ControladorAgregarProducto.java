@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Producto;
 import modelo.Validador;
@@ -30,6 +32,7 @@ public class ControladorAgregarProducto implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		cargarIconos();
 		this.producto = new Producto(new DAOSQLFactory());
 		System.out.println(ControladorLogin.usuarioLogeado.getNombre());
 	}
@@ -138,4 +141,22 @@ public class ControladorAgregarProducto implements Initializable{
 		this.controladorABMProducto = controladorABMProducto;
 	}
 
+	private void cargarIconos() {
+		
+	
+		URL linkEditar = getClass().getResource("/img/editar.png");
+		URL linkConfirmar = getClass().getResource("/img/aceptar.png");
+		
+		
+
+		Image imageAgregar = new Image(linkConfirmar.toString(),24,24,false,true) ;
+		Image imageEliminar = new Image(linkEditar.toString(),24,24,false,true) ;
+	
+
+		this.btnConfirmarProducto.setGraphic(new ImageView(imageAgregar));
+		this.btnEditarProducto.setGraphic(new ImageView(imageEliminar));
+		
+		
+	}
+	
 }

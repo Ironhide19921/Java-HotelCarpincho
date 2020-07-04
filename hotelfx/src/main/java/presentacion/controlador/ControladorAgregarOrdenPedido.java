@@ -25,6 +25,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.OrdenPedido;
@@ -85,6 +87,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		cargarIconos();
 		this.ordenPedido = new OrdenPedido(new DAOSQLFactory());
 		this.producto = new Producto(new DAOSQLFactory()); 
 		this.cliente = new Cliente(new DAOSQLFactory());
@@ -566,4 +569,23 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 		this.controladorABMOrdenPedido = controladorABMOrdenPedido;
 	}
 
+
+	private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/sumar.png");
+		URL linkEliminar = getClass().getResource("/img/eliminar.jpg");
+		URL linkConfirmarPedido = getClass().getResource("/img/aceptar.png");
+		URL linkGenerar = getClass().getResource("/img/descarga.png");
+
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageEliminar = new Image(linkEliminar.toString(),24,24,false,true) ;
+		Image imageConfirmar = new Image(linkConfirmarPedido.toString(),24,24,false,true) ;
+		Image imageGenerar = new Image(linkGenerar.toString(),24,24,false,true) ;
+
+		this.btnAgregarProducto.setGraphic(new ImageView(imageAgregar));
+		this.btnEliminarProducto.setGraphic(new ImageView(imageEliminar));
+		this.btnConfirmarPedido.setGraphic(new ImageView(imageConfirmar));	
+		this.btnConfirmarY_GenerarTicket.setGraphic(new ImageView(imageGenerar));	
+		
+	}
 }

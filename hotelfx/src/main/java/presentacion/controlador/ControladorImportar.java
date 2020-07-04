@@ -42,6 +42,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -94,6 +96,7 @@ public class ControladorImportar implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		cargarIconos();
 		this.cliente = new Cliente(new DAOSQLFactory());
 		this.reserva = new ReservaCuarto(new DAOSQLFactory());
 		this.cuarto = new Cuarto(new DAOSQLFactory()); 
@@ -113,7 +116,21 @@ public class ControladorImportar implements Initializable {
 
 	}
 
-
+	private void cargarIconos() {
+		
+		URL linkImportar = getClass().getResource("/img/descarga.png");
+		URL linkInsertar = getClass().getResource("/img/aceptar.png");		
+		URL linkMail = getClass().getResource("/img/email.jpg");		
+		
+		Image imageImportar = new Image(linkImportar.toString(),24,24,false,true) ;
+		Image imageInsertar = new Image(linkInsertar.toString(),24,24,false,true) ;
+		Image imageMail = new Image(linkMail.toString(),24,24,false,true) ;
+		
+		this.btnImportar.setGraphic(new ImageView(imageImportar));
+		this.btnInsertar.setGraphic(new ImageView(imageInsertar));
+		//this.btnMail.setGraphic(new ImageView(imageMail));
+	}
+	
 	private void agregarColumnasAvalidar() {
 		columnas.add("Nombre");
 		columnas.add("Apellido");

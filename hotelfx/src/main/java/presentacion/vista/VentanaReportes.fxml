@@ -16,7 +16,7 @@
          <top>
             <Pane prefHeight="78.0" prefWidth="624.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="261.0" layoutY="25.0" text="Reportes">
+                  <Label layoutX="261.0" layoutY="25.0" text="Reportes" underline="true">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -38,26 +38,32 @@
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Elija un tipo de reporte">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Century Gothic" size="15.0" />
                      </font>
                   </Label>
                   <Label layoutX="355.0" layoutY="14.0" text="Parametros">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Century Gothic" size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="237.0" layoutY="67.0" text="Fecha Desde(*)" />
-                  <DatePicker fx:id="fechaDesde" layoutX="349.0" layoutY="62.0" />
-                  <Label layoutX="240.0" layoutY="133.0" text="Fecha Hasta(*)" />
-                  <DatePicker fx:id="fechaHasta" layoutX="348.0" layoutY="129.0" />
-                  <Button fx:id="btnGenerarReporte" layoutX="203.0" layoutY="279.0" mnemonicParsing="false" onAction="#generarReporte" prefHeight="30.0" prefWidth="150.0" text="Generar reporte" />
+                  <Label layoutX="237.0" layoutY="67.0" text="Fecha Desde(*)">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
+                  <DatePicker fx:id="fechaDesde" layoutX="351.0" layoutY="71.0" maxWidth="200.0" />
+                  <Label layoutX="240.0" layoutY="133.0" text="Fecha Hasta(*)">
+                     <font>
+                        <Font name="Century Gothic" size="13.0" />
+                     </font></Label>
+                  <DatePicker fx:id="fechaHasta" layoutX="348.0" layoutY="129.0" maxWidth="200.0" />
+                  <Button fx:id="btnGenerarReporte" alignment="BASELINE_LEFT" layoutX="333.0" layoutY="280.0" mnemonicParsing="false" onAction="#generarReporte" prefHeight="30.0" prefWidth="200.0" text="Generar reporte" />
                   <VBox layoutX="14.0" layoutY="50.0" prefHeight="200.0" prefWidth="150.0" spacing="10.0">
                      <children>
                         <Accordion />
-                        <Button fx:id="btnOcupacion" disable="true" mnemonicParsing="false" onAction="#deshabilitarParametrosFechas" prefHeight="30.0" prefWidth="150.0" text="Ocupacion" />
-                        <Button fx:id="btnContable" disable="true" mnemonicParsing="false" onAction="#elegirContable" prefHeight="30.0" prefWidth="150.0" text="Contables" />
-                        <Button fx:id="btnErrores" disable="true" mnemonicParsing="false" onAction="#elegirError" prefHeight="30.0" prefWidth="150.0" text="Errores" />
-                        <Button fx:id="btnEncuestas" disable="true" mnemonicParsing="false" onAction="#elegirEncuesta" prefHeight="30.0" prefWidth="150.0" text="Encuestas" />
+                        <Button fx:id="btnOcupacion" alignment="BASELINE_LEFT" disable="true" mnemonicParsing="false" onAction="#deshabilitarParametrosFechas" prefHeight="30.0" prefWidth="150.0" text="Ocupacion" />
+                        <Button fx:id="btnContable" alignment="BASELINE_LEFT" disable="true" mnemonicParsing="false" onAction="#elegirContable" prefHeight="30.0" prefWidth="150.0" text="Contables" />
+                        <Button fx:id="btnErrores" alignment="BASELINE_LEFT" disable="true" mnemonicParsing="false" onAction="#elegirError" prefHeight="30.0" prefWidth="150.0" text="Errores" />
+                        <Button fx:id="btnEncuestas" alignment="BASELINE_LEFT" disable="true" mnemonicParsing="false" onAction="#elegirEncuesta" prefHeight="30.0" prefWidth="150.0" text="Encuestas" />
                         <Button fx:id="btnReservas" disable="true" mnemonicParsing="false" onAction="#elegirEncuesta" prefHeight="30.0" prefWidth="150.0" text="Reservas" visible="false" />
                      </children>
                   </VBox>

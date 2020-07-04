@@ -34,6 +34,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -107,7 +109,7 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Llamo al login
 		verLogin();
-		
+		cargarIconos();
 		//Preparo los botones para recorrer en un orden especifico
 		listaButtons = new ArrayList<Button>();
 		listaButtons.add(0,btnAbrirABMUsuarios);
@@ -412,7 +414,6 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 			URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaLogin.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-
 			loginStage.setScene(new Scene(root));
 			loginStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			loginStage.setTitle("Pantalla de Login");
@@ -488,6 +489,62 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 		}catch (IOException ex) {
 		     ex.printStackTrace();
 		}
+	}
+	
+
+	private void cargarIconos() {
+		
+		URL linkWelcome = getClass().getResource("/img/welcomehotel.png");
+		URL linkLlave = getClass().getResource("/img/llave-del-hotel.png");
+		URL linkHotel = getClass().getResource("/img/campana.png");
+		URL linkUsuarios = getClass().getResource("/img/grupo.png");
+		URL linkPerfil = getClass().getResource("/img/usuarios.png");
+		URL linkUsuario = getClass().getResource("/img/usuario.png");
+		URL linkOrdenPedido = getClass().getResource("/img/servicio.png");
+		URL linkCuarto = getClass().getResource("/img/cama.png");
+		URL linkReserva = getClass().getResource("/img/recepcion.png");
+		URL linkProducto = getClass().getResource("/img/producto.png");
+		URL linkImportar = getClass().getResource("/img/descarga.png");
+		URL linkCategoriaCuarto = getClass().getResource("/img/categoriaCuarto.png");
+		URL linkCategoriaEvento = getClass().getResource("/img/categoriaEvento.png");
+		URL linkSalones = getClass().getResource("/img/salon.png");
+		URL linkConfig = getClass().getResource("/img/email.jpg");
+		URL linkBase = getClass().getResource("/img/database.png");
+		URL linkReporte = getClass().getResource("/img/reporte.png");
+		
+		Image imageHotel = new Image(linkHotel.toString(),24,24,false,true) ;
+		Image imageUsuarios = new Image(linkUsuarios.toString(),24,24,false,true) ;
+		Image imagePerfil = new Image(linkPerfil.toString(),24,24,false,true) ;
+		Image imageUsuario = new Image(linkUsuario.toString(),24,24,false,true) ;
+		Image imageOrden = new Image(linkOrdenPedido.toString(),24,24,false,true) ;
+		Image imageCuarto = new Image(linkCuarto.toString(),24,24,false,true) ;
+		Image imageReserva = new Image(linkReserva.toString(),24,24,false,true) ;
+		
+		Image imageProducto = new Image(linkProducto.toString(),24,24,false,true) ;
+		Image imageImportar = new Image(linkImportar.toString(),24,24,false,true) ;
+		Image imageCategoriaCuarto = new Image(linkCategoriaCuarto.toString(),24,24,false,true) ;
+		Image imageCategoriaEvento = new Image(linkCategoriaEvento.toString(),24,24,false,true) ;
+		Image imageSalones = new Image(linkSalones.toString(),24,24,false,true) ;
+		Image imageConfig = new Image(linkConfig.toString(),24,24,false,true) ;
+		Image imageBase = new Image(linkBase.toString(),24,24,false,true) ;
+		Image imageReportes = new Image(linkReporte.toString(),24,24,false,true) ;
+	
+		this.btnAbrirReservaEvento.setGraphic(new ImageView(imageReserva));
+		this.btnAbrirABMCuartos.setGraphic(new ImageView(imageCuarto));
+		this.btnAbrirABMUsuarios.setGraphic(new ImageView(imageUsuarios));
+		this.btnAbrirABMPerfiles.setGraphic(new ImageView(imagePerfil));
+		this.btnAbrirABMCliente.setGraphic(new ImageView(imageUsuario));
+		this.btnAbrirOrdenPedidos.setGraphic(new ImageView(imageOrden));
+		this.btnAbrirABMReservas.setGraphic(new ImageView(imageHotel));
+		
+		this.btnAbrirABMProductos.setGraphic(new ImageView(imageProducto));
+		this.btnAbrirImportar.setGraphic(new ImageView(imageImportar));
+		this.btnAbrirABMCategoriasCuartos.setGraphic(new ImageView(imageCategoriaCuarto));
+		this.btnAbrirCategoriaEvento.setGraphic(new ImageView(imageCategoriaEvento));
+		this.btnAbrirABMSalones.setGraphic(new ImageView(imageSalones));
+		this.btnAbrirConfig.setGraphic(new ImageView(imageConfig));
+		this.btnAbrirVentanaBackup.setGraphic(new ImageView(imageBase));
+		this.btnAbrirVentanaReportes.setGraphic(new ImageView(imageReportes));
 	}
 	
 }

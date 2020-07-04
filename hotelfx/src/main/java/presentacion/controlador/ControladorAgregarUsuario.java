@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Perfil;
 import modelo.Usuario;
@@ -48,6 +50,7 @@ public class ControladorAgregarUsuario implements Initializable {
 		  
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {
+			cargarIconos();
 			this.perfil = new Perfil(new DAOSQLFactory());
 			this.usuarios = new Usuario(new DAOSQLFactory());
 //			this.usuariosRegistrados = new ArrayList<UsuarioDTO>();
@@ -243,5 +246,19 @@ public class ControladorAgregarUsuario implements Initializable {
 			// TODO Auto-generated method stub
 			this.controladorABMUsuarios = controladorABMUsuarios;
 		}
-	
+		
+		private void cargarIconos() {
+			
+			URL linkEditar = getClass().getResource("/img/editar.png");
+			URL linkConfirmar = getClass().getResource("/img/aceptar.png");	
+			URL linkCerrar = getClass().getResource("/img/cancelar.png");		
+
+			Image imageAgregar = new Image(linkConfirmar.toString(),24,24,false,true) ;
+			Image imageEliminar = new Image(linkEditar.toString(),24,24,false,true) ;
+			Image imageCerrar = new Image(linkCerrar.toString(),24,24,false,true) ;
+		
+			this.btnAgregarUsuario.setGraphic(new ImageView(imageAgregar));
+			this.btnModificarUsuario.setGraphic(new ImageView(imageEliminar));
+			this.btnCerrar.setGraphic(new ImageView(imageCerrar));
+		}
 }

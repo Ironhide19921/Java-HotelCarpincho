@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import modelo.Configuracion;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
@@ -31,6 +33,7 @@ public class ControladorConfiguracion implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		cargarIconos();
 		this.listaProvs = FXCollections.observableArrayList();
 		this.listaProvs.add("outlook");
 		this.listaProvs.add("gmail");
@@ -47,6 +50,20 @@ public class ControladorConfiguracion implements Initializable{
 			validarCorreo(newText);
 		});
 		
+	}
+
+	private void cargarIconos() {
+	
+			
+			URL linkConfirmar = getClass().getResource("/img/aceptar.png");		
+			URL linkTest = getClass().getResource("/img/buscar.jpg");	
+			
+			Image imageAgregar = new Image(linkConfirmar.toString(),24,24,false,true) ;
+			Image imageTest = new Image(linkTest.toString(),24,24,false,true) ;
+			
+			this.btnTest.setGraphic(new ImageView(imageTest));
+			this.btnGuardar.setGraphic(new ImageView(imageAgregar));
+	
 	}
 
 	private void validarCorreo(Boolean newText) {

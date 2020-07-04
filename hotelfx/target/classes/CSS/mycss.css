@@ -1,15 +1,23 @@
 .table-view .column-header,
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
-    -fx-background-color: rgb(0, 177, 107);
+    -fx-background-color: #57737A;
+   	-fx-font-family: 'Century Gothic';
+	-fx-font-size: 13px;
     
     }
-    
+  
+  
+ .column-header {
+ 		-fx-text-fill: white;
+ } 
 .table-view:row-selection .table-row-cell:filled:selected { 
     -fx-background-color: rgb(60, 60, 60);
+	-fx-text-fill: white;
 }
 .table-view:row-selection .table-row-cell:filled:selected:hover { 
     -fx-background-color: rgb(75, 50, 42);
+   	-fx-text-fill: white;
 }
 .table-row-cell:empty, .table-cell:empty:hover {
     -fx-background-color: whitesmoke;
@@ -19,23 +27,27 @@
    -fx-position: relative;
    -fx-display: inline-block;
    -fx-margin: 0;
-   -fx-background-color:  rgb(0, 108, 71);		
+   -fx-background-color: #6E4555;		
    -fx-background-radius: 0;
    -fx-transition: background 250ms, box-shadow 250ms;
 	-fx-text-fill: white;
+    -fx-font-family: 'Century Gothic';
+	-fx-font-size: 13px;
+
+	
 }
 
-.button:hover{
-	-fx-background-color:rgb(120, 120, 120);
+.button:hover {
+	-fx-background-color:#74686D;
 	-fx-text-fill: white;
 }
 
-.ventana{
+.ventana {
 	-fx-pref-height :530px ;
 	-fx-pref-width : 840px;
 }
 
-#panelDatos{
+#panelDatos {
 	 -fx-border-color:grey;
 }
 
@@ -44,14 +56,46 @@
    -fx-position: relative;
    -fx-display: inline-block;
    -fx-margin: 0;
-   -fx-background-color: grey;	
+	-fx-font-family: 'Century Gothic';
+	-fx-font-size: 11px;
+   -fx-background-color: #353535;	
    -fx-pref-height: 30px;
  }
 
-.btn-menu:hover
-{
+.btn-menu:hover {
 	-fx-background-color: rgb(120, 120, 120);	
 	-fx-text-fill: white;
 }
 
+.btn-menu:pressed {
+	-fx-background-color: #74686D;	
+	-fx-text-fill: white;
+}
 
+.btn-menu:selected {
+	-fx-background-color: #74686D;	
+	-fx-text-fill: white;
+}
+
+.btnLogin {
+	-fx-background-color:#74686D;	
+	-fx-text-fill: white;
+}
+
+ .btnLogin:hover {
+	-fx-background-color:#74686D;	
+	-fx-text-fill: white;
+}
+
+.btnLogin:pressed {
+	-fx-background-color:#74686D;	
+	-fx-text-fill: white;
+}
+
+/* .img {   
+	-fx-border: 1px solid #ddd;   
+	-fx-border-radius: 4px;   
+	-fx-padding: 5px;  
+	-fx-width: 150px;
+}  
+*/

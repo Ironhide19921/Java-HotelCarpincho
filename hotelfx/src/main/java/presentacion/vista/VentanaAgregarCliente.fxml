@@ -21,17 +21,38 @@
                   <Pane prefHeight="268.0" prefWidth="372.0" BorderPane.alignment="CENTER">
                      <children>
                         <TextField fx:id="txtNombre" layoutX="195.0" layoutY="34.0" prefHeight="0.0" prefWidth="150.0" />
-                        <Label layoutX="52.0" layoutY="38.0" prefHeight="17.0" prefWidth="115.0" text="Nombre" />
-                        <Label layoutX="52.0" layoutY="74.0" prefHeight="17.0" prefWidth="115.0" text="Apellido" />
-                        <Label layoutX="52.0" layoutY="112.0" prefHeight="17.0" prefWidth="115.0" text="Email" />
-                        <Label layoutX="51.0" layoutY="258.0" prefHeight="17.0" prefWidth="115.0" text="Telefono" />
-                        <Label layoutX="52.0" layoutY="189.0" prefHeight="17.0" prefWidth="115.0" text="Tipo documento" />
-                        <Label layoutX="51.0" layoutY="224.0" prefHeight="17.0" prefWidth="115.0" text="Nº Documento" />
+                        <Label layoutX="40.0" layoutY="38.0" prefHeight="17.0" prefWidth="115.0" text="Nombre" textFill="#030000">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font></Label>
+                        <Label layoutX="40.0" layoutY="74.0" prefHeight="17.0" prefWidth="115.0" text="Apellido" textFill="#030000">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font></Label>
+                        <Label layoutX="40.0" layoutY="112.0" prefHeight="17.0" prefWidth="115.0" text="Email" textFill="#030000">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font></Label>
+                        <Label layoutX="39.0" layoutY="258.0" prefHeight="17.0" prefWidth="115.0" text="Telefono" textFill="#030000">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font></Label>
+                        <Label layoutX="40.0" layoutY="189.0" prefHeight="19.0" prefWidth="134.0" text="Tipo documento" textFill="#030000">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font></Label>
+                        <Label layoutX="39.0" layoutY="224.0" prefHeight="17.0" prefWidth="115.0" text="Nº Documento" textFill="#030000">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font></Label>
                         <TextField fx:id="txtApellido" layoutX="195.0" layoutY="70.0" prefHeight="0.0" prefWidth="150.0" />
                         <TextField fx:id="txtEmail" layoutX="195.0" layoutY="108.0" prefHeight="0.0" prefWidth="150.0" />
                         <TextField fx:id="txtTelefono" layoutX="194.0" layoutY="258.0" prefHeight="0.0" prefWidth="150.0" />
                         <TextField fx:id="txtNumDocumento" layoutX="194.0" layoutY="221.0" prefHeight="0.0" prefWidth="150.0" />
-                        <Label layoutX="52.0" layoutY="149.0" prefHeight="17.0" prefWidth="115.0" text="Fecha nac." />
+                        <Label layoutX="40.0" layoutY="149.0" prefHeight="17.0" prefWidth="115.0" text="Fecha nac." textFill="#030000">
+                           <font>
+                              <Font name="Century Gothic" size="15.0" />
+                           </font></Label>
                         <DatePicker fx:id="txtFecha" layoutX="195.0" layoutY="146.0" prefHeight="0.0" prefWidth="150.0" />
                         <ComboBox fx:id="comboTipoDoc" layoutX="195.0" layoutY="184.0" prefHeight="0.0" prefWidth="150.0" />
                      </children>
@@ -44,11 +65,11 @@
                   <Pane prefHeight="419.0" prefWidth="172.0" BorderPane.alignment="CENTER" />
                </left>
                <top>
-                  <Pane prefHeight="54.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                      <children>
-                        <Text layoutX="51.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar Cliente" wrappingWidth="282.13671875">
+                        <Text fill="#fffdfd" layoutX="242.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar/modificar Cliente" textAlignment="CENTER" underline="true" wrappingWidth="235.13671875">
                            <font>
-                              <Font name="Century Gothic" size="15.0" />
+                              <Font name="Century Gothic" size="18.0" />
                            </font></Text>
                      </children></Pane>
                </top>
@@ -56,10 +77,10 @@
                   <Pane prefHeight="482.0" prefWidth="175.0" BorderPane.alignment="CENTER" />
                </right>
                <bottom>
-                  <Pane prefHeight="92.0" prefWidth="719.0" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="92.0" prefWidth="719.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="btnAgregarCliente" layoutX="387.0" layoutY="30.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="30.0" prefWidth="150.0" text="Agregar " />
-                        <Button fx:id="btnModificarCliente" layoutX="387.0" layoutY="29.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="30.0" prefWidth="150.0" text="Modificar " />
+                        <Button fx:id="btnAgregarCliente" layoutX="387.0" layoutY="30.0" mnemonicParsing="false" onAction="#guardarCliente" prefHeight="30.0" prefWidth="168.0" text="Agregar " />
+                        <Button fx:id="btnModificarCliente" layoutX="387.0" layoutY="29.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="30.0" prefWidth="168.0" text="Modificar " />
                         <Button fx:id="btnCerrar" layoutX="191.0" layoutY="31.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="150.0" text="Cerrar" />
                      </children>
                   </Pane>

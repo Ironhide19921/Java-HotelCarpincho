@@ -20,44 +20,36 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.Validador;
 import persistencia.dao.mysql.DAOSQLFactory;
 
 public class ControladorAgregarCliente implements Initializable {
-	@FXML
-	private TextField txtNombre;
-	@FXML
-	private TextField txtApellido;
-	@FXML
-	private TextField txtNumDocumento;
-	@FXML
-	private TextField txtEmail;
-	@FXML
-	private TextField txtTelefono;
-	@FXML
-	private RadioButton radioEstado;
-	@FXML
-	private DatePicker txtFecha;
+	@FXML private TextField txtNombre;
+	@FXML private TextField txtApellido;
+	@FXML private TextField txtNumDocumento;
+	@FXML private TextField txtEmail;
+	@FXML private TextField txtTelefono;
+	@FXML private RadioButton radioEstado;
+	@FXML private DatePicker txtFecha;
 	@FXML private Button btnAgregarCliente;
 	@FXML private ComboBox<String> comboTipoDoc;
 	private ObservableList<String> listaTipoDocExistentes;
 	@FXML private Button btnModificarCliente;
 	@FXML private Button btnReservaCuarto;
-	@FXML
-	private Button btnCerrar;
-	
+	@FXML private Button btnCerrar;
 	private Integer id;
 	private Cliente hotel;
-	
 
-	
 	@FXML private ControladorMenuPrincipal menuPrincipal;
 	private ControladorABMCliente controladorABMCliente;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		 cargarIconos();
 		 this.hotel = new Cliente(new DAOSQLFactory());
 		 this.listaTipoDocExistentes = FXCollections.observableArrayList();
 		 agregarListaTiposDoc();
@@ -244,6 +236,20 @@ public class ControladorAgregarCliente implements Initializable {
 	}
 	
 
+	private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/aceptar.png");
+		URL linkModificar = getClass().getResource("/img/editar.png");
+		URL linkCerrar = getClass().getResource("/img/cancelar.png");
+
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+		Image imageCerrar = new Image(linkCerrar.toString(),24,24,false,true) ;
+	
+		this.btnAgregarCliente.setGraphic(new ImageView(imageAgregar));
+		this.btnModificarCliente.setGraphic(new ImageView(imageModificar));
+		this.btnCerrar.setGraphic(new ImageView(imageCerrar));		
+	}
 	
 
 	

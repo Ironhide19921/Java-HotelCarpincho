@@ -15,6 +15,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Salon;
 import modelo.Validador;
@@ -27,13 +29,15 @@ public class ControladorAgregarSalon implements Initializable{
 	@FXML private TextField txtMonto;
 	@FXML private Button btnAgregarSalon;
 	@FXML private Button btnEditarSalon;
+	@FXML private Button btnCerrar;
 		  private Salon salon;
 		  private Integer id;
 		  private Alert alert;
-		private ControladorABMSalon controladorABMSalon;
+		  private ControladorABMSalon controladorABMSalon;
 		  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		cargarIconos();
 		this.salon = new Salon(new DAOSQLFactory());
 		this.alert = new Alert(AlertType.INFORMATION);
 	}
@@ -106,7 +110,7 @@ public class ControladorAgregarSalon implements Initializable{
 	
 	@FXML
 	 private void cerrarVentana() {
-		Stage stage = (Stage) txtCapacidad.getScene().getWindow();
+		Stage stage = (Stage) btnCerrar.getScene().getWindow();
 		stage.close();
 	}
 	
@@ -155,5 +159,20 @@ public class ControladorAgregarSalon implements Initializable{
 	public void enviarControlador(ControladorABMSalon controladorABMSalon) {
 		// TODO Auto-generated method stub
 		this.controladorABMSalon = controladorABMSalon;
+	}
+	
+	private void cargarIconos() {
+		
+		URL linkEditar = getClass().getResource("/img/editar.png");
+		URL linkConfirmar = getClass().getResource("/img/aceptar.png");		
+		URL linkCerrar = getClass().getResource("/img/cancelar.png");	
+		
+		Image imageAgregar = new Image(linkConfirmar.toString(),24,24,false,true) ;
+		Image imageEliminar = new Image(linkEditar.toString(),24,24,false,true) ;
+		Image imageCerrar = new Image(linkCerrar.toString(),24,24,false,true) ;
+	
+		this.btnAgregarSalon.setGraphic(new ImageView(imageAgregar));
+		this.btnEditarSalon.setGraphic(new ImageView(imageEliminar));
+		this.btnCerrar.setGraphic(new ImageView(imageCerrar));
 	}
 }

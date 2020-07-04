@@ -18,6 +18,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Producto;
 import modelo.Validador;
@@ -51,6 +53,7 @@ public class ControladorABMProducto implements Initializable{
 		tablaProductos.getItems().clear();
 		cargarColumnas();
 		refrescarTablaProductos();		
+		cargarIconos();
 	}
 	
 	private void cargarColumnas() {
@@ -89,7 +92,8 @@ public class ControladorABMProducto implements Initializable{
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarProducto.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-			AgregarProductoStage.setScene(new Scene(root));   
+			AgregarProductoStage.setScene(new Scene(root));  
+			AgregarProductoStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnAgregarProd(true);
 			scene2Controller.setVisibilityBtnEditarProd(false);
@@ -115,6 +119,7 @@ public class ControladorABMProducto implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			AgregarProductoStage.setScene(new Scene(root));   
+			AgregarProductoStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			ProductoDTO productoSeleccionado = tablaProductos.getSelectionModel().getSelectedItem();
 			scene2Controller.setearCamposPantalla(productoSeleccionado);
@@ -160,4 +165,23 @@ public class ControladorABMProducto implements Initializable{
  		return listaProductos;
 	}
 
+	 private void cargarIconos() {
+			
+			URL linkAgregar = getClass().getResource("/img/aceptar.png");
+			URL linkModificar = getClass().getResource("/img/editar.png");
+			URL linkCancelar = getClass().getResource("/img/cancelar.png");
+			URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+			
+			Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+			Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+			Image imageCancelar = new Image(linkCancelar.toString(),24,24,false,true) ;
+			Image imageBuscar = new Image(linkBuscar.toString(),24,24,false,true) ;
+	
+			this.btnAgregarProd.setGraphic(new ImageView(imageAgregar));
+			this.btnEditarProd.setGraphic(new ImageView(imageModificar));
+			this.btnBorrarProd.setGraphic(new ImageView(imageCancelar));
+			this.btnBuscarProd.setGraphic(new ImageView(imageBuscar));
+		}
+	 
+	
 }

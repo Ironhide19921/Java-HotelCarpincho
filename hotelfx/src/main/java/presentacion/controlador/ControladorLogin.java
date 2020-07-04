@@ -19,6 +19,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import main.Main;
@@ -38,6 +41,8 @@ public class ControladorLogin implements Initializable {
 	@FXML TextField txtUsuario;
 	@FXML PasswordField txtPass;
 	@FXML Button btnLogin;
+	@FXML Pane paneImg;
+	@FXML ImageView img;
 	
 	private EmailDTO email;
 	private Configuracion emailConfig;
@@ -50,6 +55,7 @@ public class ControladorLogin implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		cargarIconos();
 		this.usuario = new Usuario(new DAOSQLFactory());
 		this.permisoPerfil = new PermisoPerfil(new DAOSQLFactory());
 		this.emailConfig = new Configuracion(new DAOSQLFactory());
@@ -59,6 +65,19 @@ public class ControladorLogin implements Initializable {
 		ControladorMenuPrincipal.loginStage.setOnCloseRequest(e->onClose());
 	}
 	
+	private void cargarIconos() {
+		// TODO Auto-generated method stub
+	//	URL linkWelcome = getClass().getResource("/img/welcomehotel.png");
+		URL linkLlave = getClass().getResource("/img/llave-del-hotel.png");
+		
+		
+		Image image = new Image(linkLlave.toString(),24,24,false,true) ;
+		//Image imageWelcome = new Image(linkWelcome.toString(),274,385,false,true) ;
+		
+		//this.img = new ImageView(imageWelcome);
+		this.btnLogin.setGraphic(new ImageView(image));
+	}
+
 	@FXML
 	public void verificarUsuario() {
 		

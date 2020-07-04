@@ -24,6 +24,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.Cuarto;
@@ -74,6 +76,7 @@ public class ControladorABMReservaCuarto implements Initializable
 		activeSession = FXCollections.observableArrayList();	
 		cargarColumnas();
 		refrescarTabla();
+		cargarIconos();
 	}
 
 	
@@ -237,4 +240,25 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 		this.btnModificarReserva.setDisable(true);
 	}
 	
+	private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/aceptar.png");
+		URL linkModificar = getClass().getResource("/img/editar.png");
+		URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+		URL linkHabilitar = getClass().getResource("/img/habilitar.png");
+		URL linkSeleccionar = getClass().getResource("/img/seleccionar.png");
+		
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+		Image imageBuscar = new Image(linkBuscar.toString(),24,24,false,true) ;
+		Image imageHabilitar = new Image(linkHabilitar.toString(),24,24,false,true) ;
+		Image imageSeleccionar = new Image(linkSeleccionar.toString(),24,24,false,true) ;
+		
+		this.btnAgregarReserva.setGraphic(new ImageView(imageAgregar));
+		this.btnModificarReserva.setGraphic(new ImageView(imageModificar));
+		this.btnHabDesReserva.setGraphic(new ImageView(imageHabilitar));
+		this.btnBuscar.setGraphic(new ImageView(imageBuscar));
+		this.btnConsultarReserva.setGraphic(new ImageView(imageSeleccionar));
+		
+	}
 }

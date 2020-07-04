@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
 import modelo.Validador;
@@ -27,6 +29,7 @@ public class ControladorAgregarCategoriaCuarto implements Initializable{
 		  private ControladorABMCategoriaCuarto controladorABMCategoriaCuarto;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		cargarIconos();
 		this.categoriaCuarto = new CategoriaCuarto(new DAOSQLFactory());
 	}
 	
@@ -139,6 +142,19 @@ public class ControladorAgregarCategoriaCuarto implements Initializable{
 			this.controladorABMCategoriaCuarto = controladorABMCategoriaCuarto;
 		}
 
-	 
+		private void cargarIconos() {
+			
+			URL linkAgregar = getClass().getResource("/img/aceptar.png");
+			URL linkModificar = getClass().getResource("/img/editar.png");
+			URL linkCerrar = getClass().getResource("/img/cancelar.png");
+	
+			Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+			Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+			Image imageCerrar = new Image(linkCerrar.toString(),24,24,false,true) ;
+		
+			this.btnAgregarCategoriaCuarto.setGraphic(new ImageView(imageAgregar));
+			this.btnEditarCategoriaCuarto.setGraphic(new ImageView(imageModificar));
+			this.btnCerrar.setGraphic(new ImageView(imageCerrar));		
+		}
 	 
 }

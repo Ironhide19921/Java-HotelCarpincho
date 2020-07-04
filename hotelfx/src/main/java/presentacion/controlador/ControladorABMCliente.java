@@ -30,6 +30,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -45,50 +47,31 @@ import presentacion.vista.FxmlLoader;
 
 public class ControladorABMCliente implements Initializable{
 	//ventana mostrar cliente
-	@FXML
-	private Button btnAddCliente;
-	@FXML
-	private Button btnEditCliente;
-	@FXML
-	private Button btnEditarCliente;
-	@FXML 
-	private Button btnBuscarCliente;
-	@FXML 
-	private Button btnHabilitaCliente;
-	@FXML 
-	private Button btnSeleccionarCliente;
+	@FXML private Button btnAddCliente;
+	@FXML private Button btnEditarCliente;
+	@FXML private Button btnBuscarCliente;
+	@FXML private Button btnHabilitaCliente;
+	@FXML private Button btnSeleccionarCliente;
 	@FXML private Button btnVerReservaCuarto;
 	@FXML private Button btnCerrar;
 	@FXML private Button btnVerReservasEvento;
-	@FXML
-	private Button btnVerReservasCliente;
+	@FXML private Button btnVerReservasCliente;
 
-	@FXML 
-	private Button btnVerEncuesta;
-	@FXML 
-	private TextField ingresarCliente;
-	@FXML 
-	private TableView<ClienteDTO> tablaPersonas;
+	@FXML private Button btnVerEncuesta;
+	@FXML private TextField ingresarCliente;
+	@FXML private TableView<ClienteDTO> tablaPersonas;
 	
-	@FXML 
-	private ObservableList<ClienteDTO> activeSession;
-	@FXML 
-	private VBox fondoTabla;
-	@FXML 
-	private TableColumn nombre;
-	@FXML 
-	private TableColumn apellido;
-	@FXML 
-	private TableColumn telefono;
-	@FXML 
-	private TableColumn email;
-	@FXML 
-	private TableColumn numeroDocumento;
-	@FXML
-	private	TableColumn estado  ;
-	@FXML
-	private	TableColumn idCliente;
+	@FXML private ObservableList<ClienteDTO> activeSession;
+	@FXML private VBox fondoTabla;
+	@FXML private TableColumn nombre;
+	@FXML private TableColumn apellido;
+	@FXML private TableColumn telefono;
+	@FXML private TableColumn email;
+	@FXML private TableColumn numeroDocumento;
+	@FXML private TableColumn estado  ;
+	@FXML private TableColumn idCliente;
 	@FXML private BorderPane panelActual;
+	
 	private Cliente cliente;
 	private Validador validador;
 	private ReservaCuartoDTO reserva;
@@ -102,6 +85,7 @@ public class ControladorABMCliente implements Initializable{
 	// funcion onload
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		primaryStage = new Stage(); 
 		fxml = new FxmlLoader();
 		this.btnSeleccionarCliente.setVisible(false);
@@ -120,6 +104,8 @@ public class ControladorABMCliente implements Initializable{
 		}
 		cargarColumnas();
 		refrescarTabla();
+		
+		cargarIconos();
 		
 	}
 
@@ -319,6 +305,7 @@ public class ControladorABMCliente implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("presentacion/vista/VentanaABMReservaEvento.fxml"));
 				
 			    Parent root = (Parent) fxmlLoader.load();
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorABMReservaEvento controller = fxmlLoader.<ControladorABMReservaEvento>getController();
 				controller.initData(idClienteSeleccionado);
 				panelActual.setCenter(root);
@@ -381,10 +368,39 @@ public class ControladorABMCliente implements Initializable{
 		 }
 
 		public void getStage(Stage primaryStage2,ControladorAgregarReservaCuarto1 controlador) {
-			// TODO Auto-generated method stub
 			this.stageReserva = primaryStage2;
 			this.controlador = controlador;
 		}
 		 
+private void cargarIconos() {
+			
+			URL linkAgregar = getClass().getResource("/img/aceptar.png");
+			URL linkModificar = getClass().getResource("/img/editar.png");
+			URL linkEncuesta = getClass().getResource("/img/reporteEncuesta.jpg");
+			URL linkReservaEvento = getClass().getResource("/img/categoriaEvento.png");
+			URL linkReservaCuarto = getClass().getResource("/img/categoriaCuarto.png");
+			URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+			URL linkHabilitar = getClass().getResource("/img/habilitar.png");
+			URL linkSeleccionar = getClass().getResource("/img/seleccionar.png");
+			
+			Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+			Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+			Image imageEncuesta = new Image(linkEncuesta.toString(),24,24,false,true) ;
+			Image imageReEve = new Image(linkReservaEvento.toString(),24,24,false,true) ;
+			Image imageReCuar = new Image(linkReservaCuarto.toString(),24,24,false,true) ;
+			Image imageBuscar = new Image(linkBuscar.toString(),24,24,false,true) ;
+			Image imageHabilitar = new Image(linkHabilitar.toString(),24,24,false,true) ;
+			Image imageSeleccionar = new Image(linkSeleccionar.toString(),24,24,false,true) ;
+			
+			this.btnAddCliente.setGraphic(new ImageView(imageAgregar));
+			this.btnEditarCliente.setGraphic(new ImageView(imageModificar));
+			this.btnVerEncuesta.setGraphic(new ImageView(imageEncuesta));
+			this.btnVerReservasEvento.setGraphic(new ImageView(imageReEve));
+			this.btnVerReservaCuarto.setGraphic(new ImageView(imageReCuar));
+			this.btnSeleccionarCliente.setGraphic(new ImageView(imageSeleccionar));
+			this.btnBuscarCliente.setGraphic(new ImageView(imageBuscar));
+			this.btnHabilitaCliente.setGraphic(new ImageView(imageHabilitar));
+		}
+	 
 
 }

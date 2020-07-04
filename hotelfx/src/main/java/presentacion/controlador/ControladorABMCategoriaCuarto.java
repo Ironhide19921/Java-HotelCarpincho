@@ -28,6 +28,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
 import modelo.Cuarto;
@@ -145,6 +147,7 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		cargarIconos();
 		this.categoriaCuarto = new CategoriaCuarto(new DAOSQLFactory());
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		this.alert = new Alert(AlertType.INFORMATION);
@@ -207,6 +210,24 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 			alert.showAndWait();
 		}
 
+	 private void cargarIconos() {
+			
+			URL linkAgregar = getClass().getResource("/img/aceptar.png");
+			URL linkModificar = getClass().getResource("/img/editar.png");
+			URL linkCancelar = getClass().getResource("/img/cancelar.png");
+			URL linkRefrescar = getClass().getResource("/img/cancelar.png");
+			
+			Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+			Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+			Image imageCancelar = new Image(linkCancelar.toString(),24,24,false,true) ;
+			Image imageRefrescar = new Image(linkRefrescar.toString(),24,24,false,true) ;
+			
+	
+			this.btnAgregar.setGraphic(new ImageView(imageAgregar));
+			this.btnEditar.setGraphic(new ImageView(imageModificar));
+			this.btnBorrar.setGraphic(new ImageView(imageCancelar));
+			//this.btnRefrescar.setGraphic(new ImageView(imageUsuarios));
+		}
 	 
 
 }

@@ -18,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
 import modelo.Salon;
@@ -48,6 +50,7 @@ public class ControladorABMSalon implements Initializable{
 		tablaSalones.getItems().clear();
 		cargarColumnas();
 		refrescarTabla();
+		cargarIconos();
 	}
 	
 	private void cargarColumnas() {
@@ -149,5 +152,21 @@ public class ControladorABMSalon implements Initializable{
 
 	public void setTablaSalones(TableView<SalonDTO> tablaSalones) {
 		this.tablaSalones = tablaSalones;
+	}
+	
+private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/aceptar.png");
+		URL linkModificar = getClass().getResource("/img/editar.png");
+		URL linkHabilitar = getClass().getResource("/img/habilitar.png");
+		
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+		Image imageHabilitar = new Image(linkHabilitar.toString(),24,24,false,true) ;
+
+		this.btnAgregar.setGraphic(new ImageView(imageAgregar));
+		this.btnEditar.setGraphic(new ImageView(imageModificar));
+		this.btnHabilitaCliente.setGraphic(new ImageView(imageHabilitar));	
+		
 	}
 }
