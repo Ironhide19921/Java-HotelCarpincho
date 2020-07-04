@@ -22,18 +22,18 @@
                </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="138.0" prefWidth="99.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="138.0" prefWidth="99.0" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <Pane prefHeight="161.0" prefWidth="293.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="161.0" prefWidth="293.0" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="txtNombre" layoutX="126.0" layoutY="39.0" prefHeight="25.0" prefWidth="173.0" />
                   <TextField fx:id="txtDetalle" layoutX="126.0" layoutY="81.0" prefHeight="25.0" prefWidth="173.0" />
-                  <Label layoutX="20.0" layoutY="43.0" prefHeight="17.0" prefWidth="106.0" text="Nombre(*)" textFill="#fffafa">
+                  <Label layoutX="20.0" layoutY="43.0" prefHeight="17.0" prefWidth="106.0" text="Nombre(*)" textFill="#0d0000">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font></Label>
-                  <Label layoutX="20.0" layoutY="85.0" prefHeight="17.0" prefWidth="106.0" text="Detalle(*)" textFill="#fffafa">
+                  <Label layoutX="20.0" layoutY="85.0" prefHeight="17.0" prefWidth="106.0" text="Detalle(*)" textFill="#0d0000">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font></Label>
@@ -41,7 +41,7 @@
             </Pane>
          </center>
          <right>
-            <Pane prefHeight="161.0" prefWidth="90.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="161.0" prefWidth="90.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="54.0" prefWidth="524.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">

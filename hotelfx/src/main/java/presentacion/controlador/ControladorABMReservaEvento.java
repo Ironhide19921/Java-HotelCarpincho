@@ -35,6 +35,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -100,6 +102,7 @@ public class ControladorABMReservaEvento implements Initializable{
 		if(clienteActual != 0) {
 			getNuevasReservas();
 		}
+		cargarIconos();
 	}
 	
 	void initData(int customer) {
@@ -199,7 +202,7 @@ public class ControladorABMReservaEvento implements Initializable{
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarReservaEvento.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				
 				ControladorAgregarReservaEvento scene2Controller = fxmlLoader.<ControladorAgregarReservaEvento>getController();
 				scene2Controller.enviarControlador(this);
 				
@@ -220,6 +223,7 @@ public class ControladorABMReservaEvento implements Initializable{
 				}
 				
 				primaryStage.setScene(new Scene(root));   
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				primaryStage.setTitle("Agregar Reserva Evento");
 				primaryStage.sizeToScene();
 				primaryStage.show(); 
@@ -408,4 +412,19 @@ public class ControladorABMReservaEvento implements Initializable{
 	public int getCliente() {
 		return this.clienteActual;
 	}
+	private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/aceptar.png");
+		URL linkModificar = getClass().getResource("/img/editar.png");
+		URL linkGenerar = getClass().getResource("/img/descarga.png");
+		
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+		Image imageDescarga = new Image(linkGenerar.toString(),24,24,false,true) ;
+		
+		this.btnAgregar.setGraphic(new ImageView(imageAgregar));
+		this.btnEditar.setGraphic(new ImageView(imageModificar));
+		this.btnTicket.setGraphic(new ImageView(imageDescarga));	
+	}
+
 }

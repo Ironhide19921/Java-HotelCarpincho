@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import modelo.SendHttp;
 
 public class ControladorDivisas implements Initializable {
@@ -17,6 +19,7 @@ public class ControladorDivisas implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
+			cargarIconos();
 			txtValorUsd.setText(SendHttp.getConversion("ARS", "USD").toString());
 			txtValorEur.setText(SendHttp.getConversion("ARS", "EUR").toString());
 		} catch (Exception e) {
@@ -31,4 +34,14 @@ public class ControladorDivisas implements Initializable {
 		txtValorEur.setText(SendHttp.getConversion("ARS", "EUR").toString());
 	}
 
+	private void cargarIconos() {
+		
+		
+		URL linkRefrescar = getClass().getResource("/img/aceptar.png");		
+		
+		Image imageAgregar = new Image(linkRefrescar.toString(),24,24,false,true) ;
+		
+		this.btnRefrescar.setGraphic(new ImageView(imageAgregar));
+		
+}
 }

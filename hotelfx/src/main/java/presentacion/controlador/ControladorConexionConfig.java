@@ -17,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Validador;
 import persistencia.conexion.Conexion;
@@ -30,6 +32,15 @@ public class ControladorConexionConfig {
 	
 	public void initialize(URL arg0, ResourceBundle arg1)  {
 		ControladorMenuPrincipal.ConexionStage.setOnCloseRequest(e->onClose());
+		cargarIconos();
+	}
+
+	private void cargarIconos() {
+	
+		URL linkConfirmar = getClass().getResource("/img/aceptar.png");		
+		Image imageAgregar = new Image(linkConfirmar.toString(),24,24,false,true) ;
+		this.btnConfirmar.setGraphic(new ImageView(imageAgregar));
+
 	}
 
 	@FXML

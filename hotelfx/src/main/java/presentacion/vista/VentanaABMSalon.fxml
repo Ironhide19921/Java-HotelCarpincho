@@ -28,9 +28,9 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="904.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregar" layoutX="54.0" layoutY="14.0" mnemonicParsing="false" onAction="#addSalon" prefHeight="30.0" prefWidth="150.0" text="Agregar salon" />
-                  <Button fx:id="btnHabilitaCliente" layoutX="608.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarSalon" prefHeight="30.0" prefWidth="183.0" text="Habilitar/Deshabilitar" />
-                  <Button fx:id="btnEditar" layoutX="232.0" layoutY="14.0" mnemonicParsing="false" onAction="#editSalon" prefHeight="30.0" prefWidth="150.0" text="Editar salon" />
+                  <Button fx:id="btnAgregar" layoutX="54.0" layoutY="14.0" mnemonicParsing="false" onAction="#addSalon" prefHeight="30.0" prefWidth="180.0" text="Agregar salon" />
+                  <Button fx:id="btnHabilitaCliente" layoutX="571.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarSalon" prefHeight="30.0" prefWidth="220.0" text="Habilitar/Deshabilitar" />
+                  <Button fx:id="btnEditar" layoutX="252.0" layoutY="14.0" mnemonicParsing="false" onAction="#editSalon" prefHeight="30.0" prefWidth="180.0" text="Editar salon" />
                </children>
             </Pane>
          </bottom>

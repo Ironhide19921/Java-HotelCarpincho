@@ -77,8 +77,8 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnImportar" layoutX="51.0" layoutY="14.0" mnemonicParsing="false" onAction="#importarCSV" prefHeight="30.0" prefWidth="150.0" text="Importar" />
-                  <Button fx:id="btnInsertar" layoutX="210.0" layoutY="14.0" mnemonicParsing="false" onAction="#insertarClientesyReservasNuevos" prefHeight="30.0" prefWidth="150.0" text="Insertar" />
+                  <Button fx:id="btnImportar" layoutX="51.0" layoutY="14.0" mnemonicParsing="false" onAction="#importarCSV" prefHeight="30.0" prefWidth="170.0" text="Importar" />
+                  <Button fx:id="btnInsertar" layoutX="233.0" layoutY="14.0" mnemonicParsing="false" onAction="#insertarClientesyReservasNuevos" prefHeight="30.0" prefWidth="169.0" text="Insertar" />
                </children>
             </Pane>
          </bottom>

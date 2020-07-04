@@ -14,38 +14,38 @@
    <children>
       <BorderPane prefHeight="452.0" prefWidth="600.0">
          <center>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="txtNombre" layoutX="196.0" layoutY="11.0" prefWidth="200.0" />
                   <TextField fx:id="txtApellido" layoutX="196.0" layoutY="54.0" prefWidth="200.0" />
                   <TextField fx:id="txtPassword" layoutX="196.0" layoutY="100.0" prefWidth="200.0" />
-                  <Label layoutX="4.0" layoutY="15.0" text="Nombre(*)" textFill="#f8f6f6">
+                  <Label layoutX="4.0" layoutY="15.0" text="Nombre(*)" textFill="#070000">
                      <font>
                         <Font name="Century Gothic" size="13.0" />
                      </font></Label>
-                  <Label layoutX="4.0" layoutY="58.0" text="Apellido(*)" textFill="#f8f6f6">
+                  <Label layoutX="4.0" layoutY="58.0" text="Apellido(*)" textFill="#070000">
                      <font>
                         <Font name="Century Gothic" size="13.0" />
                      </font></Label>
-                  <Label layoutX="4.0" layoutY="104.0" text="Password(*)" textFill="#f8f6f6">
+                  <Label layoutX="4.0" layoutY="104.0" text="Password(*)" textFill="#070000">
                      <font>
                         <Font name="Century Gothic" size="13.0" />
                      </font></Label>
-                  <Label layoutX="4.0" layoutY="151.0" text="Tipo documento(*)" textFill="#f8f6f6">
+                  <Label layoutX="4.0" layoutY="151.0" text="Tipo documento(*)" textFill="#070000">
                      <font>
                         <Font name="Century Gothic" size="13.0" />
                      </font></Label>
-                  <Label layoutX="4.0" layoutY="192.0" text="Numero documento(*)" textFill="#f8f6f6">
+                  <Label layoutX="4.0" layoutY="192.0" text="Numero documento(*)" textFill="#070000">
                      <font>
                         <Font name="Century Gothic" size="13.0" />
                      </font></Label>
                   <TextField fx:id="txtNumDocumento" layoutX="196.0" layoutY="188.0" prefWidth="200.0" />
                   <TextField fx:id="txtEmail" layoutX="196.0" layoutY="230.0" prefWidth="200.0" />
-                  <Label layoutX="3.0" layoutY="234.0" text="Email(*)" textFill="#f8f6f6">
+                  <Label layoutX="3.0" layoutY="234.0" text="Email(*)" textFill="#070000">
                      <font>
                         <Font name="Century Gothic" size="13.0" />
                      </font></Label>
-                  <Label layoutX="4.0" layoutY="283.0" text="Perfil(*)" textFill="#f8f6f6">
+                  <Label layoutX="4.0" layoutY="283.0" text="Perfil(*)" textFill="#070000">
                      <font>
                         <Font name="Century Gothic" size="13.0" />
                      </font></Label>
@@ -64,17 +64,17 @@
                </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="69.0" prefWidth="600.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnCerrar" layoutX="190.0" layoutY="20.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="100.0" text="Cerrar" />
-                  <Button fx:id="btnAgregarUsuario" layoutX="311.0" layoutY="20.0" mnemonicParsing="false" onAction="#guardarUsuario" prefHeight="30.0" prefWidth="100.0" text="Agregar" />
-                  <Button fx:id="btnModificarUsuario" layoutX="311.0" layoutY="20.0" mnemonicParsing="false" onAction="#modificarUsuario" prefHeight="30.0" prefWidth="100.0" text="Modificar" />
+                  <Button fx:id="btnCerrar" layoutX="148.0" layoutY="20.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="142.0" text="Cerrar" />
+                  <Button fx:id="btnAgregarUsuario" layoutX="311.0" layoutY="20.0" mnemonicParsing="false" onAction="#guardarUsuario" prefHeight="30.0" prefWidth="150.0" text="Agregar" />
+                  <Button fx:id="btnModificarUsuario" layoutX="311.0" layoutY="20.0" mnemonicParsing="false" onAction="#modificarUsuario" prefHeight="30.0" prefWidth="150.0" text="Modificar" />
                </children>
             </Pane>
          </bottom>

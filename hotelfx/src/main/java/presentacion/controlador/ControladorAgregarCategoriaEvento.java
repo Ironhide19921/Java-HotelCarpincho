@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.CategoriaEvento;
 import modelo.Validador;
@@ -28,6 +30,7 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
 		  
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	cargarIconos();
     	this.categoriaEvento = new CategoriaEvento(new DAOSQLFactory());
     }
     
@@ -86,7 +89,7 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
     
     @FXML
 	 private void cerrarVentana() {
-		Stage stage = (Stage) txtNombre.getScene().getWindow();
+		Stage stage = (Stage) btnCerrar.getScene().getWindow();
 		stage.close();
 	}
     
@@ -133,5 +136,20 @@ public class ControladorAgregarCategoriaEvento implements Initializable{
 	public void enviarControlador(ControladorABMCategoriaEvento controladorABMCategoriaEvento) {
 		// TODO Auto-generated method stub
 		this.controladorABMCategoriaEvento = controladorABMCategoriaEvento;
+	}
+	
+	private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/aceptar.png");
+		URL linkModificar = getClass().getResource("/img/editar.png");
+		URL linkCerrar = getClass().getResource("/img/cancelar.png");
+
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+		Image imageCerrar = new Image(linkCerrar.toString(),24,24,false,true) ;
+	
+		this.btnAgregarCategoriaEvento.setGraphic(new ImageView(imageAgregar));
+		this.btnEditarCategoriaEvento.setGraphic(new ImageView(imageModificar));
+		//this.btnCerrar.setGraphic(new ImageView(imageCerrar));		
 	}
 }

@@ -116,7 +116,7 @@
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <Button fx:id="btnAbrirDivisas" layoutX="884.0" minWidth="51.0" mnemonicParsing="false" onAction="#verDivisas" prefHeight="21.0" prefWidth="68.0" text="\$" />
+                  <Button fx:id="btnAbrirDivisas" layoutX="908.0" layoutY="-2.0" minWidth="42.0" mnemonicParsing="false" onAction="#verDivisas" prefHeight="14.0" prefWidth="42.0" text="\$" />
                   <Button fx:id="btnVerManual" accessibleHelp="Manual de usuario" layoutX="954.0" layoutY="-2.0" minWidth="32.0" mnemonicParsing="false" onAction="#verManual" prefHeight="25.0" prefWidth="32.0" text="?" />
                </children>
             </Pane>

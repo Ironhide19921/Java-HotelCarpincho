@@ -23,10 +23,10 @@
                </children></Pane>
          </top>
          <left>
-            <Pane prefHeight="598.0" prefWidth="102.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="598.0" prefWidth="102.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="460.0" prefWidth="89.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="460.0" prefWidth="89.0" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
             <Pane prefHeight="96.0" prefWidth="831.0" style="-fx-background-color: #3A3238;" BorderPane.alignment="CENTER">
@@ -38,40 +38,40 @@
             </Pane>
          </bottom>
          <center>
-            <Pane prefHeight="344.0" prefWidth="523.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="344.0" prefWidth="523.0" BorderPane.alignment="CENTER">
                <children>
 
-                  <Label layoutX="57.0" layoutY="34.0" prefHeight="25.0" prefWidth="87.0" text="Capacidad(*)" textFill="#dddcdc">
+                  <Label layoutX="57.0" layoutY="34.0" prefHeight="25.0" prefWidth="131.0" text="Capacidad(*)" textFill="#0d0101">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="14.0" />
                      </font></Label>
-                  <Label layoutX="57.0" layoutY="89.0" prefHeight="17.0" prefWidth="71.0" text="Monto(*)" textFill="#dddcdc">
+                  <Label layoutX="57.0" layoutY="89.0" prefHeight="17.0" prefWidth="71.0" text="Monto(*)" textFill="#0d0101">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="14.0" />
                      </font></Label>
-                  <Label layoutX="57.0" layoutY="138.0" prefHeight="17.0" prefWidth="96.0" text="Seña (%)*" textFill="#dddcdc">
+                  <Label layoutX="57.0" layoutY="138.0" prefHeight="17.0" prefWidth="96.0" text="Seña (%)*" textFill="#0d0101">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="14.0" />
                      </font></Label>
-                  <Label layoutX="57.0" layoutY="187.0" prefHeight="17.0" prefWidth="48.0" text="Piso(*)" textFill="#dddcdc">
+                  <Label layoutX="57.0" layoutY="187.0" prefHeight="17.0" prefWidth="48.0" text="Piso(*)" textFill="#0d0101">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="14.0" />
                      </font></Label>
-                  <Label layoutX="57.0" layoutY="236.0" text="Habitacion(*)" textFill="#dddcdc">
+                  <Label layoutX="57.0" layoutY="236.0" text="Habitacion(*)" textFill="#0d0101">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="14.0" />
                      </font></Label>
-                  <Label layoutX="57.0" layoutY="289.0" prefHeight="17.0" prefWidth="149.0" text="Categorias de cuarto(*)" textFill="#dddcdc">
+                  <Label layoutX="57.0" layoutY="289.0" prefHeight="18.0" prefWidth="197.0" text="Categorias de cuarto(*)" textFill="#0d0101">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Century Gothic" size="14.0" />
                      </font></Label>
 
-                  <TextField fx:id="txtCapacidad" layoutX="299.0" layoutY="38.0" prefWidth="150.0" />
-                  <TextField fx:id="txtMonto" layoutX="299.0" layoutY="89.0" prefWidth="150.0" />
-                  <TextField fx:id="txtMontoSenia" layoutX="299.0" layoutY="138.0" prefWidth="150.0" />
-                  <TextField fx:id="txtPiso" layoutX="299.0" layoutY="187.0" prefWidth="150.0" />
-                  <TextField fx:id="txtHabitacion" layoutX="299.0" layoutY="236.0" prefWidth="150.0" />
-                  <ComboBox fx:id="cmbBoxCatesCuarto" layoutX="299.0" layoutY="289.0" onAction="#cargarCmbCateCuarto" onMousePressed="#recargarCmbCategoriasCuarto" prefHeight="27.0" prefWidth="150.0" />
+                  <TextField fx:id="txtCapacidad" layoutX="249.0" layoutY="38.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtMonto" layoutX="249.0" layoutY="89.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtMontoSenia" layoutX="249.0" layoutY="138.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtPiso" layoutX="249.0" layoutY="187.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtHabitacion" layoutX="249.0" layoutY="236.0" prefHeight="25.0" prefWidth="200.0" />
+                  <ComboBox fx:id="cmbBoxCatesCuarto" layoutX="249.0" layoutY="289.0" onAction="#cargarCmbCateCuarto" onMousePressed="#recargarCmbCategoriasCuarto" prefHeight="27.0" prefWidth="200.0" />
             
                </children>
             </Pane>

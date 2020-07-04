@@ -26,6 +26,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modelo.Cliente;
@@ -76,6 +78,7 @@ public class ControladorABMOrdenPedido implements Initializable{
 		this.panelTotal.setVisible(false);
 		cargarColumnas();
 		refrescarTablaOrdenPedidos();
+		cargarIconos() ;
 	}
 
 	private void cargarColumnas() {
@@ -290,7 +293,22 @@ public class ControladorABMOrdenPedido implements Initializable{
 		// TODO Auto-generated method stub
 		this.controladorAgregarReservaCuarto1 = controladorAgregarReservaCuarto1;
 	}
+	
+private void cargarIconos() {
 		
+		URL linkAgregar = getClass().getResource("/img/aceptar.png");
+		URL linkEliminar = getClass().getResource("/img/cancelar.png");
+		URL linkGenerar = getClass().getResource("/img/descarga.png");
+		
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageEliminar = new Image(linkEliminar.toString(),24,24,false,true) ;
+		Image imageGenerar = new Image(linkGenerar.toString(),24,24,false,true) ;
+
+		this.btnAgregarPedido.setGraphic(new ImageView(imageAgregar));
+		this.btnEliminarPedido.setGraphic(new ImageView(imageEliminar));
+		this.btnGenerarTicket.setGraphic(new ImageView(imageGenerar));	
+		
+	}
 
 	
 

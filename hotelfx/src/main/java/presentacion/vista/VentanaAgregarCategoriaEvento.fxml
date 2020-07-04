@@ -12,14 +12,14 @@
    <children>
       <BorderPane prefHeight="277.0" prefWidth="525.0">
          <center>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #69747C;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label contentDisplay="RIGHT" layoutX="116.0" layoutY="25.0" prefHeight="18.0" prefWidth="83.0" text="Nombre(*)" textFill="#fffefe">
+                  <Label contentDisplay="RIGHT" layoutX="116.0" layoutY="25.0" prefHeight="18.0" prefWidth="83.0" text="Nombre(*)" textFill="#0d0101">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-                  <Label contentDisplay="RIGHT" layoutX="116.0" layoutY="79.0" prefHeight="18.0" prefWidth="84.0" text="Detalle(*)  " textFill="#fffefe">
+                  <Label contentDisplay="RIGHT" layoutX="116.0" layoutY="79.0" prefHeight="18.0" prefWidth="84.0" text="Detalle(*)  " textFill="#0d0101">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>

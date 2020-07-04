@@ -23,6 +23,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import modelo.Validador;
@@ -41,6 +43,7 @@ public class ControladorBackup implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		cargarIconos();
 		Conexion.getConexion();
 		
 		if(ControladorLogin.permisosPorId.contains(21)) {
@@ -137,6 +140,23 @@ public class ControladorBackup implements Initializable{
 			
 			return fecha;
 			
+	}
+	
+	private void cargarIconos() {
+		
+		URL linkSeleccionar = getClass().getResource("/img/seleccionar.png");
+		URL linkBack = getClass().getResource("/img/database.png");	
+		URL linkRestore = getClass().getResource("/img/descarga.png");		
+
+		Image imageSeleccionar = new Image(linkSeleccionar.toString(),24,24,false,true) ;
+		Image imageBack = new Image(linkBack.toString(),24,24,false,true) ;
+		Image imageRestore = new Image(linkRestore.toString(),24,24,false,true) ;
+	
+		
+		
+		this.btnSeleccionar.setGraphic(new ImageView(imageSeleccionar));
+		this.btnBackup.setGraphic(new ImageView(imageBack));
+		this.btnRestore.setGraphic(new ImageView(imageRestore));
 	}
 
 }

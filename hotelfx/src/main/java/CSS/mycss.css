@@ -1,7 +1,7 @@
 .table-view .column-header,
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
-    -fx-background-color: #414288;
+    -fx-background-color: #57737A;
    	-fx-font-family: 'Century Gothic';
 	-fx-font-size: 13px;
     
@@ -92,3 +92,10 @@
 	-fx-text-fill: white;
 }
 
+/* .img {   
+	-fx-border: 1px solid #ddd;   
+	-fx-border-radius: 4px;   
+	-fx-padding: 5px;  
+	-fx-width: 150px;
+}  
+*/

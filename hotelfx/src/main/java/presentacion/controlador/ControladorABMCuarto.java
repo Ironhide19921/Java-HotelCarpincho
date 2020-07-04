@@ -26,6 +26,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Cuarto;
 import modelo.Validador;
@@ -68,7 +70,7 @@ public class ControladorABMCuarto implements Initializable
 		tablaCuartos.getItems().clear();
 		cargarColumnas();
 		refrescarTabla();
-		
+		cargarIconos();
 	}
 	
 	private void cargarColumnas() {
@@ -236,4 +238,22 @@ public class ControladorABMCuarto implements Initializable
 		this.controlador = controladorAgregarReservaCuarto1;
 	}		
 	
+	private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/aceptar.png");
+		URL linkModificar = getClass().getResource("/img/editar.png");
+		URL linkHabilitar = getClass().getResource("/img/habilitar.png");
+		URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+		
+		
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+		Image imageHabilitar = new Image(linkHabilitar.toString(),24,24,false,true) ;
+		Image imageBuscar = new Image(linkBuscar.toString(),24,24,false,true) ;
+		
+		this.btnAgregarCuarto.setGraphic(new ImageView(imageAgregar));
+		this.btnEditar.setGraphic(new ImageView(imageModificar));
+		this.btnHabilitarCuarto.setGraphic(new ImageView(imageHabilitar));	
+		this.btnBuscar.setGraphic(new ImageView(imageBuscar));
+	}
 }

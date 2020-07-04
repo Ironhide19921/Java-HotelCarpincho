@@ -34,6 +34,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -129,6 +131,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		cargarIconos();
 		primaryStage = new Stage(); 
 		fxml = new FxmlLoader();
 		inicializarElementos();
@@ -1123,5 +1126,27 @@ private CuartoDTO devolverCuarto(Integer id) {
 	}
 
 
+	private void cargarIconos() {
+		
+		
+		URL linkEditar = getClass().getResource("/img/editar.png");
+		URL linkConfirmar = getClass().getResource("/img/aceptar.png");
+		URL linkCerrar = getClass().getResource("/img/cancelar.png");
+		URL linkGenerar = getClass().getResource("/img/seleccionar.png");
+		
+		
 
+		Image imageAgregar = new Image(linkConfirmar.toString(),24,24,false,true) ;
+		Image imageEliminar = new Image(linkEditar.toString(),24,24,false,true) ;
+		Image imageCerrar = new Image(linkCerrar.toString(),24,24,false,true) ;
+		Image imageGenerar = new Image(linkGenerar.toString(),24,24,false,true) ;
+	
+
+		this.btnAgregar.setGraphic(new ImageView(imageAgregar));
+		this.btnModificar.setGraphic(new ImageView(imageEliminar));
+		this.btnCerrar.setGraphic(new ImageView(imageCerrar));
+		this.btnGenerarTicket.setGraphic(new ImageView(imageGenerar));
+		
+		
+	}
 }

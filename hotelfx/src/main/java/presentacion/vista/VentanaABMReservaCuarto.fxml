@@ -40,10 +40,10 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="840.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarReserva" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#addReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Agregar Reserva" />
-                  <Button fx:id="btnModificarReserva" layoutX="205.0" layoutY="14.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Modificar Reserva" />
-                  <Button fx:id="btnConsultarReserva" layoutX="361.0" layoutY="14.0" mnemonicParsing="false" onAction="#consultarReservaCuarto" prefHeight="30.0" prefWidth="150.0" text="Finalizar Reserva" />
-                  <Button fx:id="btnHabDesReserva" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarDeshabilitarReserva" prefHeight="30.0" prefWidth="150.0" text="Habilitar/Deshabilitar" />
+                  <Button fx:id="btnAgregarReserva" layoutX="46.0" layoutY="14.0" mnemonicParsing="false" onAction="#addReservaCuarto" prefHeight="30.0" prefWidth="175.0" text="Agregar Reserva" />
+                  <Button fx:id="btnModificarReserva" layoutX="228.0" layoutY="14.0" mnemonicParsing="false" onAction="#modificarReservaCuarto" prefHeight="30.0" prefWidth="175.0" text="Modificar Reserva" />
+                  <Button fx:id="btnConsultarReserva" layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#consultarReservaCuarto" prefHeight="30.0" prefWidth="175.0" text="Finalizar Reserva" />
+                  <Button fx:id="btnHabDesReserva" layoutX="633.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarDeshabilitarReserva" prefHeight="30.0" prefWidth="180.0" text="Habilitar/Deshabilitar" />
                </children>
             </Pane>
          </bottom>

@@ -19,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.CategoriaCuarto;
 import modelo.Cuarto;
@@ -47,6 +49,7 @@ public class ControladorAgregarCuarto implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		cargarIconos();
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		this.categorias = new CategoriaCuarto(new DAOSQLFactory());
 		this.listaCategoriasCuarto = FXCollections.observableList(cargarCmbCateCuarto());
@@ -255,5 +258,23 @@ public class ControladorAgregarCuarto implements Initializable {
 		this.controladorABMCuarto = controladorABMCuarto;
 	}
 	
-	
+	private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/aceptar.png");
+		URL linkModificar = getClass().getResource("/img/editar.png");
+		URL linkCerrar = getClass().getResource("/img/cancelar.png");
+		URL linkCateCuarto = getClass().getResource("/img/categoriaCuarto.png");
+		
+
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;
+		Image imageCerrar = new Image(linkCerrar.toString(),24,24,false,true) ;
+		Image imageCateCuarto = new Image(linkCateCuarto.toString(),24,24,false,true) ;
+
+		this.btnConfirmarCuarto.setGraphic(new ImageView(imageAgregar));
+		this.btnEditarCuarto.setGraphic(new ImageView(imageModificar));
+	//	this.btnCerrar.setGraphic(new ImageView(imageCerrar));	
+		this.btnIrACateCuarto.setGraphic(new ImageView(imageCateCuarto));	
+	//	this.btnCerrarReserva.setGraphic(new ImageView(imageCerrar));	
+	}
 }

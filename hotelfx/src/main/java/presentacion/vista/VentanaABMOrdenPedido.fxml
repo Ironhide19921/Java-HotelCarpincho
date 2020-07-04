@@ -57,8 +57,8 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarPedido" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" prefHeight="30.0" prefWidth="140.0" text="Agregar pedido" />
-                  <Button fx:id="btnGenerarTicket" layoutX="648.0" layoutY="16.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" prefHeight="30.0" prefWidth="140.0" text="Generar Ticket" />
+                  <Button fx:id="btnAgregarPedido" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#agregarOrdenPedido" prefHeight="30.0" prefWidth="170.0" text="Agregar pedido" />
+                  <Button fx:id="btnGenerarTicket" layoutX="631.0" layoutY="16.0" mnemonicParsing="false" onAction="#generarYEnviarTicket" prefHeight="30.0" prefWidth="165.0" text="Generar Ticket" />
                   <Pane fx:id="panelTotal" layoutX="426.0" layoutY="14.0" prefHeight="33.0" prefWidth="233.0">
                      <children>
                      <!--<Label fx:id="totalLabel1" layoutY="6.0" prefHeight="17.0" prefWidth="40.0" text="Total" /> -->   
@@ -73,7 +73,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Button fx:id="btnEliminarPedido" layoutX="215.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" prefHeight="30.0" prefWidth="140.0" text="Eliminar pedido" />
+                  <Button fx:id="btnEliminarPedido" layoutX="230.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarOrdenPedido" prefHeight="30.0" prefWidth="169.0" text="Eliminar pedido" />
                </children>
             </Pane>
          </bottom>

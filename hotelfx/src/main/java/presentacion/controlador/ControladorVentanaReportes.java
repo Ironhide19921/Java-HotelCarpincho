@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import modelo.Cuarto;
 import modelo.ErrorImportar;
 import modelo.Validador;
@@ -36,6 +38,7 @@ public class ControladorVentanaReportes implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		this.cuarto = new Cuarto(new DAOSQLFactory());
 		listaButtons = new ArrayList<Button>();
 		listaButtons.add(btnOcupacion);
@@ -52,7 +55,7 @@ public class ControladorVentanaReportes implements Initializable{
 			if(ControladorLogin.permisosPorId.contains(i))
 				this.listaButtons.get(i-16).setDisable(false);
 		}
-		
+		cargarIconos();
 	}
 	
 	@FXML
@@ -129,7 +132,31 @@ public class ControladorVentanaReportes implements Initializable{
 		this.fechaHasta = fechaHasta;
 	}
 	
-	
-	
+
+	 private void cargarIconos() {
+			
+			URL linkOcupacion = getClass().getResource("/img/reporteOcupacion.jpg");
+			URL linkContable = getClass().getResource("/img/reporteContable.png");
+			URL linkReservas = getClass().getResource("/img/reporte.png");
+			URL linkErrores = getClass().getResource("/img/reporteErrores.png");
+			URL linkEncuestas = getClass().getResource("/img/reporteEncuesta.jpg");
+			URL linkGenerar = getClass().getResource("/img/descarga.png");
+			
+			Image imageOcupacion = new Image(linkOcupacion.toString(),24,24,false,true) ;
+			Image imageContable = new Image(linkContable.toString(),24,24,false,true) ;
+			Image imageReservas = new Image(linkReservas.toString(),24,24,false,true) ;
+			Image imageErrores = new Image(linkErrores.toString(),24,24,false,true) ;
+			Image imageEncuestas = new Image(linkEncuestas.toString(),24,24,false,true) ;
+			Image imageGenerar = new Image(linkGenerar.toString(),24,24,false,true) ;
+		
+			this.btnOcupacion.setGraphic(new ImageView(imageOcupacion));
+			this.btnContable.setGraphic(new ImageView(imageContable));
+			this.btnReservas.setGraphic(new ImageView(imageReservas));
+			this.btnErrores.setGraphic(new ImageView(imageErrores));
+			this.btnEncuestas.setGraphic(new ImageView(imageEncuestas));
+			this.btnGenerarReporte.setGraphic(new ImageView(imageGenerar));
+			//this.btnReporte.setGraphic(new ImageView(imageSeleccionar));
+			
+		}
 
 }

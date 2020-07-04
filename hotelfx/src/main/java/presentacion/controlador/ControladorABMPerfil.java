@@ -20,6 +20,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -30,6 +32,7 @@ public class ControladorABMPerfil implements Initializable {
 	
 	@FXML private Button btnCrearPerfil;
 	@FXML private Button btnEliminarPerfil;
+	@FXML private Button btnConfirmarPermisos;
 	@FXML private TextField txtNombre;
 	
 	@FXML private CheckBox checkABMUsuarios;
@@ -71,6 +74,7 @@ public class ControladorABMPerfil implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		cargarIconos();
 		this.alert = new Alert(AlertType.INFORMATION);
 		this.perfil = new Perfil(new DAOSQLFactory());
 		this.permisoPerfil = new PermisoPerfil(new DAOSQLFactory());
@@ -241,5 +245,26 @@ public class ControladorABMPerfil implements Initializable {
 
 		alert.showAndWait();
 	}
+	
+	private void cargarIconos() {
+		
+		URL linkAgregar = getClass().getResource("/img/sumar.png");
+		URL linkEliminar = getClass().getResource("/img/eliminar.jpg");
+		URL linkAceptar = getClass().getResource("/img/aceptar.png");
+		URL linkQuitar = getClass().getResource("/img/resar.jpg");
+		
+		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
+		Image imageEliminar = new Image(linkEliminar.toString(),24,24,false,true) ;
+		Image imageAceptar = new Image(linkAceptar.toString(),24,24,false,true) ;
+		Image imageQuitar = new Image(linkQuitar.toString(),24,24,false,true) ;
+		
+		this.btnAgregarTodos.setGraphic(new ImageView(imageAgregar));
+		this.btnQuitarTodos.setGraphic(new ImageView(imageQuitar));
+		this.btnEliminarPerfil.setGraphic(new ImageView(imageEliminar));
+		this.btnCrearPerfil.setGraphic(new ImageView(imageAceptar));
+		this.btnConfirmarPermisos.setGraphic(new ImageView(imageAceptar));
+		
+	}
+	
 	
 }

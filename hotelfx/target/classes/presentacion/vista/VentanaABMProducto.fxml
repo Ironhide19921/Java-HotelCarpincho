@@ -32,9 +32,9 @@
          <bottom>
             <Pane prefHeight="100.0" prefWidth="789.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregarProd" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-pant-interna" text="Agregar producto" />
-                  <Button fx:id="btnEditarProd" layoutX="218.0" layoutY="14.0" mnemonicParsing="false" onAction="#editarProducto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-pant-interna" text="Editar producto" />
-                  <Button fx:id="btnBorrarProd" layoutX="387.0" layoutY="14.0" mnemonicParsing="false" onAction="#borrarProducto" prefHeight="30.0" prefWidth="150.0" styleClass="btn-pant-interna" text="Borrar producto" />
+                  <Button fx:id="btnAgregarProd" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="30.0" prefWidth="180.0" styleClass="btn-pant-interna" text="Agregar producto" />
+                  <Button fx:id="btnEditarProd" layoutX="240.0" layoutY="14.0" mnemonicParsing="false" onAction="#editarProducto" prefHeight="30.0" prefWidth="180.0" styleClass="btn-pant-interna" text="Editar producto" />
+                  <Button fx:id="btnBorrarProd" layoutX="429.0" layoutY="14.0" mnemonicParsing="false" onAction="#borrarProducto" prefHeight="30.0" prefWidth="180.0" styleClass="btn-pant-interna" text="Borrar producto" />
                </children></Pane>
          </bottom>
          <right>

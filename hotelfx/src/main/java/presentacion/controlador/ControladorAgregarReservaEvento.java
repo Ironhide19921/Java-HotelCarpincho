@@ -42,6 +42,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -116,6 +118,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		if(this.idCliente != 0) {
 			
 			this.cliente = new Cliente(new DAOSQLFactory());
@@ -140,6 +143,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			this.comboHoraInicio.setItems(listaHoraInicio);
 			this.listaEstados = FXCollections.observableList(cargarComboEstados());
 			this.comboEstados.setItems(listaEstados);
+		
 			
 			if(this.idCliente != -1) {
 				this.clienteActual = this.cliente.getClientePorId(idCliente);
@@ -147,6 +151,7 @@ public class ControladorAgregarReservaEvento implements Initializable{
 			}
 			
 			this.alert = new Alert(AlertType.INFORMATION);
+			cargarIconos();
 		}
 			
 	}
@@ -820,4 +825,17 @@ public class ControladorAgregarReservaEvento implements Initializable{
 		this.controladorABMReservaEvento = controladorABMReservaEvento;
 	}
 	
+
+	private void cargarIconos() {	
+		
+		URL linkConfirmar = getClass().getResource("/img/aceptar.png");		
+		URL linkEditar = getClass().getResource("/img/editar.png");
+		
+		Image imageAgregar = new Image(linkConfirmar.toString(),24,24,false,true) ;
+		Image imageEliminar = new Image(linkEditar.toString(),24,24,false,true) ;
+	
+		this.btnAgregar.setGraphic(new ImageView(imageAgregar));
+		this.btnModificar.setGraphic(new ImageView(imageEliminar));
+	}
+
 }

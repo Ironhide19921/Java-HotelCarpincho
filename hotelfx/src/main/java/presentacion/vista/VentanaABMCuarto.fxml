@@ -63,10 +63,10 @@
             <Pane prefHeight="100.0" prefWidth="844.0" BorderPane.alignment="CENTER">
            
                <children>
-                  <Button fx:id="btnAgregarCuarto" layoutX="51.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCuarto" prefHeight="30.0" prefWidth="150.0" text="Agregar cuarto" />
-                  <Button fx:id="btnEditar" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" onAction="#editCuarto" prefHeight="30.0" prefWidth="150.0" text="Editar cuarto" />
-                  <Button fx:id="btnHabilitarCuarto" layoutX="213.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarCuartos" prefHeight="30.0" prefWidth="150.0" text="Habilitar/Deshabilitar" />
-                  <Button fx:id="btnSeleccionarCuarto" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#seleccionarCuarto" prefHeight="30.0" prefWidth="150.0" text="Seleccionar Cuarto" />
+                  <Button fx:id="btnAgregarCuarto" layoutX="51.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCuarto" prefHeight="30.0" prefWidth="170.0" text="Agregar cuarto" />
+                  <Button fx:id="btnEditar" layoutX="412.0" layoutY="14.0" mnemonicParsing="false" onAction="#editCuarto" prefHeight="30.0" prefWidth="170.0" text="Editar cuarto" />
+                  <Button fx:id="btnHabilitarCuarto" layoutX="231.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarCuartos" prefHeight="30.0" prefWidth="170.0" text="Habilitar/Deshabilitar" />
+                  <Button fx:id="btnSeleccionarCuarto" layoutX="639.0" layoutY="14.0" mnemonicParsing="false" onAction="#seleccionarCuarto" prefHeight="30.0" prefWidth="177.0" text="Seleccionar Cuarto" />
                </children>
             </Pane>
          
