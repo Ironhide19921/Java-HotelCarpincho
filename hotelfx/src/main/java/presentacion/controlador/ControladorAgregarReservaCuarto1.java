@@ -426,7 +426,11 @@ public void cerrarVentana() {
 		primaryStage = (Stage) this.btnModificar.getScene().getWindow();
 		primaryStage.close();
 }
-
+@FXML
+public void cerrar() {
+	primaryStage = (Stage) this.btnCerrar.getScene().getWindow();
+	primaryStage.close();
+}
 @FXML 
 public void consultarCuarto() {
 	 try { 
