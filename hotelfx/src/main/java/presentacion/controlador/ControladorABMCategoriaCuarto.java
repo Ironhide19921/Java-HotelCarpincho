@@ -69,8 +69,10 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCategoriaCuarto.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
-		
-				primaryStage.setScene(new Scene(root));   
+				
+				primaryStage.setScene(new Scene(root));  
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarCategoriaCuarto scene2Controller = fxmlLoader.getController();
 				scene2Controller.enviarControlador(this);
@@ -102,7 +104,9 @@ public class ControladorABMCategoriaCuarto implements Initializable {
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 			
-				primaryStage.setScene(new Scene(root));   
+				primaryStage.setScene(new Scene(root));
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarCategoriaCuarto scene2Controller = fxmlLoader.getController();
 				scene2Controller.setVisibilityBtnAgregarCategoriaCuarto(false);

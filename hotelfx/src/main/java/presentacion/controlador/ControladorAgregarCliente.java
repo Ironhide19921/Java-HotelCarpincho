@@ -137,6 +137,8 @@ public class ControladorAgregarCliente implements Initializable {
 					Parent root = (Parent) fxmlLoader.load();
 			
 					primaryStage.setScene(new Scene(root)); 
+					Image ico = new Image("/img/hotel2.png");
+					primaryStage.getIcons().add(ico);
 					primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 					//tomo el controlador
 					ControladorAgregarReservaCuarto1 scene2Controller = fxmlLoader.getController();

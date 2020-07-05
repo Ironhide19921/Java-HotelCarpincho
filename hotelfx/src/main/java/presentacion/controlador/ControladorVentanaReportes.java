@@ -135,11 +135,11 @@ public class ControladorVentanaReportes implements Initializable{
 
 	 private void cargarIconos() {
 			
-			URL linkOcupacion = getClass().getResource("/img/reporteOcupacion.jpg");
+			URL linkOcupacion = getClass().getResource("/img/reporteOcupacion.png");
 			URL linkContable = getClass().getResource("/img/reporteContable.png");
 			URL linkReservas = getClass().getResource("/img/reporte.png");
 			URL linkErrores = getClass().getResource("/img/reporteErrores.png");
-			URL linkEncuestas = getClass().getResource("/img/reporteEncuesta.jpg");
+			URL linkEncuestas = getClass().getResource("/img/reporteEncuesta.png");
 			URL linkGenerar = getClass().getResource("/img/descarga.png");
 			
 			Image imageOcupacion = new Image(linkOcupacion.toString(),24,24,false,true) ;

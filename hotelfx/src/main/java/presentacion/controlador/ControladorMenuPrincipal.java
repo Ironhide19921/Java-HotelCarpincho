@@ -415,6 +415,8 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			loginStage.setScene(new Scene(root));
+			Image ico = new Image("/img/login.png");
+			loginStage.getIcons().add(ico);
 			loginStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			loginStage.setTitle("Pantalla de Login");
 			loginStage.sizeToScene();
@@ -435,7 +437,8 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 
 			ConexionStage.setScene(new Scene(root));
 			ConexionStage.getScene().getStylesheets().add("/CSS/mycss.css");
-
+			Image ico = new Image("/img/hotel2.png");
+			ConexionStage.getIcons().add(ico);
 			ConexionStage.setTitle("Configuracion de conexion");
 			ConexionStage.sizeToScene();
 
@@ -508,7 +511,7 @@ public class ControladorMenuPrincipal extends Thread implements Initializable  {
 		URL linkCategoriaCuarto = getClass().getResource("/img/categoriaCuarto.png");
 		URL linkCategoriaEvento = getClass().getResource("/img/categoriaEvento.png");
 		URL linkSalones = getClass().getResource("/img/salon.png");
-		URL linkConfig = getClass().getResource("/img/email.jpg");
+		URL linkConfig = getClass().getResource("/img/email.png");
 		URL linkBase = getClass().getResource("/img/database.png");
 		URL linkReporte = getClass().getResource("/img/reporte.png");
 		

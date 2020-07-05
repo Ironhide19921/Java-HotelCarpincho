@@ -165,7 +165,9 @@ public class ControladorAgregarCuarto implements Initializable {
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaABMCategoriaCuarto.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));   
+			primaryStage.setScene(new Scene(root)); 
+			Image ico = new Image("/img/hotel2.png");
+			primaryStage.getIcons().add(ico);
 			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			primaryStage.sizeToScene();
 			primaryStage.show(); 

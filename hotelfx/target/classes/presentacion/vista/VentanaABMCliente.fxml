@@ -65,9 +65,9 @@ xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"-->
                   <Button fx:id="btnHabilitaCliente" layoutX="231.0" layoutY="14.0" mnemonicParsing="false" onAction="#habilitarCliente" prefHeight="30.0" prefWidth="170.0" text="Habilitar/Deshabilitar" />
                   <Button fx:id="btnAddCliente" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#addCliente" prefHeight="30.0" prefWidth="170.0" text="Agregar Cliente" />
                   <Button fx:id="btnEditarCliente" layoutX="49.0" layoutY="51.0" mnemonicParsing="false" onAction="#editarCliente" prefHeight="30.0" prefWidth="170.0" text="Editar Cliente" />
-                  <Button fx:id="btnVerReservaCuarto" layoutX="613.0" layoutY="51.0" mnemonicParsing="false" onAction="#verReservasCuarto" prefHeight="30.0" prefWidth="176.0" text="Ver Reservas de cuartos" />
+                  <Button fx:id="btnVerReservaCuarto" layoutX="613.0" layoutY="51.0" mnemonicParsing="false" onAction="#verReservasCuarto" prefHeight="30.0" prefWidth="176.0" text="Ver cuartos" />
                   <Button fx:id="btnVerEncuesta" layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#verEncuesta" prefHeight="30.0" prefWidth="170.0" text="Ver Encuesta" />
-                  <Button fx:id="btnVerReservasEvento" layoutX="614.0" layoutY="14.0" mnemonicParsing="false" onAction="#verReservasEvento" prefHeight="30.0" prefWidth="175.0" text="Ver reservas de evento" />
+                  <Button fx:id="btnVerReservasEvento" layoutX="614.0" layoutY="14.0" mnemonicParsing="false" onAction="#verReservasEvento" prefHeight="30.0" prefWidth="175.0" text="Ver eventos" />
 
                </children>
             </Pane>

@@ -75,6 +75,8 @@ public class ControladorABMUsuarios implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarUsuario scene2Controller = fxmlLoader.getController();
 				scene2Controller.enviarControlador(this);
@@ -105,6 +107,8 @@ public class ControladorABMUsuarios implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
 				primaryStage.setScene(new Scene(root));   
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarUsuario scene2Controller = fxmlLoader.getController();
 				scene2Controller.enviarControlador(this);
@@ -169,9 +173,18 @@ public class ControladorABMUsuarios implements Initializable{
 		 	return;
 		 }
 		 UsuarioDTO usuarioSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
-		 usuarioSeleccionado.setEstado(true);
-		 this.usuarios.modificarUsuario(usuarioSeleccionado);
-		 refrescarTabla();
+		 if(usuarioSeleccionado.getEstado() == true) {
+			 usuarioSeleccionado.setEstado(false);
+			 this.usuarios.modificarUsuario(usuarioSeleccionado);
+			 refrescarTabla();
+			 return;
+		 }
+		 else {
+			 usuarioSeleccionado.setEstado(true);
+			 this.usuarios.modificarUsuario(usuarioSeleccionado);
+			 refrescarTabla();
+			 return;
+		 }
 	 }
 	 
 	 
@@ -191,7 +204,7 @@ public class ControladorABMUsuarios implements Initializable{
 			
 			URL linkAgregar = getClass().getResource("/img/aceptar.png");
 			URL linkModificar = getClass().getResource("/img/editar.png");
-			URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+			URL linkBuscar = getClass().getResource("/img/buscar.png");
 			URL linkHabilitar = getClass().getResource("/img/habilitar.png");
 
 			

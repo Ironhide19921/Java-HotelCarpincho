@@ -222,7 +222,9 @@ public class ControladorABMReservaEvento implements Initializable{
 					scene2Controller.initData(clienteActual);	
 				}
 				
-				primaryStage.setScene(new Scene(root));   
+				primaryStage.setScene(new Scene(root));
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				primaryStage.setTitle("Agregar Reserva Evento");
 				primaryStage.sizeToScene();
@@ -244,6 +246,8 @@ public class ControladorABMReservaEvento implements Initializable{
 				
 			 	   FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				   Parent root = (Parent) fxmlLoader.load();
+				   Image ico = new Image("/img/hotel2.png");
+					primaryStage.getIcons().add(ico);
 					primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				   ControladorAgregarReservaEvento scene2Controller = fxmlLoader.<ControladorAgregarReservaEvento>getController();
 				scene2Controller.enviarControlador(this);

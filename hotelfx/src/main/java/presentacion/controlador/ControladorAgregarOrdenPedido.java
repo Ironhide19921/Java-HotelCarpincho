@@ -573,7 +573,7 @@ public class ControladorAgregarOrdenPedido implements Initializable{
 	private void cargarIconos() {
 		
 		URL linkAgregar = getClass().getResource("/img/sumar.png");
-		URL linkEliminar = getClass().getResource("/img/eliminar.jpg");
+		URL linkEliminar = getClass().getResource("/img/eliminar.png");
 		URL linkConfirmarPedido = getClass().getResource("/img/aceptar.png");
 		URL linkGenerar = getClass().getResource("/img/descarga.png");
 
