@@ -300,18 +300,18 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 			boolean estado = true;	
 			int idCliente = Integer.parseInt(cliente.getText());
 			int idCuarto = Integer.parseInt(cuarto.getText());
-			int idUsuario = Integer.parseInt(usuario.getText());
+			int idUsuario = Integer.parseInt(usuario.getText());	
 			
 			if(idCliente == 0 || idCuarto == 0 || idUsuario == 0) {
 				return null;
 			}
+			
 			//obtengo la reserva con validaciones
 			ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario,new BigDecimal(this.montoSenia.getText()), montoReservaCuarto,
 					emailFacturacion, numeroTarjeta, formaPago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
 					fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
 			//adicionales a los datos preexistentes de reserva
-			reserva.setCantidadDias(this.cantidadHoras.getText());
-			//reserva.setMontoSenia(new BigDecimal(tChis.montoSenia.getText()));
+			reserva.setCantidadDias(this.cantHoras.toString());
 			reserva.setMontoReservaCuarto(new BigDecimal(this.montoCompleto.getText()));
 			return reserva;	
 		}
@@ -802,8 +802,17 @@ public void verMontoTotalySenia() {
 			BigDecimal montoSenia = montoFinalDescuento.multiply(BigDecimal.valueOf(senia).divide(BigDecimal.valueOf(100)));
 			this.montoSenia.setText(String.valueOf(montoSenia));	
 			this.montoCompleto.setText(String.valueOf(montoFinalDescuento));
+			
 			//colocarle los dias
-			this.cantidadHoras.setText(String.valueOf(cantHoras));
+			LocalDate localInicioIngreso =  this.fechaIngreso.getValue();
+			LocalDate localInicioEgreso =  this.fechaEgreso.getValue();
+			Timestamp fechaIngreso = Timestamp.valueOf(localInicioIngreso.atTime(LocalTime.of(cmbBoxHoraIngreso.getSelectionModel().getSelectedItem(),0,0)));
+			Timestamp fechaEgreso = Timestamp.valueOf(localInicioEgreso.atTime(LocalTime.of(cmbBoxHoraEgreso.getSelectionModel().getSelectedItem()+1,0,0)));
+			Date fechaIni = new Date(fechaIngreso.getTime()) ;
+			Date fechaFin = new Date(fechaEgreso.getTime());
+			int cantidadDias = EmailDTO.compararFechas(fechaIni,fechaFin);
+		
+			this.cantidadHoras.setText(cantidadDias+"");
 		}
 		
 	}		
