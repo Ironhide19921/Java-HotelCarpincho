@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
@@ -52,6 +53,8 @@ public Scene getScene(String fileName) {
 	}
 
 	public void mostrarStage(Stage primaryStage, String titulo) {
+		Image ico = new Image("/img/hotel2.png");
+		primaryStage.getIcons().add(ico);
 		primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 		primaryStage.setTitle(titulo);
 		primaryStage.sizeToScene();

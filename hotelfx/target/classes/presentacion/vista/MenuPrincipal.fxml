@@ -148,7 +148,7 @@
 
                   <Pane fx:id="center" layoutX="-294.0" layoutY="-91.0" prefHeight="200.0" prefWidth="200.0" />
               <Button fx:id="btnAbrirABMProductos" alignment="BASELINE_LEFT" disable="true" layoutY="373.0" mnemonicParsing="false" onAction="#verABMProductos" prefHeight="30.0" prefWidth="150.0" styleClass="btn-menu" text="Productos" />
-                  <Label alignment="BASELINE_RIGHT" layoutX="57.0" layoutY="24.0" prefHeight="18.0" prefWidth="48.0" text="Menu" textFill="#e8e2e2">
+                  <Label alignment="BASELINE_RIGHT" layoutX="68.0" layoutY="24.0" prefHeight="18.0" prefWidth="48.0" text="Menu" textFill="#e8e2e2">
                      <font>
                         <Font name="Century Gothic" size="15.0" />
                      </font>
@@ -168,9 +168,9 @@
                   <Line endX="49.0" layoutX="100.0" layoutY="129.0" startX="-100.0" stroke="#b64b7f" />
                   <Line endX="49.0" layoutX="100.0" layoutY="99.0" startX="-100.0" stroke="#b64b7f" />
                   <Line endX="49.0" layoutX="100.0" layoutY="70.0" startX="-100.0" stroke="#b64b7f" />
-                  <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="19.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="27.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/hotelIcono.jpg" />
+                        <Image url="@../../img/hotelIcono.png" />
                      </image>
                   </ImageView>
               

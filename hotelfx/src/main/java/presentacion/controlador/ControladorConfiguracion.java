@@ -56,7 +56,7 @@ public class ControladorConfiguracion implements Initializable{
 	
 			
 			URL linkConfirmar = getClass().getResource("/img/aceptar.png");		
-			URL linkTest = getClass().getResource("/img/buscar.jpg");	
+			URL linkTest = getClass().getResource("/img/buscar.png");	
 			
 			Image imageAgregar = new Image(linkConfirmar.toString(),24,24,false,true) ;
 			Image imageTest = new Image(linkTest.toString(),24,24,false,true) ;

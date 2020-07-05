@@ -93,6 +93,8 @@ public class ControladorABMProducto implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			AgregarProductoStage.setScene(new Scene(root));  
+			Image ico = new Image("/img/hotel2.png");
+			AgregarProductoStage.getIcons().add(ico);
 			AgregarProductoStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			scene2Controller.setVisibilityBtnAgregarProd(true);
@@ -119,6 +121,8 @@ public class ControladorABMProducto implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			AgregarProductoStage.setScene(new Scene(root));   
+			Image ico = new Image("/img/hotel2.png");
+			AgregarProductoStage.getIcons().add(ico);
 			AgregarProductoStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarProducto scene2Controller = fxmlLoader.getController();
 			ProductoDTO productoSeleccionado = tablaProductos.getSelectionModel().getSelectedItem();
@@ -170,7 +174,7 @@ public class ControladorABMProducto implements Initializable{
 			URL linkAgregar = getClass().getResource("/img/aceptar.png");
 			URL linkModificar = getClass().getResource("/img/editar.png");
 			URL linkCancelar = getClass().getResource("/img/cancelar.png");
-			URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+			URL linkBuscar = getClass().getResource("/img/buscar.png");
 			
 			Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
 			Image imageModificar = new Image(linkModificar.toString(),24,24,false,true) ;

@@ -9,6 +9,7 @@ import persistencia.conexion.Conexion;
 import presentacion.controlador.ControladorMenuPrincipal;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 
 public class Main extends Application {
@@ -29,6 +30,9 @@ public class Main extends Application {
 	
 			primaryStage.setTitle("Menu Principal");
 		    primaryStage.setScene(new Scene(root));
+		    Image ico = new Image("/img/hotel.png");
+		    primaryStage.getIcons().add(ico);
+
 		    Application.setUserAgentStylesheet(STYLESHEET_CASPIAN);
 		   
 		    primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");

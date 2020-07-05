@@ -115,6 +115,8 @@ public class ControladorABMOrdenPedido implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
 			primaryStage.setScene(new Scene(root));
+			Image ico = new Image("/img/hotel2.png");
+			primaryStage.getIcons().add(ico);
 			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarOrdenPedido scene2Controller = fxmlLoader.getController();
 			scene2Controller.enviarControlador(this);

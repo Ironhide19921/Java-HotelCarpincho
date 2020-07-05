@@ -225,6 +225,8 @@ public class ControladorABMCliente implements Initializable{
 				Parent root = (Parent) fxmlLoader.load();
 		
 				primaryStage.setScene(new Scene(root)); 
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				//tomo el controlador
 				ControladorVerEncuesta scene2Controller = fxmlLoader.getController();
@@ -306,6 +308,7 @@ public class ControladorABMCliente implements Initializable{
 				
 			    Parent root = (Parent) fxmlLoader.load();
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				
 				ControladorABMReservaEvento controller = fxmlLoader.<ControladorABMReservaEvento>getController();
 				controller.initData(idClienteSeleccionado);
 				panelActual.setCenter(root);
@@ -313,6 +316,8 @@ public class ControladorABMCliente implements Initializable{
 				panelActual.setBottom(null);
 				panelActual.setLeft(null);
 				panelActual.setRight(null);
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 			}
 			else {
 				mostrarMensaje("Debe seleccionar un cliente para ver sus reservas de evento");
@@ -376,10 +381,10 @@ private void cargarIconos() {
 			
 			URL linkAgregar = getClass().getResource("/img/aceptar.png");
 			URL linkModificar = getClass().getResource("/img/editar.png");
-			URL linkEncuesta = getClass().getResource("/img/reporteEncuesta.jpg");
+			URL linkEncuesta = getClass().getResource("/img/reporteEncuesta.png");
 			URL linkReservaEvento = getClass().getResource("/img/categoriaEvento.png");
 			URL linkReservaCuarto = getClass().getResource("/img/categoriaCuarto.png");
-			URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+			URL linkBuscar = getClass().getResource("/img/buscar.png");
 			URL linkHabilitar = getClass().getResource("/img/habilitar.png");
 			URL linkSeleccionar = getClass().getResource("/img/seleccionar.png");
 			

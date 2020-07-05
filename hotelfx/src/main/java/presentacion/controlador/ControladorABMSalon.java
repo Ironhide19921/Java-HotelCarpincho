@@ -75,7 +75,10 @@ public class ControladorABMSalon implements Initializable{
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarSalon.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root));   
+				primaryStage.setScene(new Scene(root)); 
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
+				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarSalon scene2Controller = fxmlLoader.getController();
 				scene2Controller.setVisibilityBtnAgregarSalon(true);
 				scene2Controller.setDisableBtnAgregarSalon(false);
@@ -98,7 +101,10 @@ public class ControladorABMSalon implements Initializable{
 	 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarSalon.fxml");
 			FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 			Parent root = (Parent) fxmlLoader.load();
-			primaryStage.setScene(new Scene(root));   
+			primaryStage.setScene(new Scene(root));  
+			Image ico = new Image("/img/hotel2.png");
+			primaryStage.getIcons().add(ico);
+			primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 			ControladorAgregarSalon scene2Controller = fxmlLoader.getController();
 			scene2Controller.enviarControlador(this);
 			scene2Controller.setVisibilityBtnAgregarSalon(false);
@@ -127,9 +133,20 @@ public class ControladorABMSalon implements Initializable{
 	@FXML
 	private void habilitarSalon(){	
 		SalonDTO salonSeleccionado = tablaSalones.getSelectionModel().getSelectedItem();
-		salonSeleccionado.setEstado(true);
-		this.salon.modificarEstado(salonSeleccionado);
-		refrescarTabla();
+		
+		if(salonSeleccionado.getEstado() == true) {
+			salonSeleccionado.setEstado(false);
+			this.salon.modificarEstado(salonSeleccionado);
+			refrescarTabla();
+			return;
+		}else {
+			salonSeleccionado.setEstado(true);
+			this.salon.modificarEstado(salonSeleccionado);
+			refrescarTabla();
+			return;
+		}
+		
+	
 	}
 	
 	private void crearTabla(ObservableList<SalonDTO> lista) {

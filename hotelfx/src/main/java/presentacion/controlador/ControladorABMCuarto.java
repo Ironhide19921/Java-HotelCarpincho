@@ -90,7 +90,9 @@ public class ControladorABMCuarto implements Initializable
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCuarto.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root));   
+				primaryStage.setScene(new Scene(root));  
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarCuarto scene2Controller = fxmlLoader.getController();
 				scene2Controller.enviarControlador(this);
@@ -116,7 +118,9 @@ public class ControladorABMCuarto implements Initializable
 		 		URL fxml = getClass().getClassLoader().getResource("presentacion/vista/VentanaAgregarCuarto.fxml");
 				FXMLLoader fxmlLoader = new FXMLLoader(fxml);
 				Parent root = (Parent) fxmlLoader.load();
-				primaryStage.setScene(new Scene(root));   
+				primaryStage.setScene(new Scene(root));  
+				Image ico = new Image("/img/hotel2.png");
+				primaryStage.getIcons().add(ico);
 				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				ControladorAgregarCuarto scene2Controller = fxmlLoader.getController();
 				CuartoDTO cuartoSeleccionado = tablaCuartos.getSelectionModel().getSelectedItem();
@@ -243,7 +247,7 @@ public class ControladorABMCuarto implements Initializable
 		URL linkAgregar = getClass().getResource("/img/aceptar.png");
 		URL linkModificar = getClass().getResource("/img/editar.png");
 		URL linkHabilitar = getClass().getResource("/img/habilitar.png");
-		URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+		URL linkBuscar = getClass().getResource("/img/buscar.png");
 		
 		
 		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;

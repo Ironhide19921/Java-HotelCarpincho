@@ -244,7 +244,7 @@ List<CuartoDTO> cuartos = this.cuartos.obtenerCuartos();
 		
 		URL linkAgregar = getClass().getResource("/img/aceptar.png");
 		URL linkModificar = getClass().getResource("/img/editar.png");
-		URL linkBuscar = getClass().getResource("/img/buscar.jpg");
+		URL linkBuscar = getClass().getResource("/img/buscar.png");
 		URL linkHabilitar = getClass().getResource("/img/habilitar.png");
 		URL linkSeleccionar = getClass().getResource("/img/seleccionar.png");
 		

@@ -249,9 +249,9 @@ public class ControladorABMPerfil implements Initializable {
 	private void cargarIconos() {
 		
 		URL linkAgregar = getClass().getResource("/img/sumar.png");
-		URL linkEliminar = getClass().getResource("/img/eliminar.jpg");
+		URL linkEliminar = getClass().getResource("/img/eliminar.png");
 		URL linkAceptar = getClass().getResource("/img/aceptar.png");
-		URL linkQuitar = getClass().getResource("/img/resar.jpg");
+		URL linkQuitar = getClass().getResource("/img/restar.png");
 		
 		Image imageAgregar = new Image(linkAgregar.toString(),24,24,false,true) ;
 		Image imageEliminar = new Image(linkEliminar.toString(),24,24,false,true) ;

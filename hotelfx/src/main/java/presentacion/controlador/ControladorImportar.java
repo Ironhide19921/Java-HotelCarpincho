@@ -120,7 +120,7 @@ public class ControladorImportar implements Initializable {
 		
 		URL linkImportar = getClass().getResource("/img/descarga.png");
 		URL linkInsertar = getClass().getResource("/img/aceptar.png");		
-		URL linkMail = getClass().getResource("/img/email.jpg");		
+		URL linkMail = getClass().getResource("/img/email.png");		
 		
 		Image imageImportar = new Image(linkImportar.toString(),24,24,false,true) ;
 		Image imageInsertar = new Image(linkInsertar.toString(),24,24,false,true) ;
