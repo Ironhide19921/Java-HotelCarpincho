@@ -307,7 +307,7 @@ public class ControladorABMCliente implements Initializable{
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("presentacion/vista/VentanaABMReservaEvento.fxml"));
 				
 			    Parent root = (Parent) fxmlLoader.load();
-				primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
+				//primaryStage.getScene().getStylesheets().add("/CSS/mycss.css");
 				
 				ControladorABMReservaEvento controller = fxmlLoader.<ControladorABMReservaEvento>getController();
 				controller.initData(idClienteSeleccionado);
@@ -316,8 +316,8 @@ public class ControladorABMCliente implements Initializable{
 				panelActual.setBottom(null);
 				panelActual.setLeft(null);
 				panelActual.setRight(null);
-				Image ico = new Image("/img/hotel2.png");
-				primaryStage.getIcons().add(ico);
+				//Image ico = new Image("/img/hotel2.png");
+				//primaryStage.getIcons().add(ico);
 			}
 			else {
 				mostrarMensaje("Debe seleccionar un cliente para ver sus reservas de evento");

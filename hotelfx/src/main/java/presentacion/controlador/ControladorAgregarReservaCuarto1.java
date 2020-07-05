@@ -209,7 +209,10 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 	private List<String> cargarCmbBoxTiposTarjeta() {
 		List<String> lista = new ArrayList<>();
 		for(TipoTarjeta s : TipoTarjeta.values()) {
-			lista.add(s.name());
+			if(!s.equals(TipoTarjeta.NO)) {
+				lista.add(s.name());
+			}
+			
 		}
 		return lista;
 	}
@@ -311,7 +314,7 @@ public class ControladorAgregarReservaCuarto1 implements Initializable {
 					emailFacturacion, numeroTarjeta, formaPago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
 					fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
 			//adicionales a los datos preexistentes de reserva
-			reserva.setCantidadDias(this.cantHoras.toString());
+			reserva.setCantidadDias(this.cantidadHoras.getText());
 			reserva.setMontoReservaCuarto(new BigDecimal(this.montoCompleto.getText()));
 			return reserva;	
 		}
@@ -351,8 +354,12 @@ public void setearCampos(ReservaCuartoDTO reserva) {
 		this.fechaCheckOut.setValue(reserva.getFechaOut().toLocalDateTime().toLocalDate());
 		this.cmbBoxHoraCheckOut.setValue(reserva.getFechaOut().toLocalDateTime().getHour());
 		}
-	
-	this.cantidadHoras.setText(calcularCantidadDias(reserva));
+	Integer horaInicioCombo = cmbBoxHoraIngreso.getValue();
+	Integer horaFinCombo = cmbBoxHoraEgreso.getValue();
+	LocalDate localFinReserva = fechaEgreso.getValue();
+	LocalDate localInicioReserva = fechaIngreso.getValue();
+	long diferenciaHoras = Duration.between(localInicioReserva.atTime(horaInicioCombo, 0),localFinReserva.atTime(horaFinCombo, 0)).toHours();
+	this.cantidadHoras.setText(diferenciaHoras+"");
 	}
 
 
@@ -483,25 +490,7 @@ public void consultarCuarto() {
 					LocalDate localInicioCheckOut =  this.fechaCheckOut.getValue();	
 					Timestamp fechaCheckIn;
 					Timestamp fechaOut;
-					/*if(localInicioCheckIn!=null) 
-					{
-						if(cmbBoxHoraCheckIn.getValue()!=null) {
-							fechaCheckIn = Timestamp.valueOf(localInicioCheckIn.atTime(LocalTime.of(cmbBoxHoraCheckIn.getSelectionModel().getSelectedItem(),0,0)));
-							reserva.setFechaCheckIn(fechaCheckIn);
-							this.reservaCuarto.modificarReservaCuarto(reserva);
-							primaryStage.setScene(fxml.getScene("VentanaABMOrdenPedido"));   
-							FXMLLoader fxmlLoader = fxml.getFXMLLoader();	
-							ControladorABMOrdenPedido controlador = fxmlLoader.getController();
-							controlador.enviarIdReserva(idReserva,devolverCuarto(reserva.getIdCuarto()),devolverCliente(reserva.getIdCliente()) );
-							controlador.modificarBotones();
-							controlador.enviarControlador(this);
-							fxml.mostrarStage(primaryStage, "Consulta de pendientes de pago del cliente");
-				
-						}
-						else {
-							Validador.mostrarMensaje("Ingrese la hora de check in.");
-						}
-					}*/	
+	
 					if(localInicioCheckIn != null && localInicioCheckOut != null)
 					{
 						if(cmbBoxHoraCheckIn.getValue()!=null && cmbBoxHoraCheckOut.getValue()!=null) {
@@ -630,7 +619,7 @@ public void verificarFechasCheck() throws Exception {
 	
 	//this.cmbBoxHoraCheckIn.setItems(null);
 	this.cmbBoxHoraCheckOut.setItems(null);
-	
+
 	if(localFinReserva!=null) {
 		cambiarEstados();
 	}
@@ -812,7 +801,7 @@ public void verMontoTotalySenia() {
 			Date fechaFin = new Date(fechaEgreso.getTime());
 			int cantidadDias = EmailDTO.compararFechas(fechaIni,fechaFin);
 		
-			this.cantidadHoras.setText(cantidadDias+"");
+			this.cantidadHoras.setText(diferenciaHoras+"");
 		}
 		
 	}		
@@ -930,22 +919,26 @@ public void cambiarEstados() {
 	LocalDate localIngresoReserva = fechaIngreso.getValue();
 	LocalDate localEgresoReserva= fechaEgreso.getValue();
 	EstadoReserva estadoReserva =EstadoReserva.valueOf(this.cmbBoxEstados.getValue());
-	//caso de no haber ingresado el check out pone la fecha actual y evalua los cambios de estado
+	
+
+		//caso de no haber ingresado el check out pone la fecha actual y evalua los cambios de estado
 	if(!estadoReserva.equals(EstadoReserva.CANCELADO) && (localFinReserva.isBefore(localIngresoReserva))) {
 			//este caso esta cancelando la reserva antes de ingresar
 			estadoReserva = EstadoReserva.CANCELADO;	
 			this.cmbBoxEstados.setValue(estadoReserva.name());
 			this.btnModificar.setDisable(true);
 			this.btnGenerarTicket.setVisible(true);
-			
+			return;
 	}
 	if(!estadoReserva.equals(EstadoReserva.FINALIZADO) && (localFinReserva.isBefore(localEgresoReserva)|| localFinReserva.isEqual(localEgresoReserva))){
 			estadoReserva = EstadoReserva.FINALIZADO;
 			this.cmbBoxEstados.setValue(estadoReserva.name());
 			this.btnModificar.setDisable(true);
 			this.btnGenerarTicket.setVisible(true);
+			return;
 	
 	}	
+	
 }
 
 public TextField getCuarto() {

@@ -76,6 +76,7 @@ public class ControladorABMOrdenPedido implements Initializable{
 		tablaOrdenPedidos.getItems().clear();
 		this.panelDatos.setVisible(false);
 		this.panelTotal.setVisible(false);
+		this.btnGenerarTicket.setVisible(false);
 		cargarColumnas();
 		refrescarTablaOrdenPedidos();
 		cargarIconos() ;

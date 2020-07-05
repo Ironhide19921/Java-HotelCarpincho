@@ -134,6 +134,7 @@ public class ReservaCuartoDAOSQL implements ReservaCuartoDAO {
 		String comentarios = resultSet.getString("Comentarios");
 		boolean estado = resultSet.getBoolean("Estado");
 	
+	
 		ReservaCuartoDTO reserva = new ReservaCuartoDTO(idCliente, idCuarto, idUsuario, senia, montoReservaCuarto,
 				emailFacturacion, numTarjeta, formaDePago, tipoTarjeta, codSeguridadTarjeta, fechaVencTarjeta,
 				fechaReserva, fechaIngreso, fechaEgreso, estadoReserva, comentarios,estado);
