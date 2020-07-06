@@ -122,15 +122,12 @@ public class ReservaCuartoTest {
 		}		
 	}
 	
-	
-<<<<<<< HEAD
-=======
 	private void buscarReserva()
 	{
 		List<ReservaCuartoDTO> lista = modeloReservaCuarto.buscarReservaCuarto("1");
 		assertEquals(1, lista.size());
 	}
->>>>>>> 414b48e2fb7e633dd6740288d1e4bb70c8887190
+
 	
 	@After
 	public void eliminarReservasCuarto() {
@@ -152,7 +149,6 @@ public class ReservaCuartoTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
 		
 	}
 	
@@ -186,18 +182,13 @@ public class ReservaCuartoTest {
 		listaPerfiles = modeloPerfil.obtenerPerfil();
 	}
 	
-<<<<<<< HEAD
-=======
 	public void crearPerfil() {
 		perfilTest = new PerfilDTO(0,"perfilTest");
 		modeloPerfil.agregarPerfil(perfilTest);
 		listaPerfiles = modeloPerfil.obtenerPerfil();
-		*/
-	}
->>>>>>> b5adac2719b86da95669e9aa354d850806b45664
-	
-=======
+		
 	}
 
->>>>>>> 414b48e2fb7e633dd6740288d1e4bb70c8887190
+	}
+
 }
